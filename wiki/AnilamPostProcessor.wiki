@@ -1,6 +1,8 @@
 #summary A python script for translating gcode into Anilam-flavor conversational format.
 #labels Featured
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 The AnilamPostProcessor is a python script for translating gcode into Anilam-flavor conversational format.  It was developed by Scott Hasse for use on the Anilam 1000M mill at http://sector67.org
 
@@ -40,4 +42,14 @@ plane XY, etc.) are not implemented
 # Other enhancements as documented in the issues at http://code.google.com/p/sector67-sandbox/issues/list
 
 = Downloading =
-There are currently no releases.  Simply navigate to the source and download the python
+There are currently no releases.  Simply navigate to the source and download the latest version of the anilampost.py script.
+
+= Running =
+The script has been tested with Python 2.7.  Sample usage is provided by the script, but as an example:
+
+{{{
+python.exe -i c:\temp\my-part.g -i c:\temp\my-part.M
+}}}
+
+= Issues =
+Defects, feature requests, etc. should be logged at http://code.google.com/p/sector67-sandbox/issues/list, and given a tag of "Component-AnilamostProcessor".
