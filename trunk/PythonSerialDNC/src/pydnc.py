@@ -491,7 +491,6 @@ def main():
     input_file.close()
     serialterm.stop()      
     serialterm.join(True)
-
  
 if __name__ == '__main__':
     main()
