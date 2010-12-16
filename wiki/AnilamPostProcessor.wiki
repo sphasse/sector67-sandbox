@@ -7,6 +7,8 @@
 The AnilamPostProcessor is a python script for translating gcode into Anilam-flavor conversational format.  It was developed by Scott Hasse for use on the Anilam 1000M mill at http://sector67.org
 
 = Details =
+The Anilam Mill we have at the space is somewhat limited hardware-wise in the program size it can handle.  This script is designed to help with the conversion of larger gcode programs into Anilam conversational format so that they can be drip fed to the mill via a serial DNC program.  
+
 More details on the gcode specification can be found here:
 
 http://www.linuxcnc.org/handbook/gcode/g-code.html
