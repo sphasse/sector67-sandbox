@@ -35,3 +35,6 @@ Many options for the serial port are available as described in the script usage.
 
 = Issues =
 Defects, feature requests, etc. should be logged at http://code.google.com/p/sector67-sandbox/issues/list, and given a tag of "Component-PythonSerialDNC".
+
+= Contributing =
+The source repository is an eclipse pydev project format.  Feel free to download and contribute.
