@@ -55,3 +55,6 @@ python.exe -i c:\temp\my-part.g -i c:\temp\my-part.M
 
 = Issues =
 Defects, feature requests, etc. should be logged at http://code.google.com/p/sector67-sandbox/issues/list, and given a tag of "Component-AnilamostProcessor".
+
+= Contributing =
+The source repository is an eclipse pydev project format.  Feel free to download and contribute.
