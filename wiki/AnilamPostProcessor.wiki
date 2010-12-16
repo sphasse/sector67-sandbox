@@ -36,12 +36,12 @@ this translator is incomplete, it is superior in that respect.
 3) To avoid multiple round-trips to the mill with floppy disks.
 
 = TODO =
-# The gcode verifier could be greatly improved.  However, since the translation
+ * The gcode verifier could be greatly improved.  However, since the translation
 is done rather explicitly, it is hoped this will not introduce any risk to the
 translation process.
-# Translations for many Anilam functions that have gcode equivalents (peck drill, 
+ * Translations for many Anilam functions that have gcode equivalents (peck drill, 
 plane XY, etc.) are not implemented
-# Other enhancements as documented in the issues at http://code.google.com/p/sector67-sandbox/issues/list
+ * Other enhancements as documented in the issues at http://code.google.com/p/sector67-sandbox/issues/list
 
 = Downloading =
 There are currently no releases.  Simply navigate to the source and download the latest version of the anilampost.py script.
