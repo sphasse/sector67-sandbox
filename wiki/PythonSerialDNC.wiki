@@ -1,4 +1,4 @@
-#summary A python script to send a file to an Anilam mill
+#summary A python script to send a file to a CNC mill via a serial port
 #labels Featured
 
 <wiki:toc max_depth="2" />
