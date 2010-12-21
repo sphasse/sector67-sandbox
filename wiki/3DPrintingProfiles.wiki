@@ -1,4 +1,5 @@
 #summary Printing profiles for RP machines available to the space
+#labels Featured
 
 = Introduction =
 
