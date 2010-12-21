@@ -64,6 +64,8 @@ class Test(unittest.TestCase):
         self.assertEqual("X 10.0000 Feed 12.0000", anilampost.convert_to_conversational(["X10", "F12"], "X10F12"))
         self.assertEqual("Dwell 1.0000", anilampost.convert_to_conversational(["G04", "P1.0"], "G04 P1.0"))
         self.assertEqual("Dwell 1.0000", anilampost.convert_to_conversational(["G04", "P1.0"], "G04 P1.000"))
+        self.assertEqual("Tool# 3", anilampost.convert_to_conversational(["T3"], "T3"))
+        self.assertEqual("Tool# 4", anilampost.convert_to_conversational(["T4.00"], "T4.00"))
 
     def test_lines(self):
         self.assertEqual("* * %\n", anilampost.process_line("%\n"))
@@ -72,6 +74,7 @@ class Test(unittest.TestCase):
         self.assertEqual("Plane ZX\n", anilampost.process_line("G18"))
         self.assertEqual("Plane YZ\n", anilampost.process_line("G19"))
         self.assertEqual("Dwell 1.0000\n", anilampost.process_line("G04 P1.0"))
+        self.assertEqual("* * ;This line is a comment\n", anilampost.process_line(";This line is a comment\n"))
 
     
     def test_verify_gcode(self):
