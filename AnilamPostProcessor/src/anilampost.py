@@ -159,10 +159,10 @@ def parse_gcode(block, linenum=-1):
     # drop N words
     stripped_result = []
     for word in result:
-       command = command_part(word)
-       if (command not in "N"):
-           real = real_part(word)
-           stripped_result.append(command + real)
+        command = command_part(word)
+        if (command not in "N"):
+            real = real_part(word)
+            stripped_result.append(command + real)
     
     verify_gcode(stripped_result, linenum)
     return stripped_result
@@ -178,7 +178,7 @@ def extract_comments(block):
 
 '''
 Check for duplicate words from the same modal group
-In order to perform efficient set comparision, this method expects that the 
+In order to perform efficient set comparison, this method expects that the 
 block_array will contain words with commands that have already had extraneous 
 leading zeros stripped.  It does, however, check to make sure it has checked
 all of the commands for the passed in command letter.  If they have not all
@@ -186,11 +186,11 @@ been checked for duplicates (that is, a command did not exist anywhere in any of
 the sets in the modal_groups list, it should log an error that all gcode words
 could not be checked.
 
-commands from the non_modal_commands are subtraced from the set
+commands from the non_modal_commands are subtracted from the set
 
 block_array is an array of strings containing the individual gcode words
 modal_groups is a list of sets of the modal groups commands
-command is a single letter prefix of gcode commands (typcially, "G" or "M")
+command is a single letter prefix of gcode commands (typically, "G" or "M")
 '''
 def check_for_duplicates(block_array, modal_groups, command, linenum=-1):
     total_words = 0
@@ -225,7 +225,7 @@ it expects an array of gcode words representing one block and returns array of a
 TODO: Currently not implemented, it is not clear to me the best way to do this
 """
 def multiplex_blocks(block):
-   return [block]
+    return [block]
 
 
 
@@ -255,9 +255,9 @@ def verify_gcode(block_array, linenum=-1):
             limit = len(g_modal_groups)
         if (word_count > limit):
             error("There were more than " + str(limit) + " " + letter + " words in a block.  The input gcode is invalid.")
-	    error("Line number: " + str(linenum))
-	    error("Block: " + str(block_array))
-	    raise Exception("There were more " + str(limit) + " " + letter + " words in a block.  The input gcode is invalid")
+            error("Line number: " + str(linenum))
+            error("Block: " + str(block_array))
+            raise Exception("There were more " + str(limit) + " " + letter + " words in a block.  The input gcode is invalid")
             
 
     # Two M words from the same modal group may not appear on the same line.
@@ -391,7 +391,7 @@ The order of execution of items on a line is defined not by the position of each
   20. Perform motion (G0 to G3, G33, G73, G76, G80 to G89), as modified (possibly) by G53.
   21. Stop (M0, M1, M2, M30, M60).
   
-  TODO: actually implement this as a precursor to 
+  TODO: actually implement this as a precursor to splitting commands
 """
 def order_commands(block_array):
     step_2_commands = frozenset(["G93", "G94"])
@@ -408,13 +408,13 @@ conversational X/Y/Z/Feed format from the values present
 def format_xyzf(commands):
     result = ""
     if ("X" in commands):
-       result = result + "X {X:.4f} "
+        result = result + "X {X:.4f} "
     if ("Y" in commands):
-       result = result + "Y {Y:.4f} "
+        result = result + "Y {Y:.4f} "
     if ("Z" in commands):
-       result = result + "Z {Z:.4f} "
+        result = result + "Z {Z:.4f} "
     if ("F" in commands):
-       result = result + "Feed {F:.4f} "
+        result = result + "Feed {F:.4f} "
     return result.strip()
 
 
@@ -464,7 +464,7 @@ def convert_to_conversational(block_array, original_block, line_no=-1):
                 raise Exception("unrecognized G0 command: " + original_block)
         elif (real == 1):
             if (command_set.difference(set("XYZF")) == set("")):
-	        # if the only commands left are XYZ and F, then process it
+            # if the only commands left are XYZ and F, then process it
                 result = ("Line       " + format_xyzf(commands) + "").format(**commands)
             else:
                 error("unrecognized G1 command on line: " + str(line_no))
@@ -550,7 +550,7 @@ def convert_to_conversational(block_array, original_block, line_no=-1):
             raise Exception("unrecognized G command: " + original_block)
     elif (count_words(block_array, "M") == 1):
         debug("Converting M command")
-	real = commands["M"]
+        real = commands["M"]
         del commands["M"]
         command_set.remove("M")
         # convert the case of one M command
@@ -580,10 +580,10 @@ def convert_to_conversational(block_array, original_block, line_no=-1):
     elif (command_set == set("O")):
         result = "* * " + block_array[0]
     elif (command_set == set("S")):
-	real = commands["S"]
+        real = commands["S"]
         result = "RPM        {0:.4f}" .format(real)
     elif (command_set == set("T")):
-	real = commands["T"]
+        real = commands["T"]
         result = "Tool# {0:.0f}" .format(real)
     elif (command_set.difference(set("XYZF")) == set("")):
         # convert bare X/Y/Z/F lines
