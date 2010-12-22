@@ -523,6 +523,8 @@ def convert_to_conversational(block_array, original_block, line_no=-1):
             result = "Unit INCH"
         elif (real == 21 and command_set == set("")):
             result = "Unit MM"
+        elif (real == 80 and command_set == set("")):
+            result = "DrillOff"
         elif (real == 90 and command_set == set("")):
             #Absolute distance mode
             #The default
@@ -552,8 +554,11 @@ def convert_to_conversational(block_array, original_block, line_no=-1):
         del commands["M"]
         command_set.remove("M")
         # convert the case of one M command
-        if (real == 2 and command_set == set("")):
+        if (real == 0 and command_set == set("")):
             #End Program 
+            result = "MCode 0"
+        elif (real == 2 and command_set == set("")):
+            #Turn spindle clockwise
             result = "EndMain"
         elif (real == 3 and command_set == set("")):
             #Turn spindle clockwise
