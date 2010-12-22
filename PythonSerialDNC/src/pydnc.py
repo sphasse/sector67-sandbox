@@ -108,13 +108,13 @@ LF_MODES = ('LF', 'CR', 'CR/LF')
 REPR_MODES = ('raw', 'some control', 'all control', 'hex')
 
 class SerialTerm:
-    def __init__(self, port, baudrate, parity, rtscts, xonxoff, echo=False, convert_outgoing=CONVERT_CRLF, repr_mode=0):
+    def __init__(self, port, baudrate, parity, rtscts, xonxoff, echo=False, convert_outgoing=CONVERT_CRLF, repr_mode=0, bytesize=7):
         try:
-            self.serial = serial.serial_for_url(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1)
+            self.serial = serial.serial_for_url(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1, bytesize=bytesize)
         except AttributeError:
             # happens when the installed pyserial is older than 2.5. use the
             # Serial class directly then.
-            self.serial = serial.Serial(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1)
+            self.serial = serial.Serial(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1, bytesize=bytesize)
         self.echo = echo
         self.repr_mode = repr_mode
         self.convert_outgoing = convert_outgoing
@@ -138,7 +138,7 @@ class SerialTerm:
             self.receiver_thread.join()
 
     def dump_port_settings(self):
-        sys.stderr.write("Serial settings: %s  %s,%s,%s,%s\n" % (
+        sys.stderr.write("Serial settings: %s %s,%s,%s,%s\n" % (
             self.serial.portstr,
             self.serial.baudrate,
             self.serial.bytesize,
@@ -307,6 +307,13 @@ def main():
         default = 'E'
     )
 
+    parser.add_option("--databits",
+        dest = "databits",
+        action = "store",
+        help = "set databits, one of [7, 8], default=7",
+        default = '7'
+    )
+    
     parser.add_option("-e", "--echo",
         dest = "echo",
         action = "store_true",
@@ -394,6 +401,9 @@ def main():
     if options.parity not in 'NEOSM':
         parser.error("invalid parity")
 
+    if options.databits not in '78':
+        parser.error("invalid databits")
+        
     if options.cr and options.lf:
         parser.error("only one of --cr or --lf can be specified")
 
@@ -430,6 +440,7 @@ def main():
             echo=options.echo,
             convert_outgoing=convert_outgoing,
             repr_mode=options.repr_mode,
+            bytesize=int(options.databits)
         )
     except serial.SerialException, e:
         sys.stderr.write("could not open port %r: %s\n" % (port, e))
@@ -463,7 +474,8 @@ def main():
     current_line = 0
     for line in input_file:
         current_line += 1
-        #self.serial.write(self.newline)
+        serialterm.serial.write(line)
+        serialterm.serial.flush()
         if (options.echo):
             # debug mode, print each line
             sys.stdout.write("%.8d %s" % (current_line, line))
