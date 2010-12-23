@@ -54,28 +54,33 @@ class Test(unittest.TestCase):
         pass
 
     def test_convert(self):
-        self.assertEqual("RPM        60.0000", anilampost.convert_to_conversational(["S60.0000"], "S60.000"))
-        self.assertEqual("* * O123", anilampost.convert_to_conversational(["O123"], "O123"))
-        self.assertEqual("Line       Feed 10.0000", anilampost.convert_to_conversational(["G1", "F10"], "G1F10"))
-        self.assertEqual("Rapid      Feed 10.0000", anilampost.convert_to_conversational(["G0", "F10"], "G0F10"))
+        self.assertEqual("RPM        60.0000", anilampost.convert_to_conversational(["S60.0000"]))
+        self.assertEqual("* O123", anilampost.convert_to_conversational(["O123"]))
+        self.assertEqual("Line       Feed 10.0000", anilampost.convert_to_conversational(["G1", "F10"]))
+        self.assertEqual("Rapid      Feed 10.0000", anilampost.convert_to_conversational(["G0", "F10"]))
         self.assertEqual("MCode 5", anilampost.convert_to_conversational(["M5"], "M5"))
         self.assertEqual("X 10.0000", anilampost.convert_to_conversational(["X10"], "X10"))
-        self.assertEqual("X 10.0000 Y 12.0000", anilampost.convert_to_conversational(["X10", "Y12"], "X10Y12"))
-        self.assertEqual("X 10.0000 Feed 12.0000", anilampost.convert_to_conversational(["X10", "F12"], "X10F12"))
-        self.assertEqual("Dwell 1.0000", anilampost.convert_to_conversational(["G04", "P1.0"], "G04 P1.0"))
-        self.assertEqual("Dwell 1.0000", anilampost.convert_to_conversational(["G04", "P1.0"], "G04 P1.000"))
-        self.assertEqual("Tool# 3", anilampost.convert_to_conversational(["T3"], "T3"))
-        self.assertEqual("Tool# 4", anilampost.convert_to_conversational(["T4.00"], "T4.00"))
-        self.assertEqual("DrillOff", anilampost.convert_to_conversational(["G80"], "G80"))
+        self.assertEqual("X 10.0000 Y 12.0000", anilampost.convert_to_conversational(["X10", "Y12"]))
+        self.assertEqual("X 10.0000 Feed 12.0000", anilampost.convert_to_conversational(["X10", "F12"]))
+        self.assertEqual("Dwell 1.0000", anilampost.convert_to_conversational(["G04", "P1.0"]))
+        self.assertEqual("Dwell 1.0000", anilampost.convert_to_conversational(["G04", "P1.0"]))
+        self.assertEqual("Tool# 3", anilampost.convert_to_conversational(["T3"]))
+        self.assertEqual("Tool# 4", anilampost.convert_to_conversational(["T4.00"]))
+        self.assertEqual("DrillOff", anilampost.convert_to_conversational(["G80"]))
+        self.assertEqual("PeckDrill ZDepth -1.0000 StartHgt 1.0000 Peck 0.2500 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G83", "Z-1.0", "R1.0", "I0.25", "F100", "P1.0"]))
+        self.assertEqual("BasicDrill ZDepth -1.0000 StartHgt 1.0000 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G81", "Z-1.0", "R1.0", "F100", "P1.0"]))
 
     def test_lines(self):
-        self.assertEqual("* * %\n", anilampost.process_line("%\n"))
-        self.assertEqual("* * O123\n", anilampost.process_line("O123\n"))
-        self.assertEqual("Plane XY\n", anilampost.process_line("G17"))
-        self.assertEqual("Plane ZX\n", anilampost.process_line("G18"))
-        self.assertEqual("Plane YZ\n", anilampost.process_line("G19"))
-        self.assertEqual("Dwell 1.0000\n", anilampost.process_line("G04 P1.0"))
-        self.assertEqual("* * ;This line is a comment\n", anilampost.process_line(";This line is a comment\n"))
+        self.assertEqual("* %\n", anilampost.process_line("%\n"))
+        self.assertEqual("* O123\n", anilampost.process_line("O123\n"))
+        self.assertEqual("Plane XY\n", anilampost.process_line("G17\n"))
+        self.assertEqual("Plane ZX\n", anilampost.process_line("G18\n"))
+        self.assertEqual("Plane YZ\n", anilampost.process_line("G19\n"))
+        self.assertEqual("Dwell 1.0000\n", anilampost.process_line("G04 P1.0\n"))
+        self.assertEqual("* ;This line is a comment\n", anilampost.process_line(";This line is a comment\n"))
+        self.assertEqual("* per configuration, ignored: G123 X1 Y2\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G123|G124)"))
+        self.assertEqual("* per configuration, ignored: G123 X1 Y2\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G1|G2)"))
+        self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "(G1|G2)"))
 
     
     def test_verify_gcode(self):
@@ -112,9 +117,28 @@ class Test(unittest.TestCase):
             self.assertTrue(True)
         print "##############################################################"
         
+        
+        print "\n### This test expects an error to be logged below ############"
+        # This should fail
+        try:
+            anilampost.verify_gcode(["G1", "G10", "X0.0", "X1.0", "Z1.0"])
+            # an exception should be thrown that there are two 
+            self.assertTrue(False)
+        except:
+            self.assertTrue(True)
+                    
+        print "##############################################################"
         #G4 is non-modal, should be fine
         anilampost.verify_gcode(["G0", "G4", "P10"])
-
+    
+    def test_multiplex_blocks(self):
+        self.assertEqual([["G93"],["F100"]], anilampost.multiplex_blocks(["F100", "G93"]))
+        self.assertEqual([["S400"],["M6"]], anilampost.multiplex_blocks(["M6", "S400"]))
+        self.assertEqual([["F100"], ["G4", "P2"]], anilampost.multiplex_blocks(["G4", "P2", "F100"]))
+        self.assertEqual([["F100"], ["G4", "P2"], ["G17"], ["G21"]], anilampost.multiplex_blocks(["G17", "G21", "G4", "P2", "F100"]))
+        #self.assertEqual([["F100"], ["G4", "P2"]], anilampost.multiplex_blocks(["G1", "X1", "Y1", "G4", "P2", "F100"]))
+        self.assertEqual([["G17"], ["G21"], ["G54"], ["G90"]], anilampost.multiplex_blocks(["G90", "G21", "G17", "G54"]))
+        self.assertEqual([["G1", "X1", "Y1", "Z1"]], anilampost.multiplex_blocks(["G1", "X1", "Y1", "Z1"]))
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
