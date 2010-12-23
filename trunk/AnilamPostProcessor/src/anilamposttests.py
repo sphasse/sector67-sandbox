@@ -81,6 +81,7 @@ class Test(unittest.TestCase):
         self.assertEqual("* per configuration, ignored: G123 X1 Y2\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G123|G124)"))
         self.assertEqual("* per configuration, ignored: G123 X1 Y2\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G1|G2)"))
         self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "(G1|G2)"))
+        self.assertEqual("Plane XY\nUnit MM\nDim Abs\n", anilampost.process_line("G90G21G17\n"))
 
     
     def test_verify_gcode(self):
@@ -139,6 +140,7 @@ class Test(unittest.TestCase):
         #self.assertEqual([["F100"], ["G4", "P2"]], anilampost.multiplex_blocks(["G1", "X1", "Y1", "G4", "P2", "F100"]))
         self.assertEqual([["G17"], ["G21"], ["G54"], ["G90"]], anilampost.multiplex_blocks(["G90", "G21", "G17", "G54"]))
         self.assertEqual([["G1", "X1", "Y1", "Z1"]], anilampost.multiplex_blocks(["G1", "X1", "Y1", "Z1"]))
+        self.assertEqual([["G1", "G53", "X1", "Y1", "Z1"]], anilampost.multiplex_blocks(["G1", "X1", "Y1", "Z1", "G53"]))
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

@@ -115,7 +115,7 @@ def main():
         usage()
         sys.exit(2)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:i:dg", ["help", "output=", "input=","debug", "ignore="])
+        opts, args = getopt.getopt(sys.argv[1:], "ho:i:dg:", ["help", "output=", "input=","debug", "ignore="])
     except getopt.GetoptError, err:
         # print help information and exit:
         print str(err) # will print something like "option -a not recognized"
@@ -193,11 +193,11 @@ def process_line(line, line_num=-1, ignore_regex=None):
     if (re.match("^\s*$", line)):
         debug("Processing as a line with only whitespace")
         result = "\n"
-    elif (ignore_regex != None and re.match(ignore_regex, line)):
-        #the line is intended to be ignored due to the ignore_regex
+    elif ((ignore_regex != None) and (re.match(ignore_regex, line) != None)):
+        debug("Ignoring the line as it matched the ignore_regex: " + ignore_regex)
         result = "* per configuration, ignored: " + line
     elif (re.match("^\s*%\s*$", line_without_comments)):
-        debug("Processig as a standalone % designating program start or end")
+        debug("Processing as a standalone % designating program start or end")
         result = "* %\n"
     elif (re.match("^;", line)):
         #The line starts with a semicolon, it is a comment
@@ -220,13 +220,13 @@ def process_line(line, line_num=-1, ignore_regex=None):
         comments = extract_comments(line)
         for comment in comments:
             result = result + "* inline comment: " + comment + "\n"
-        #might need to multiplex one line of commands into multiple lines
-
+            
         block = parse_gcode(line, line_num)
-        #multiplexed_blocks = multiplex_blocks(block)
-        multiplexed_blocks = [ block ]
+        #might need to multiplex one line of commands into multiple lines
+        multiplexed_blocks = multiplex_blocks(block)
+        #multiplexed_blocks = [ block ]
         for multiplexed_block in multiplexed_blocks:
-            #Then, convert each line
+            #Then, convert each block
             conversational = convert_to_conversational(multiplexed_block, line, line_num)
             result = result + conversational + "\n"
         
@@ -537,7 +537,7 @@ def multiplex_blocks(block_array):
         full_command_set.difference_update(step_12_commands)
     if (len(step_13_commands.intersection(full_command_set)) == 1):
         command = step_13_commands.intersection(full_command_set).pop()
-        if (command in set("G41", "G42")):
+        if (command in set(["G41", "G42"])):
             d_command = "D" + commands["D"]
             blocks.append([command, d_command])
             full_command_set.remove(d_command)                    
@@ -546,7 +546,7 @@ def multiplex_blocks(block_array):
         full_command_set.remove(command)
     if (len(step_14_commands.intersection(full_command_set)) == 1):
         command = step_14_commands.intersection(full_command_set).pop()
-        if (command in set("G43")):
+        if (command in set(["G43"])):
             h_command = "H" + commands["H"]
             blocks.append([command, h_command])
             full_command_set.remove(h_command)                    
@@ -559,7 +559,7 @@ def multiplex_blocks(block_array):
         full_command_set.difference_update(step_15_commands)        
     if (len(step_16_commands.intersection(full_command_set)) == 1):
         command = step_16_commands.intersection(full_command_set).pop()
-        if (command in set("G64")):
+        if (command in set(["G64"])):
             p_command = "P" + commands["P"]
             blocks.append([command, p_command])
             full_command_set.remove(p_command)
@@ -576,7 +576,7 @@ def multiplex_blocks(block_array):
         full_command_set.difference_update(step_18_commands)
     if (len(step_19_commands.intersection(full_command_set)) == 1):
         command = step_19_commands.intersection(full_command_set).pop()
-        if (command in set("G10")):
+        if (command in set(["G10"])):
             l_command = "L" + commands["L"]
             if (l_command in set["L1", "L10"]):
                 #P Q R X W Z
@@ -595,19 +595,24 @@ def multiplex_blocks(block_array):
         full_command_set.remove(command)    
         
     #TODO, finish steps 20
+    result = []
+    append = False
     if (len(step_20_commands.intersection(full_command_set)) == 1):
-        # for motion, pull of all remaining words except the step 21 commands
-        # if there is a G54, need to include that as well
+        # for motion, put the motion command first
+        append = True
         command = step_20_commands.intersection(full_command_set).pop()
         full_command_set.remove(command)
-        result = []
         result.append(command)
-        temp_set = full_command_set.copy()
-        for word in temp_set:
-            if word not in step_21_commands:
-                result.append(word)
-                full_command_set.remove(word)
-        blocks.append([result])
+    #step 20 continued, add everything else except the step 21 commands
+    temp_list = list(full_command_set)
+    temp_list.sort()
+    for word in temp_list:
+        append = True
+        if word not in step_21_commands:
+            result.append(word)
+            full_command_set.remove(word)
+    if (append):
+        blocks.append(result)
     if (len(step_21_commands.intersection(full_command_set)) == 1):
         command = step_21_commands.intersection(full_command_set).pop()
         blocks.append([command])
