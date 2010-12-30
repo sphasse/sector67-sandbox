@@ -30,6 +30,11 @@ http://code.activestate.com/recipes/168639/
 Pyserial apparently does not fully implmement xon/xoff flow control, so it is current
 implemented in this software.  Currently, serial flow control will necessarily be 
 enabled even if you do not specify it as a command-line option.
+
+If you do not know what serial port to use, you can use the tools listed under the
+"Finding serial ports" section here:
+http://pyserial.sourceforge.net/examples.html
+to list your serial ports.
 """
 
 import sys, os, threading     
