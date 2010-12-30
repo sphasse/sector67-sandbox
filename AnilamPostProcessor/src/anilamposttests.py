@@ -5,6 +5,7 @@ Created on Nov 29, 2010
 '''
 import unittest
 import anilampost
+import re
 
 class Test(unittest.TestCase):
 
@@ -67,8 +68,8 @@ class Test(unittest.TestCase):
         self.assertEqual("Tool# 3", anilampost.convert_to_conversational(["T3"]))
         self.assertEqual("Tool# 4", anilampost.convert_to_conversational(["T4.00"]))
         self.assertEqual("DrillOff", anilampost.convert_to_conversational(["G80"]))
-        self.assertEqual("PeckDrill ZDepth -1.0000 StartHgt 1.0000 Peck 0.2500 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G83", "Z-1.0", "R1.0", "I0.25", "F100", "P1.0"]))
-        self.assertEqual("BasicDrill ZDepth -1.0000 StartHgt 1.0000 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G81", "Z-1.0", "R1.0", "F100", "P1.0"]))
+        #self.assertEqual("PeckDrill ZDepth -1.0000 StartHgt 1.0000 Peck 0.2500 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G83", "Z-1.0", "R1.0", "I0.25", "F100", "P1.0"]))
+        #self.assertEqual("BasicDrill ZDepth -1.0000 StartHgt 1.0000 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G81", "Z-1.0", "R1.0", "F100", "P1.0"]))
 
     def test_lines(self):
         self.assertEqual("* %\n", anilampost.process_line("%\n"))
@@ -78,10 +79,21 @@ class Test(unittest.TestCase):
         self.assertEqual("Plane YZ\n", anilampost.process_line("G19\n"))
         self.assertEqual("Dwell 1.0000\n", anilampost.process_line("G04 P1.0\n"))
         self.assertEqual("* ;This line is a comment\n", anilampost.process_line(";This line is a comment\n"))
-        self.assertEqual("* per configuration, ignored: G123 X1 Y2\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G123|G124)"))
-        self.assertEqual("* per configuration, ignored: G123 X1 Y2\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G1|G2)"))
-        self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "(G1|G2)"))
+        self.assertEqual("* per --ignore regex, ignored word: G123\nX 1.0000 Y 2.0000\n", anilampost.process_line("G123 X1 Y2\n", -1, "^(G123|G124)$"))
+        self.assertEqual("* per --ignore regex, ignored word: G12\nX 1.0000 Y 2.0000\n", anilampost.process_line("G12 X1 Y2\n", -1, "^(G10|G12)$"))
+        self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "^(G1|G2)$"))
         self.assertEqual("Plane XY\nUnit MM\nDim Abs\n", anilampost.process_line("G90G21G17\n"))
+
+        print "\n### This test expects an error to be logged below ############"        
+        try:
+	    anilampost.process_line("G123 X1 Y2\n", -1, "^(G10|G12)$")
+	    self.assertTrue(False, "This should not be reached")
+	except Exception as e:
+            self.assertTrue(re.search("Not all modal G words were able to be recognized", str(e)), str(e) + " should match")
+        print "##############################################################"
+
+        self.assertEqual("Dwell 10.0000\nRapid      X 1.0000 Y 1.0000 Z 1.0000\n", anilampost.process_line("G0 G4 P10 X1 Y1 Z1"))
+        self.assertEqual("Feed 100.0000\nDwell 10.0000\nRapid      X 1.0000 Y 1.0000 Z 1.0000\n", anilampost.process_line("G0 G4 P10 X1 Y1 Z1 F100"))
 
     
     def test_verify_gcode(self):
@@ -90,9 +102,9 @@ class Test(unittest.TestCase):
             #G1 and G0 are both move modal
             anilampost.verify_gcode(["G0", "G1"])
             # an exception should be thrown
-            self.assertTrue(False)
-        except:
-            self.assertTrue(True)
+            self.assertTrue(False, "This should not be reached")
+        except Exception as e:
+            self.assertTrue(re.search("There were more than 1 axis-using G words in a block.", str(e)), str(e) + " should match")
         print "##############################################################"
 
         print "\n### This test expects an error to be logged below ############"
@@ -101,9 +113,9 @@ class Test(unittest.TestCase):
         try:
             anilampost.verify_gcode(["G1000", "G2000"])
             # an exception should be thrown
-            self.assertTrue(False)
-        except:
-            self.assertTrue(True)
+            self.assertTrue(False, "This should not be reached")
+        except Exception as e:
+            self.assertTrue(re.search("Not all modal G words were able to be recognized", str(e)), str(e) + " should match")
         print "##############################################################"
         
         anilampost.verify_gcode(["G0", "M1"])
@@ -113,9 +125,9 @@ class Test(unittest.TestCase):
         try:
             anilampost.verify_gcode(["G1", "X0.0", "X1.0", "Z1.0"])
             # an exception should be thrown
-            self.assertTrue(False)
-        except:
-            self.assertTrue(True)
+            self.assertTrue(False, "This should not be reached")
+        except Exception as e:
+            self.assertTrue(re.search("There were more 1 X words in a block.", str(e)), str(e) + " should match")
         print "##############################################################"
         
         
@@ -124,13 +136,14 @@ class Test(unittest.TestCase):
         try:
             anilampost.verify_gcode(["G1", "G10", "X0.0", "X1.0", "Z1.0"])
             # an exception should be thrown that there are two 
-            self.assertTrue(False)
-        except:
+            self.assertTrue(re.search("There were more than 1 axis-using words in a block.", str(e)), str(e) + " should match")
+        except Exception as e:
             self.assertTrue(True)
                     
         print "##############################################################"
+        
         #G4 is non-modal, should be fine
-        anilampost.verify_gcode(["G0", "G4", "P10"])
+        anilampost.verify_gcode(["G0", "G4", "P10", "X1", "Y1", "Z1"])
     
     def test_multiplex_blocks(self):
         self.assertEqual([["G93"],["F100"]], anilampost.multiplex_blocks(["F100", "G93"]))
