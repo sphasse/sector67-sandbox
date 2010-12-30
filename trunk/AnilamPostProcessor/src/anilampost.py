@@ -149,13 +149,27 @@ def usage():
     A command-line program to convert gcode files into Anilam 
     conversational format.
     Usage:
-    anilampost.py --input=<input_file_name> --output=<output_file_name> [--debug]
+    anilampost.py --input=<input_file_name> --output=<output_file_name> [--debug] [--ignore=regex]
     
     Examples:
     anilampost.py --input=TEST.G --output=TEST.M
     
-    if the debug option is specified, the original gcode is written out as comments
+    If the debug option is specified, the original gcode is written out as comments
     in-line with the converted code.
+    
+    If you wish to ignore specific words, you can specify an --ignore with a corresponding regex.
+    The regex is applied to the normalized form of each parsed gcode word to determine if it should 
+    be ignored or not.
+    
+    This is used to eliminate gcode words that cannot be accurately translated into conversational form,
+    but this should only be used to remove words that do not have an adverse effect on the actual
+    milling process.  For instance the sector 67 mill does not have spindle control or automated tool
+    change capability, so even though some programs generate those sorts of commands, we ignore them
+    during the conversion process.
+    
+    Some examples of --ignore regular expressions would be:
+    
+    --ignore="^(M3|G54)$"
     
     """
 
@@ -193,9 +207,6 @@ def process_line(line, line_num=-1, ignore_regex=None):
     if (re.match("^\s*$", line)):
         debug("Processing as a line with only whitespace")
         result = "\n"
-    elif ((ignore_regex != None) and (re.match(ignore_regex, line) != None)):
-        debug("Ignoring the line as it matched the ignore_regex: " + ignore_regex)
-        result = "* per configuration, ignored: " + line
     elif (re.match("^\s*%\s*$", line_without_comments)):
         debug("Processing as a standalone % designating program start or end")
         result = "* %\n"
@@ -222,9 +233,19 @@ def process_line(line, line_num=-1, ignore_regex=None):
             result = result + "* inline comment: " + comment + "\n"
             
         block = parse_gcode(line, line_num)
+
+        post_ignore_block = []
+        for word in block:
+            if ((ignore_regex != None) and (re.match(ignore_regex, word) != None)):
+	        debug("Ignoring the line as it matched the ignore_regex: " + ignore_regex)
+                result = result + "* per --ignore regex, ignored word: " + word + "\n"
+	    else:
+	        post_ignore_block.append(word)
+
+        verify_gcode(post_ignore_block, line_num)
+        
         #might need to multiplex one line of commands into multiple lines
-        multiplexed_blocks = multiplex_blocks(block)
-        #multiplexed_blocks = [ block ]
+        multiplexed_blocks = multiplex_blocks(post_ignore_block)
         for multiplexed_block in multiplexed_blocks:
             #Then, convert each block
             conversational = convert_to_conversational(multiplexed_block, line, line_num)
@@ -300,7 +321,6 @@ def parse_gcode(block, linenum=-1):
             real = real_part(word)
             stripped_result.append(command + real)
     
-    verify_gcode(stripped_result, linenum)
     return stripped_result
 
 
@@ -321,15 +341,17 @@ modal_groups is a list of sets of the modal groups commands
 command is a single letter prefix of gcode commands (typically, "G" or "M")
 '''
 def check_for_duplicates(block_array, modal_groups, command, linenum=-1):
-    total_words = 0
     #First, subtract out any non-modal words
     modal_words = set(block_array).difference(non_modal_commands)
-    word_count = count_words(modal_words, command)
+    #get a set of words to check
+    leftover_words = set()
+    for word in block_array:
+        if (word.startswith(command) and word in modal_words):
+            leftover_words.add(word)
     for modal_group in modal_groups:
-        # The & operator returns the set intersection
         intersection = len(modal_group.intersection(modal_words))
+        leftover_words = leftover_words.difference(modal_group)
         # ensure each word is accounted for in the checks
-        total_words = total_words + intersection
         if (intersection > 1):
             error ("There is more than one " + command + " word from the same modal group on input file line " + str(linenum) + ".  The input gcode is not valid.")
             error ("The modal group is: " + str(modal_group))
@@ -337,11 +359,11 @@ def check_for_duplicates(block_array, modal_groups, command, linenum=-1):
             error ("The line number is: " + str(linenum))
 
             raise Exception("There is more than one " + command + " word from the same modal group.  The input gcode is not valid.")
-    if (word_count != total_words):
-        error ("Not all " + command + " words were able to be checked, some were missed.  There must be some unrecognized commands in the line.  Checked " + str(total_words) + " and there were " + str(word_count) + " words in the block")
+    if (len(leftover_words) != 0):
+        error ("Not all modal " + command + " words were able to be recognized.  The unrecognized commands were: " + str(leftover_words) + " on line " + str(linenum))
         error ("The line is: " + str(block_array))
         error ("The line number is: " + str(linenum))
-        raise Exception("Not all " + command + " words were able to be checked, some were missed.  There must be some unrecognized commands in the line.  Checked " + str(total_words) + " and there were " + str(word_count) + " words in the block")
+        raise Exception("Not all modal " + command + " words were able to be recognized, some were missed.  The missed commands were: " + str(leftover_words) + " on line " + str(linenum))
 
 
 """
@@ -593,8 +615,7 @@ def multiplex_blocks(block_array):
         else:
             blocks.append([command])
         full_command_set.remove(command)    
-        
-    #TODO, finish steps 20
+    # start step 20
     result = []
     append = False
     if (len(step_20_commands.intersection(full_command_set)) == 1):
@@ -748,15 +769,23 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
             result = "Unit MM"
         elif (real == 80 and command_set == set("")):
             result = "DrillOff"
-        elif (real == 81 and command_set == set("ZRFP")):
+        elif (real == 81):
+            raise Exception("basic drilling needs to be verified before production usage")
             """
             G81 is a basic drilling cycle, generally used for center drilling or hole
 	    drilling that does not require a pecking motion. It feeds from the start
 	    height (R) to the specified hole depth (Z) at a given feedrate (F), then
             rapids to the return height (P).
             """
-            result = "BasicDrill ZDepth {Z:.4f} StartHgt {R:.4f} Feed {F:.4f} ReturnHeight {P:.4f}".format(**commands)
-        elif (real == 83 and command_set == set("ZRIFP")):
+            if (command_set == set("ZRF")):
+                result = "BasicDrill ZDepth {Z:.4f} StartHgt {R:.4f} Feed {F:.4f}".format(**commands)
+            else:
+                error("unrecognized G81 command on line: " + str(line_no))
+                error("original line:")
+                error(original_block)
+                raise Exception("unrecognized G81 command: " + original_block)
+        elif (real == 83):
+            raise Exception("peck drilling needs to be verified before production usage")
             """
             G83 is the peck drilling cycle, generally used for peck drilling relatively
 	    shallow holes. G83 feeds from the R-plane to the first peck depth
@@ -766,7 +795,14 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
 	    loop until it reaches the final hole depth. It then rapid retracts to the P
             dimension. Refer to Table 5-3.
             """
-            result = "PeckDrill ZDepth {Z:.4f} StartHgt {R:.4f} Peck {I:.4f} Feed {F:.4f} ReturnHeight {P:.4f}".format(**commands)
+            if (command_set == set("ZRIFP")):
+                result = "PeckDrill ZDepth {Z:.4f} StartHgt {R:.4f} Peck {I:.4f} Feed {F:.4f} ReturnHeight {P:.4f}".format(**commands)
+            else:
+                error("unrecognized G81 command on line: " + str(line_no))
+                error("original line:")
+                error(original_block)
+                raise Exception("unrecognized G81 command: " + original_block)            
+            
         elif (real == 90 and command_set == set("")):
             #Absolute distance mode
             #The default
