@@ -26,6 +26,10 @@ Developed by Scott Hasse for use at http://sector67.org
 Serial transfer adapted from http://pyserial.sourceforge.net/examples.html#miniterm
 ProgressBar adapated from code at http://www.5dollarwhitebox.org/drupal/node/65 and
 http://code.activestate.com/recipes/168639/
+
+Pyserial apparently does not fully implmement xon/xoff flow control, so it is current
+implemented in this software.  Currently, serial flow control will necessarily be 
+enabled even if you do not specify it as a command-line option.
 """
 
 import sys, os, threading     
@@ -122,6 +126,7 @@ class SerialTerm:
         self.dtr_state = True
         self.rts_state = True
         self.break_state = False
+        self.paused = False
 
     def start(self):
         self.alive = True
@@ -170,32 +175,18 @@ class SerialTerm:
             while self.alive:
                 data = self.serial.read(1)
 
-                if self.repr_mode == 0:
-                    # direct output, just have to care about newline setting
-                    if data == '\r' and self.convert_outgoing == CONVERT_CR:
-                        sys.stdout.write('\n')
-                    else:
-                        sys.stdout.write(data)
-                elif self.repr_mode == 1:
-                    # escape non-printable, let pass newlines
-                    if self.convert_outgoing == CONVERT_CRLF and data in '\r\n':
-                        if data == '\n':
-                            sys.stdout.write('\n')
-                        elif data == '\r':
-                            pass
-                    elif data == '\n' and self.convert_outgoing == CONVERT_LF:
-                        sys.stdout.write('\n')
-                    elif data == '\r' and self.convert_outgoing == CONVERT_CR:
-                        sys.stdout.write('\n')
-                    else:
-                        sys.stdout.write(repr(data)[1:-1])
-                elif self.repr_mode == 2:
-                    # escape all non-printable, including newline
-                    sys.stdout.write(repr(data)[1:-1])
-                elif self.repr_mode == 3:
-                    # escape everything (hexdump)
-                    for character in data:
-                        sys.stdout.write("%s " % character.encode('hex'))
+                # escape everything (hexdump)
+                for character in data:
+                    #sys.stdout.write("\nrecieved: %s \n" % character.encode('hex'))
+                    if (character == serial.XON):
+		        self.paused = False
+                        #sys.stdout.write("unpausing\n")
+                        #sys.stdout.write("\n")
+		    if (character == serial.XOFF):
+		        self.paused = True
+                        #sys.stdout.write("pausing\n")
+                        #sys.stdout.write("\n")
+
                 sys.stdout.flush()
         except serial.SerialException, e:
             self.alive = False
@@ -465,7 +456,8 @@ def main():
     line_count = file_len(input_filename)
 
     input_file = open(input_filename, "r")
-
+    print 'default XON char: %s' % serial.XON.encode('hex')
+    print 'default XOFF char: %s' % serial.XOFF.encode('hex')
     print 'Filename: ' + input_filename
     print 'total lines: ' + str(line_count)
     print 'Serial file transfer status (press any key to pause):'
@@ -474,6 +466,22 @@ def main():
     current_line = 0
     for line in input_file:
         current_line += 1
+        message_shown = False
+        wait_time = 0
+        was_paused = False
+        while (serialterm.paused):
+            # if serialterm is paused, that means a xoff was received.
+            was_paused = True
+            # wait for the mill to respond with state
+            if (not message_shown):
+                sys.stdout.write("\n")
+            	message_shown = True
+            sys.stdout.write("\rWaiting for the mill at line " + str(current_line) + " of " + str(line_count) + ". (" + str(wait_time) + " s)")
+            time.sleep(1)
+            wait_time = wait_time + 1
+        if (was_paused):
+            sys.stdout.write("\nSerial file transfer status (press any key to pause):\n")
+        
         serialterm.serial.write(line)
         serialterm.serial.flush()
         if (options.echo):
@@ -492,11 +500,11 @@ def main():
             console.getkey()
             print '\nPaused at line ' + str(current_line) + ' of ' + str(line_count) + '. press any key to continue sending or q or Q to quit'
             c = console.getkey()
-            if (c == 'Q' or c =='q'):
+            if (c == 'Q' or c =='q' or c =='\x03'):
                 print '\nFile transfer manually terminated before completion at line ' + str(current_line) + '.'
                 break
         #make it go slow for testing
-        time.sleep(0.1)
+        #time.sleep(0.1)
 
     print '\nSerial transfer completed.'
         
