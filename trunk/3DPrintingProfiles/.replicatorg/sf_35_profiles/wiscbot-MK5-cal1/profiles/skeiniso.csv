@@ -14,19 +14,19 @@ From the Bottom	False
 From the Top	True
 Draw Arrows	False
 Go Around Extruder Off Travel	False
-Layer (index):	6
+Layer (index):	0
 Layer Extra Span (integer):	912345678
-Line (index):	0
-Display Line	True
+Line (index):	22
+Display Line	False
 View Move	False
-View Rotate	False
+View Rotate	True
 Number of Fill Bottom Layers (integer):	1
 Number of Fill Top Layers (integer):	1
-Scale (pixels per millimeter):	15.0
-Screen Horizontal Inset (pixels):	123
-Screen Vertical Inset (pixels):	249
-Viewpoint Latitude (degrees):	15.0
-Viewpoint Longitude (degrees):	210.0
+Scale (pixels per millimeter):	7.5
+Screen Horizontal Inset (pixels):	189
+Screen Vertical Inset (pixels):	336
+Viewpoint Latitude (degrees):	137.1
+Viewpoint Longitude (degrees):	131.1
 Width of Axis Negative Side (pixels):	2
 Width of Axis Positive Side (pixels):	6
 Width of Fill Bottom Thread (pixels):	2
