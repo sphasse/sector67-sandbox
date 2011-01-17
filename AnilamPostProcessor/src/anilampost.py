@@ -742,9 +742,9 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
                 if ("J" in commands):
                     new_j = commands["J"] + commands["Y"]
                     commands["J"] = new_j
-            if (commands == set("XYZIJF")):
+            if (command_set == set("XYZIJF")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f} Feed {F:.4f}".format(**commands)
-            elif (commands == set("XYZIJ")):
+            elif (command_set == set("XYZIJ")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             else:
                 error("unrecognized G3 command on line: " + str(line_no))
