@@ -68,6 +68,11 @@ class Test(unittest.TestCase):
         self.assertEqual("Tool# 3", anilampost.convert_to_conversational(["T3"]))
         self.assertEqual("Tool# 4", anilampost.convert_to_conversational(["T4.00"]))
         self.assertEqual("DrillOff", anilampost.convert_to_conversational(["G80"]))
+        
+    def test_drill(self):
+        self.assertEqual("Feed 100.0000\nPeckDrill ZDepth -3.0000 StartHgt 0.1000 Peck 1.0000\n", anilampost.process_line("G83 Z-3.0 R0.1 Q1.0 F100"))
+        self.assertEqual("Feed 100.0000\nBasicDrill ZDepth -3.0000 StartHgt 0.1000\n", anilampost.process_line("G81 Z-3.0 R0.1 F100"))
+        # The lines below show some additional options but are not implemented
         #self.assertEqual("PeckDrill ZDepth -1.0000 StartHgt 1.0000 Peck 0.2500 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G83", "Z-1.0", "R1.0", "I0.25", "F100", "P1.0"]))
         #self.assertEqual("BasicDrill ZDepth -1.0000 StartHgt 1.0000 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G81", "Z-1.0", "R1.0", "F100", "P1.0"]))
 
