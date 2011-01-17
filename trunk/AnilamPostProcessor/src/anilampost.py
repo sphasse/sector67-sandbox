@@ -70,7 +70,7 @@ import getopt
 import sys
 from datetime import datetime
 
-known_gcode_words = "FGIJKMNOPRSTXYZ"
+known_gcode_words = "FGIJKMNOPQRSTXYZ"
 log_level = 1
 current_coords_mode = "ABS"
 current_arc_coords_mode = "INC"
@@ -770,22 +770,20 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
         elif (real == 80 and command_set == set("")):
             result = "DrillOff"
         elif (real == 81):
-            raise Exception("basic drilling needs to be verified before production usage")
             """
             G81 is a basic drilling cycle, generally used for center drilling or hole
 	    drilling that does not require a pecking motion. It feeds from the start
 	    height (R) to the specified hole depth (Z) at a given feedrate (F), then
             rapids to the return height (P).
             """
-            if (command_set == set("ZRF")):
-                result = "BasicDrill ZDepth {Z:.4f} StartHgt {R:.4f} Feed {F:.4f}".format(**commands)
+            if (command_set == set("ZR")):
+                result = "BasicDrill ZDepth {Z:.4f} StartHgt {R:.4f}".format(**commands)
             else:
                 error("unrecognized G81 command on line: " + str(line_no))
                 error("original line:")
                 error(original_block)
                 raise Exception("unrecognized G81 command: " + original_block)
         elif (real == 83):
-            raise Exception("peck drilling needs to be verified before production usage")
             """
             G83 is the peck drilling cycle, generally used for peck drilling relatively
 	    shallow holes. G83 feeds from the R-plane to the first peck depth
@@ -795,13 +793,17 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
 	    loop until it reaches the final hole depth. It then rapid retracts to the P
             dimension. Refer to Table 5-3.
             """
-            if (command_set == set("ZRIFP")):
+            if (command_set == set("ZRQ")):
+                result = "PeckDrill ZDepth {Z:.4f} StartHgt {R:.4f} Peck {Q:.4f}".format(**commands)
+            elif (command_set == set("ZRFPQ")):
+                # I don't believe this is correct syntax, need to sort it out
+                raise Exception("this peck drilling syntax needs to be verified before production usage")
                 result = "PeckDrill ZDepth {Z:.4f} StartHgt {R:.4f} Peck {I:.4f} Feed {F:.4f} ReturnHeight {P:.4f}".format(**commands)
             else:
-                error("unrecognized G81 command on line: " + str(line_no))
+                error("unrecognized G83 command on line: " + str(line_no))
                 error("original line:")
                 error(original_block)
-                raise Exception("unrecognized G81 command: " + original_block)            
+                raise Exception("unrecognized G83 command: " + original_block)            
             
         elif (real == 90 and command_set == set("")):
             #Absolute distance mode
