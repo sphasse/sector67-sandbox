@@ -56,7 +56,7 @@ python.exe -i c:\temp\my-part.g -i c:\temp\my-part.M
 You can also specifc an --ignore option to ignore processing of specific words.  For instance, to convert output from PyCAM, an appropriate ignore string might be:
 
 {{{
-python.exe anilampost.py" -i pycam-output.ngc -o ANILAM.M  --ignore="^(G40|G49|G54|G61|S.*|M6)$"
+python.exe anilampost.py -i pycam-output.ngc -o ANILAM.M  --ignore="^(G40|G49|G54|G61|S.*|M6)$"
 }}}
 
 = Issues =
