@@ -53,6 +53,12 @@ The script has been tested with Python 2.7.  Sample usage is provided by the scr
 python.exe -i c:\temp\my-part.g -i c:\temp\my-part.M
 }}}
 
+You can also specifc an --ignore option to ignore processing of specific words.  For instance, to convert output from PyCAM, an appropriate ignore string might be:
+
+{{{
+python.exe anilampost.py" -i pycam-output.ngc -o ANILAM.M  --ignore="^(G40|G49|G54|G61|S.*|M6)$"
+}}}
+
 = Issues =
 Defects, feature requests, etc. should be logged at http://code.google.com/p/sector67-sandbox/issues/list, and given a tag of "Component-AnilamostProcessor".
 
