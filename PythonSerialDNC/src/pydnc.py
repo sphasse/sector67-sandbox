@@ -37,12 +37,20 @@ http://pyserial.sourceforge.net/examples.html
 to list your serial ports.
 """
 
+
 import sys, os, threading     
-import time, serial
+import time
+try:
+    import serial
+except ImportError:
+    sys.stderr.write("ERROR: This script cannot import serial.  You may need to install pyserial into your Python installation.\n")
+    sys.stderr.write("More information on pyserial can be found at http://pyserial.sourceforge.net/\n")
+    sys.exit(1)
 
-import sys,os
-
-# first choose a platform dependant way to read single characters from the console
+"""
+Unfortunately, it is necessary to use a platform dependent way to read single characters from i
+the console.  This class implements that platform-specific method.
+"""
 global console
 
 if os.name == 'nt':
@@ -73,29 +81,28 @@ if os.name == 'nt':
     console = Console()
 
 elif os.name == 'posix':
-    import termios, sys, os
+    import termios, select, sys, tty
     class Console:
+        """
+        This Console implementation sets the terminal for non-buffered IO, and
+        makes sure the terminal gets reset to the original settings on exit.
+        """
         def __init__(self):
             self.fd = sys.stdin.fileno()
 
         def setup(self):
-            self.old = termios.tcgetattr(self.fd)
-            new = termios.tcgetattr(self.fd)
-            new[3] = new[3] & ~termios.ICANON & ~termios.ECHO & ~termios.ISIG
-            new[6][termios.VMIN] = 1
-            new[6][termios.VTIME] = 0
-            termios.tcsetattr(self.fd, termios.TCSANOW, new)
+            self.old_settings = termios.tcgetattr(sys.stdin)
+            tty.setcbreak(sys.stdin.fileno())
 
         def getkey(self):
-            c = os.read(self.fd, 1)
+            c = sys.stdin.read(1)
             return c
 
         def cleanup(self):
-            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.old)
+            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, self.old_settings)
 
         def keypressed(self):
-            #not implemented yet
-            raise Exception("Not yet implemented")
+            return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
             
     console = Console()
 
@@ -103,109 +110,19 @@ elif os.name == 'posix':
         console.cleanup()
 
     console.setup()
-    sys.exitfunc = cleanup_console      #terminal modes have to be restored on exit...
+    sys.exitfunc = cleanup_console      #terminal modes have to be restored on exit.
 
 else:
     raise "Sorry no implementation for your platform (%s) available." % sys.platform
 
-CONVERT_CRLF = 2
-CONVERT_CR   = 1
-CONVERT_LF   = 0
-NEWLINE_CONVERISON_MAP = ('\n', '\r', '\r\n')
-LF_MODES = ('LF', 'CR', 'CR/LF')
 
-REPR_MODES = ('raw', 'some control', 'all control', 'hex')
 
-class SerialTerm:
-    def __init__(self, port, baudrate, parity, rtscts, xonxoff, echo=False, convert_outgoing=CONVERT_CRLF, repr_mode=0, bytesize=7):
-        try:
-            self.serial = serial.serial_for_url(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1, bytesize=bytesize)
-        except AttributeError:
-            # happens when the installed pyserial is older than 2.5. use the
-            # Serial class directly then.
-            self.serial = serial.Serial(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1, bytesize=bytesize)
-        self.echo = echo
-        self.repr_mode = repr_mode
-        self.convert_outgoing = convert_outgoing
-        self.newline = NEWLINE_CONVERISON_MAP[self.convert_outgoing]
-        self.dtr_state = True
-        self.rts_state = True
-        self.break_state = False
-        self.paused = False
-
-    def start(self):
-        self.alive = True
-        # start serial->console thread
-        self.receiver_thread = threading.Thread(target=self.reader)
-        self.receiver_thread.setDaemon(1)
-        self.receiver_thread.start()
-
-    def stop(self):
-        self.alive = False
-
-    def join(self, transmit_only=False):
-        if not transmit_only:
-            self.receiver_thread.join()
-
-    def dump_port_settings(self):
-        sys.stderr.write("Serial settings: %s %s,%s,%s,%s\n" % (
-            self.serial.portstr,
-            self.serial.baudrate,
-            self.serial.bytesize,
-            self.serial.parity,
-            self.serial.stopbits,
-        ))
-        sys.stderr.write('--- RTS %s\n' % (self.rts_state and 'active' or 'inactive'))
-        sys.stderr.write('--- DTR %s\n' % (self.dtr_state and 'active' or 'inactive'))
-        sys.stderr.write('--- BREAK %s\n' % (self.break_state and 'active' or 'inactive'))
-        sys.stderr.write('--- software flow control %s\n' % (self.serial.xonxoff and 'active' or 'inactive'))
-        sys.stderr.write('--- hardware flow control %s\n' % (self.serial.rtscts and 'active' or 'inactive'))
-        sys.stderr.write('--- data escaping: %s\n' % (REPR_MODES[self.repr_mode],))
-        sys.stderr.write('--- linefeed: %s\n' % (LF_MODES[self.convert_outgoing],))
-        try:
-            sys.stderr.write('--- CTS: %s  DSR: %s  RI: %s  CD: %s\n' % (
-                (self.serial.getCTS() and 'active' or 'inactive'),
-                (self.serial.getDSR() and 'active' or 'inactive'),
-                (self.serial.getRI() and 'active' or 'inactive'),
-                (self.serial.getCD() and 'active' or 'inactive'),
-                ))
-        except serial.SerialException:
-            # on RFC 2217 ports it can happen to no modem state notification was
-            # yet received. ignore this error.
-            pass
-
-    def reader(self):
-        """loop in a separate thread and pull off serial information"""
-        try:
-            while self.alive:
-                data = self.serial.read(1)
-
-                # escape everything (hexdump)
-                for character in data:
-                    #sys.stdout.write("\nrecieved: %s \n" % character.encode('hex'))
-                    if (character == serial.XON):
-		        self.paused = False
-                        #sys.stdout.write("unpausing\n")
-                        #sys.stdout.write("\n")
-		    if (character == serial.XOFF):
-		        self.paused = True
-                        #sys.stdout.write("pausing\n")
-                        #sys.stdout.write("\n")
-
-                sys.stdout.flush()
-        except serial.SerialException, e:
-            self.alive = False
-            # would be nice if the console reader could be interruptted at this
-            # point...
-            raise
- 
+"""
+A class to encapsulate the command line progress bar functionality.
+"""
 class ProgressBar:
-    def __init__(self, min_value = 0, max_value = 100, width=77,**kwargs):
-        self.char = kwargs.get('char', '#')
-        self.mode = kwargs.get('mode', 'dynamic') # fixed or dynamic
-        if not self.mode in ['fixed', 'dynamic']:
-            self.mode = 'fixed'
- 
+    def __init__(self, min_value = 0, max_value = 100, width=50):
+        self.char = '='
         self.bar = ''
         self.min = min_value
         self.max = max_value
@@ -213,19 +130,6 @@ class ProgressBar:
         self.width = width
         self.amount = 0       # When amount == max, we are 100% done 
         self.update_amount(0) 
- 
- 
-    def increment_amount(self, add_amount = 1):
-        """
-        Increment self.amount by 'add_ammount' or default to incrementing
-        by 1, and then rebuild the bar string. 
-        """
-        new_amount = self.amount + add_amount
-        if new_amount < self.min: new_amount = self.min
-        if new_amount > self.max: new_amount = self.max
-        self.amount = new_amount
-        self.build_bar()
- 
  
     def update_amount(self, new_amount = None):
         """
@@ -238,10 +142,9 @@ class ProgressBar:
         self.amount = new_amount
         self.build_bar()
  
- 
     def build_bar(self):
         """
-        Figure new percent complete, and rebuild the bar string base on 
+        Figure new percent complete, and rebuild the bar string based on 
         self.amount.
         """
         diff = float(self.amount - self.min)
@@ -251,41 +154,269 @@ class ProgressBar:
         all_full = self.width - 2
         num_hashes = int(round((percent_done * all_full) / 100))
  
-        if self.mode == 'dynamic':
-            # build a progress bar with self.char (to create a dynamic bar
-            # where the percent string moves along with the bar progress.
-            self.bar = self.char * num_hashes
-        else:
-            # build a progress bar with self.char and spaces (to create a 
-            # fixe bar (the percent string doesn't move)
-            self.bar = self.char * num_hashes + ' ' * (all_full-num_hashes)
+        # build a progress bar with self.char and spaces (to create a 
+        # fixed bar (the percent string doesn't move)
+        self.bar = self.char * num_hashes + ' ' * (all_full-num_hashes)
  
-        percent_str = str(percent_done) + "%"
-        self.bar = '[ ' + self.bar + ' ] ' + percent_str
- 
+        percent_str = "(" + str(percent_done) + "%)"
+        count_str = str(self.amount) + " of " + str(self.max)
+        self.bar = '[ ' + self.bar + ' ] ' + count_str + " " + percent_str
  
     def __str__(self):
         return str(self.bar)
  
 
-def file_len(fname):
-    with open(fname) as f:
-        for i, l in enumerate(f):
+class SerialTerm:
+
+    CONVERT_CRLF = 2
+    CONVERT_CR   = 1
+    CONVERT_LF   = 0
+    NEWLINE_CONVERISON_MAP = ('\n', '\r', '\r\n')
+    LF_MODES = ('LF', 'CR', 'CR/LF')
+
+    def __init__(self, port, baudrate, parity, rtscts, xonxoff, convert_outgoing=CONVERT_CRLF, bytesize=7, interface=None):
+
+        try:
+            self._serial = serial.serial_for_url(port, baudrate, bytesize=bytesize, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1)
+        except AttributeError:
+            # happens when the installed pyserial is older than 2.5. use the
+            # Serial class directly then.
+            self._serial = serial.Serial(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1, bytesize=bytesize)
+        self._convert_outgoing = convert_outgoing
+        self._newline = self.NEWLINE_CONVERISON_MAP[self._convert_outgoing]
+        self._paused = False
+        self._interface = interface
+
+    def start(self):
+        self._alive = True
+        # start serial->console thread
+        self._receiver_thread = threading.Thread(target=self._reader)
+        self._receiver_thread.setDaemon(1)
+        self._receiver_thread.start()
+
+    def stop(self):
+        self._alive = False
+
+    def join(self, transmit_only=False):
+        self._receiver_thread.join()
+
+    def dump_port_settings(self):
+        sys.stderr.write("Serial settings: %s %s,%s,%s,%s\n" % (
+            self._serial.portstr,
+            self._serial.baudrate,
+            self._serial.bytesize,
+            self._serial.parity,
+            self._serial.stopbits,
+        ))
+        sys.stderr.write('--- software flow control %s\n' % (self._serial.xonxoff and 'active' or 'inactive'))
+        sys.stderr.write('--- hardware flow control %s\n' % (self._serial.rtscts and 'active' or 'inactive'))
+        sys.stderr.write('--- linefeed: %s\n' % (self.LF_MODES[self._convert_outgoing],))
+        try:
+            sys.stderr.write('--- CTS: %s  DSR: %s  RI: %s  CD: %s\n' % (
+                (self._serial.getCTS() and 'active' or 'inactive'),
+                (self._serial.getDSR() and 'active' or 'inactive'),
+                (self._serial.getRI() and 'active' or 'inactive'),
+                (self._serial.getCD() and 'active' or 'inactive'),
+                ))
+        except serial.SerialException:
+            # on RFC 2217 ports it can happen to no modem state notification was
+            # yet received. ignore this error.
             pass
-    return i + 1
+
+    def _reader(self):
+        """loop in a separate thread and pull off serial information"""
+        try:
+            while self._alive:
+                data = self._serial.read(1)
+                for character in data:
+                    #sys.stdout.write("\nrecieved: %s \n" % character.encode('hex'))
+                    #only check for XON/XOFF if that is asked for
+                    if self._serial.xonxoff:
+                        if (character == serial.XON):
+                            self._paused = False
+                            if self._interface:
+                                self._interface.serial_paused()
+                        if (character == serial.XOFF):
+                            self._paused = True
+                            if self._interface:
+                                self._interface.serial_resumed()
+        except serial.SerialException, e:
+            self._alive = False
+            # would be nice if the console reader could be interrupted at this
+            # point...
+            raise
+
+    def write(self, line):
+        #if self._paused: 
+        #    raise "Cannot write to the serial device, it is paused."
+        #if not self._alive: 
+        #    raise "Cannot write to the serial device, it is paused."
+        self._serial.write(line.strip() + self._newline)
+
+    def flush(self):
+        #if self._paused: 
+        #    raise "Cannot write to the serial device, it is paused."
+        #if not self._alive: 
+        #    raise "Cannot write to the serial device, it is paused."
+        self._serial.flush()
+
+    def setDTR(self, dtr_state):
+        self._serial.setDTR(dtr_state)
+
+    def setRTS(self, rts_state):
+        self._serial.setRTS(rts_state)
+
+    def paused(self):
+        return self._paused
+
+"""
+This class encapsulates the actual command line interface.  It is sent events via method calls
+from the serial sending program, and sends signals back, via setting instance variable flags.
+
+This basic interface can be used to implement other user interfaces to the serial sending process.
+"""
+class CLInterface:
+    def __init__(self, debug = False):
+        self._current_line = 0
+        self._line_count = 0
+        self._bar_width = 50
+        self._debug = debug
+        self._showing_paused = False
+
+    def set_serialterm(self, serialterm):
+        self._serialterm = serialterm
+
+    def start(self):
+        # start the thread to manage the console UI
+        self._alive = True
+        self._paused = False
+        self._serial_paused = False
+        self._stop_requested = False
+        # start UI thread
+        self._ui_thread = threading.Thread(target=self._reader)
+        self._ui_thread.setDaemon(1)
+        self._ui_thread.start()
+        self._prog = ProgressBar(self._current_line, self._line_count, self._bar_width )
+        print "Welcome to the pydnc command line interface."
+        print "Press any key to pause the transfer."
+
+    def stop(self):
+        if (not self._stop_requested):
+            self.update_status("The file transfer completed successfully")
+        else:
+            self.update_status("The file transfer was terminated before it was fully complete")
+        self._alive = False
+
+    def join(self):
+        self._ui_thread.join()
+
+    """
+    A method that is run as a thread to watch the keyboard
+    """
+    def _reader(self):
+        """loop in a separate thread and watch for console input"""
+        while self._alive and not self._stop_requested:
+            if (console.keypressed()):
+                # the user pressed a key
+                # get and handle the pressed key
+                c = console.getkey()
+                if not self._paused:
+                    self._paused = True
+                else:
+                    if (c == 'Q' or c =='q' or c =='\x03'):
+                        print 'File transfer manually terminated before completion at line ' + str(self._current_line) + '.'
+                        # this flag signals that the rest of the application should stop
+                        self._stop_requested = True
+                    else:
+                        self._paused = False
+                        print 'File transfer resumed due to user key press.'
+            #wait between key checks
+            time.sleep(0.1)
+
+    """
+    This sends a line to the underlying serial terminal
+    """
+    def send_line(self, line):
+        while self.is_paused():
+            if not self._showing_paused:
+                self._showing_paused = True
+                if self._paused:
+                    print '\nUser-initiated pause at line.  Press any key to continue sending or q or Q to quit'
+                if self._serial_paused:                
+                    self.update_status("The file sending process is waiting on the serial port") 
+            if self._stop_requested:
+                return
+            time.sleep(1)
+        self._showing_paused = False
+        self._current_line = self._current_line + 1
+        self._serialterm.write(line)
+        self._serialterm.flush()
+        self._update_progress()
+
+    """
+    This method updates the status bar.
+    """
+    def _update_progress(self):
+        oldprog = str(self._prog)
+        # when in debug mode, do not show the progress bar
+        if not self._debug:
+            self._prog.update_amount(self._current_line)
+            if oldprog != str(self._prog):
+                print self._prog, "\r",
+                sys.stdout.flush()
+                oldprog=str(self._prog)
+
+    """
+    This method serves to update the current status of the transfer
+    """
+    def update_status(self, status):
+        print("\n" + status)
+
+    """ This method should be called if the serial port is not able to receive data
+    """
+    def serial_paused(self):
+        # if already paused, do nothing
+        if not self._serial_paused:
+            self._serial_paused = True
  
-def main():
+    """ This method should be called if the serial port once the serial port 
+        is able to receive data 
+    """
+    def serial_resumed(self):
+        if self._serial_paused:
+        # if already resumed, ignore
+            self._serial_paused = False
+            if self._paused:
+                # handle the case where a user initiated a pause during a serial pause
+                print("The serial port is now ready for more data") 
+                print('Still paused at line ' + str(self._current_line) + ' of ' + str(self._line_count) + ' due to user key press.  Press any key to continue sending or q or Q to quit')
+            else:
+                print("The serial port is now ready for more data") 
+
+    def is_paused(self):
+        return self._paused or self._serial_paused
+
+    def set_line_count(self, count):
+        self._line_count = count
+
+    def stop_requested(self):
+        return self._stop_requested
+
+"""
+A method to parse the arguments from the command line
+"""
+def parse_args(arguments, defaults):
     import optparse
 
     parser = optparse.OptionParser(
-        usage = "%prog [options] [port [baudrate]]",
+        usage = "%prog [options]",
         description = "pydnc - A simple serial file sending program."
     )
 
     parser.add_option("-p", "--port",
         dest = "port",
-        help = "port, a number (default 0) or a device name (deprecated option)",
-        default = None
+        help = "port, a com port number (default 0)",
+        default = defaults['port']
     )
 
     parser.add_option("-b", "--baud",
@@ -293,229 +424,213 @@ def main():
         action = "store",
         type = 'int',
         help = "set baud rate, default %default",
-        default = 9600
+        default = defaults['baudrate']
     )
 
     parser.add_option("--parity",
         dest = "parity",
         action = "store",
-        help = "set parity, one of [N, E, O, S, M], default=N",
-        default = 'E'
+        help = "set parity, one of [N, E, O, S, M], default=%default",
+        default = defaults['parity']
     )
 
     parser.add_option("--databits",
         dest = "databits",
         action = "store",
-        help = "set databits, one of [7, 8], default=7",
-        default = '7'
-    )
-    
-    parser.add_option("-e", "--echo",
-        dest = "echo",
-        action = "store_true",
-        help = "enable local echo (default off)",
-        default = False
+        type = 'int',
+        help = "set databits, one of [5, 6, 7, 8], default=%default",
+        default = defaults['databits']
     )
 
     parser.add_option("--rtscts",
         dest = "rtscts",
         action = "store_true",
-        help = "enable RTS/CTS flow control (default off)",
-        default = False
+        help = "enable RTS/CTS flow control (default %default)",
+        default = defaults['rtscts']
     )
 
     parser.add_option("--xonxoff",
         dest = "xonxoff",
         action = "store_true",
-        help = "enable software flow control (default off)",
-        default = False
+        help = "enable software flow control (default %default)",
+        default = defaults['xonxoff']
     )
 
     parser.add_option("--cr",
         dest = "cr",
         action = "store_true",
-        help = "do not send CR+LF, send CR only",
-        default = False
+        help = "do not send CR+LF, send CR only (default %default)",
+        default = defaults['cr']
     )
 
     parser.add_option("--lf",
         dest = "lf",
         action = "store_true",
-        help = "do not send CR+LF, send LF only",
-        default = False
+        help = "do not send CR+LF, send LF only (default %default)",
+        default = defaults['lf']
     )
 
-    parser.add_option("-D", "--debug",
-        dest = "repr_mode",
-        action = "count",
-        help = """debug received data (escape non-printable chars)
---debug can be given multiple times:
-0: just print what is received
-1: escape non-printable characters, do newlines as unusual
-2: escape non-printable characters, newlines too
-3: hex dump everything""",
-        default = 0
-    )
-    
     parser.add_option("--rts",
         dest = "rts_state",
         action = "store",
-        type = 'int',
-        help = "set initial RTS line state (possible values: 0, 1)",
-        default = None
+        help = "set initial RTS line state (possible values: 0, 1) (default %default)",
+        default = defaults['rts_state']
     )
 
     parser.add_option("--dtr",
         dest = "dtr_state",
         action = "store",
-        type = 'int',
-        help = "set initial DTR line state (possible values: 0, 1)",
-        default = None
+        help = "set initial DTR line state (possible values: 0, 1) (default %default)",
+        default = defaults['dtr_state']
     )
     parser.add_option("-q", "--quiet",
         dest = "quiet",
         action = "store_true",
-        help = "suppress non error messages",
-        default = False
+        help = "suppress non error messages (default %default)",
+        default = defaults['quiet']
     )
 
     parser.add_option("-f", "--file",
         dest = "file_name",
         action = "store",
-        help = "the name of the file to send",
-        default = None
+        help = "the name of the file to send (default %default)",
+        default = defaults['file_name']
     )
 
-    (options, args) = parser.parse_args()
+    (options, args) = parser.parse_args(arguments)
+
+    if args:
+        parser.error("No extra arguments allowed when running this script")
 
     options.parity = options.parity.upper()
 
     if options.file_name == None:
         parser.error("you must specify a file")
-    input_filename = options.file_name
 
     if options.parity not in 'NEOSM':
         parser.error("invalid parity")
 
-    if options.databits not in '78':
+    if options.databits < 5 or options.databits > 8:
         parser.error("invalid databits")
         
     if options.cr and options.lf:
         parser.error("only one of --cr or --lf can be specified")
 
-    port = options.port
-    baudrate = options.baudrate
-    if args:
-        if options.port is not None:
-            parser.error("no arguments are allowed, options only when --port is given")
-        port = args.pop(0)
-        if args:
-            try:
-                baudrate = int(args[0])
-            except ValueError:
-                parser.error("baud rate must be a number, not %r" % args[0])
-            args.pop(0)
-        if args:
-            parser.error("too many arguments")
-    else:
-        if port is None: port = 0
-
-    convert_outgoing = CONVERT_CRLF
+    options.convert_outgoing = SerialTerm.CONVERT_CRLF
     if options.cr:
-        convert_outgoing = CONVERT_CR
+        options.convert_outgoing = SerialTerm.CONVERT_CR
     elif options.lf:
-        convert_outgoing = CONVERT_LF
+        options.convert_outgoing = SerialTerm.CONVERT_LF
 
-    try:
-        serialterm = SerialTerm(
-            port,
-            baudrate,
-            options.parity,
-            rtscts=options.rtscts,
-            xonxoff=options.xonxoff,
-            echo=options.echo,
-            convert_outgoing=convert_outgoing,
-            repr_mode=options.repr_mode,
-            bytesize=int(options.databits)
-        )
-    except serial.SerialException, e:
-        sys.stderr.write("could not open port %r: %s\n" % (port, e))
-        sys.exit(1)
-        
-    if options.dtr_state is not None:
-        if not options.quiet:
-            sys.stderr.write('--- forcing DTR %s\n' % (options.dtr_state and 'active' or 'inactive'))
-        serialterm.serial.setDTR(options.dtr_state)
-        serialterm.dtr_state = options.dtr_state
-    if options.rts_state is not None:
-        if not options.quiet:
-            sys.stderr.write('--- forcing RTS %s\n' % (options.rts_state and 'active' or 'inactive'))
-        serialterm.serial.setRTS(options.rts_state)
-        serialterm.rts_state = options.rts_state
+    return options
 
-    if not options.quiet:
-        serialterm.dump_port_settings()
+""" This method provides a mechanism to set the defaults for the program.
+"""
+def get_defaults():
+    import ConfigParser
+    
+    defaults = {
+        'file_name': None,
+        'baudrate': 9600, 
+        'parity': 'E', 
+        'databits': 7, 
+        'quiet': False, 
+        'xonxoff': True, 
+        'rtscts': False, 
+        'cr': False, 
+        'lf': False, 
+        'port': 0, 
+        'dtr_state': None, 
+        'rts_state': None
+    }
+    option_file_name = 'pydnc-options.ini'
+    if os.path.exists(option_file_name):
+        print("reading ini file for configuration: " + option_file_name)
+        config = ConfigParser.ConfigParser(allow_no_value=True)
+        config.read(option_file_name)
+        if config.has_option('serial', 'file_name'):
+            defaults['file_name'] = config.get('serial', 'file_name')
+        if config.has_option('serial', 'baudrate'):
+            defaults['baudrate'] = config.getint('serial', 'baudrate')
+        if config.has_option('serial', 'parity'):
+            defaults['parity'] = config.get('serial', 'parity')
+        if config.has_option('serial', 'databits'):
+            defaults['databits'] = config.get('serial', 'databits')
+        if config.has_option('serial', 'quiet'):
+            defaults['quiet'] = config.getboolean('serial', 'quiet')
+        if config.has_option('serial', 'xonxoff'):
+            defaults['xonxoff'] = config.getboolean('serial', 'xonxoff')
+        if config.has_option('serial', 'rtscts'):
+            defaults['rtscts'] = config.getboolean('serial', 'rtscts')
+        if config.has_option('serial', 'cr'):
+            defaults['cr'] = config.getboolean('serial', 'cr')
+        if config.has_option('serial', 'lf'):
+            defaults['lf'] = config.getboolean('serial', 'lf')
+        if config.has_option('serial', 'port'):
+            defaults['port'] = config.getint('serial', 'port')
+        if config.has_option('serial', 'dtr_state'):
+            defaults['dtr_state'] = config.get('serial', 'dtr_state')
+        if config.has_option('serial', 'rts_state'):
+            defaults['rts_state'] = config.get('serial', 'rts_state')
+    else:
+    # otherwise, try to create one with default values and write it
+        print("An ini file does not exist, attempting to create one: " + option_file_name)
+        optionsfile = open (option_file_name, 'wb')
+        config = ConfigParser.ConfigParser(allow_no_value=True)
+        config.add_section("serial")
+        for option in defaults.keys():
+            config.set("serial", option, defaults[option])
+        config.write(optionsfile)
+    return defaults
 
+""" A simple method to return the length of a file given the name
+"""
+def file_len(fname):
+    f = open(fname)
+    for i, l in enumerate(f):
+        pass
+    return i + 1
+
+"""
+A simple class to test-drive the command-line user interface
+"""
+def main():
+    # get the default options
+    defaults = get_defaults()
+    # override with arguments from the command line
+    options = parse_args(sys.argv[1:], defaults)
+
+    line_count = file_len(options.file_name)
+    
+    interface = CLInterface(False)
+
+    interface.set_line_count(line_count)
+    interface.start()
+    serialterm = SerialTerm(
+        options.port,
+        options.baudrate,
+        bytesize = options.databits,
+        parity = options.parity,
+        rtscts = options.rtscts,
+        xonxoff = options.xonxoff,
+        convert_outgoing = options.convert_outgoing,
+        interface = interface
+    )
+    interface.set_serialterm(serialterm)
     serialterm.start()
-     
-    line_count = file_len(input_filename)
 
-    input_file = open(input_filename, "r")
-    print 'default XON char: %s' % serial.XON.encode('hex')
-    print 'default XOFF char: %s' % serial.XOFF.encode('hex')
-    print 'Filename: ' + input_filename
-    print 'total lines: ' + str(line_count)
-    print 'Serial file transfer status (press any key to pause):'
-    prog = ProgressBar(0, line_count, 60, mode='fixed', char='=')
-    oldprog = str(prog)
-    current_line = 0
+    input_file = open(options.file_name, "r")
+
+    interface.update_status("The file transfer is beginning.")
     for line in input_file:
-        current_line += 1
-        message_shown = False
-        wait_time = 0
-        was_paused = False
-        while (serialterm.paused):
-            # if serialterm is paused, that means a xoff was received.
-            was_paused = True
-            # wait for the mill to respond with state
-            if (not message_shown):
-                sys.stdout.write("\n")
-            	message_shown = True
-            sys.stdout.write("\rWaiting for the mill at line " + str(current_line) + " of " + str(line_count) + ". (" + str(wait_time) + " s)")
-            time.sleep(1)
-            wait_time = wait_time + 1
-        if (was_paused):
-            sys.stdout.write("\nSerial file transfer status (press any key to pause):\n")
-        
-        serialterm.serial.write(line)
-        serialterm.serial.flush()
-        if (options.echo):
-            # debug mode, print each line
-            sys.stdout.write("%.8d %s" % (current_line, line))
-        else:
-            # non-debug mode, print a status bar
-            prog.increment_amount()
-            if oldprog != str(prog):
-                print prog, "\r",
-                sys.stdout.flush()
-                oldprog=str(prog)
-        if (console.keypressed()):
-            # the user pressed a key to pause
-            # clear the current key
-            console.getkey()
-            print '\nPaused at line ' + str(current_line) + ' of ' + str(line_count) + '. press any key to continue sending or q or Q to quit'
-            c = console.getkey()
-            if (c == 'Q' or c =='q' or c =='\x03'):
-                print '\nFile transfer manually terminated before completion at line ' + str(current_line) + '.'
-                break
-        #make it go slow for testing
-        #time.sleep(0.1)
+        if interface.stop_requested():
+            break
+        interface.send_line(line)
 
-    print '\nSerial transfer completed.'
-        
-    input_file.close()
     serialterm.stop()      
-    serialterm.join(True)
+    serialterm.join()
+    interface.stop()
+    interface.join()
  
 if __name__ == '__main__':
     main()
