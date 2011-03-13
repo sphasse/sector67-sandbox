@@ -70,7 +70,7 @@ import getopt
 import sys
 from datetime import datetime
 
-known_gcode_words = "FGIJKMNOPQRSTXYZ"
+known_gcode_words = "FGHIJKMNOPQRSTXYZ"
 log_level = 1
 current_coords_mode = "ABS"
 current_arc_coords_mode = "INC"
@@ -728,6 +728,8 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f} Feed {F:.4f}".format(**commands)
             elif (command_set == set("XYZIJ")):
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("XYIJ")):
+                result = "Arc Cw     X {X:.4f} Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             else:
                 error("unrecognized G2 command on line: " + str(line_no))
                 error("original line:")
@@ -746,6 +748,8 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f} Feed {F:.4f}".format(**commands)
             elif (command_set == set("XYZIJ")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("XYIJ")):
+                result = "Arc Ccw    X {X:.4f} Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             else:
                 error("unrecognized G3 command on line: " + str(line_no))
                 error("original line:")
