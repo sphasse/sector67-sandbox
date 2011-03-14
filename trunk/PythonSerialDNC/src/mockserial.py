@@ -61,7 +61,11 @@ class MockSerialTerm:
         sys.stderr.write('This is a mock serial port')
 
     def _reader(self):
-        """loop in a separate thread and pause and unpause"""
+        """loop in a separate thread and pause and resume.  This approach causes some problems, most notably that the
+        thread join is delayed, and that the serial state switches even when no data is being sent.  However, this approach
+        does allow testing of a truly async pausing process, as opposed to switching every X lines, which would be 
+        more synchronous with the sending of data. 
+        """
         while self._alive:
             self._paused = False
             if self._interface:
@@ -74,12 +78,11 @@ class MockSerialTerm:
 
     def write(self, line):
         self._output_file.write(line.strip() + self._newline)
-        #introduce some delay
+        #introduce some delay to facilitate testing
         time.sleep(0.1)
 
     def flush(self):
         self._output_file.flush()
-        #TODO: make this write to a file
         pass
 
     def setDTR(self, dtr_state):
@@ -91,7 +94,8 @@ class MockSerialTerm:
     def paused(self):
         return self._paused
 
-
+""" A simple mock serial test harness
+"""
 def main():
     line_count = 150
     current_line = 1 

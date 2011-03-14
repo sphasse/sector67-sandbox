@@ -28,13 +28,15 @@ ProgressBar adapated from code at http://www.5dollarwhitebox.org/drupal/node/65 
 http://code.activestate.com/recipes/168639/
 
 Pyserial apparently does not fully implmement xon/xoff flow control, so it is current
-implemented in this software.  Currently, serial flow control will necessarily be 
-enabled even if you do not specify it as a command-line option.
+implemented in this software.
 
 If you do not know what serial port to use, you can use the tools listed under the
 "Finding serial ports" section here:
 http://pyserial.sourceforge.net/examples.html
 to list your serial ports.
+
+For usage of this program, run it from the command line using a python interpreter
+passing a "-h" parameter.
 """
 
 
@@ -240,7 +242,7 @@ class SerialTerm:
                             self._paused = True
                             if self._interface:
                                 self._interface.serial_resumed()
-        except serial.SerialException, e:
+        except serial.SerialException:
             self._alive = False
             # would be nice if the console reader could be interrupted at this
             # point...
@@ -341,7 +343,7 @@ class CLInterface:
             if not self._showing_paused:
                 self._showing_paused = True
                 if self._paused:
-                    print '\nUser-initiated pause at line.  Press any key to continue sending or q or Q to quit'
+                    print '\nUser-initiated pause.  Press any key to continue sending or q or Q to quit'
                 if self._serial_paused:                
                     self.update_status("The file sending process is waiting on the serial port") 
             if self._stop_requested:
@@ -389,7 +391,7 @@ class CLInterface:
             if self._paused:
                 # handle the case where a user initiated a pause during a serial pause
                 print("The serial port is now ready for more data") 
-                print('Still paused at line ' + str(self._current_line) + ' of ' + str(self._line_count) + ' due to user key press.  Press any key to continue sending or q or Q to quit')
+                print('Still paused due to user key press.  Press any key to continue sending or q or Q to quit')
             else:
                 print("The serial port is now ready for more data") 
 
@@ -587,9 +589,10 @@ def get_defaults():
 """
 def file_len(fname):
     f = open(fname)
-    for i, l in enumerate(f):
-        pass
-    return i + 1
+    i = 0
+    for line in f:
+        i = i + 1
+    return i
 
 """
 A simple class to test-drive the command-line user interface
