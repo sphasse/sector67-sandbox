@@ -77,7 +77,7 @@ current_arc_coords_mode = "INC"
 
 motion_modal_commands = frozenset(["G0", "G1", "G2", "G3", "G80", "G81", "G82", "G83", "G84", "G85", "G86", "G87", "G88", "G89"])
 plane_selection_modal_commands = frozenset(["G17", "G18", "G19"])
-distance_modal_commands = frozenset(["G90", "G91"])
+distance_modal_commands = frozenset(["G90", "G91", "G90.1", "G91.1"])
 spindle_speed_modal_commands = frozenset(["G93", "G94"])
 units_modal_commands = frozenset(["G20", "G21"])
 cutter_diameter_compensation_modal_commands = frozenset(["G40", "G41", "G42"])
@@ -98,6 +98,11 @@ m_modal_groups = [axis_clamping_modal_commands, stopping_modal_commands, tool_ch
 
 non_modal_commands = frozenset(["G4", "G10", "G28", "G30", "G53", "G92", "G92.1", "G92.2", "G92.3"])
 
+# keep track of previous coordinates for commands that need them but do not specify them
+previous_x = 0
+previous_y = 0
+previous_z = 0
+
 def error(message):
     print("ERROR: " + message)
 
@@ -105,9 +110,10 @@ def debug(message):
     if (log_level < 1):
         print("DEBUG: " + message)
 
-
 def main():
     global log_level
+    global current_arc_coords_mode
+
     
     debug("raw arguments")
     debug(sys.argv[1:])
@@ -115,7 +121,7 @@ def main():
         usage()
         sys.exit(2)
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "ho:i:dg:", ["help", "output=", "input=","debug", "ignore="])
+        opts, args = getopt.getopt(sys.argv[1:], "ho:i:dg:a:", ["help", "output=", "input=","debug", "ignore=", "arc_mode="])
     except getopt.GetoptError, err:
         # print help information and exit:
         print str(err) # will print something like "option -a not recognized"
@@ -136,6 +142,14 @@ def main():
             input_file = a
         elif o in ("-o", "--output"):
             output_file = a
+        elif o in ("-a", "--arc_mode"):
+            if (a == "ABS"):
+                current_arc_coords_mode = "ABS"
+            elif (a =="INC"):
+                current_arc_coords_mode = "INC"
+            else:
+                print("You have specified an invalid arc_mode.  Valid values are ABS or INC.")
+                sys.exit(2)
         else:
             assert False, "unhandled option"
     
@@ -149,30 +163,38 @@ def usage():
     A command-line program to convert gcode files into Anilam 
     conversational format.
     Usage:
-    anilampost.py --input=<input_file_name> --output=<output_file_name> [--debug] [--ignore=regex]
+    anilampost.py --input=<input_file_name> --output=<output_file_name> 
+        [--debug] [--ignore=regex] [--arc_mode=(ABS|INC)]
     
     Examples:
     anilampost.py --input=TEST.G --output=TEST.M
     
-    If the debug option is specified, the original gcode is written out as comments
-    in-line with the converted code.
+    If the debug option is specified, the original gcode is written out as
+    comments in-line with the converted code.
     
-    If you wish to ignore specific words, you can specify an --ignore with a corresponding regex.
-    The regex is applied to the normalized form of each parsed gcode word to determine if it should 
-    be ignored or not.
+    If you wish to ignore specific words, you can specify an --ignore with 
+    a corresponding regex.  The regex is applied to the normalized form of 
+    each parsed gcode word to determine if it should be ignored or not.
     
-    This is used to eliminate gcode words that cannot be accurately translated into conversational form,
-    but this should only be used to remove words that do not have an adverse effect on the actual
-    milling process.  For instance the sector 67 mill does not have spindle control or automated tool
-    change capability, so even though some programs generate those sorts of commands, we ignore them
-    during the conversion process.
+    This is used to eliminate gcode words that cannot be accurately translated
+    into conversational form, but this should only be used to remove words 
+    that do not have an adverse effect on the actual milling process.  For 
+    instance the sector 67 mill does not have spindle control or automated tool
+    change capability, so even though some programs generate those sorts of 
+    commands, we ignore them during the conversion process.
     
     Some examples of --ignore regular expressions would be:
     
     --ignore="^(M3|G54)$"
     
+    The converter by default expects arc IJK coordinates to be specified 
+    relative.  If your gcode specifies G90.1 to convert arc mode to absolute 
+    this will be handled automatically.  However, if your arc coordinates are 
+    absolute and your program does not specify G90.1, you can specify 
+    --arc_mode=ABS to configure the converter to treat arc IJK coordinates as 
+    absolute.
+    
     """
-
 
 """
 translate an entire file line-by-line
@@ -196,6 +218,19 @@ def translate_file(input_filename, output_filename, ignore_regex=None):
     input_file.close()
     output_file.close()
 
+"""
+A function to enable unit testing of multiple blocks of gcode
+"""
+def process_multiple_lines(lines, ignore_regex=None):
+    results = []
+    line_num = 0
+    for line in lines:
+        line_num += 1
+        debug("Processing line number: " + str(line_num))
+        debug(line)
+        result = process_line(line, line_num, ignore_regex)
+        results.append(result)
+    return results
 
 """
 process an individual line as a string
@@ -504,7 +539,7 @@ def multiplex_blocks(block_array):
     step_14_commands = set(["G43", "G49"])
     step_15_commands = set(["G54", "G55", "G56", "G57", "G58", "G59", "G59.1", "G59.2", "G59.3"])
     step_16_commands = set(["G61", "G61.1", "G64"])
-    step_17_commands = set(["G90", "G91"])
+    step_17_commands = set(["G90", "G91", "G90.1", "G91.1"])
     step_18_commands = set(["G98", "G99"])
     step_19_commands = set(["G28", "G30", "G10", "G92", "G92.1", "G92.2"])
     step_20_commands = set(["G0", "G1", "G2", "G3", "G33", "G73", "G76", "G80", "G81", "G82", "G83", "G84", "G85", "G86", "G87", "G88", "G89"])
@@ -668,6 +703,10 @@ to Anilam conversational commands
 """
 def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1):
     global current_arc_coords_mode
+    global previous_x
+    global previous_y
+    global previous_z
+    
     result = ""
     # preserve whitespace
     if (len(block_array) == 0):
@@ -718,18 +757,32 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
         elif (real == 2):
             if (current_arc_coords_mode == "INC"):
             # convert the incremental coordinates to absolute to match what Anilam expects
+            # if a coordinate is not specified, use the previous specified endpoint to calculate the absolute I,J
                 if ("I" in commands):
-                    new_i = commands["I"] + commands["X"]
-                    commands["I"] = new_i
+                    if ("X" in commands):
+                        new_i = commands["I"] + commands["X"]
+                        commands["I"] = new_i
+                    else:
+                        new_i = commands["I"] + previous_x
+                        commands["I"] = new_i
+                        
                 if ("J" in commands):
-                    new_j = commands["J"] + commands["Y"]
-                    commands["J"] = new_j
+                    if ("Y" in commands):
+                        new_j = commands["J"] + commands["Y"]
+                        commands["J"] = new_j
+                    else:
+                        new_j = commands["J"] + previous_y
+                        commands["J"] = new_j                        
             if (command_set == set("XYZIJF")):
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f} Feed {F:.4f}".format(**commands)
             elif (command_set == set("XYZIJ")):
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("XYIJ")):
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("XIJ")):
+                result = "Arc Cw     X {X:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("YIJ")):
+                result = "Arc Cw     Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             else:
                 error("unrecognized G2 command on line: " + str(line_no))
                 error("original line:")
@@ -738,18 +791,34 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
         elif (real == 3):
             if (current_arc_coords_mode == "INC"):
             # convert the incremental coordinates to absolute to match what Anilam expects
+            # if a coordinate is not specified, use the previous specified endpoint to calculate the absolute I,J
                 if ("I" in commands):
-                    new_i = commands["I"] + commands["X"]
-                    commands["I"] = new_i
+                    if ("X" in commands):
+                        new_i = commands["I"] + commands["X"]
+                        commands["I"] = new_i
+                    else:
+                        new_i = commands["I"] + previous_x
+                        commands["I"] = new_i
+                        #commands["X"] = previous_x
+                        
                 if ("J" in commands):
-                    new_j = commands["J"] + commands["Y"]
-                    commands["J"] = new_j
+                    if ("Y" in commands):
+                        new_j = commands["J"] + commands["Y"]
+                        commands["J"] = new_j
+                    else:
+                        new_j = commands["J"] + previous_y
+                        commands["J"] = new_j
+                        #commands["Y"] = previous_y  
             if (command_set == set("XYZIJF")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f} Feed {F:.4f}".format(**commands)
             elif (command_set == set("XYZIJ")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("XYIJ")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("XIJ")):
+                result = "Arc Ccw    X {X:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("YIJ")):
+                result = "Arc Ccw    Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             else:
                 error("unrecognized G3 command on line: " + str(line_no))
                 error("original line:")
@@ -854,8 +923,11 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
             #Stop spindle
             result = "MCode 5"
         elif (real == 6 and command_set == set("")):
-            #Change tool
+            #End main loop
             result = "MCode 6"        
+        elif (real == 30 and command_set == set("")):
+            #End main loop
+            result = "EndMain"
         else:
             error("unrecognized M command on line: " + str(line_no))
             error("original line:")
@@ -877,6 +949,14 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
         error("original line:")
         error(original_block)
         raise Exception("unrecognized command: " + str(original_block))
+
+    if ("X" in commands):
+        previous_x = commands["X"]
+    if ("Y" in commands):
+        previous_x = commands["Y"]
+    if ("Z" in commands):
+        previous_x = commands["Z"]
+    
     return result
 
 # when spawned via command line, execute the main method

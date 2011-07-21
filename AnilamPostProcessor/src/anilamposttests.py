@@ -54,6 +54,24 @@ class Test(unittest.TestCase):
         self.assertEqual(["A standalone comment"], anilampost.extract_comments("(A standalone comment)"))
         pass
 
+    def test_multiple_lines(self):
+        # Test multiline in general
+        self.assertEqual( ['Rapid      X 1.0000 Y 1.0000\n', 'Rapid      X 2.0000 Y 2.0000\n'], anilampost.process_multiple_lines(["G0 X1 Y1","G0 X2 Y2"]))
+        # Test when IJK are specified in absolute mode
+        self.assertEqual( ['\n', 'Arc Cw     X 1.0000 Y 1.0000 XCenter 2.0000 YCenter 2.0000\n'], anilampost.process_multiple_lines(["G90.1","G2 X1 Y1 I2 J2"]))
+        # Test explicit relative mode IJK settings
+        self.assertEqual( ['\n', 'Arc Cw     X 1.0000 Y 1.0000 XCenter 3.0000 YCenter 3.0000\n'], anilampost.process_multiple_lines(["G91.1","G2 X1 Y1 I2 J2"]))
+        # Test that the default mode expects relative IJ
+        self.assertEqual( ['Arc Cw     X 1.0000 Y 1.0000 XCenter 3.0000 YCenter 3.0000\n'], anilampost.process_multiple_lines(["G2 X1 Y1 I2 J2"]))
+        # ccw arcs with no X coord rel mode
+        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Ccw    Y 1.0659 XCenter 1.5615 YCenter 2.1697\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G3 Y1.0659 I0.5615 J1.1038"]))
+        # ccw arcs with no Y coord rel mode
+        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Ccw    X 1.0659 XCenter 1.6274 YCenter 1.1038\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G3 X1.0659 I0.5615 J1.1038"]))
+        # cw arcs with no X coord rel mode
+        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Cw     Y 1.0659 XCenter 1.5615 YCenter 2.1697\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G2 Y1.0659 I0.5615 J1.1038"]))
+        # cw arcs with no Y coord rel mode
+        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Cw     X 1.0659 XCenter 1.6274 YCenter 1.1038\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G2 X1.0659 I0.5615 J1.1038"]))
+        
     def test_convert(self):
         self.assertEqual("RPM        60.0000", anilampost.convert_to_conversational(["S60.0000"]))
         self.assertEqual("* O123", anilampost.convert_to_conversational(["O123"]))
@@ -68,6 +86,8 @@ class Test(unittest.TestCase):
         self.assertEqual("Tool# 3", anilampost.convert_to_conversational(["T3"]))
         self.assertEqual("Tool# 4", anilampost.convert_to_conversational(["T4.00"]))
         self.assertEqual("DrillOff", anilampost.convert_to_conversational(["G80"]))
+        self.assertEqual("EndMain", anilampost.convert_to_conversational(["M2"]))
+        self.assertEqual("EndMain", anilampost.convert_to_conversational(["M30"]))
         
     def test_drill(self):
         self.assertEqual("Feed 100.0000\nPeckDrill ZDepth -3.0000 StartHgt 0.1000 Peck 1.0000\n", anilampost.process_line("G83 Z-3.0 R0.1 Q1.0 F100"))
@@ -76,6 +96,7 @@ class Test(unittest.TestCase):
         #self.assertEqual("PeckDrill ZDepth -1.0000 StartHgt 1.0000 Peck 0.2500 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G83", "Z-1.0", "R1.0", "I0.25", "F100", "P1.0"]))
         #self.assertEqual("BasicDrill ZDepth -1.0000 StartHgt 1.0000 Feed 100.0000 ReturnHeight 1.0000", anilampost.convert_to_conversational(["G81", "Z-1.0", "R1.0", "F100", "P1.0"]))
 
+        
     def test_lines(self):
         self.assertEqual("* %\n", anilampost.process_line("%\n"))
         self.assertEqual("* O123\n", anilampost.process_line("O123\n"))
@@ -88,6 +109,11 @@ class Test(unittest.TestCase):
         self.assertEqual("* per --ignore regex, ignored word: G12\nX 1.0000 Y 2.0000\n", anilampost.process_line("G12 X1 Y2\n", -1, "^(G10|G12)$"))
         self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "^(G1|G2)$"))
         self.assertEqual("Plane XY\nUnit MM\nDim Abs\n", anilampost.process_line("G90G21G17\n"))
+        # TODO: need a way to test G90.1 mode
+        #self.assertEqual("Arc Cw ...\n", anilampost.process_line("G90.1\nG2X1Y1I2J3\n"))
+
+        #TODO: develop a test for arcs that need the previous line's X or Y (cambam)
+        #self.assertEqual("Line X 1.0000 Y 2.0000\nArc Cw X 1.0000 XCenter \n", anilampost.process_line("G1 X1 Y2\nG2 X2 I1 J2\n"))
 
         print "\n### This test expects an error to be logged below ############"        
         try:
