@@ -779,6 +779,10 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("XYIJ")):
                 result = "Arc Cw     X {X:.4f} Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("XZIJ")):
+                result = "Arc Cw    X {X:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("YZIJ")):
+                result = "Arc Cw    Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("XIJ")):
                 result = "Arc Cw     X {X:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("YIJ")):
@@ -815,6 +819,10 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("XYIJ")):
                 result = "Arc Ccw    X {X:.4f} Y {Y:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("XZIJ")):
+                result = "Arc Ccw    X {X:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
+            elif (command_set == set("YZIJ")):
+                result = "Arc Ccw    Y {Y:.4f} Z {Z:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("XIJ")):
                 result = "Arc Ccw    X {X:.4f} XCenter {I:.4f} YCenter {J:.4f}".format(**commands)
             elif (command_set == set("YIJ")):
