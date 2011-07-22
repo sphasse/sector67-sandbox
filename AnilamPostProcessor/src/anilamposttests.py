@@ -109,11 +109,9 @@ class Test(unittest.TestCase):
         self.assertEqual("* per --ignore regex, ignored word: G12\nX 1.0000 Y 2.0000\n", anilampost.process_line("G12 X1 Y2\n", -1, "^(G10|G12)$"))
         self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "^(G1|G2)$"))
         self.assertEqual("Plane XY\nUnit MM\nDim Abs\n", anilampost.process_line("G90G21G17\n"))
-        # TODO: need a way to test G90.1 mode
-        #self.assertEqual("Arc Cw ...\n", anilampost.process_line("G90.1\nG2X1Y1I2J3\n"))
+        self.assertEqual("Feed 10.0000\n\nArc Cw    Y 0.3277 Z -0.0058 XCenter -2.7617 YCenter 1.1439\n", anilampost.process_line("G90.1\nG2 F10.0 Y0.3277 Z-0.0058 I-2.7617 J1.1439\n"))
+        self.assertEqual("Feed 10.0000\n\nArc Ccw    Y 0.3277 Z -0.0058 XCenter -2.7617 YCenter 1.1439\n", anilampost.process_line("G90.1\nG3 F10.0 Y0.3277 Z-0.0058 I-2.7617 J1.1439\n"))
 
-        #TODO: develop a test for arcs that need the previous line's X or Y (cambam)
-        #self.assertEqual("Line X 1.0000 Y 2.0000\nArc Cw X 1.0000 XCenter \n", anilampost.process_line("G1 X1 Y2\nG2 X2 I1 J2\n"))
 
         print "\n### This test expects an error to be logged below ############"        
         try:
