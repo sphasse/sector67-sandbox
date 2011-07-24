@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Developed by Scott Hasse for use at http://sector67.org
 """
 
-import sys, os, threading     
+import sys, threading     
 import time
 import pydnc
 
