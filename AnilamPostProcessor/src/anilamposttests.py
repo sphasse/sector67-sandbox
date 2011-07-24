@@ -58,19 +58,24 @@ class Test(unittest.TestCase):
         # Test multiline in general
         self.assertEqual( ['Rapid      X 1.0000 Y 1.0000\n', 'Rapid      X 2.0000 Y 2.0000\n'], anilampost.process_multiple_lines(["G0 X1 Y1","G0 X2 Y2"]))
         # Test when IJK are specified in absolute mode
-        self.assertEqual( ['\n', 'Arc Cw     X 1.0000 Y 1.0000 XCenter 2.0000 YCenter 2.0000\n'], anilampost.process_multiple_lines(["G90.1","G2 X1 Y1 I2 J2"]))
+        self.assertEqual( ['Arc Cw     X 1.0000 Y 1.0000 XCenter 2.0000 YCenter 2.0000\n'], anilampost.process_multiple_lines(["G90.1","G2 X1 Y1 I2 J2"]))
         # Test explicit relative mode IJK settings
-        self.assertEqual( ['\n', 'Arc Cw     X 1.0000 Y 1.0000 XCenter 3.0000 YCenter 3.0000\n'], anilampost.process_multiple_lines(["G91.1","G2 X1 Y1 I2 J2"]))
+        self.assertEqual( ['Arc Cw     X 1.0000 Y 1.0000 XCenter 3.0000 YCenter 3.0000\n'], anilampost.process_multiple_lines(["G91.1","G2 X1 Y1 I2 J2"]))
         # Test that the default mode expects relative IJ
         self.assertEqual( ['Arc Cw     X 1.0000 Y 1.0000 XCenter 3.0000 YCenter 3.0000\n'], anilampost.process_multiple_lines(["G2 X1 Y1 I2 J2"]))
         # ccw arcs with no X coord rel mode
-        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Ccw    Y 1.0659 XCenter 1.5615 YCenter 2.1697\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G3 Y1.0659 I0.5615 J1.1038"]))
+        self.assertEqual( ['Line       X 1.0000 Y 1.0000\n', "Arc Ccw    Y 1.0659 XCenter 1.5615 YCenter 2.1697\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G3 Y1.0659 I0.5615 J1.1038"]))
         # ccw arcs with no Y coord rel mode
-        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Ccw    X 1.0659 XCenter 1.6274 YCenter 1.1038\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G3 X1.0659 I0.5615 J1.1038"]))
+        self.assertEqual( ['Line       X 1.0000 Y 1.0000\n', "Arc Ccw    X 1.0659 XCenter 1.6274 YCenter 1.1038\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G3 X1.0659 I0.5615 J1.1038"]))
         # cw arcs with no X coord rel mode
-        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Cw     Y 1.0659 XCenter 1.5615 YCenter 2.1697\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G2 Y1.0659 I0.5615 J1.1038"]))
+        self.assertEqual( ['Line       X 1.0000 Y 1.0000\n', "Arc Cw     Y 1.0659 XCenter 1.5615 YCenter 2.1697\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G2 Y1.0659 I0.5615 J1.1038"]))
         # cw arcs with no Y coord rel mode
-        self.assertEqual( ['\n', 'Line       X 1.0000 Y 1.0000\n', "Arc Cw     X 1.0659 XCenter 1.6274 YCenter 1.1038\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G2 X1.0659 I0.5615 J1.1038"]))
+        self.assertEqual( ['Line       X 1.0000 Y 1.0000\n', "Arc Cw     X 1.0659 XCenter 1.6274 YCenter 1.1038\n"], anilampost.process_multiple_lines(["G91.1","G1 X1 Y1","G2 X1.0659 I0.5615 J1.1038"]))
+        # manage spindle state
+        self.assertEqual( ['MCode 3\n', 'MCode 5\n', 'Tool# 5\n', 'MCode 3\n'], anilampost.process_multiple_lines(["M3", "T5"]))
+        self.assertEqual( ['MCode 4\n', 'MCode 5\n', 'Tool# 4\n', 'MCode 4\n'], anilampost.process_multiple_lines(["M4", "T4"]))
+        self.assertEqual( ['MCode 5\n', 'Tool# 3\n'], anilampost.process_multiple_lines(["M5", "T3"]))
+
         
     def test_convert(self):
         self.assertEqual("RPM        60.0000", anilampost.convert_to_conversational(["S60.0000"]))
@@ -109,15 +114,15 @@ class Test(unittest.TestCase):
         self.assertEqual("* per --ignore regex, ignored word: G12\nX 1.0000 Y 2.0000\n", anilampost.process_line("G12 X1 Y2\n", -1, "^(G10|G12)$"))
         self.assertEqual("Dwell 2.0000\n", anilampost.process_line("G4 P2\n", -1, "^(G1|G2)$"))
         self.assertEqual("Plane XY\nUnit MM\nDim Abs\n", anilampost.process_line("G90G21G17\n"))
-        self.assertEqual("Feed 10.0000\n\nArc Cw    Y 0.3277 Z -0.0058 XCenter -2.7617 YCenter 1.1439\n", anilampost.process_line("G90.1\nG2 F10.0 Y0.3277 Z-0.0058 I-2.7617 J1.1439\n"))
-        self.assertEqual("Feed 10.0000\n\nArc Ccw    Y 0.3277 Z -0.0058 XCenter -2.7617 YCenter 1.1439\n", anilampost.process_line("G90.1\nG3 F10.0 Y0.3277 Z-0.0058 I-2.7617 J1.1439\n"))
+        self.assertEqual("Feed 10.0000\nArc Cw    Y 0.3277 Z -0.0058 XCenter -2.7617 YCenter 1.1439\n", anilampost.process_line("G90.1\nG2 F10.0 Y0.3277 Z-0.0058 I-2.7617 J1.1439\n"))
+        self.assertEqual("Feed 10.0000\nArc Ccw    Y 0.3277 Z -0.0058 XCenter -2.7617 YCenter 1.1439\n", anilampost.process_line("G90.1\nG3 F10.0 Y0.3277 Z-0.0058 I-2.7617 J1.1439\n"))
 
 
         print "\n### This test expects an error to be logged below ############"        
         try:
-	    anilampost.process_line("G123 X1 Y2\n", -1, "^(G10|G12)$")
-	    self.assertTrue(False, "This should not be reached")
-	except Exception as e:
+            anilampost.process_line("G123 X1 Y2\n", -1, "^(G10|G12)$")
+            self.assertTrue(False, "This should not be reached")
+        except Exception as e:
             self.assertTrue(re.search("Not all modal G words were able to be recognized", str(e)), str(e) + " should match")
         print "##############################################################"
 
