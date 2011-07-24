@@ -74,6 +74,7 @@ known_gcode_words = "FGHIJKMNOPQRSTXYZ"
 log_level = 1
 current_coords_mode = "ABS"
 current_arc_coords_mode = "INC"
+current_spindle_state = "STOPPED"
 
 motion_modal_commands = frozenset(["G0", "G1", "G2", "G3", "G80", "G81", "G82", "G83", "G84", "G85", "G86", "G87", "G88", "G89"])
 plane_selection_modal_commands = frozenset(["G17", "G18", "G19"])
@@ -229,7 +230,7 @@ def process_multiple_lines(lines, ignore_regex=None):
         debug("Processing line number: " + str(line_num))
         debug(line)
         result = process_line(line, line_num, ignore_regex)
-        results.append(result)
+        results.extend(result.splitlines(True))
     return results
 
 """
@@ -284,7 +285,11 @@ def process_line(line, line_num=-1, ignore_regex=None):
         for multiplexed_block in multiplexed_blocks:
             #Then, convert each block
             conversational = convert_to_conversational(multiplexed_block, line, line_num)
-            result = result + conversational + "\n"
+            # some commands just change internal state and do not return a result,
+            # do not convert an extraneous newline in that cse
+            if conversational:
+                result = result + conversational + "\n"
+                
         
     return result
     
@@ -706,6 +711,7 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
     global previous_x
     global previous_y
     global previous_z
+    global current_spindle_state
     
     result = ""
     # preserve whitespace
@@ -919,16 +925,19 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
             #End Program 
             result = "MCode 0"
         elif (real == 2 and command_set == set("")):
-            #Turn spindle clockwise
+            #End main loop 
             result = "EndMain"
         elif (real == 3 and command_set == set("")):
             #Turn spindle clockwise
+            current_spindle_state = "CW"
             result = "MCode 3"
         elif (real == 4 and command_set == set("")):
             #Turn spindle counter-clockwise
+            current_spindle_state = "CCW"
             result = "MCode 4"
         elif (real == 5 and command_set == set("")):
             #Stop spindle
+            current_spindle_state = "STOPPED"
             result = "MCode 5"
         elif (real == 6 and command_set == set("")):
             #End main loop
@@ -948,7 +957,16 @@ def convert_to_conversational(block_array, original_block="UNKNOWN", line_no=-1)
         result = "RPM        {0:.4f}" .format(real)
     elif (command_set == set("T")):
         real = commands["T"]
-        result = "Tool# {0:.0f}" .format(real)
+        # The Anilam mill errors out if it thinks the spindle is running before a tool change
+        # As a result, if the spindle is running, we stop it and then return it to the same state
+        # after the tool change
+        if (current_spindle_state == "CCW" or current_spindle_state == "CW"):
+            result = result + "MCode 5\n"
+        result = result + "Tool# {0:.0f}" .format(real)
+        if (current_spindle_state == "CW"):
+            result = result + "\nMCode 3"
+        elif (current_spindle_state == "CCW"):
+            result = result + "\nMCode 4"
     elif (command_set.difference(set("XYZF")) == set("")):
         # convert bare X/Y/Z/F lines
         result = (format_xyzf(commands) + "").format(**commands)
