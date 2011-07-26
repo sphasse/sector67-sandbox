@@ -11,14 +11,13 @@ transfer
 = Details =
 Developed by Scott Hasse for use at http://sector67.org
 
+The script has been in use now for a couple of months without issue
+
 Serial transfer adapted from http://pyserial.sourceforge.net/examples.html#miniterm
 ProgressBar adapated from code at http://www.5dollarwhitebox.org/drupal/node/65 and
 http://code.activestate.com/recipes/168639/
 
 = TODO =
-# The script itself has not actually been tested yet and is likely not functional.
-# Add support for setting the number of data bits
-# Posix keyboard functionality for detecting a pause key has not yet been implemented or tested.
 # Other enhancements as documented in the issues at http://code.google.com/p/sector67-sandbox/issues/list
 
 = Downloading =
