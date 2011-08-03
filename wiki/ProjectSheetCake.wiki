@@ -21,13 +21,13 @@ When looking at possible choices for updated software and hardware, two software
 
 With respect to the interface hardware, a couple of folks had already done conversions of the scale we were considering using hardware from Mesa Electronics (http://mesanet.com).  Although they offer no discount to hackerspaces, support for their hardware in EMC2 is very mature, and their costs were on the lower side of the servo-capable interface hardware.  The fact that their PCI cards are aritrary I/O cards based on Xilinx FPGA will hopefully give us as much flexibility as we could want.
 
-Specifically, we have chosen the following boards:
+Specifically, we have chosen the following boards from [http://mesanet.com Mesa]:
 
-* A [http://mesanet.com/pdf/parallel/5i23man.pdf 5I23] FPGA based PCI  Anything I/O card.  This card will go in the PC, and 50 pin ribbon cables will provide signals to the daughter cards.  Currently $229 in small quantities.
+  * A [http://mesanet.com/pdf/parallel/5i23man.pdf 5I23] FPGA based PCI  Anything I/O card.  This card will go in the PC, and 50 pin ribbon cables will provide signals to the daughter cards.  Currently $229 in small quantities.
 
-* A [http://mesanet.com/pdf/motion/7i33man.pdf 7i33TA] quad analog servo interface daughter card.  This card will be wired to provide the servo amps with the appropriate +/-10V input signals, and take the encoder signals in and clean them up for EMC2.  Currently $79 in small quantities.
+  * A [http://mesanet.com/pdf/motion/7i33man.pdf 7i33TA] quad analog servo interface daughter card.  This card will be wired to provide the servo amps with the appropriate +/-10V input signals, and take the encoder signals in and clean them up for EMC2.  Currently $79 in small quantities.
 
-* A [http://mesanet.com/pdf/parallel/7i37man.pdf 7i37TA] isolated I/O daughter card.  This card will be used to provide isolated output from EMC2 for the servo enable and servo reset signals (amongst other things), and to provide input of some machine state to EMC2.  Currently $79 in small quantities.
+  * A [http://mesanet.com/pdf/parallel/7i37man.pdf 7i37TA] isolated I/O daughter card.  This card will be used to provide isolated output from EMC2 for the servo enable and servo reset signals (amongst other things), and to provide input of some machine state to EMC2.  Currently $79 in small quantities.
 
 ==Understanding the Anilam 1100 servo enable circuit==
 
