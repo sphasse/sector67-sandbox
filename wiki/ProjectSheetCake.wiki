@@ -16,12 +16,16 @@ The Anilam control system is unfortunately not well suited for extension to addi
 
 So, in the spirit of the CupCake CNC, which is named for the approximate size of artifact it can create, we have dubbed our CNC mill conversion project "Project Sheet Cake".
 
-
 ==Choosing control hardware and software==
-When looking at possible choices for updated software and hardware, two software choices in particular were contenders.  EMC2 and Mach5 both have large groups of adherents and active development work ongoing.  However, for control of our servo system, EMC2 makes more sense as Mach5 is geared toward bit-blasting stepper systems.
+When looking at possible choices for updated software and hardware, two software choices in particular were contenders.  EMC2 and Mach3 both have large groups of adherents and active development work ongoing.  However, for control of our servo system, EMC2 makes more sense as Mach3 is geared toward bit-blasting stepper systems.
 
 With respect to the interface hardware, a couple of folks had already done conversions of the scale we were considering using hardware from Mesa Electronics (http://mesanet.com).  Although they offer no discount to hackerspaces, support for their hardware in EMC2 is very mature, and their costs were on the lower side of the servo-capable interface hardware.  The fact that their PCI cards are aritrary I/O cards based on Xilinx FPGA will hopefully give us as much flexibility as we could want.
 
+Specifically, we have chosen the following boards:
+
+* A [http://mesanet.com/pdf/parallel/5i23man.pdf 5I23] FPGA based PCI  Anything I/O card.  This card will go in the PC, and 50 pin ribbon cables will provide signals to the daughter cards.  Currently $229 in small quantities.
+* A [http://mesanet.com/pdf/motion/7i33man.pdf 7i33TA] quad analog servo interface daughter card.  This card will be wired to provide the servo amps with the appropriate +/-10V input signals, and take the encoder signals in and clean them up for EMC2.  Currently $79 in small quantities.
+* A [http://mesanet.com/pdf/parallel/7i37man.pdf 7i37TA] isolated I/O daughter card.  This card will be used to provide isolated output from EMC2 for the servo enable and servo reset signals (amongst other things), and to provide input of some machine state to EMC2.  Currently $79 in small quantities.
 
 ==Understanding the Anilam 1100 servo enable circuit==
 
@@ -34,7 +38,7 @@ Since our mill does not have separate limit/home switches, this effectively mean
 Each axis has a set of limit switches that are wired in series, along with an DPST estop button.  These switches are all normally closed.  Additionally in that circuit, is a relay 
 
 and provide the 24V ground circuit for the bottom two (as viewed in the box) relays on the relay board.
- 
+
  
 K4: Top relay, represents servo enable, 
 Ground path controlled by the PC "servo enable" flag.  
