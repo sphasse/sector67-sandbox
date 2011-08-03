@@ -10,7 +10,7 @@ and a Python-based DNC program for running large programs via the serial port:
 
 http://code.google.com/p/sector67-sandbox/wiki/AnilamPostProcessor
 
-as we look to make best use of these mills in the hackerspace, we are hitting some of the limitations of the Anilam system.  In parallel other members have been developing our capability to perform 3D printing including building and tuning a couple of CupCake CNC systems and working on plastic extrusion print head issues.  Debugging some of these print issues led to a discussion around print head stability, and the potential to use our CNC mills as a 3D printing platform.
+As we look to make best use of these mills in the hackerspace, we are hitting some of the limitations of the Anilam system.  In parallel other members have been developing our capability to perform 3D printing including building and tuning a couple of [http://wiki.makerbot.com/cupcake CupCake] CNC and RepRap-based systems and working on plastic extrusion print head issues.  Debugging some of these print issues led to a discussion around print head stability, and the potential to use our CNC mills as a 3D printing platform.
 
 The Anilam control system is unfortunately not well suited for extension to additional axis and arbitrary machine and motion control.  However, the servos, servo controllers, spindle and other portions of the mill are rock solid, which led us to think of converting the mill to make use of more modern hardware and software that could more easily be adapted to the various sorts of arbitary precision machine control needs that might come up at a hackerspace.  Specifically, of course, decorating a sheet cake.
 
