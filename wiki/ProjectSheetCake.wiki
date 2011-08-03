@@ -57,6 +57,7 @@ Ground path controlled by (in series):
 
 When energized, helps completes the ground path for K1 and K3
 The closed when non-energized portion of this relay controlls the "servo off" signal to the PC.
+
 SERVO_RESET is meant to be temporarily engergized to allow the latch state to be set up.  It should then be disabled so that if the ground path is broken via the limit switches, estop, etc., K1 will be de-energized. 
 
 K3: Bottom relay
@@ -64,28 +65,38 @@ Ground path is the same as K1
 When energized drives the K2 solid state relay on the back side of the board to enable the spindle relay and provide 120VAC to the servo amp power supply.
 
 
+Input signals:
 
-
-
-Signals to the PC:
 SERVO_OFF
+
 X_LIMIT
+
 Y_LIMIT
+
 Z_LIMIT
+
 DEAD_STOP_OK
+
 E_STOP_OK
+
 SERVO_RESET_IN
-MANUAL ?
+
+MANUAL
+
+Not all of these signals will need to be fed to EMC2.  Some may just be represented with LEDs on the integration board.
  
 Signals from the PC:
+
 SERVO_ENABLE: When active specifies that the servos should be enabled
-SERVO_RESET: When active allows ground to temporarily flow past the K1 relay to allow K1 to energize and set up the latched circuit.
+
+SERVO_RESET: When momentarily active allows ground to flow past the K1 relay to allow K1 to energize and set up the latched circuit.
+
 E_STOP: A part of the estop circuit.  Needs to be active to allow the servos to energize.  Allows for a software estop.
 
 
 The signals from the PC will need to be mapped to pins within EMC2.  Normally, EMC2 manages a "MACHINE_ON" and TODO: get signal..., and these can be mapped in the following way:
 
-a separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally open hardware button as well (or even making use of the existing ANILAM console servo reset button), but managing it in software seems to be the most straightforward method of managing this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
+A separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally-open hardware button as well (or even making use of the existing ANILAM console servo reset button), but managing it in software seems to be the most straightforward method of handling this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
 
 
 ==Creating the necessary interface hardware==
