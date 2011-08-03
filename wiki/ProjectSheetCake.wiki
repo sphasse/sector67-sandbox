@@ -1,0 +1,86 @@
+=Project Sheet Cake=
+
+==Introduction==
+In 2010, Sector67 (http://www.sector67.org) acquired two CNC mills, one with an Anilam 1100 control system and one with an Anilam 3300 control system.  At the time the CNC portion of the 3300 mill was non-functional but since then both of the mills have been brought into use and have generally been workhorses, with the 1100 mill being used primarily.  Although the Anilam 1100 system overall is somewhat dated, it has provided the needed functionality for many members to start down the path of CNC mastery.  We have worked to extend the existing system for our needs, writing a standalone Anilam post processor for converting abitrarily large gcode files in the most accurate way possible:
+
+http://code.google.com/p/sector67-sandbox/wiki/AnilamPostProcessor
+
+and a Python-based DNC program for running large programs via the serial port:
+
+http://code.google.com/p/sector67-sandbox/wiki/AnilamPostProcessor
+
+as we look to make best use of these mills in the hackerspace, we are hitting some of the limitations of the Anilam system.  In parallel other members have been developing our capability to perform 3D printing including building and tuning a couple of CupCake CNC systems and working on plastic extrusion print head issues.  Debugging some of these print issues led to a discussion around print head stability, and the potential to use our CNC mills as a 3D printing platform.
+
+The Anilam control system is unfortunately not well suited for extension to additional axis and arbitrary machine and motion control.  However, the servos, servo controllers, spindle and other portions of the mill are rock solid, which led us to think of converting the mill to make use of more modern hardware and software that could more easily be adapted to the various sorts of arbitary precision machine control needs that might come up at a hackerspace.  Specifically, of course, decorating a sheet cake.
+
+So, in the spirit of the CupCake CNC, which is named for the approximate size of artifact it can create, we have dubbed our CNC mill conversion project "Project Sheet Cake".
+
+
+==Choosing control hardware and software==
+When looking at possible choices for updated software and hardware, two software choices in particular were contenders.  EMC2 and Mach5 both have large groups of adherents and active development work ongoing.  However, for control of our servo system, EMC2 makes more sense as Mach5 is geared toward bit-blasting stepper systems.
+
+With respect to the interface hardware, a couple of folks had already done conversions of the scale we were considering using hardware from Mesa Electronics (http://mesanet.com).  Although they offer no discount to hackerspaces, support for their hardware in EMC2 is very mature, and their costs were on the lower side of the servo-capable interface hardware.  The fact that their PCI cards are aritrary I/O cards based on Xilinx FPGA will hopefully give us as much flexibility as we could want.
+
+
+==Understanding the Anilam 1100 servo enable circuit==
+
+The server enable circuit is basically a set of four relays that are used to provide enable signal to the servos and power to the spindle.
+
+Although it would be possible to run the estop and limit functions completely in software with emc2, we are choosing to preserve the existing hardware solution, with machine state being read by emc2.
+
+Since our mill does not have separate limit/home switches, this effectively means that we will not be able automatically home to a machine absolute zero.  However, since nearly all of our milling is currently done relative to a local zero this will hopefully not be a severe limit.  With so many different users using the mill, and potentially even working on the emc2 software, a hardware hard limit seemed like the more prudent decision.  Separate limit switches could be added in the future if that feature is needed.
+
+Each axis has a set of limit switches that are wired in series, along with an DPST estop button.  These switches are all normally closed.  Additionally in that circuit, is a relay 
+
+and provide the 24V ground circuit for the bottom two (as viewed in the box) relays on the relay board.
+ 
+ 
+K4: Top relay, represents servo enable, 
+Ground path controlled by the PC "servo enable" flag.  
+When energized helps complete the ground path for K1 and K3.
+ 
+K1: Middle relay, facilitates the latching circuit
+Ground path controlled by (in series):
+  * The limit switches
+  * The estop button
+  * The K1 relay being energized or the SERVO_RESET path enabled
+  * The K4 relay being energized
+   
+When energized, helps completes the ground path for K1 and K3
+The non-energized portion of this relay controlls the "servo off" signal to the PC.
+ 
+K3: Bottom relay
+Ground path is the same as K1
+When energized drives the relay on the back side of the board to provide 120VAC to the spindle.
+
+
+
+
+Signals to the PC:
+SERVO_OFF
+X_LIMIT
+Y_LIMIT
+Z_LIMIT
+DEAD_STOP_OK
+E_STOP_OK
+SERVO_RESET_IN
+MANUAL ?
+ 
+Signals from the PC:
+SERVO_ENABLE: When active specifies that the servos should be enabled
+SERVO_RESET: When active allows ground to temporarily flow past the K1 relay to allow K1 to energize and set up the latched circuit.
+E_STOP: A part of the estop circuit.  Needs to be active to allow the servos to energize.  Allows for a software estop.
+
+
+
+==Creating the necessary hardware==
+
+
+==Installing EMC2==
+
+==Configuring EMC2==
+
+==Tuning EMC2==
+
+
+==Integrating additional control capability==
