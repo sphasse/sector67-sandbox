@@ -37,7 +37,7 @@ The server enable circuit is basically a set of four relays that are used to pro
 
 Although it would be possible to run the estop and limit functions completely in software with emc2, we are choosing to preserve the existing hardware solution, with machine state being read by emc2.
 
-Since our mill does not have separate limit/home switches, this effectively means that we will not be able automatically home to a machine absolute zero.  However, since nearly all of our milling is currently done relative to a local zero this will hopefully not be a severe limit.  With so many different users using the mill, and potentially even working on the emc2 software, a hardware hard limit seemed like the more prudent decision.  Separate limit switches could be added in the future if that feature is needed.
+Since our mill does not have separate limit/home switches, this effectively means that we will not be able automatically home to a machine absolute zero.  However, since nearly all of our milling is currently done relative to a local zero this will hopefully not be a severe limit.  With so many different users using the mill, and potentially even working on the emc2 software, a hardware hard limit seemed like the more prudent decision.  Separate home switches could be added in the future if that feature is needed.
 
 Each axis has a set of limit switches that are wired in series, along with an DPST (double pole single throw) estop button.  These switches are all normally closed, and provide part of the 24V ground circuit for the bottom two (as viewed in the box) relays on the relay board.
 
