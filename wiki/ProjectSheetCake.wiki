@@ -1,4 +1,5 @@
 =Project Sheet Cake=
+A three-axis CNC Mill Conversion from Anilam 1100 controls to EMC2
 
 ==Introduction==
 In 2010, Sector67 (http://www.sector67.org) acquired two CNC mills, one with an Anilam 1100 control system and one with an Anilam 3300 control system.  At the time the CNC portion of the 3300 mill was non-functional but since then both of the mills have been brought into use and have generally been workhorses, with the 1100 mill being used primarily.  Although the Anilam 1100 system overall is somewhat dated, it has provided the needed functionality for many members to start down the path of CNC mastery.  We have worked to extend the existing system for our needs, writing a standalone Anilam post processor for converting abitrarily large gcode files in the most accurate way possible:
