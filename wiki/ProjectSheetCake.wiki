@@ -82,7 +82,10 @@ E_STOP: A part of the estop circuit.  Needs to be active to allow the servos to 
 
 
 
-==Creating the necessary hardware==
+==Creating the necessary interface hardware==
+Some hardware will be needed to interface the existing servo amp, servo enalble and estop functions to the Mesa daughter boards.  One of the primary goals with this hardware was to make it plug-compatible with the existing chassis so that we can easily switch between control systems as necessary. 
+
+TODO: complete documentation of this board and how it is wired.
 
 
 ==Installing EMC2==
