@@ -39,6 +39,20 @@ This diagram shows the basic high-level architecture of the system:
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/basic-architecture.png
 
 The original svg source for this image is under revision control in the sector 67 sandbox source repository.
+
+==Understanding the integration board==
+The integration board is a custom-made circuit board designed to interface with the existing 0.2" and serial plugs providing power, estop, limit, rotary encoder in and servo amp out in the servo amp box.  It is designed to be a plug and play replacement for the Anilam S1100 distribution board in this box.
+
+We've taken great pains to design this board such that if we ever wanted to put back the original Anilam functioanlity, that could easily be done.
+
+The base of this board is a piece of 7"x12" aluminum sheet, with a 1/2" strip along the 12" edge folded at 90 degrees to give stiffness and provide a way to secure the board to the chassis.
+
+On top of this sheet we've attached the Mesa daughter boards, serial connectors and through hole prototype perf boards for securing the connector headers and other components.
+
+TODO: pictures, complete parts list, component layout and schematic. 
+
+
+
 ==Understanding the Anilam 1100 servo enable circuit==
 
 The server enable circuit is basically a set of four relays that are used to provide 120VAC to the servo power supply and power to the spindle relay.
