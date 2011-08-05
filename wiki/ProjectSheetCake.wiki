@@ -33,6 +33,12 @@ Specifically, we have chosen the following boards from [http://mesanet.com Mesa]
 
   * A [http://mesanet.com/pdf/parallel/7i37man.pdf 7i37TA] isolated I/O daughter card.  This card will be used to provide isolated output from EMC2 for the servo enable and servo reset signals (amongst other things), and to provide input of some machine state to EMC2.  Currently $79 in small quantities.
 
+==Basic architecture==
+This diagram shows the basic high-level architecture of the system:
+
+http://code.google.com/p/sector67-sandbox/source/browse/trunk/ProjectSheetCake/docs/images/basic-architecture.png
+
+The original svg source for this image is under revision control in the sector 67 sandbox source repository.
 ==Understanding the Anilam 1100 servo enable circuit==
 
 The server enable circuit is basically a set of four relays that are used to provide 120VAC to the servo power supply and power to the spindle relay.
