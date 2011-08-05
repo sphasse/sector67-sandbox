@@ -36,7 +36,7 @@ Specifically, we have chosen the following boards from [http://mesanet.com Mesa]
 ==Basic architecture==
 This diagram shows the basic high-level architecture of the system:
 
-http://code.google.com/p/sector67-sandbox/source/browse/trunk/ProjectSheetCake/docs/images/basic-architecture.png
+http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/basic-architecture.png
 
 The original svg source for this image is under revision control in the sector 67 sandbox source repository.
 ==Understanding the Anilam 1100 servo enable circuit==
