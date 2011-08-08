@@ -64,14 +64,14 @@ TODO: finish parts list, pictures, component layout and schematic.
 
 
 Integration board parts list
-|| Part || Price || Quantity || Description || Vendor || Part Number ||
+|| *Part* || *Price* || *Quantity* || *Description* || *Vendor* || *Part Number* ||
 || 2x8 0.2" terminal plug || $$ || 2|| A through-hole soldered terminal plug with two rows of 8 pins. || Digikey || ||
 || 2x6 0.2" terminal plug || $$ || 5|| A through-hole soldered terminal plug with two rows of 6 pins. || Digikey || ||
 || DB9 female ribbon connector || $$ || 4 || A female DB9 plug with ribbon cable connector || Digikey || ||
 || 3/8" Standoffs  || $$ || 40 || 3/8" male/female #4-40 brass standoffs for attaching the daughter boards and perf boards to the aluminum sheet || Digikey || ||
 || 1/4" Standoffs || $$ || 10 || 1/4" male/femail #4-40 brass standoffs for attaching the DB9 connectors to the 3/8" standoffs || Digikey || ||
 || #4-40 nuts || $$ || 40 || #4-40 nuts for connecting the standoffs to the aluminum sheet || Digikey || ||
-|| Ribbon cable || ?? || 4 || 9-wire ribbon cable for the DB9 plug.  I split 9-wire ribbons off of a salvaged floppy disk cable || N/A || N/A ||
+|| Ribbon cable || ?? || 4 || 9-wire 0.05" ribbon cable for the DB9 plug.  I split 9-wire ribbons off of a salvaged floppy disk cable || N/A || N/A ||
 || Connecting wire || ?? || || Various lengths of (TODO: get gauge) stranded wire for connecting the through-hole perf board components to the daughter boards and for connecting parts on the perf board.  I used wire salvaged from cables.  || N/A || N/A ||
 || 2"x4" Prototype perf board || $$ || 1 || 0.1" hole spacing prototype perf board with copper on one side. || Radio Shack || ||
 || 2"x6" Prototype perf board || $$ || 2 || 0.1" hole spacing prototype perf board with copper on one side. I used a 4"x6" board and sheared it in half. || Radio Shack || ||
