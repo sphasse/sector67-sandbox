@@ -2,7 +2,9 @@
 
 = Introduction =
 
-A log of the ProjectSheetCake project.
+A build log of the ProjectSheetCake project.
+
+<wiki:toc max_depth="2" />
 
 == 8/11/2011: Initial testing of the integration board ==
 Scott:
