@@ -72,12 +72,11 @@ Integration board parts list
 || 1/4" Standoffs || $$ || 10 || 1/4" male/femail #4-40 brass standoffs for attaching the DB9 connectors to the 3/8" standoffs || Digikey || ||
 || #4-40 nuts || $$ || 40 || #4-40 nuts for connecting the standoffs to the aluminum sheet || Digikey || ||
 || 9-wire ribbon cable || ?? || 4 || 9-wire 0.05" pitch ribbon cable for the DB9 plugs.  Approximately 10" long for the longest run.  I split 9-wire ribbons off of a salvaged floppy disk cable || N/A || N/A ||
-|| Connecting wire || ?? || || Various lengths of (TODO: get gauge) stranded wire for connecting the through-hole perf board components to the daughter boards and for connecting parts on the perf board.  I used wire salvaged from cables.  || N/A || N/A ||
-|| 2"x4" Prototype perf board || $$ || 1 || 0.1" hole spacing prototype perf board with copper on one side. || Radio Shack || ||
-|| 2"x6" Prototype perf board || $$ || 2 || 0.1" hole spacing prototype perf board with copper on one side. I used a 4"x6" board and sheared it in half. || Radio Shack || ||
+|| Connecting wire || ?? || || Various lengths of 22 gauge stranded wire for connecting the through-hole perf board components to the daughter boards and for connecting parts on the perf board.  I used wire salvaged from cables.  || N/A || N/A ||
+|| 2"x4" Prototype perf board || $$ || 4 || 0.1" hole spacing prototype perf board with copper on one side. || Digikey || ||
 || Red LEDs || $$ || 10 || Red light-emitting diodes for on-board indicators || Digikey || ||
 || Green LEDs || $$ || 10 || Green light-emitting diodes for on-board indicators || Digikey || ||
-|| 22k 1/2 watt LED pull-up resistors || $$ || 20 || Pull-up resistors for LEDs on the 24V circuits || Digikey || ||
+|| 2.2k 1/2 watt LED pull-up resistors || $$ || 20 || Pull-up resistors for LEDs on the 24V circuits || Digikey || ||
 
 
 TODO: full schematic diagram here
