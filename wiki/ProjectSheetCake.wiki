@@ -185,3 +185,6 @@ A separate SERVO_RESET will need to be created and managed via the EMC2 software
 =Extending=
 
 ==Integrating additional control capability==
+
+=Build log=
+Check out the SheetCakeBuildLog.
