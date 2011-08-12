@@ -200,8 +200,25 @@ TODO: document what was tried
 
 
 ==Installing EMC2==
+EMC2 is fairly easy to install.  We burned a copy of the live cd:
+
+http://linuxcnc.org/index.php?option=com_content&task=view&id=21&Itemid=4&lang=en
+
+configured the PC's BIOS to boot from the CD first, rebooted and chose the installation option.  There were a few simple choices to be made, the most notable of which were the locale, host name, user name and password, and we chose to have the user automatically logged on at startup.
+
+After the installation process finished successfully, we removed the live CD, reconfigured the BIOS to boot from the hard drive, and restarted to a functional Ubuntu system with EMC2 installed.  This was an astonishingly simple alternative to what I thought might be quite daunting (getting the real-time kernel extensions working, etc.).
+
+After install, there were options to start EMC2, view the documentation or run of several utilities.
 
 ==Configuring EMC2==
+Once EMC2 was installed, we started it via Applications=>CNC->EMC2.  It prompted for a configuration, and we chose "hm2-server -> 5i23" as that matched our configuration.
+
+From there, basically no additional work was needed to have things basically work.  The 7i23, server control daughterboard was hooked up to the first of three 50 pin outputs from the 5i23, and after confirming this is where the configuration expected it by viewing the pinouts via dmesg, we hooked up the encoders and they worked properly the first time.
+
+After that, we hooked up the Z-axis servo amp and it also worked the first time, with intermittent following errors.  We then hooked up the X and Y axes, but the X axis would attempt to move 
+
+In any case, though, EMC2 was basically functional for moving servos and reading encoders out of the box with the appropriate example configuration.  VERY NICE!
+
 
 ==Tuning EMC2==
 
