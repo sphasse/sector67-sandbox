@@ -3,3 +3,28 @@
 = Introduction =
 
 A log of the ProjectSheetCake project.
+
+== 8/11/2011: Initial testing of the integration board ==
+Scott:
+
+I had some time tonight to finally make earnest progress on testing the integration board.  Chris had allocated a PC for EMC2, and I was able to:
+
+  * Added another prototype perf board to the integration board for the LED indicators
+  * Changed one of the standoffs to be plastic as it was hitting a solder bridge.
+  * Install the PCI card (with 50 pin ribbon cables repurposed from SCSI cables with the active terminators removed) into the EMC2 PC.
+  * Boot the PC with an EMC2 live CD and install Ubuntu+EMC2 to the hard drive
+  * Confirm via the Synaptic Package Manager that the hostmot2 packages were already installed
+  * Run EMC2 (Applications -> CNC -> EMC2) and choose a configuration of (hm2-servo -> 5i23).  I chose to create a desktop icon for this install.
+  * Temporarily install the integration board to the mill and hook up the encoder DB9 connectors
+  * Confirm that moving the mill manually was reflected properly in EMC2!!!  This means that the encoder wiring through the DB9 ports to the 7i33 daughter card to the 5i23 PCI card is basically correct.  There are a lot of things that could have gone wrong here, but all three axes appear to work correctly, and I even guessed right on the A/B encoder signals :-).
+  * Chris and I then attempted to move the Z axis servo via EMC2.  I switched the header from the Anilam board to the integration board, and the Z axes moved properly (although not tuned) with manual commands from EMC2.  Note that the estop and servo enable circuits were still being handled by the Anilam board.  Occasionally got following errors on the Z axis, and it is clearly moving further than EMC2 thinks it is moving, but the basics are there.  Great success!!!
+  * Tried the same with X and Y, and had less success.  I moved the X and Y headers to the integration board, and had following errors soon after "machine on" in EMC2 on the X axis without even attempting to move the axis.  The X axis was actually moving when not commanded to.  I'm not sure if this is due to ground differences between the integration board, etc. but that will need to be determined.
+  * There was an error in dmesg about too much jitter, and so I ran the jitter test and indeed the machine did not perform well (8,000,000ns+ jitter).
+
+Things that came up tonight as future to-dos:
+
+  * Get a PC with better real time performance
+  * Get a PS2 mouse so that we can have both PCs working at the same time
+  * Get an ethernet connection provisioned to that corner for the 1100m machine so that we can email files, etc.
+  * Solder up LED indicator board for the integration board.
+  * Try the estop circuit with the integration board
