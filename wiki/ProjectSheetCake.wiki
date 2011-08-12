@@ -85,6 +85,7 @@ TODO: full schematic diagram here
 Since servo motors, unlike steppers, are not able to be directly controlled to move a specific distance via input only, some feedback is necessary in order to be able to accurately position them.  Our servo motors have two types of feedback, an analog velocity, which is fed back to the servo amplifiers directly, and a incremental (quatrature) rotary encoder.  The rotary encoder is read by EMC2 and used to accurately determine how far the motors have moved.  There are several types of rotary encoders, and ours, as is typical on servo motors, are incremental rotary encoders.  You can learn more about these at the following links:
 
 http://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder
+
 http://prototalk.net/forums/showthread.php?t=78
 
 But the basic idea is that there are two encoder signals, A and B, which are enabled 90 degrees out of phase from one another.  These signals pulse high and low as the shaft is rotated, and so accurate sensing and counting of the pulses relative to one another allows you to keep track of how far the shaft has turned and in which direction.  There is a third encoder signal, X, which pulses high once per full rotation of the shaft.  In addition to these three signals, the encoders on our motors require +5V and a ground, so there are a total of 5 wires for each servo motor: A, B, X, +5V, GND.  These wires come from the servo motor into the round connector in the case (documented elsewhere) and from there into a DB9 connector with the following pinout, as looking into the female DB9 connector:
@@ -98,6 +99,8 @@ While the encoder feedback primarily allows for accurate positioning, it does ha
 While the encoders provide information about the shaft turning, they do not specify an absolute distance or angle turned.  In order for EMC2 to be able to accurately position the system, it needs to be able to translate rotary encoder pulses into a linear distance moved.  This depends on both the pitch of the mill lead screws and the number of pluses per turn of the encoders.  In our case we needed to determine this translation experimentally:
 
 TODO: Document we configured EMC2 to know how far a specific pulse moved the motors.
+
+Direct linear encoders are also sometimes used.  These measure the movement of the table itself via pulses, but our mill does not have them.  Linear encoders are helpful in that you can directly measure and compensate for backlash in lead screws, but they are tend to be more complex and are not cheap.
 
 ==Understanding the Anilam 1100 servo enable circuit==
 
