@@ -53,9 +53,7 @@ The base of this board is a piece of (TODO: get gauge) 7"x12" aluminum sheet, wi
 
 On top of this sheet we've attached the Mesa daughter boards, serial connectors and through hole prototype perf boards for securing the connector headers and other components with 3/8" standoffs.
 
-The right hand side of this board primarily handles servo drive I/O, with the encoder input coming from the drives on the DB9 connectors with the signals as shown in the schematic below:
-
-TODO: DB9 encoder schematic here
+The right hand side of this board primarily handles servo drive I/O, with the encoder input coming from the drives on the DB9 connectors with the signals as described in the encoder section below.
 
 There were several special considerations when designing and implementing this board.  
 
@@ -209,6 +207,8 @@ configured the PC's BIOS to boot from the CD first, rebooted and chose the insta
 After the installation process finished successfully, we removed the live CD, reconfigured the BIOS to boot from the hard drive, and restarted to a functional Ubuntu system with EMC2 installed.  This was an astonishingly simple alternative to what I thought might be quite daunting (getting the real-time kernel extensions working, etc.).
 
 After install, there were options to start EMC2, view the documentation or run of several utilities.
+
+One minor Linux customization was to configure the screen saver not to lock the PC, and to have it only come on after 30 minutes.  
 
 ==Configuring EMC2==
 Once EMC2 was installed, we started it via Applications=>CNC->EMC2.  It prompted for a configuration, and we chose "hm2-server -> 5i23" as that matched our configuration.
