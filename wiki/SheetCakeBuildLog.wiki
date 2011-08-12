@@ -11,6 +11,7 @@ I had some time tonight to finally make earnest progress on testing the integrat
 
   * Added another prototype perf board to the integration board for the LED indicators
   * Changed one of the standoffs to be plastic as it was hitting a solder bridge.
+  * Soldered in wires for the servo enable and servo reset output signals and attached those wires to the screw terminals.
   * Install the PCI card (with 50 pin ribbon cables repurposed from SCSI cables with the active terminators removed) into the EMC2 PC.
   * Boot the PC with an EMC2 live CD and install Ubuntu+EMC2 to the hard drive
   * Confirm via the Synaptic Package Manager that the hostmot2 packages were already installed
