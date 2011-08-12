@@ -154,13 +154,13 @@ Y_LIMIT
 
 Z_LIMIT
 
-DEAD_STOP_OK
+ALL_LIMITS_OK
 
 E_STOP_OK
 
 SERVO_RESET_IN
 
-MANUAL
+MANUAL?
 
 Not all of these signals will need to be fed to EMC2.  Some may just be represented with LEDs on the integration board.
  
@@ -178,6 +178,26 @@ The signals from the PC will need to be mapped to pins within EMC2.  Normally, E
 A separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally-open hardware button as well (or even making use of the existing ANILAM console servo reset button), but managing it in software seems to be the most straightforward method of handling this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
 
 =EMC2=
+
+==Choosing and validating a PC==
+Because EMC2 runs using a real time Linux kernel, it has specific hardware requirements.  Most notably, the system needs to be able to respond to low-level requests in a specific (low) amount of time in order for EMC2 to be able to perform critical motion-control hardware functions such as counting encoder pulses and stepping stepper motors.
+
+Because of this, functions such as power-saving and on-board graphics tend to not work well on real-time systems.  EMC2 provides a latency-test tool that can be used to evaluate your system to see if is acceptable for use as an EMC2 system:
+
+http://wiki.linuxcnc.org/emcinfo.pl?Latency-Test
+
+When running this against the default configuration of our candidate PC:
+
+TODO: document PC configuration, manufacturer, BIOS version, etc.
+
+we saw numbers that were out of range for use as an EMC2 host:
+
+{{{TODO: get numbers}}}
+
+We've tried the following:
+TODO: document what was tried
+
+
 
 ==Installing EMC2==
 
