@@ -40,7 +40,9 @@ http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/ba
 
 The original svg source for this image is under revision control in the sector 67 sandbox source repository.
 
-==Understanding the integration board==
+=Understanding the new interface components=
+
+==The integration board==
 The integration board is a custom-made board designed to hold the Mesa daughter boards for interfacing with the existing mill's 0.2" and DB9 plugs providing power, estop, limit, rotary encoder in and servo amp out in the servo amp box. It is designed to be a plug and play replacement for the Anilam S1100 distribution board in the large chassis that holds the servo amps. 
 
 We've taken great pains to design this board such that if we ever wanted to restore the original Anilam functioanlity, that could easily be done.
@@ -81,7 +83,10 @@ Integration board parts list
 
 TODO: full schematic diagram here
 
-==Understanding the servo encoders==
+==The PCI I/O card==
+
+=Understanding the current mill and controller=
+==The servo encoders==
 Since servo motors, unlike steppers, are not able to be directly controlled to move a specific distance via input only, some feedback is necessary in order to be able to accurately position them.  Our servo motors have two types of feedback, an analog velocity, which is fed back to the servo amplifiers directly, and a incremental (quatrature) rotary encoder.  The rotary encoder is read by EMC2 and used to accurately determine how far the motors have moved.  There are several types of rotary encoders, and ours, as is typical on servo motors, are incremental rotary encoders.  You can learn more about these at the following links:
 
 http://en.wikipedia.org/wiki/Rotary_encoder#Incremental_rotary_encoder
@@ -102,7 +107,7 @@ TODO: Document we configured EMC2 to know how far a specific pulse moved the mot
 
 Direct linear encoders are also sometimes used.  These measure the movement of the table itself via pulses, but our mill does not have them.  Linear encoders are helpful in that you can directly measure and compensate for backlash in lead screws, but they are tend to be more complex and are not cheap.
 
-==Understanding the Anilam 1100 servo enable circuit==
+==The servo enable/estop circuit==
 
 The server enable circuit is basically a set of four relays that are used to provide 120VAC to the servo power supply and power to the spindle relay.  Most of the heavy lifting of the servo enable circuit is done on a separate circuit board ("Anilam PC 801") that contains the physical relays and connects to out integration board via an 8 pin header.
 
@@ -175,6 +180,7 @@ Some hardware will be needed to interface the existing servo amp, servo enalble 
 
 TODO: complete documentation of this board and how it is wired.
 
+=EMC2=
 
 ==Installing EMC2==
 
@@ -182,5 +188,6 @@ TODO: complete documentation of this board and how it is wired.
 
 ==Tuning EMC2==
 
+=Extending=
 
 ==Integrating additional control capability==
