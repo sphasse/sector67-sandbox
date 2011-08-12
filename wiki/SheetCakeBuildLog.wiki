@@ -1,6 +1,5 @@
-#The project sheet cake build log
+#summary The project sheet cake build log
 
 = Introduction =
 
 A log of the ProjectSheetCake project.
-
