@@ -68,19 +68,19 @@ TODO: finish parts list, pictures, component layout and schematic.
 
 
 Integration board parts list
-|| *Part* || *Price* || *Quantity* || *Description* || *Vendor* || *Part Number* ||
+|| *Part* || *Price per* || *Quantity* || *Description* || *Vendor* || *Part Number* ||
 || 2x8 0.2" terminal plug || $$ || 2|| A through-hole soldered terminal plug with two rows of 8 pins. || Digikey || ||
 || 2x6 0.2" terminal plug || $$ || 5|| A through-hole soldered terminal plug with two rows of 6 pins. || Digikey || ||
 || DB9 female ribbon connector || $$ || 4 || A female DB9 plug with ribbon cable connector || Digikey || ||
 || 3/8" Standoffs  || $$ || 40 || 3/8" male/female #4-40 brass standoffs for attaching the daughter boards and perf boards to the aluminum sheet || Digikey || ||
-|| 1/4" Standoffs || $$ || 10 || 1/4" male/femail #4-40 brass standoffs for attaching the DB9 connectors to the 3/8" standoffs || Digikey || ||
+|| 1/4" Standoffs || $$ || 10 || 1/4" male/female #4-40 standoffs for attaching the DB9 connectors to the 3/8" standoffs || Digikey || ||
 || #4-40 nuts || $$ || 40 || #4-40 nuts for connecting the standoffs to the aluminum sheet || Digikey || ||
-|| 9-wire ribbon cable || ?? || 4 || 9-wire 0.05" pitch ribbon cable for the DB9 plugs.  Approximately 10" long for the longest run.  I split 9-wire ribbons off of a salvaged floppy disk cable || N/A || N/A ||
-|| Connecting wire || ?? || || Various lengths of 22 gauge stranded wire for connecting the through-hole perf board components to the daughter boards and for connecting parts on the perf board.  I used wire salvaged from cables.  || N/A || N/A ||
-|| 2"x4" Prototype perf board || $$ || 4 || 0.1" hole spacing prototype perf board with copper on one side. || Digikey || ||
-|| Red LEDs || $$ || 10 || Red light-emitting diodes for on-board indicators || Digikey || ||
-|| Green LEDs || $$ || 10 || Green light-emitting diodes for on-board indicators || Digikey || ||
-|| 2.2k 1/2 watt LED pull-up resistors || $$ || 20 || Pull-up resistors for LEDs on the 24V circuits || Digikey || ||
+|| 9-wire ribbon cable || N/A || 4 || 9-wire 0.05" pitch ribbon cable for the DB9 plugs.  Approximately 10" long for the longest run.  I split 9-wire ribbons off of a salvaged floppy disk cable || N/A || N/A ||
+|| Connecting wire || N/A || ~5' || Various lengths of 22 gauge stranded wire for connecting the through-hole perf board components to the daughter boards and for connecting parts on the perf board.  I used wire salvaged from cables.  || N/A || N/A ||
+|| 2"x4" Prototype perf board || $6.26 || 4 || 0.1" hole spacing prototype perf board with copper on one side. || Digikey || V2025-ND ||
+|| Red LEDs || $0.48 || 10 || Red light-emitting diodes for on-board indicators || Digikey || 511-1256-1-ND ||
+|| Green LEDs || $0.52 || 10 || Green light-emitting diodes for on-board indicators || Digikey || 511-1254-1-ND ||
+|| 2.2k 1/2 watt LED pull-up resistors || $0.093 || 20 || Pull-up resistors for LEDs on the 24V circuits || Digikey || 2.2KH-ND ||
 
 
 TODO: full schematic diagram here
