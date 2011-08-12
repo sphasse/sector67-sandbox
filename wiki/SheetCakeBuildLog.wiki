@@ -24,7 +24,7 @@ I had some time tonight to finally make earnest progress on testing the integrat
 Things that came up tonight as future to-dos:
 
   * Get a PC with better real time performance
-  * Get a PS2 mouse so that we can have both PCs working at the same time
-  * Get an ethernet connection provisioned to that corner for the 1100m machine so that we can email files, etc.
+  * Get a PS2 mouse so that we can have both PCs working at the same time using the 2-PC KVM switch.
+  * Get an Ethernet connection provisioned to that corner for the 1100m machine so that we can email files, etc.
   * Solder up LED indicator board for the integration board.
   * Try the estop circuit with the integration board
