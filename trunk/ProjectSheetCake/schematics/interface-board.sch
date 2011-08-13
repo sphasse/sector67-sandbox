@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/12/2011 11:07:03 PM
+EESchema Schematic File Version 2  date 8/12/2011 11:33:44 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -335,7 +335,6 @@ Wire Wire Line
 	4500 6850 1800 6850
 Wire Wire Line
 	1800 5400 2250 5400
-Connection ~ 2050 5400
 Wire Wire Line
 	4400 5950 4400 6100
 Wire Wire Line
@@ -538,7 +537,7 @@ Z Encoder A
 Text Label 9650 3200 0    60   ~ 0
 Z Encoder GND
 Text Label 9650 3100 0    60   ~ 0
-Z Encoder X
+Z Encoder INDEX
 Text Label 9650 3000 0    60   ~ 0
 Z Encoder +5V
 Text Label 9650 2900 0    60   ~ 0
@@ -548,7 +547,7 @@ A Encoder B
 Text Label 11050 1650 0    60   ~ 0
 A Encoder +5V
 Text Label 11050 1750 0    60   ~ 0
-A Encoder X
+A Encoder INDEX
 Text Label 11050 1850 0    60   ~ 0
 A Encoder GND
 Text Label 11050 1950 0    60   ~ 0
@@ -558,7 +557,7 @@ Y Encoder B
 Text Label 14600 2000 0    60   ~ 0
 Y Encoder +5V
 Text Label 14600 1900 0    60   ~ 0
-Y Encoder X
+Y Encoder INDEX
 Text Label 14600 1800 0    60   ~ 0
 Y Encoder GND
 Text Label 14600 1700 0    60   ~ 0
@@ -568,7 +567,7 @@ X Encoder B
 Text Label 14400 3700 0    60   ~ 0
 X Encoder +5V
 Text Label 14400 3600 0    60   ~ 0
-X Encoder X
+X Encoder INDEX
 Text Label 14400 3500 0    60   ~ 0
 X Encoder GND
 Text Label 14400 3400 0    60   ~ 0
@@ -863,28 +862,28 @@ $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F5325
-P 6350 6100
-F 0 "P?" V 6300 6100 60  0000 C CNN
-F 1 "CONN_8" V 6400 6100 60  0000 C CNN
-	1    6350 6100
+P 6700 6100
+F 0 "P?" V 6650 6100 60  0000 C CNN
+F 1 "CONN_8" V 6750 6100 60  0000 C CNN
+	1    6700 6100
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F5321
-P 6350 5300
-F 0 "P?" V 6300 5300 60  0000 C CNN
-F 1 "CONN_8" V 6400 5300 60  0000 C CNN
-	1    6350 5300
+P 6700 5300
+F 0 "P?" V 6650 5300 60  0000 C CNN
+F 1 "CONN_8" V 6750 5300 60  0000 C CNN
+	1    6700 5300
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F531C
-P 6350 4500
-F 0 "P?" V 6300 4500 60  0000 C CNN
-F 1 "CONN_8" V 6400 4500 60  0000 C CNN
-	1    6350 4500
+P 6700 4500
+F 0 "P?" V 6650 4500 60  0000 C CNN
+F 1 "CONN_8" V 6750 4500 60  0000 C CNN
+	1    6700 4500
 	1    0    0    -1  
 $EndComp
 $Comp
