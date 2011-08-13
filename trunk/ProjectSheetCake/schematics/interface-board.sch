@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/12/2011 11:33:44 PM
+EESchema Schematic File Version 2  date 8/12/2011 11:43:42 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -43,12 +43,43 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 11250 3900 0    60   ~ 0
-Servo amp Z_SHIELD
-Text Label 11250 3800 0    60   ~ 0
-Servo amp Z+
-Text Label 11250 3700 0    60   ~ 0
-Servo amp Z_GND
+Wire Wire Line
+	2250 4500 2100 4500
+Wire Wire Line
+	2100 4500 2100 900 
+Wire Wire Line
+	2100 900  8200 900 
+Wire Wire Line
+	8200 900  8200 1400
+Connection ~ 3900 5900
+Wire Wire Line
+	3900 3400 6350 3400
+Wire Wire Line
+	7400 1400 7400 1100
+Wire Wire Line
+	7400 1100 6250 1100
+Wire Wire Line
+	6250 1100 6250 3300
+Wire Wire Line
+	6250 3300 3800 3300
+Wire Wire Line
+	3800 3300 3800 6300
+Wire Wire Line
+	3800 6300 3150 6300
+Wire Wire Line
+	7050 3600 7050 2300
+Wire Wire Line
+	4100 5700 4100 3600
+Wire Wire Line
+	6700 1400 6700 1300
+Wire Wire Line
+	6700 1300 6450 1300
+Wire Wire Line
+	6450 1300 6450 3500
+Wire Wire Line
+	4000 5500 4000 3500
+Wire Wire Line
+	4000 5500 3300 5500
 Wire Wire Line
 	9950 3900 9950 4500
 Wire Wire Line
@@ -185,13 +216,10 @@ Connection ~ 3400 6500
 Connection ~ 3400 5400
 Connection ~ 3300 5500
 Connection ~ 3300 5800
-Connection ~ 3300 5900
 Wire Wire Line
 	5000 5850 4200 5850
 Wire Wire Line
 	4200 5850 4200 5900
-Wire Wire Line
-	4200 5900 3300 5900
 Connection ~ 1950 5400
 Wire Wire Line
 	1950 5400 1950 6750
@@ -202,8 +230,6 @@ Wire Wire Line
 Wire Wire Line
 	3600 6200 3150 6200
 Wire Wire Line
-	3300 6650 2050 6650
-Wire Wire Line
 	3150 6100 4400 6100
 Wire Wire Line
 	5000 5950 4400 5950
@@ -212,7 +238,7 @@ Wire Wire Line
 Wire Wire Line
 	3299 5500 3149 5500
 Wire Wire Line
-	3300 5800 3300 5500
+	3300 5500 3300 5800
 Wire Wire Line
 	3149 5800 3299 5800
 Wire Wire Line
@@ -318,10 +344,6 @@ Wire Wire Line
 Wire Wire Line
 	2150 5700 2250 5700
 Wire Wire Line
-	3299 5900 3149 5900
-Wire Wire Line
-	3300 6650 3300 5900
-Wire Wire Line
 	3399 5400 3149 5400
 Wire Wire Line
 	3400 6500 3400 5400
@@ -334,11 +356,11 @@ Wire Wire Line
 Wire Wire Line
 	4500 6850 1800 6850
 Wire Wire Line
-	1800 5400 2250 5400
+	2250 5400 1800 5400
 Wire Wire Line
 	4400 5950 4400 6100
 Wire Wire Line
-	2050 6650 2050 6500
+	2050 6500 2050 6650
 Wire Wire Line
 	3150 6000 4300 6000
 Wire Wire Line
@@ -349,10 +371,10 @@ Wire Wire Line
 	4150 1400 4150 1300
 Connection ~ 4150 1300
 Wire Wire Line
-	4800 1400 4800 1300
+	4800 1300 4800 1400
 Connection ~ 4800 1300
 Wire Wire Line
-	5500 1400 5500 1300
+	5500 1300 5500 1400
 Connection ~ 5500 1300
 Wire Wire Line
 	3700 1300 3700 6400
@@ -520,6 +542,45 @@ Wire Wire Line
 	11950 6200 11950 4500
 Wire Wire Line
 	9850 3800 9850 4400
+Wire Wire Line
+	6700 3600 6700 2300
+Wire Wire Line
+	4100 5700 3150 5700
+Wire Wire Line
+	7400 2300 7400 3600
+Wire Wire Line
+	4000 3500 6450 3500
+Wire Wire Line
+	7400 3600 4100 3600
+Connection ~ 7050 3600
+Connection ~ 6700 3600
+Wire Wire Line
+	3900 3400 3900 6650
+Wire Wire Line
+	6350 3400 6350 1200
+Wire Wire Line
+	6350 1200 7050 1200
+Wire Wire Line
+	7050 1200 7050 1400
+Connection ~ 3150 5900
+Wire Wire Line
+	4200 5900 3150 5900
+Wire Wire Line
+	3900 6650 2050 6650
+Wire Wire Line
+	2250 4400 2200 4400
+Wire Wire Line
+	2200 4400 2200 3750
+Wire Wire Line
+	2200 3750 8200 3750
+Wire Wire Line
+	8200 3750 8200 2300
+Text Label 11250 3900 0    60   ~ 0
+Servo amp Z_SHIELD
+Text Label 11250 3800 0    60   ~ 0
+Servo amp Z+
+Text Label 11250 3700 0    60   ~ 0
+Servo amp Z_GND
 Text Label 11150 4500 0    60   ~ 0
 Servo amp A_SHIELD
 Text Label 11150 4400 0    60   ~ 0
@@ -583,28 +644,28 @@ Text Label 4250 1300 0    60   ~ 0
 $Comp
 L R 2.2K
 U 1 1 4E45E9E2
-P 6500 2050
-F 0 "2.2K" V 6580 2050 50  0000 C CNN
-F 1 "R" V 6500 2050 50  0000 C CNN
-	1    6500 2050
+P 6700 2050
+F 0 "2.2K" V 6780 2050 50  0000 C CNN
+F 1 "R" V 6700 2050 50  0000 C CNN
+	1    6700 2050
 	1    0    0    -1  
 $EndComp
 $Comp
 L R 2.2K
 U 1 1 4E45E9E1
-P 6850 2050
-F 0 "2.2K" V 6930 2050 50  0000 C CNN
-F 1 "R" V 6850 2050 50  0000 C CNN
-	1    6850 2050
+P 7050 2050
+F 0 "2.2K" V 7130 2050 50  0000 C CNN
+F 1 "R" V 7050 2050 50  0000 C CNN
+	1    7050 2050
 	1    0    0    -1  
 $EndComp
 $Comp
 L R 2.2K
 U 1 1 4E45E9E0
-P 7200 2050
-F 0 "2.2K" V 7280 2050 50  0000 C CNN
-F 1 "R" V 7200 2050 50  0000 C CNN
-	1    7200 2050
+P 7400 2050
+F 0 "2.2K" V 7480 2050 50  0000 C CNN
+F 1 "R" V 7400 2050 50  0000 C CNN
+	1    7400 2050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -646,46 +707,46 @@ $EndComp
 $Comp
 L R 330
 U 1 1 4E45E288
-P 7850 2050
-F 0 "330" V 7930 2050 50  0000 C CNN
-F 1 "R" V 7850 2050 50  0000 C CNN
-	1    7850 2050
+P 8200 2050
+F 0 "330" V 8280 2050 50  0000 C CNN
+F 1 "R" V 8200 2050 50  0000 C CNN
+	1    8200 2050
 	1    0    0    -1  
 $EndComp
 $Comp
 L LED 5V_OK
 U 1 1 4E45E287
-P 7850 1600
-F 0 "5V_OK" H 7850 1700 50  0000 C CNN
-F 1 "LED" H 7850 1500 50  0000 C CNN
-	1    7850 1600
+P 8200 1600
+F 0 "5V_OK" H 8200 1700 50  0000 C CNN
+F 1 "LED" H 8200 1500 50  0000 C CNN
+	1    8200 1600
 	0    1    1    0   
 $EndComp
 $Comp
 L LED ESTOP_OK
 U 1 1 4E45E280
-P 6500 1600
-F 0 "ESTOP_OK" H 6500 1700 50  0000 C CNN
-F 1 "LED" H 6500 1500 50  0000 C CNN
-	1    6500 1600
+P 6700 1600
+F 0 "ESTOP_OK" H 6700 1700 50  0000 C CNN
+F 1 "LED" H 6700 1500 50  0000 C CNN
+	1    6700 1600
 	0    1    1    0   
 $EndComp
 $Comp
 L LED SERVO_ENABLED
 U 1 1 4E45E27E
-P 6850 1600
-F 0 "SERVO_ENABLED" H 6850 1700 50  0000 C CNN
-F 1 "LED" H 6850 1500 50  0000 C CNN
-	1    6850 1600
+P 7050 1600
+F 0 "SERVO_ENABLED" H 7050 1700 50  0000 C CNN
+F 1 "LED" H 7050 1500 50  0000 C CNN
+	1    7050 1600
 	0    1    1    0   
 $EndComp
 $Comp
 L LED SERVO_OFF
 U 1 1 4E45E27D
-P 7200 1600
-F 0 "SERVO_OFF" H 7200 1700 50  0000 C CNN
-F 1 "LED" H 7200 1500 50  0000 C CNN
-	1    7200 1600
+P 7400 1600
+F 0 "SERVO_OFF" H 7400 1700 50  0000 C CNN
+F 1 "LED" H 7400 1500 50  0000 C CNN
+	1    7400 1600
 	0    1    1    0   
 $EndComp
 $Comp
