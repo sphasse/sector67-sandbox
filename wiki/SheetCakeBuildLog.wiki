@@ -44,5 +44,4 @@ Good progress made this evening:
   * I did my first testing with the entire board (motion and servo enable sides) hooked up.  Anilam complained about not seeing the board, but I was able to get the servos enabled by shorting the servo enable OUT1+ to OUT1- and temporarily shorting the servo reset (OUT3+ to OUT3-) so the integration board circuits themselves seem to be functioning well, I just need to fix:
   * I cannot yet get I/O to work properly.   I'm not sure at what level I'm having a problem; cable, HAL, etc.  I need to learn more about this.
   * The second critical problem I continue to have is following error when the servos should be still.  When I enabled the servos manually by shorting pins, both the X and Z axis appeared (based on the EMC2 display) to be moving tiny fractions of an inch basically continuously.  I'm not sure if this is an encoder or control signal error, some sort of servo tuning needed or some software tuning/compensation, but I need to understand that better as well.
-* I should switch to powering the EMC2 server from the same outlet as the mill so that I can rule out ground difference problems.
-
+  * TODO: I should switch to powering the EMC2 server from the same outlet as the mill so that I can rule out ground difference problems.
