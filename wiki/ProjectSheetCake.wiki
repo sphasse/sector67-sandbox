@@ -193,18 +193,14 @@ Memory: TODO: get
 etc.
 }}}
 
-When running this against the default configuration of our candidate PC, the max jitter numbers where over 8,000,000, which would render it unusable for EMC2.  We reconfigured the bios settings for power management (BIOS -> Power -> Energy Saver -> Mode = Disabled) and (BIOS -> Power -> Energy Saver -> Fan Speed = High ).  I'm not sure 
+When running this against the default configuration of our candidate PC, the max jitter numbers where over 8,000,000, which would render it unusable for EMC2.  After reviewing the EMC2 documentation on jitter, we reconfigured the BIOS settings for power management (BIOS -> Power -> Energy Saver -> Mode = Disabled) and (BIOS -> Power -> Energy Saver -> Fan Speed = High ).  I'm not sure that the fan speed setting was strictly necessary, so this should be tested, as in a machine shop environment running the fan only when needed would keep things cleaner.
 
+After changing those settings, we saw much better jitter numbers:
 
-TODO: document PC configuration, manufacturer, BIOS version, etc.
+||Max Interval (1.0 ms thread)||Max Jitter(ns) 1.0 ms thread||Max Interval (25 us thread)||Max Jitter (25 us thread)||
+|| 6,799 || TODO: document || || 19,099 ||
 
-we saw numbers that were out of range for use as an EMC2 host:
-
-{{{TODO: get numbers}}}
-
-We've tried the following:
-TODO: document what was tried
-
+Which basically means this server will be fine for EMC2, both in servo and stepper mode.
 
 
 ==Installing EMC2==
