@@ -32,7 +32,7 @@ Things that came up tonight as future to-dos:
   * Solder up LED indicator board for the integration board.
   * Try the estop circuit with the integration board
 
-== 8/14/2011: integration board LED indicators ==
+== 8/14/2011: Integration board LED indicators ==
 Laura, the boys and I worked on the integration board a bit this evening, soldering up an LED indicator board which will give a visual indication of limit state, estop state, etc.  Luke did a great job soldering and Levi did a great job placing components on the proto board.  Luke does a cleaner job of soldering than I do, and I got to show him how to make a solder bridge on a perforated proto board.
 
 == 8/14/2011: Additional testing of the integration board, EMC2 configuration ==
@@ -47,3 +47,9 @@ Good progress made this evening:
   * TODO: I should switch to powering the EMC2 server from the same outlet as the mill so that I can rule out ground difference problems.
   * Discovered that the HAL manual has decent documentation of halmeter and halscope, so I'll dig into those the next change I get, as they might be useful do debug both the I/O not working issue and the following error when the servos are enabled.
   * One idea I had was to configure the system with 4 servos and 2 steppers, so that eventually if we use some steppers we won't be stepping on the same I/O pins that would be used by the stepper configuration.  This might mean changing the current I/O assignments to the integration board, but in the long run would support running steppers more easily.
+
+Seems like the next tasks with respect to integration of the "custom" Anilam servo reset functionality are:
+
+  * Generate a pyvcp custom panel for servo reset at least
+  * And the corresponding HAL configuration for a servo reset pin
+  * Integrate it into the axis GUI
