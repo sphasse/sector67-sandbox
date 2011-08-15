@@ -40,7 +40,7 @@ This diagram shows the basic high-level architecture of the system:
 
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/basic-architecture.png
 
-The original svg source for this image is under revision control in the sector 67 sandbox source repository.
+_The original svg source for this image is under revision control in the sector 67 sandbox source repository._
 
 =Understanding the new interface components=
 
@@ -57,9 +57,10 @@ The right hand side of this board primarily handles servo drive I/O, with the en
 
 There were several special considerations when designing and implementing this board.  
 
-  * Since we wanted to make the board plug-compatible with the exsiting mill, we needed to source 0.2" two-layer header connectors.  The appropriate headers are listed in the parts list
-  * Most serial connectors are designed as through-hold board components or cable ends.  In addition, prototype perf boards for serial connectors are somewhat hard to come by.  So, in order to be able to attach the serial connectors securely to the aluminum sheet, we used female DB9 ribbon connectors and used standoffs to attach the DB9 connectors directly to the board.  We then stripped and tinned the individual wires from the ribbon cable so that they could be directly terminated in the screw terminals of the 7i33TA servo controller card.
-  * One of the standoffs was in electrical contact with one of the solder traces on the perf board, so a plastic standoff was improvised from a piece of plastic tube.
+  * Since we wanted to make the board plug-compatible with the existing mill, we needed to source 0.2" two-layer header connectors.  The appropriate headers are listed in the parts list
+  * Most serial connectors are designed as through-hold board components or cable ends.  In addition, prototype breakout boards for serial connectors are somewhat hard to come by.  So, in order to be able to attach the serial connectors securely to the aluminum sheet, we used female DB9 ribbon connectors and used standoffs to attach the DB9 connectors directly to the board.  We then stripped and tinned the individual wires from the ribbon cable so that they could be directly terminated in the screw terminals of the 7i33TA servo controller card.
+  * Some of the standoffs were in electrical contact with the solder traces on the perf board, so a plastics standoff were used.  In the next iteration of this project, I would use a slightly bigger perf board to avoid this problem.
+  * There are some electrical considerations for this board.  Servo amps can be electrically noisy, and so signals should be shielded where possible.  We should also avoid ground loops http://en.wikipedia.org/wiki/Ground_loop_%28electricity%29 and make sure things are generally grounded well.  We should make sure the PC is on the same AC supply as the servo amps, to avoid ground differentials across the 50 pin ribbon cables.
 
 
 TODO: finish parts list, pictures, component layout and schematic. 
@@ -84,7 +85,25 @@ Integration board parts list
 
 TODO: full schematic diagram here
 
+_This schematic was generated via kicad from the schematic/project files under revision control in the S67 code sandbox._
+
 ==The PCI I/O card==
+The PCI I/O card was fairly easy to install.  It installs as a typical full-height PCI card, and the ribbon cables are run out the back in a slot left open for this purpose in the end of the card.  The card has jumper-settable supply voltage for the daughter cards, which should already be set at +5V.  The other voltage settings were already at +3.3V, so out of the box this card was configured correctly for my purposes.
+
+After installing EMC2 via the live CD, I verified that the hostmot2 packages were already installed, so there was no additional work there, and looking through dmesg output, the board was identified by the driver without issue.
+
+== The 50 pin ribbon connectors ==
+I originally ordered 1' 50-pin ribbon connectors from Mesa, but realized quickly these would be much too short for this application.  Luckily, we had some longer 50 pin cables sitting around S67.  Old SCSI cables with any terminators removed seem to work fine for testing purposes at least.
+
+Once we get things fully working, I want to find the distance from the PC to the daughter cards and get/make appropriate twisted pair ribbon cables:
+
+|| *Part* || *Price per* || *Quantity* || *Description* || *Vendor* || *Part Number* ||
+|| CABLE 50 COND 5FT TWISTED PAIR || $18.20 || 2 || 5' 50 conductor 0.05" pitch twisted pair ribbon cable for the card connections || Digikey || MC50F-5-ND ||
+|| 50 pin cable ends || $2.86 || 4 || CONN SOCKET 50POS W/ STRAIN RLF || Digikey ||OR987-ND ||
+
+TODO: finish this once we settle on where the PC will live relative to the controller.
+
+Twisted pair cables are somewhat better in that they reduce the exposure to RF interference.
 
 =Understanding the current mill and controller=
 ==The servo encoders==
