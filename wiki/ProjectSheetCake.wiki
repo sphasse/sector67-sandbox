@@ -184,7 +184,17 @@ Because of this, functions such as power-saving and on-board graphics tend to no
 
 http://wiki.linuxcnc.org/emcinfo.pl?Latency-Test
 
-When running this against the default configuration of our candidate PC:
+Our EMC2 server machine is a:
+
+{{{
+Compaq W6000
+Bios and version: TODO: get
+Memory: TODO: get
+etc.
+}}}
+
+When running this against the default configuration of our candidate PC, the max jitter numbers where over 8,000,000, which would render it unusable for EMC2.  We reconfigured the bios settings for power management (BIOS -> Power -> Energy Saver -> Mode = Disabled) and (BIOS -> Power -> Energy Saver -> Fan Speed = High ).  I'm not sure 
+
 
 TODO: document PC configuration, manufacturer, BIOS version, etc.
 
