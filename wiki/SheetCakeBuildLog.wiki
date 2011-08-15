@@ -31,3 +31,18 @@ Things that came up tonight as future to-dos:
   * Get an Ethernet connection provisioned to that corner for the 1100m machine so that we can email files, etc.
   * Solder up LED indicator board for the integration board.
   * Try the estop circuit with the integration board
+
+== 8/14/2011: integration board LED indicators
+Laura, the boys and I worked on the integration board a bit this evening, soldering up an LED indicator board which will give a visual indication of limit state, estop state, etc.  Luke did a great job soldering and Levi did a great job placing components on the proto board.
+
+== 8/14/2011: Additional testing of the integration board, EMC2 configuration ==
+Good progress made this evening:
+  * The integration board hardware is nearly in a complete state.  The LED indicators now fully work
+  * I changed the power management settings on the Compaq W6000 PC, and that had a major positive impact on the jitter results, going from 8,000,000+ to < 20,000.  This is great news as it moves the PC from unusable for EMC2 whatsoever, to working very well for both servo and stepper configurations.
+  * I used pncconf for the first time and have found this to be a very helpful tool.  The X and Y were switched relative to what I would expect when configuring the axes, as were A and Z.  Other than that (and pushing through setting bogus values for tuning), it generated a working config for the servo controllers (but not IO yet).
+  * The servo enable LED was not functioning correctly, and I figured out why.  The input of the relay I was using to indicate servo enabled was at 24V and I was expecting it to be ground until it was energized.  I needed to switch that LED to have +24v supplied from the rail and to get ground when energized.  This LED then worked properly
+  * I did my first testing with the entire board (motion and servo enable sides) hooked up.  Anilam complained about not seeing the board, but I was able to get the servos enabled by shorting the servo enable OUT1+ to OUT1- and temporarily shorting the servo reset (OUT3+ to OUT3-) so the integration board circuits themselves seem to be functioning well, I just need to fix:
+  * I cannot yet get I/O to work properly.   I'm not sure at what level I'm having a problem; cable, HAL, etc.  I need to learn more about this.
+  * The second critical problem I continue to have is following error when the servos should be still.  When I enabled the servos manually by shorting pins, both the X and Z axis appeared (based on the EMC2 display) to be moving tiny fractions of an inch basically continuously.  I'm not sure if this is an encoder or control signal error, some sort of servo tuning needed or some software tuning/compensation, but I need to understand that better as well.
+* I should switch to powering the EMC2 server from the same outlet as the mill so that I can rule out ground difference problems.
+
