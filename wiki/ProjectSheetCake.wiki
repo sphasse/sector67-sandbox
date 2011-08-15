@@ -198,7 +198,7 @@ When running this against the default configuration of our candidate PC, the max
 After changing those settings, we saw much better jitter numbers:
 
 ||Max Interval (1.0 ms thread)||Max Jitter(ns) 1.0 ms thread||Max Interval (25 us thread)||Max Jitter (25 us thread)||
-|| 6,799 || TODO: document || || 19,099 ||
+|| TODO: document || 6,799 || TODO: document || 19,099 ||
 
 Which basically means this server will be fine for EMC2, both in servo and stepper mode.
 
