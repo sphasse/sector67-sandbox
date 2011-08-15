@@ -32,8 +32,8 @@ Things that came up tonight as future to-dos:
   * Solder up LED indicator board for the integration board.
   * Try the estop circuit with the integration board
 
-== 8/14/2011: integration board LED indicators
-Laura, the boys and I worked on the integration board a bit this evening, soldering up an LED indicator board which will give a visual indication of limit state, estop state, etc.  Luke did a great job soldering and Levi did a great job placing components on the proto board.
+== 8/14/2011: integration board LED indicators ==
+Laura, the boys and I worked on the integration board a bit this evening, soldering up an LED indicator board which will give a visual indication of limit state, estop state, etc.  Luke did a great job soldering and Levi did a great job placing components on the proto board.  Luke does a cleaner job of soldering than I do, and I got to show him how to make a solder bridge on a perforated proto board.
 
 == 8/14/2011: Additional testing of the integration board, EMC2 configuration ==
 Good progress made this evening:
