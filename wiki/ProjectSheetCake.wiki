@@ -209,6 +209,7 @@ Our EMC2 server machine is a:
 Compaq W6000
 Bios and version: TODO: get
 Memory: TODO: get
+Video card: TODO: get
 etc.
 }}}
 
