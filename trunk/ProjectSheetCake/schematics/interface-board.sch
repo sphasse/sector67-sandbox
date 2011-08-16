@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/15/2011 12:07:04 AM
+EESchema Schematic File Version 2  date 8/15/2011 11:11:12 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "15 aug 2011"
+Date "16 aug 2011"
 Rev ""
 Comp ""
 Comment1 ""
@@ -44,15 +44,24 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Notes Line
-	4450 3600 4450 7050
+	11100 7050 8100 7050
 Wire Notes Line
-	7350 3600 4450 3600
+	11100 3600 8100 3600
+Wire Wire Line
+	8500 700  1700 700 
+Wire Notes Line
+	4400 3600 7350 3600
+Wire Notes Line
+	4400 3600 4400 7050
+Wire Wire Line
+	4850 5950 4100 5950
+Connection ~ 4000 5750
+Wire Wire Line
+	4000 5750 4850 5750
+Wire Wire Line
+	2850 5850 4850 5850
 Wire Notes Line
 	7350 3600 7350 7050
-Wire Notes Line
-	7800 3600 7800 7050
-Wire Notes Line
-	7800 3600 11100 3600
 Wire Wire Line
 	6750 3350 4000 3350
 Connection ~ 3600 5850
@@ -74,20 +83,16 @@ Wire Wire Line
 Wire Wire Line
 	600  6900 6800 6900
 Wire Wire Line
-	8100 4050 8100 3900
+	8300 4050 8300 3900
 Wire Wire Line
 	1900 3800 1900 4350
 Wire Wire Line
 	7900 3800 7900 2250
 Connection ~ 1900 3800
 Wire Wire Line
-	8100 3900 1900 3900
-Wire Wire Line
 	1900 4350 1950 4350
 Wire Wire Line
 	3600 6600 1750 6600
-Wire Wire Line
-	2850 5850 3900 5850
 Connection ~ 2850 5850
 Wire Wire Line
 	6750 1350 6750 1150
@@ -130,8 +135,6 @@ Wire Wire Line
 	11000 5300 11000 1950
 Wire Wire Line
 	11000 1950 12500 1950
-Wire Wire Line
-	12500 1950 12500 1550
 Wire Wire Line
 	10500 5000 10600 5000
 Wire Wire Line
@@ -277,21 +280,13 @@ Connection ~ 3850 1250
 Wire Wire Line
 	3850 1350 3850 1250
 Wire Wire Line
-	4000 5700 4700 5700
-Wire Wire Line
 	2850 5950 4000 5950
 Wire Wire Line
 	1750 6600 1750 6450
 Wire Wire Line
-	4100 5900 4100 6050
-Wire Wire Line
 	1950 5350 1500 5350
 Wire Wire Line
 	1500 6800 4200 6800
-Wire Wire Line
-	4200 6800 4200 6000
-Wire Wire Line
-	4200 6000 4700 6000
 Wire Wire Line
 	2849 6450 3099 6450
 Wire Wire Line
@@ -409,9 +404,7 @@ Wire Wire Line
 Wire Wire Line
 	3400 1250 5550 1250
 Wire Wire Line
-	4100 5900 4700 5900
-Wire Wire Line
-	4100 6050 2850 6050
+	2850 6050 4100 6050
 Wire Wire Line
 	2850 6150 3300 6150
 Wire Wire Line
@@ -421,10 +414,6 @@ Wire Wire Line
 Wire Wire Line
 	1650 6700 1650 5350
 Connection ~ 1650 5350
-Wire Wire Line
-	3900 5850 3900 5800
-Wire Wire Line
-	3900 5800 4700 5800
 Connection ~ 3000 5750
 Connection ~ 3000 5450
 Connection ~ 3100 5350
@@ -592,9 +581,7 @@ Connection ~ 1900 3900
 Wire Wire Line
 	7150 4000 7150 6900
 Wire Wire Line
-	8300 4050 8300 700 
-Wire Wire Line
-	8300 700  1700 700 
+	8500 700  8500 4050
 Wire Wire Line
 	1700 700  1700 4450
 Connection ~ 1700 4450
@@ -608,13 +595,22 @@ Wire Wire Line
 Connection ~ 5550 1250
 Wire Wire Line
 	4000 5950 4000 3350
-Connection ~ 4000 5700
-Wire Notes Line
-	7350 7050 4450 7050
 Wire Notes Line
 	11100 3600 11100 7050
+Wire Wire Line
+	12500 1950 12500 1500
+Wire Wire Line
+	4850 6050 4200 6050
+Wire Wire Line
+	4200 6050 4200 6800
+Wire Wire Line
+	4100 6050 4100 5950
 Wire Notes Line
-	11100 7050 7800 7050
+	7350 7050 4400 7050
+Wire Wire Line
+	8300 3900 1900 3900
+Wire Notes Line
+	8100 3600 8100 7050
 $Comp
 L CONN_2 P?
 U 1 1 4E460210
@@ -627,10 +623,10 @@ $EndComp
 $Comp
 L CONN_2 P?
 U 1 1 4E4601E7
-P 8200 4400
-F 0 "P?" V 8150 4400 40  0000 C CNN
-F 1 "CONN_2" V 8250 4400 40  0000 C CNN
-	1    8200 4400
+P 8400 4400
+F 0 "P?" V 8350 4400 40  0000 C CNN
+F 1 "CONN_2" V 8450 4400 40  0000 C CNN
+	1    8400 4400
 	0    1    1    0   
 $EndComp
 Text Label 4400 850  0    60   ~ 0
@@ -983,55 +979,55 @@ $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F5325
-P 6400 6050
-F 0 "P?" V 6350 6050 60  0000 C CNN
-F 1 "CONN_8" V 6450 6050 60  0000 C CNN
-	1    6400 6050
+P 6550 6100
+F 0 "P?" V 6500 6100 60  0000 C CNN
+F 1 "CONN_8" V 6600 6100 60  0000 C CNN
+	1    6550 6100
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F5321
-P 6400 5250
-F 0 "P?" V 6350 5250 60  0000 C CNN
-F 1 "CONN_8" V 6450 5250 60  0000 C CNN
-	1    6400 5250
+P 6550 5300
+F 0 "P?" V 6500 5300 60  0000 C CNN
+F 1 "CONN_8" V 6600 5300 60  0000 C CNN
+	1    6550 5300
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F531C
-P 6400 4450
-F 0 "P?" V 6350 4450 60  0000 C CNN
-F 1 "CONN_8" V 6450 4450 60  0000 C CNN
-	1    6400 4450
+P 6550 4500
+F 0 "P?" V 6500 4500 60  0000 C CNN
+F 1 "CONN_8" V 6600 4500 60  0000 C CNN
+	1    6550 4500
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F5317
-P 5050 6050
-F 0 "P?" V 5000 6050 60  0000 C CNN
-F 1 "CONN_8" V 5100 6050 60  0000 C CNN
-	1    5050 6050
+P 5200 6100
+F 0 "P?" V 5150 6100 60  0000 C CNN
+F 1 "CONN_8" V 5250 6100 60  0000 C CNN
+	1    5200 6100
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F5313
-P 5050 5250
-F 0 "P?" V 5000 5250 60  0000 C CNN
-F 1 "CONN_8" V 5100 5250 60  0000 C CNN
-	1    5050 5250
+P 5200 5300
+F 0 "P?" V 5150 5300 60  0000 C CNN
+F 1 "CONN_8" V 5250 5300 60  0000 C CNN
+	1    5200 5300
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_8 P?
 U 1 1 4E3F530D
-P 5050 4450
-F 0 "P?" V 5000 4450 60  0000 C CNN
-F 1 "CONN_8" V 5100 4450 60  0000 C CNN
-	1    5050 4450
+P 5200 4500
+F 0 "P?" V 5150 4500 60  0000 C CNN
+F 1 "CONN_8" V 5250 4500 60  0000 C CNN
+	1    5200 4500
 	1    0    0    -1  
 $EndComp
 $Comp
