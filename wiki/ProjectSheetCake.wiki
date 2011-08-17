@@ -88,10 +88,7 @@ Integration board parts list
 || Green LEDs || $0.52 || 10 || Green light-emitting diodes for on-board indicators || Digikey || 511-1254-1-ND ||
 || 2.2k 1/2 watt LED pull-up resistors || $0.093 || 20 || Pull-up resistors for LEDs on the 24V circuits || Digikey || 2.2KH-ND ||
 
-
-TODO: full schematic diagram here
-
-_This schematic was generated via kicad from the schematic/project files under revision control in the S67 code sandbox._
+_TODO: picture of the board here_
 
 ==The PCI I/O card==
 The PCI I/O card was fairly easy to install.  It installs as a typical full-height PCI card, and the ribbon cables are run out the back in a slot left open for this purpose in the end of the card.  The card has jumper-settable supply voltage for the daughter cards, which should already be set at +5V.  The other voltage settings were already at +3.3V, so out of the box this card was configured correctly for my purposes.
