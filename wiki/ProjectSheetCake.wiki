@@ -63,6 +63,12 @@ There were several special considerations when designing and implementing this b
   * There are some electrical considerations for this board.  Servo amps can be electrically noisy, and so signals should be shielded where possible.  We should also avoid ground loops (http://en.wikipedia.org/wiki/Ground_loop_%28electricity%29) and make sure things are generally grounded appropriately.  We should make sure the PC is on the same AC supply as the servo amps and other power supplies, to avoid ground differentials across the 50 pin ribbon cables.  One good source of documentation for considerations in machine control environments is http://www.pmccorp.com/support/manuals/emc.pdf.
   * When EMC2 exits, the 5i23 watchdog puts all pins into a high-impedance state.  The board should be designed to kill power in this state, and active low outputs should be used to enable functionality.  This is why you will see controller output used as a ground drains.
 
+A schematic of the integration board is shown below:
+
+http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/integration-board-schematic.png
+
+
+The full board schematic file suitable for editing with [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCad] is under revision control and is available in the S67 code sandbox.  The image above was generated from that schematic using KiCad.
 TODO: finish parts list, pictures, component layout and schematic. 
 
 
