@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/15/2011 11:11:12 PM
+EESchema Schematic File Version 2  date 8/16/2011 9:09:40 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "16 aug 2011"
+Date "17 aug 2011"
 Rev ""
 Comp ""
 Comment1 ""
@@ -43,6 +43,16 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	4850 4150 4600 4150
+Wire Wire Line
+	4600 4150 4600 3700
+Wire Wire Line
+	4600 3700 6250 3700
+Wire Wire Line
+	6250 3700 6250 1750
+Wire Wire Line
+	6250 1750 6400 1750
 Wire Notes Line
 	11100 7050 8100 7050
 Wire Notes Line
@@ -65,8 +75,6 @@ Wire Notes Line
 Wire Wire Line
 	6750 3350 4000 3350
 Connection ~ 3600 5850
-Wire Wire Line
-	3600 5850 3600 6600
 Wire Wire Line
 	6750 3350 6750 2250
 Wire Wire Line
@@ -92,7 +100,7 @@ Connection ~ 1900 3800
 Wire Wire Line
 	1900 4350 1950 4350
 Wire Wire Line
-	3600 6600 1750 6600
+	1750 6600 3600 6600
 Connection ~ 2850 5850
 Wire Wire Line
 	6750 1350 6750 1150
@@ -611,6 +619,10 @@ Wire Wire Line
 	8300 3900 1900 3900
 Wire Notes Line
 	8100 3600 8100 7050
+Wire Wire Line
+	3600 6600 3600 4250
+Wire Wire Line
+	3600 4250 4850 4250
 $Comp
 L CONN_2 P?
 U 1 1 4E460210
