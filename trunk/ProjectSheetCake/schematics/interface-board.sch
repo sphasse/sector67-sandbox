@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/16/2011 9:09:40 PM
+EESchema Schematic File Version 2  date 8/16/2011 9:52:24 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -43,6 +43,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 9400 5450 0    60   ~ 0
+7i33TA card
+Text Notes 5500 5500 0    60   ~ 0
+7i37TA card
 Wire Wire Line
 	4850 4150 4600 4150
 Wire Wire Line
