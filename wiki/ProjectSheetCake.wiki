@@ -122,7 +122,7 @@ TODO: servo encoder DB9 pinout.
 
 The 7i33 can be configured via jumpers for two sorts of encoder input, TTL or RS-422 ("differential").  The encoder signal on our motors are 0V to +5V TTL, so the 7i33 jumpers were left in the default TTL configuration.  The alternative (RS-422) uses both positive and negative voltage and is good for sending signals longer distances.  We take the TTL encoder signals and wire them to the The 7i33 servo controller daughter board, which cleans them up for the PCI card and ultimately EMC2. The 7i33 daughter board also provides ground and +5V to the encoders.
 
-While the encoder feedback primarily allows for accurate positioning, it does have an additional benefit that the controller can determine when the machine is not accurately following the instructions given.  This sort of error is called "following error" and when EMC2 detects following error it will put the machine into an estop state.
+While the encoder feedback primarily allows for accurate positioning, it does have an additional benefit that the controller can determine when the machine is not accurately following the instructions given.  This sort of error is called "following error" and when EMC2 detects following error it will put the machine into an machine stopped but non-estop state.
 
 While the encoders provide information about the shaft turning, they do not specify an absolute distance or angle turned.  In order for EMC2 to be able to accurately position the system, it needs to be able to translate rotary encoder pulses into a linear distance moved.  This depends on both the pitch of the mill lead screws and the number of pluses per turn of the encoders.  In our case we needed to determine this translation experimentally:
 
