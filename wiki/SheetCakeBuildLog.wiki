@@ -53,3 +53,19 @@ Seems like the next tasks with respect to integration of the "custom" Anilam ser
   * Generate a pyvcp custom panel for servo reset at least
   * And the corresponding HAL configuration for a servo reset pin
   * Integrate it into the axis GUI
+
+== 8/16/2011: I/O working! ==
+Scott:
+
+Tonight Luke and I were able to put some finishing touches on the integration board.  Estop input was soldered up, and pcnconf was used to make the input work.  I did indeed have the pins wrong in pncconf as I was using the wrong pin numbers from the 7i37TA data sheet.  I was using the pin number in the output header (1 and 3), and I needed to be using the pin number of the input to the card (35 and 39).  The outputs needed to be inverted, as well as the estop input.  After that, servo enable and servo reset (temporarily configured as spindle ccw so I have a button for it already) worked great.  So, problem #1 is basically solved, and estop in works fine as a bonus.
+
+I moved the PC on top of the controller box as a more convenient location for it.
+
+I still have the problem of the servos not sitting still, though.  In pncconf I believe that proper direction of the table required inverting the servo amp output, but still the servos were not stable.  I plan to send a query to the emc-users mailing list about this to see if anyone else has encountered it.  I want to get the board schematic online first though, so people can understand the integration board.
+
+Some next steps:
+
+  * Test adding an extra widget to the axis GUI using pyVCP to provide a "Servo Reset" button.
+  * Email EMC2 users group regarding unstable servos
+  * Investigate the spindle head to see how best to control that and start designing a spindle controller interface
+  * Figure out the X, Y and Z axis scales so that we have the distances correct.
