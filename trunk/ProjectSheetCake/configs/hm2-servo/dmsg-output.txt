@@ -1,0 +1,96 @@
+[  420.877943] hm2: loading Mesa HostMot2 driver version 0.15
+[  420.887232] hm2_pci: loading Mesa AnyIO HostMot2 driver version 0.6
+[  420.887318]   alloc irq_desc for 18 on node -1
+[  420.887323]   alloc kstat_irqs on node -1
+[  420.887337] hm2_pci 0000:02:09.0: PCI INT A -> GSI 18 (level, low) -> IRQ 18
+[  420.887344] hm2_pci: discovered 5i23 at 0000:02:09.0
+[  420.887435]  hm2_5i23.0: firmware: requesting hm2/5i23/SVST8_4.BIT
+[  421.094998] hm2/hm2_5i23.0: 72 I/O Pins used:
+[  421.095010] hm2/hm2_5i23.0:     IO Pin 000 (P2-01): Encoder #1, pin B (Input)
+[  421.095018] hm2/hm2_5i23.0:     IO Pin 001 (P2-03): Encoder #1, pin A (Input)
+[  421.095025] hm2/hm2_5i23.0:     IO Pin 002 (P2-05): Encoder #0, pin B (Input)
+[  421.095032] hm2/hm2_5i23.0:     IO Pin 003 (P2-07): Encoder #0, pin A (Input)
+[  421.095039] hm2/hm2_5i23.0:     IO Pin 004 (P2-09): Encoder #1, pin Index (Input)
+[  421.095046] hm2/hm2_5i23.0:     IO Pin 005 (P2-11): Encoder #0, pin Index (Input)
+[  421.095053] hm2/hm2_5i23.0:     IO Pin 006 (P2-13): PWMGen #1, pin Out0 (PWM or Up) (Output)
+[  421.095060] hm2/hm2_5i23.0:     IO Pin 007 (P2-15): PWMGen #0, pin Out0 (PWM or Up) (Output)
+[  421.095068] hm2/hm2_5i23.0:     IO Pin 008 (P2-17): PWMGen #1, pin Out1 (Dir or Down) (Output)
+[  421.095075] hm2/hm2_5i23.0:     IO Pin 009 (P2-19): PWMGen #0, pin Out1 (Dir or Down) (Output)
+[  421.095083] hm2/hm2_5i23.0:     IO Pin 010 (P2-21): PWMGen #1, pin Not-Enable (Output)
+[  421.095090] hm2/hm2_5i23.0:     IO Pin 011 (P2-23): PWMGen #0, pin Not-Enable (Output)
+[  421.095096] hm2/hm2_5i23.0:     IO Pin 012 (P2-25): IOPort
+[  421.095102] hm2/hm2_5i23.0:     IO Pin 013 (P2-27): IOPort
+[  421.095109] hm2/hm2_5i23.0:     IO Pin 014 (P2-29): Encoder #2, pin B (Input)
+[  421.095116] hm2/hm2_5i23.0:     IO Pin 015 (P2-31): Encoder #2, pin A (Input)
+[  421.095122] hm2/hm2_5i23.0:     IO Pin 016 (P2-33): IOPort
+[  421.095128] hm2/hm2_5i23.0:     IO Pin 017 (P2-35): Encoder #2, pin Index (Input)
+[  421.095135] hm2/hm2_5i23.0:     IO Pin 018 (P2-37): IOPort
+[  421.095141] hm2/hm2_5i23.0:     IO Pin 019 (P2-39): PWMGen #2, pin Out0 (PWM or Up) (Output)
+[  421.095148] hm2/hm2_5i23.0:     IO Pin 020 (P2-41): IOPort
+[  421.095155] hm2/hm2_5i23.0:     IO Pin 021 (P2-43): PWMGen #2, pin Out1 (Dir or Down) (Output)
+[  421.095161] hm2/hm2_5i23.0:     IO Pin 022 (P2-45): IOPort
+[  421.095168] hm2/hm2_5i23.0:     IO Pin 023 (P2-47): PWMGen #2, pin Not-Enable (Output)
+[  421.095174] hm2/hm2_5i23.0:     IO Pin 024 (P3-01): IOPort
+[  421.095180] hm2/hm2_5i23.0:     IO Pin 025 (P3-03): IOPort
+[  421.095185] hm2/hm2_5i23.0:     IO Pin 026 (P3-05): IOPort
+[  421.095191] hm2/hm2_5i23.0:     IO Pin 027 (P3-07): IOPort
+[  421.095197] hm2/hm2_5i23.0:     IO Pin 028 (P3-09): IOPort
+[  421.095202] hm2/hm2_5i23.0:     IO Pin 029 (P3-11): IOPort
+[  421.095208] hm2/hm2_5i23.0:     IO Pin 030 (P3-13): IOPort
+[  421.095214] hm2/hm2_5i23.0:     IO Pin 031 (P3-15): IOPort
+[  421.095219] hm2/hm2_5i23.0:     IO Pin 032 (P3-17): IOPort
+[  421.095225] hm2/hm2_5i23.0:     IO Pin 033 (P3-19): IOPort
+[  421.095230] hm2/hm2_5i23.0:     IO Pin 034 (P3-21): IOPort
+[  421.095236] hm2/hm2_5i23.0:     IO Pin 035 (P3-23): IOPort
+[  421.095242] hm2/hm2_5i23.0:     IO Pin 036 (P3-25): IOPort
+[  421.095247] hm2/hm2_5i23.0:     IO Pin 037 (P3-27): IOPort
+[  421.095253] hm2/hm2_5i23.0:     IO Pin 038 (P3-29): IOPort
+[  421.095259] hm2/hm2_5i23.0:     IO Pin 039 (P3-31): IOPort
+[  421.095264] hm2/hm2_5i23.0:     IO Pin 040 (P3-33): IOPort
+[  421.095270] hm2/hm2_5i23.0:     IO Pin 041 (P3-35): IOPort
+[  421.095275] hm2/hm2_5i23.0:     IO Pin 042 (P3-37): IOPort
+[  421.095281] hm2/hm2_5i23.0:     IO Pin 043 (P3-39): IOPort
+[  421.095287] hm2/hm2_5i23.0:     IO Pin 044 (P3-41): IOPort
+[  421.095292] hm2/hm2_5i23.0:     IO Pin 045 (P3-43): IOPort
+[  421.095298] hm2/hm2_5i23.0:     IO Pin 046 (P3-45): IOPort
+[  421.095303] hm2/hm2_5i23.0:     IO Pin 047 (P3-47): IOPort
+[  421.095309] hm2/hm2_5i23.0:     IO Pin 048 (P4-01): IOPort
+[  421.095315] hm2/hm2_5i23.0:     IO Pin 049 (P4-03): IOPort
+[  421.095320] hm2/hm2_5i23.0:     IO Pin 050 (P4-05): IOPort
+[  421.095326] hm2/hm2_5i23.0:     IO Pin 051 (P4-07): IOPort
+[  421.095332] hm2/hm2_5i23.0:     IO Pin 052 (P4-09): IOPort
+[  421.095337] hm2/hm2_5i23.0:     IO Pin 053 (P4-11): IOPort
+[  421.095343] hm2/hm2_5i23.0:     IO Pin 054 (P4-13): IOPort
+[  421.095349] hm2/hm2_5i23.0:     IO Pin 055 (P4-15): IOPort
+[  421.095354] hm2/hm2_5i23.0:     IO Pin 056 (P4-17): IOPort
+[  421.095360] hm2/hm2_5i23.0:     IO Pin 057 (P4-19): IOPort
+[  421.095365] hm2/hm2_5i23.0:     IO Pin 058 (P4-21): IOPort
+[  421.095371] hm2/hm2_5i23.0:     IO Pin 059 (P4-23): IOPort
+[  421.095377] hm2/hm2_5i23.0:     IO Pin 060 (P4-25): IOPort
+[  421.095382] hm2/hm2_5i23.0:     IO Pin 061 (P4-27): IOPort
+[  421.095388] hm2/hm2_5i23.0:     IO Pin 062 (P4-29): IOPort
+[  421.095393] hm2/hm2_5i23.0:     IO Pin 063 (P4-31): IOPort
+[  421.095399] hm2/hm2_5i23.0:     IO Pin 064 (P4-33): IOPort
+[  421.095405] hm2/hm2_5i23.0:     IO Pin 065 (P4-35): IOPort
+[  421.095410] hm2/hm2_5i23.0:     IO Pin 066 (P4-37): IOPort
+[  421.095416] hm2/hm2_5i23.0:     IO Pin 067 (P4-39): IOPort
+[  421.095422] hm2/hm2_5i23.0:     IO Pin 068 (P4-41): IOPort
+[  421.095427] hm2/hm2_5i23.0:     IO Pin 069 (P4-43): IOPort
+[  421.095433] hm2/hm2_5i23.0:     IO Pin 070 (P4-45): IOPort
+[  421.095438] hm2/hm2_5i23.0:     IO Pin 071 (P4-47): IOPort
+[  421.095709] hm2/hm2_5i23.0: registered
+[  421.095715] hm2_5i23.0: initialized AnyIO board at 0000:02:09.0
+[  480.112039] 58987: ERROR: Unexpected realtime delay: check dmesg for details.
+[  480.112048] 
+[  480.112050] In recent history there were
+[  480.112052] 1779396, 1779692, 1779448, 1779782, and 1779382
+[  480.112054] elapsed clocks between calls to the motion controller.
+[  480.112060] This time, there were 16824916 which is so anomalously
+[  480.112063] large that it probably signifies a problem with your
+[  480.112066] realtime configuration.  For the rest of this run of
+[  480.112068] EMC, this message will be suppressed.
+[  480.112070] 
+[ 1848.248035] RTAPI: ERROR: Unexpected realtime delay on task 1
+[ 1848.248039] This Message will only display once per session.
+[ 1848.248042] Run the Latency Test and resolve before continuing.
+
