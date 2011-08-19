@@ -68,7 +68,7 @@ A schematic of the integration board is shown below:
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/integration-board-schematic.png
 
 
-The full board schematic file suitable for editing with [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCad] is under revision control and is available in the S67 code sandbox.  The image above was generated from that schematic using KiCad.
+The full board schematic file suitable for editing with [http://www.lis.inpg.fr/realise_au_lis/kicad/ KiCad] is under revision control and is available in the [http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FProjectSheetCake%2Fschematics S67 code sandbox].  The image above was generated from that schematic using KiCad.
 TODO: finish parts list, pictures, component layout and schematic. 
 
 
