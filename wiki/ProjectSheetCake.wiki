@@ -193,6 +193,8 @@ The signals from the PC will need to be mapped to pins within EMC2.  Normally, E
 
 A separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally-open hardware button as well (or even making use of the existing Anilam console servo reset button), but managing it in software seems to be the most straightforward method of handling this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
 
+TODO: servo enable circuit here.
+
 =EMC2=
 
 ==Choosing and validating a PC==
