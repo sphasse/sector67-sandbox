@@ -206,7 +206,7 @@ Because of this, functions such as power-saving and on-board graphics tend to no
 
 http://wiki.linuxcnc.org/emcinfo.pl?Latency-Test
 
-Our EMC2 server machine is a:
+Our EMC2 server machine specs are:
 
 {{{
 Compaq W6000
