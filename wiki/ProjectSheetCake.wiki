@@ -257,13 +257,20 @@ You'll need to know some basic things about your machine to configure EMC2 prope
 
 * The number of teeth per inch on your lead screws
 * The number of encoder pluses per motor revolution
-* The number of teeth on the motor gear and the number of teeth on the lead screw gear
-
-You can determine the number of pulses per motor revolution by running pncconf, getting to the axis configuration and running the open loop servo test ("open loop" means that the PID feedback loop is not in place, so the servos will not be completely stable).  To determine the encoder pulses, you should run this without power applied to the servos.  Simply turn the handles one full revolution and watch the encoder pulses in the appropriate halmeter window.  It should end up being a nice round number, but if there is any doubt, you could for instance give it 10 turns and divide by 10.  The number you get from this will be the number of rising and falling edges, and since there are two encoder signals both rising and falling, you divide this number by 4 to get encoder pulses per revolution.  For our mill, we saw 6000 edges per revolution, so our number was 1500.
+* The ratio of gear teeth on the motor gear the lead screw gear
 
 To determine the teeth per inch on the lead screws, you can inspect the screw directly with a caliper, or put a dial indicator on the table and turn the handles to measure an inch.  Again, this should turn out to be a fairly round number.  Ours was 5.
 
-Finally, to determine the number of teeth on the two gears you can turn  configure the other scaling information accurately, and the gear ration as 1:1 in pncconf, then manually move the axis, for instance, 1" (5 turns of the manual handle in our case).  If you see 1" reflect in the encoder, then the gear ration is 1:1.  If not, you'll need to adjust the ratio appropriately.  ... TODO: document our values.
+You can determine the combination of the number of pulses per motor revolution and gear ratio by running pncconf, getting to the axis configuration and running the open loop servo test ("open loop" means that the PID feedback loop is not in place, so the servos will not be completely stable).  To determine the encoder pulses, you should run this without power applied to the servos.  Simply turn the handles one full revolution and watch the encoder pulses in the appropriate halmeter window.  It should end up being a nice round number, but if there is any doubt, you could for instance give it 10 turns and divide by 10.  The number you get from this will be the number of rising and falling edges, and since there are two encoder signals both rising and falling, you divide this number by 4 to get encoder pulses per revolution.  For our mill, we saw 6000 edges per revolution, so our number was 1500.  If you leave the gear ration set to 1:1, you can use this number.  If you'd rather find the actual gear tooth ratio, you'll have to open up covers and count.
+
+If you are converting an Anilam mill like us, there is a simpler way to get this information.  In the Anilam interface, on startup navigate to TODO document path, and you should see a table with the exact information you need.  In our case, that was:
+
+||              || *X* || *Y* || *Z* ||
+|| *Enc Lines*  || 1000 || 1000 || 1000 ||
+|| *Pitch*      || 0.2  || 0.2  || 0.2  ||
+|| *Ratio*      || 1.5  || 1.5  || 1.8  ||
+
+Enc lines is the encoder pulses per revolution of the motor, pitch is the lead screw pitch (0.2 = 5 TPI) and ratio is the gear ration of axis teeth to motor teeth, so 3:2 would be appropriate for the X and Y axes and 9:5 would be appropriate for the Z axis.
 
 Once you have this information, enter it into the fields in pncconf that let you calculate the TODO: get terminology for the axis calibration.
 
