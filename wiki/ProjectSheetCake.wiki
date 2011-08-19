@@ -313,6 +313,6 @@ TODO: document how we ultimately tuned in the mill.
 === The spindle===
 === Generic relays ===
 === Additional steppers ===
-=== A forth servo axis ===
+=== A fourth servo axis ===
 =Build log=
 Check out the SheetCakeBuildLog.
