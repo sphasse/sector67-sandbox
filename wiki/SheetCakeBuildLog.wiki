@@ -86,10 +86,11 @@ I also realized the only reason we needed the in-chassis 5, +/-15V power supply 
 
 So, moving forward the next steps for the mill controller are:
 
-* Get all axes calibrates so that we really know how much we're moving
-* Figure out maximum velocity and acceleration for the axes
-* Add a servo reset custom button (David is working on this)
-* Spend some quality time tuning the axes for real for better and higher performance
-* Set the following error back to a reasonable and safer level
-* Configure the table axes limits properly
-* 
+  * Get all axes calibrates so that we really know how much we're moving
+  * Figure out maximum velocity and acceleration for the axes
+  * Add a servo reset custom button (David is working on this)
+  * Spend some quality time tuning the axes for real for better and higher performance
+  * Set the following error back to a reasonable and safer level
+  * Configure the table axes limits properly
+
+I realized that when I calculated the encoder ticks, I was turning the handle one turn, but that was including the gear ratio in the measured value.  That means the numbers from the Anilam configuration now make much more sense.
