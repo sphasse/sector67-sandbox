@@ -120,7 +120,7 @@
   <property name="max_feed_override" type="float" value="2.0"/>
   <property name="max_linear_velocity" type="float" value="1.0"/>
   <property name="max_spindle_override" type="float" value="1.0"/>
-  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', '6ff243614df119b98bedc1f7ccf46a32'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', '5f2d98f8623be8a2aa273fdb7ef58d34'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', '767209a184a5601ee14259f568319c97')]"/>
+  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', '99998892fc5ffd737af5a96aa6278b17'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', 'f3f42c2d82806666aa4dace9524ed04e'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', 'dc5e98c0e4cb1980968dab888a26c982')]"/>
   <property name="mesa0_boardname" type="string" value="5i23"/>
   <property name="mesa0_currentfirmwaredata" type="eval" value="['5i23', 'SVST4_8', 'hm2_pci', 4, 4, 8, 3, 6, 1, 72, 48, 96, [2, 3, 4], [u'Quad Encoder-B', 1], [u'Quad Encoder-A', 1], [u'Quad Encoder-B', 0], [u'Quad Encoder-A', 0], [u'Quad Encoder-I', 1], [u'Quad Encoder-I', 0], [u'Pulse Width Gen-P', 1], [u'Pulse Width Gen-P', 0], [u'Pulse Width Gen-D', 1], [u'Pulse Width Gen-D', 0], [u'Pulse Width Gen-E', 1], [u'Pulse Width Gen-E', 0], [u'Quad Encoder-B', 3], [u'Quad Encoder-A', 3], [u'Quad Encoder-B', 2], [u'Quad Encoder-A', 2], [u'Quad Encoder-I', 3], [u'Quad Encoder-I', 2], [u'Pulse Width Gen-P', 3], [u'Pulse Width Gen-P', 2], [u'Pulse Width Gen-D', 3], [u'Pulse Width Gen-D', 2], [u'Pulse Width Gen-E', 3], [u'Pulse Width Gen-E', 2], [u'Step/Dir Gen-A', 0], [u'Step/Dir Gen-B', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 1], [u'Step/Dir Gen-B', 1], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 2], [u'Step/Dir Gen-B', 2], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 3], [u'Step/Dir Gen-B', 3], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 4], [u'Step/Dir Gen-B', 4], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 5], [u'Step/Dir Gen-B', 5], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 6], [u'Step/Dir Gen-B', 6], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 7], [u'Step/Dir Gen-B', 7], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0]]"/>
   <property name="mesa0_firmware" type="string" value="SVST4_8"/>
@@ -137,10 +137,10 @@
   <property name="mesa0c2pin0inv" type="bool" value="False"/>
   <property name="mesa0c2pin0type" type="string" value="Quad Encoder-B"/>
   <property name="mesa0c2pin1" type="string" value="y-encoder-a"/>
-  <property name="mesa0c2pin10" type="string" value="x-pwm-enable"/>
+  <property name="mesa0c2pin10" type="string" value="y-pwm-enable"/>
   <property name="mesa0c2pin10inv" type="bool" value="False"/>
   <property name="mesa0c2pin10type" type="string" value="Pulse Width Gen-E"/>
-  <property name="mesa0c2pin11" type="string" value="y-pwm-enable"/>
+  <property name="mesa0c2pin11" type="string" value="x-pwm-enable"/>
   <property name="mesa0c2pin11inv" type="bool" value="False"/>
   <property name="mesa0c2pin11type" type="string" value="Pulse Width Gen-E"/>
   <property name="mesa0c2pin12" type="string" value="a-encoder-b"/>
@@ -193,16 +193,16 @@
   <property name="mesa0c2pin5" type="string" value="x-encoder-i"/>
   <property name="mesa0c2pin5inv" type="bool" value="False"/>
   <property name="mesa0c2pin5type" type="string" value="Quad Encoder-I"/>
-  <property name="mesa0c2pin6" type="string" value="x-pwm-pulse"/>
+  <property name="mesa0c2pin6" type="string" value="y-pwm-pulse"/>
   <property name="mesa0c2pin6inv" type="bool" value="False"/>
   <property name="mesa0c2pin6type" type="string" value="Pulse Width Gen-P"/>
-  <property name="mesa0c2pin7" type="string" value="y-pwm-pulse"/>
+  <property name="mesa0c2pin7" type="string" value="x-pwm-pulse"/>
   <property name="mesa0c2pin7inv" type="bool" value="False"/>
   <property name="mesa0c2pin7type" type="string" value="Pulse Width Gen-P"/>
-  <property name="mesa0c2pin8" type="string" value="x-pwm-dir"/>
+  <property name="mesa0c2pin8" type="string" value="y-pwm-dir"/>
   <property name="mesa0c2pin8inv" type="bool" value="False"/>
   <property name="mesa0c2pin8type" type="string" value="Pulse Width Gen-D"/>
-  <property name="mesa0c2pin9" type="string" value="y-pwm-dir"/>
+  <property name="mesa0c2pin9" type="string" value="x-pwm-dir"/>
   <property name="mesa0c2pin9inv" type="bool" value="False"/>
   <property name="mesa0c2pin9type" type="string" value="Pulse Width Gen-D"/>
   <property name="mesa0c3pin0" type="string" value="unused-input"/>
@@ -1547,7 +1547,7 @@
   <property name="xbias" type="float" value="0.0"/>
   <property name="xcompfilename" type="string" value="xcompensation"/>
   <property name="xcomptype" type="int" value="0"/>
-  <property name="xdeadband" type="float" value="0.0"/>
+  <property name="xdeadband" type="float" value="0.001"/>
   <property name="xdirhold" type="float" value="1000.0"/>
   <property name="xdirsetup" type="float" value="1000.0"/>
   <property name="xdrivertype" type="string" value="custom"/>
@@ -1559,7 +1559,7 @@
   <property name="xhomesequence" type="int" value="1203"/>
   <property name="xhomesw" type="float" value="0.0"/>
   <property name="xinvertencoder" type="bool" value="False"/>
-  <property name="xinvertmotor" type="bool" value="False"/>
+  <property name="xinvertmotor" type="bool" value="True"/>
   <property name="xlatchdir" type="int" value="0"/>
   <property name="xleadscrew" type="int" value="5"/>
   <property name="xmaxacc" type="float" value="2.0"/>
@@ -1592,7 +1592,7 @@
   <property name="ybias" type="float" value="0.0"/>
   <property name="ycompfilename" type="string" value="ycompensation"/>
   <property name="ycomptype" type="int" value="0"/>
-  <property name="ydeadband" type="float" value="0.0"/>
+  <property name="ydeadband" type="float" value="0.001"/>
   <property name="ydirhold" type="float" value="1000.0"/>
   <property name="ydirsetup" type="float" value="1000.0"/>
   <property name="ydrivertype" type="string" value="custom"/>
@@ -1603,7 +1603,7 @@
   <property name="yhomesearchvel" type="float" value="0.05"/>
   <property name="yhomesw" type="float" value="0.0"/>
   <property name="yinvertencoder" type="bool" value="False"/>
-  <property name="yinvertmotor" type="bool" value="False"/>
+  <property name="yinvertmotor" type="bool" value="True"/>
   <property name="ylatchdir" type="int" value="0"/>
   <property name="yleadscrew" type="int" value="5"/>
   <property name="ymaxacc" type="float" value="2.0"/>
@@ -1616,9 +1616,9 @@
   <property name="yminlim" type="float" value="0.0"/>
   <property name="youtputoffset" type="float" value="0.0"/>
   <property name="youtputscale" type="float" value="1.0"/>
-  <property name="ypulleydriven" type="int" value="3"/>
+  <property name="ypulleydriven" type="int" value="2"/>
   <property name="ypulleydriver" type="int" value="1"/>
-  <property name="yscale" type="float" value="10000.0"/>
+  <property name="yscale" type="float" value="15000.0"/>
   <property name="ysearchdir" type="int" value="0"/>
   <property name="ysteprev" type="int" value="200"/>
   <property name="ystepspace" type="float" value="1000.0"/>
@@ -1636,7 +1636,7 @@
   <property name="zbias" type="float" value="0.0"/>
   <property name="zcompfilename" type="string" value="zcompensation"/>
   <property name="zcomptype" type="int" value="0"/>
-  <property name="zdeadband" type="float" value="0.0"/>
+  <property name="zdeadband" type="float" value="0.001"/>
   <property name="zdirhold" type="float" value="1000.0"/>
   <property name="zdirsetup" type="float" value="1000.0"/>
   <property name="zdrivertype" type="string" value="custom"/>
@@ -1647,7 +1647,7 @@
   <property name="zhomesearchvel" type="float" value="0.05"/>
   <property name="zhomesw" type="float" value="0.0"/>
   <property name="zinvertencoder" type="bool" value="False"/>
-  <property name="zinvertmotor" type="bool" value="False"/>
+  <property name="zinvertmotor" type="bool" value="True"/>
   <property name="zlatchdir" type="int" value="0"/>
   <property name="zleadscrew" type="int" value="5"/>
   <property name="zmaxacc" type="float" value="2.0"/>
