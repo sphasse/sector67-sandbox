@@ -193,7 +193,7 @@ E_STOP: A part of the estop circuit.  Needs to be active to allow the servos to 
 
 The signals from the PC will need to be mapped to pins within EMC2.  Normally, EMC2 manages a "MACHINE_ON" and TODO: get signal..., and these can be mapped in the following way:
 
-A separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally-open hardware button as well (or even making use of the existing ANILAM console servo reset button), but managing it in software seems to be the most straightforward method of handling this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
+A separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally-open hardware button as well (or even making use of the existing Anilam console servo reset button), but managing it in software seems to be the most straightforward method of handling this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
 
 =EMC2=
 
@@ -253,9 +253,9 @@ Reading through all of the various resources, this can be somewhat of a dark art
 ===Basic machine parameters===
 You'll need to know some basic things about your machine to configure EMC2 properly.  For servo systems, to determine how far the table moves per encoder pulse, you'll want to know:
 
-* The number of teeth per inch on your lead screws
-* The number of encoder pluses per motor revolution
-* The ratio of gear teeth on the motor gear the lead screw gear
+  * The number of teeth per inch on your lead screws
+  * The number of encoder pluses per motor revolution
+  * The ratio of gear teeth on the motor gear the lead screw gear
 
 To determine the teeth per inch on the lead screws, you can inspect the screw directly with a caliper, or put a dial indicator on the table and turn the handles to measure an inch.  Again, this should turn out to be a fairly round number.  Ours was 5.
 
