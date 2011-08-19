@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/16/2011 9:52:24 PM
+EESchema Schematic File Version 2  date 8/18/2011 9:59:23 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,7 +35,7 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "17 aug 2011"
+Date "19 aug 2011"
 Rev ""
 Comp ""
 Comment1 ""
@@ -43,10 +43,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 9400 5450 0    60   ~ 0
-7i33TA card
-Text Notes 5500 5500 0    60   ~ 0
-7i37TA card
+Wire Wire Line
+	14500 5900 14500 7300
+Wire Wire Line
+	14700 5700 14700 7200
+Wire Wire Line
+	14200 6100 14200 6800
 Wire Wire Line
 	4850 4150 4600 4150
 Wire Wire Line
@@ -61,8 +63,6 @@ Wire Notes Line
 	11100 7050 8100 7050
 Wire Notes Line
 	11100 3600 8100 3600
-Wire Wire Line
-	8500 700  1700 700 
 Wire Notes Line
 	4400 3600 7350 3600
 Wire Notes Line
@@ -81,28 +81,6 @@ Wire Wire Line
 Connection ~ 3600 5850
 Wire Wire Line
 	6750 3350 6750 2250
-Wire Wire Line
-	1900 3800 7900 3800
-Wire Wire Line
-	1900 4000 7150 4000
-Wire Wire Line
-	7900 850  1800 850 
-Connection ~ 1800 4450
-Wire Wire Line
-	1950 4450 600  4450
-Wire Wire Line
-	600  4450 600  6900
-Wire Wire Line
-	600  6900 6800 6900
-Wire Wire Line
-	8300 4050 8300 3900
-Wire Wire Line
-	1900 3800 1900 4350
-Wire Wire Line
-	7900 3800 7900 2250
-Connection ~ 1900 3800
-Wire Wire Line
-	1900 4350 1950 4350
 Wire Wire Line
 	1750 6600 3600 6600
 Connection ~ 2850 5850
@@ -240,9 +218,7 @@ Wire Wire Line
 Wire Wire Line
 	11600 5500 10500 5500
 Wire Wire Line
-	14300 6900 11500 6900
-Wire Wire Line
-	14200 5800 14200 6800
+	11500 6900 14300 6900
 Wire Wire Line
 	10500 5700 11400 5700
 Wire Wire Line
@@ -340,39 +316,31 @@ Wire Wire Line
 Wire Wire Line
 	15600 3400 14250 3400
 Wire Wire Line
-	14000 5700 14300 5700
+	14000 6000 14300 6000
 Wire Wire Line
 	11400 5700 11400 7000
 Wire Wire Line
-	14100 5900 14100 7000
-Wire Wire Line
-	14100 5900 14000 5900
+	14000 6200 14100 6200
 Wire Wire Line
 	9900 7100 9900 5500
 Wire Wire Line
 	9900 7100 14600 7100
 Wire Wire Line
-	14600 7100 14600 6100
+	14000 5800 14600 5800
 Wire Wire Line
-	14600 6100 14000 6100
-Wire Wire Line
-	14000 6000 14700 6000
-Wire Wire Line
-	14700 6000 14700 7200
+	14700 5700 14000 5700
 Wire Wire Line
 	14700 7200 9800 7200
 Wire Wire Line
 	9800 7200 9800 5600
 Wire Wire Line
-	14000 6200 14500 6200
-Wire Wire Line
-	14500 6200 14500 7300
+	14500 5900 14000 5900
 Wire Wire Line
 	14500 7300 9700 7300
 Wire Wire Line
 	9700 7300 9700 5700
 Wire Wire Line
-	14200 5800 14000 5800
+	14200 6100 14000 6100
 Wire Wire Line
 	10500 6300 10600 6300
 Wire Wire Line
@@ -477,11 +445,9 @@ Wire Wire Line
 Wire Wire Line
 	9900 5500 9100 5500
 Wire Wire Line
-	14100 7000 11400 7000
+	11400 7000 14100 7000
 Wire Wire Line
-	14200 6800 11600 6800
-Wire Wire Line
-	14300 5700 14300 6900
+	11600 6800 14200 6800
 Wire Wire Line
 	11500 6900 11500 5600
 Wire Wire Line
@@ -585,22 +551,6 @@ Wire Wire Line
 Wire Wire Line
 	7100 1050 7100 1350
 Wire Wire Line
-	7900 850  7900 1350
-Wire Wire Line
-	1800 850  1800 4450
-Connection ~ 7900 850 
-Connection ~ 1900 3900
-Wire Wire Line
-	7150 4000 7150 6900
-Wire Wire Line
-	8500 700  8500 4050
-Wire Wire Line
-	1700 700  1700 4450
-Connection ~ 1700 4450
-Connection ~ 1900 4000
-Wire Wire Line
-	7150 6900 7000 6900
-Wire Wire Line
 	6750 1150 5550 1150
 Wire Wire Line
 	5550 1150 5550 1350
@@ -619,34 +569,22 @@ Wire Wire Line
 	4100 6050 4100 5950
 Wire Notes Line
 	7350 7050 4400 7050
-Wire Wire Line
-	8300 3900 1900 3900
 Wire Notes Line
 	8100 3600 8100 7050
 Wire Wire Line
 	3600 6600 3600 4250
 Wire Wire Line
 	3600 4250 4850 4250
-$Comp
-L CONN_2 P?
-U 1 1 4E460210
-P 6900 6550
-F 0 "P?" V 6850 6550 40  0000 C CNN
-F 1 "CONN_2" V 6950 6550 40  0000 C CNN
-	1    6900 6550
-	0    -1   -1   0   
-$EndComp
-$Comp
-L CONN_2 P?
-U 1 1 4E4601E7
-P 8400 4400
-F 0 "P?" V 8350 4400 40  0000 C CNN
-F 1 "CONN_2" V 8450 4400 40  0000 C CNN
-	1    8400 4400
-	0    1    1    0   
-$EndComp
-Text Label 4400 850  0    60   ~ 0
-+5V
+Wire Wire Line
+	14300 6000 14300 6900
+Wire Wire Line
+	14100 7000 14100 6200
+Wire Wire Line
+	14600 5800 14600 7100
+Text Notes 9400 5450 0    60   ~ 0
+7i33TA card
+Text Notes 5500 5500 0    60   ~ 0
+7i37TA card
 Text Label 11250 3900 0    60   ~ 0
 Servo amp Z_SHIELD
 Text Label 11250 3800 0    60   ~ 0
@@ -777,24 +715,6 @@ F 1 "R" V 4850 2000 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R 330
-U 1 1 4E45E288
-P 7900 2000
-F 0 "330" V 7980 2000 50  0000 C CNN
-F 1 "R" V 7900 2000 50  0000 C CNN
-	1    7900 2000
-	1    0    0    -1  
-$EndComp
-$Comp
-L LED 5V_OK
-U 1 1 4E45E287
-P 7900 1550
-F 0 "5V_OK" H 7900 1650 50  0000 C CNN
-F 1 "LED" H 7900 1450 50  0000 C CNN
-	1    7900 1550
-	0    1    1    0   
-$EndComp
-$Comp
 L LED ESTOP_OK
 U 1 1 4E45E280
 P 6400 1550
@@ -898,7 +818,7 @@ L CONN_6 P7
 U 1 1 4E3F5472
 P 13650 5950
 F 0 "P7" V 13600 5950 60  0000 C CNN
-F 1 "X_Y_SERVO" V 13700 5950 60  0000 C CNN
+F 1 "Y_X_SERVO" V 13700 5950 60  0000 C CNN
 	1    13650 5950
 	-1   0    0    1   
 $EndComp
@@ -907,7 +827,7 @@ L CONN_6 P8
 U 1 1 4E3F5471
 P 13450 5950
 F 0 "P8" V 13400 5950 60  0000 C CNN
-F 1 "Z_A_SERVO" V 13500 5950 60  0000 C CNN
+F 1 "A_Z_SERVO" V 13500 5950 60  0000 C CNN
 	1    13450 5950
 	1    0    0    1   
 $EndComp
