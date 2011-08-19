@@ -250,7 +250,55 @@ In any case, though, EMC2 was basically functional for moving servos and reading
 
 
 ==Tuning EMC2==
+Reading through all of the various resources, this can be somewhat of a dark art, but there are some basic things that can be done to make this go smoothly.  We had to work through a problem with runaway axes that was ultimately a bug in pncconf.  To realize that, though, we had to take a methodical approach to tuning the system that ultimately was good practice and exposure to some of the internals of EMC2.
 
+===Basic machine parameters===
+You'll need to know some basic things about your machine to configure EMC2 properly.  For servo systems, to determine how far the table moves per encoder pulse, you'll want to know:
+
+* The number of teeth per inch on your lead screws
+* The number of encoder pluses per motor revolution
+* The number of teeth on the motor gear and the number of teeth on the lead screw gear
+
+You can determine the number of pulses per motor revolution by running pncconf, getting to the axis configuration and running the open loop servo test ("open loop" means that the PID feedback loop is not in place, so the servos will not be completely stable).  To determine the encoder pulses, you should run this without power applied to the servos.  Simply turn the handles one full revolution and watch the encoder pulses in the appropriate halmeter window.  It should end up being a nice round number, but if there is any doubt, you could for instance give it 10 turns and divide by 10.  The number you get from this will be the number of rising and falling edges, and since there are two encoder signals both rising and falling, you divide this number by 4 to get encoder pulses per revolution.  For our mill, we saw 6000 edges per revolution, so our number was 1500.
+
+To determine the teeth per inch on the lead screws, you can inspect the screw directly with a caliper, or put a dial indicator on the table and turn the handles to measure an inch.  Again, this should turn out to be a fairly round number.  Ours was 5.
+
+Finally, to determine the number of teeth on the two gears you can turn  configure the other scaling information accurately, and the gear ration as 1:1 in pncconf, then manually move the axis, for instance, 1" (5 turns of the manual handle in our case).  If you see 1" reflect in the encoder, then the gear ration is 1:1.  If not, you'll need to adjust the ratio appropriately.  ... TODO: document our values.
+
+Once you have this information, enter it into the fields in pncconf that let you calculate the TODO: get terminology for the axis calibration.
+
+===Calibrating the encoders===
+There are two important dimensions to proper encoders.  They should indicate movement in the proper direction, and they should accurately indicate the distance moved.
+
+Before you start applying power to the servos, you'll want to make sure your encoders are configured properly.  Again using the open loop servo test in pncconf without servo power applied, manually move the axis under test.  When you move it in a positive direction, you should see this reflected in pncconf positively.  The same for negative.
+
+It is probably important to note that for most systems, an X+ move will be moving the table to the left, and an X- move will be moving the table to the right.  A Y+ move will move the table forward, and a Y- move will move the table back.  A Z- move will move down and a Z+ move will move up.  This can be somewhat counter-intuitive with an empty bed, but think as if you are machining a part and you should be OK.
+
+If your encoders are not the right direction (ours all were), you can either re-wire the A and B wires, or switch the configuration in software.
+
+If you have entered the appropriate scaling information, you can also confirm at this time that the encoders reflect an accurate amount of movement.
+
+===Initial motor calibration===
+Once you have the encoders calibrated, you can then perform the initial calibration of the servo motors.  Once again, the pncconf open loop servo tester can be used.  In that tool, click the servo enable button.  In our case, since we had an extra "servo reset" to establish a hardware relay latch, I additionally detached the header that provides servo enable and reset and shorted the servo enable pins.  I then could momentarily short the servo reset pins to actually enable the servos.  This is one downside of the non-standard "servo reset" signal.  Obviously, you'll need to be careful if shorting pins to perform the "servo reset".
+
+Th first thing you should determine is if the system moves in the + direction when clicking the + button.  If not, you'll need to check the TODO: get checkbox name check box to reverse the signal in software, and then clicking the + button should move the axis in the + direction.
+
+TODO: a screen shot of the X axis configuration page.
+
+===Motor fine-tuning===
+Reading through all of the available resources show that this is somewhat of a dark art.  There are a few basic methodologies described well [http://en.wikipedia.org/wiki/PID_controller#Loop_tuning here].  One is to increase P with I and D at 0 until you get oscillation, and then increase I to stabilize.  Another has you increase until os
+
+||Axis||P||I||D||Result||
+||X||1||0||0||Slow to stop||
+||X||2||0||0||Still slow to stop||
+||X||5||0||0||Still slow to stop||
+||X||10||0||0||Getting better||
+||X||15||0||0||Basically stable operation||
+||X||15||0||0||Axis oscillation (1/2")||
+||X||9||4.5||1.125||Rapid axis oscillation (~1/8")||
+||X||9||4.5||0||Basically stable, seemingly not as good as 15 0 0||
+
+etc.
 =Extending=
 
 ==Integrating additional control capability==
