@@ -76,8 +76,20 @@ I was unable to make any headway against the servo stability issue, so I gathere
 == 8/17/2011: Basic servo stability, and first gcode run ==
 After working through a diagnostic procedure to make sure voltage levels, etc. were all correct, it turns out I was hitting a bug in pncconf 2.4.3 where inverting an axis also caused the max_output parameter in the ini file to be set negative when it should actually be positive.  Manually changing the max_output to be positive got the axes relatively stable, and some additional PID tuning got it to the point where I was able to run a gcode program through without problems.
 
+This problem forced me to dig a bit more into the EMC2 internals and as such was a good learning exercise.  I'm glad in the end it wasn't a hardware problem but ultimately a relatively simple software one.
+
 A lot more tuning is needed, including properly calibrating the axes, determine what we can do for acceleration, and many other things, and that will all take some time, but the system is now basically functional as a mill again.
 
 I did realize I had some axes crossed in the integration board, so I rewired those and will be updating the schematic to reflect the change.
 
 I also realized the only reason we needed the in-chassis 5, +/-15V power supply was to drive the LED indicating it is working, so I'll be removing that from the board design, and relying on cable power (per a recommendation from Mesa to prefer that unless the drop is too much) to power the daughter boards.
+
+So, moving forward the next steps for the mill controller are:
+
+* Get all axes calibrates so that we really know how much we're moving
+* Figure out maximum velocity and acceleration for the axes
+* Add a servo reset custom button (David is working on this)
+* Spend some quality time tuning the axes for real for better and higher performance
+* Set the following error back to a reasonable and safer level
+* Configure the table axes limits properly
+* 
