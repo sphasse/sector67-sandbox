@@ -76,7 +76,7 @@ Integration board parts list
 || *Part* || *Price per* || *Quantity* || *Description* || *Vendor* || *Part Number* ||
 || 2x8 0.2" terminal plug || $4.85 || 2 || A through-hole soldered terminal plug with two rows of 8 pins. || Digikey || A98151-ND ||
 || 2x6 0.2" terminal plug || $3.65 || 5|| A through-hole soldered terminal plug with two rows of 6 pins. || Digikey || A98150-ND ||
-|| DB9 female ribbon connector || $$ || 4 || A female DB9 plug with ribbon cable connector || Digikey || ||
+|| DB9 female ribbon connector || $5.67 || 4 || A female DB9 plug with ribbon cable connector || Digikey || AFR09B-ND ||
 || 3/8" Standoffs  || $$ || 40 || 3/8" male/female #4-40 brass standoffs for attaching the daughter boards and perf boards to the aluminum sheet || Digikey || ||
 || 1/4" Standoffs || $$ || 10 || 1/4" male/female #4-40 standoffs for attaching the DB9 connectors to the 3/8" standoffs || Digikey || ||
 || #4-40 nuts || $$ || 40 || #4-40 nuts for connecting the standoffs to the aluminum sheet || Digikey || ||
