@@ -195,6 +195,11 @@ A separate SERVO_RESET will need to be created and managed via the EMC2 software
 
 TODO: servo enable circuit here.
 
+== The servo amplifiers ==
+The existing servo amplifiers are Anilam brand amps.  TODO: Anilam part number here.  We don't have ready specs on the amps, but since they work with the existing controller, they seem to be serviceable.  They take in +/-10V for direction and speed, and they receive velocity feedback from the motors.  
+
+Via testing, we determined that a positive voltage moves the table in a positive direction for all of the axis, but it could have just as well have been the reversed.  There are three wires coming from the integration board for each amp, a signal, a ground and a shield.  The 7i33 card is set up to take in direction and pulses and convert that to output +/-10V, so it is basically ideal for us to drive the existing servo amps.
+
 =EMC2=
 
 ==Choosing and validating a PC==
