@@ -268,9 +268,13 @@ If you are converting an Anilam mill like us, there is a simpler way to get this
 || *Pitch*      || 0.2  || 0.2  || 0.2  ||
 || *Ratio*      || 1.5  || 1.5  || 1.8  ||
 
-"Enc lines" is the encoder pulses per revolution of the motor, "pitch" is the lead screw pitch (0.2 = 5 TPI) and "ratio" is the gear ration of axis teeth to motor teeth, so 3:2 (3/2 = 1.5) would be appropriate for the X and Y axes and 9:5 (9/5 = 1.8) would be appropriate for the Z axis.
+"Enc lines" is the encoder pulses per revolution of the motor, "pitch" is the lead screw pitch (0.2 = 5 TPI) and "ratio" is the gear ratio of motor teeth to lead screw teeth.  In the pncconf calculator you should enter a gear ratio that matches this.  In our case, 2:3 (3/2 = 1.5) would be appropriate for the X and Y axes and 5:9 (9/5 = 1.8) would be appropriate for the Z axis.
 
-Once you have this information, enter it into the fields in pncconf that let you calculate the TODO: get terminology for the axis calibration.
+Once you have this information, enter it into the fields in pncconf in the per-axis "Calculate" form that let you calculate the Axis Scale.  An example of this looks like:
+
+http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/axis-scale-calc.png
+
+This needs to be done for each axis.
 
 ===Calibrating the encoders===
 There are two important dimensions to proper encoders.  They should indicate movement in the proper direction, and they should accurately indicate the distance moved.
