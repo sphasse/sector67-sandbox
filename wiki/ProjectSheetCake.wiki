@@ -283,6 +283,11 @@ This needs to be done for each axis.  On our mill, the values are:
 || *Leadscrew TPI*      || 5.0  || 5.0  || 5.0  ||
 || *Calculated scale*   || 13333.333 || 13333.333 || 11111.111 ||
 
+Of course every machine is different.
+
+===Max velocity and acceleration===
+TODO: find a way to determine this
+
 ===Calibrating the encoders===
 There are two important dimensions to proper encoders.  They should indicate movement in the proper direction, and they should accurately indicate the distance moved.
 
