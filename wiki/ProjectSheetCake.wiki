@@ -92,16 +92,16 @@ _TODO: picture of the board here_
 
 There are 9 LEDs on the integration board, and from left to right, when lit they represent:
 
-||*LED Meaning*||
-||24V OK||
-||X LIMIT OK||
-||Y LIMIT OK||
-||Z LIMIT OK||
-||A LIMIT OK||
-||ALL LIMITS OK||
-||ESTOP OK||
-||SERVO ENABLED||
-||SERVO OFF (red)||
+||*Position*||*LED name*||*Meaning*||
+||1||24V OK||The integration board is getting +24V from the relay board||
+||2||X LIMIT OK||The X axis limit switches are not being tripped.||
+||3||Y LIMIT OK||The X nor Y axes limit switches are being tripped||
+||4||Z LIMIT OK||The X nor Y nor Z axes limit switches are being tripped||
+||5||A LIMIT OK||The X nor Y nor Z nor A axes limit switches are being tripped||
+||6||ALL LIMITS OK||None of the limit switches are being tripped||
+||7||ESTOP OK||The estop button is not being pressed||
+||8||SERVO ENABLED||EMC2 is sending a signal that the servos should be enabled.  The servo reset still needs to happen for the servos to actually get power.||
+||9||SERVO OFF (red)||The servos are not enabled.  The servo amplifiers should not be receiving power.||
 
 Of these, only ESTOP OK is being sent into EMC2 as an (inverted) input signal.  Since the limit switches are in series, you have to look at the first unlit LED to determine which axis is at limit.  For instance, if the X axis is at limit, X, Y, Z and ALL LIMITS will be unlit.  If the Y axis is at limit, the X axis will be lit, but Z and all will be unlit.  The A axis limit is not hooked up, and there is a jumper skipping it currently.
 
