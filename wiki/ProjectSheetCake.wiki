@@ -215,6 +215,8 @@ The existing servo amplifiers are Anilam brand amps.  TODO: Anilam part number h
 
 Via testing, we determined that a positive voltage moves the table in a positive direction for all of the axis, but it could have just as well have been the reversed.  There are three wires coming from the integration board for each amp, a signal, a ground and a shield.  The 7i33 card is set up to take in direction and pulses and convert that to output +/-10V, so it is basically ideal for us to drive the existing servo amps.
 
+You can see from the integration board schematic how the servo amplifiers are hooked to the 7i33 servo control board.
+
 =EMC2=
 
 ==Choosing and validating a PC==
