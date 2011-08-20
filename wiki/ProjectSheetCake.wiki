@@ -79,8 +79,8 @@ Integration board parts list
 || DB9 female ribbon connector || $5.67 || 4 || A female DB9 plug with ribbon cable connector || Digikey || AFR09B-ND ||
 || 3/8" Standoffs  || $0.72 || 40 || 3/8" male/female #4-40 brass standoffs for attaching the daughter boards and perf boards to the aluminum sheet || Digikey || 7200K-ND ||
 || 1/4" Standoffs || $0.653 || 10 || 1/4" male/female #4-40 standoffs for attaching the DB9 connectors to the 3/8" standoffs || Digikey || 8713K-ND ||
-|| #4-40 nuts || $$ || 40 || #4-40 nuts for connecting the standoffs to the aluminum sheet || Digikey || ||
-|| #4-40 screws || $$ || 40 || #4-40 nuts for connecting the boards to the standoffs || Digikey || ||
+|| #4-40 screws || $0.0298 || 40 || #4-40 screws for connecting the boards to the standoffs || Digikey || H342-ND ||
+|| #4-40 nuts || $0.0093 || 40 || #4-40 nuts for connecting the standoffs to the aluminum sheet   || Digikey || H216-ND ||
 || 9-wire ribbon cable || N/A || 4 || 9-wire 0.05" pitch ribbon cable for the DB9 plugs.  Approximately 10" long for the longest run.  I split 9-wire ribbons off of a salvaged floppy disk cable || N/A || N/A ||
 || Connecting wire || N/A || ~5' || Various lengths and colors of 22 gauge stranded wire for connecting the through-hole perf board components to the daughter boards and for connecting parts on the perf board.  I used wire salvaged from cables.  || N/A || N/A ||
 || 2"x4" Prototype perf board || $6.26 || 4 || 0.1" hole spacing prototype perf board with copper on one side. || Digikey || V2025-ND ||
