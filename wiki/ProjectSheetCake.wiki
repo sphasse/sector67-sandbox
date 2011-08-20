@@ -311,7 +311,7 @@ Th first thing you should determine is if the system moves in the + direction wh
 
 TODO: a screen shot of the X axis configuration page.
 
-===Motor fine-tuning===
+===Motor PID fine-tuning===
 Reading through all of the available resources show that this is somewhat of a dark art.  There are a few basic methodologies described well [http://en.wikipedia.org/wiki/PID_controller#Loop_tuning here].  In any case it is good to document as you work through the process, like so:
 
 ||Axis||P||I||D||Result||
