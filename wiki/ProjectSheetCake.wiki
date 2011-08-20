@@ -90,6 +90,21 @@ Integration board parts list
 
 _TODO: picture of the board here_
 
+There are 9 LEDs on the integration board, and from left to right, when lit they represent:
+
+||*LED Meaning*||
+||24V OK||
+||X LIMIT OK||
+||Y LIMIT OK||
+||Z LIMIT OK||
+||A LIMIT OK||
+||ALL LIMITS OK||
+||ESTOP OK||
+||SERVO ENABLED||
+||SERVO OFF (red)||
+
+Of these, only ESTOP OK is being sent into EMC2 as an (inverted) input signal.  Since the limit switches are in series, you have to look at the first unlit LED to determine which axis is at limit.  For instance, if the X axis is at limit, X, Y, Z and ALL LIMITS will be unlit.  If the Y axis is at limit, the X axis will be lit, but Z and all will be unlit.  The A axis limit is not hooked up, and there is a jumper skipping it currently.
+
 ==The PCI I/O card==
 The PCI I/O card was fairly easy to install.  It installs as a typical full-height PCI card, and the ribbon cables are run out the back in a slot left open for this purpose in the end of the card.  The card has jumper-settable supply voltage for the daughter cards, which should already be set at +5V.  The other voltage settings were already at +3.3V, so out of the box this card was configured correctly for my purposes.
 
