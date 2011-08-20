@@ -237,18 +237,18 @@ After install, there were options to start EMC2, view the documentation or run o
 
 One minor Linux customization was to configure the screen saver not to lock the PC, and to have it only come on after 30 minutes.  
 
+==Updating EMC2==
+TODO: document the update procedure here once we do that.
+
 ==Configuring EMC2==
-Once EMC2 was installed, we started it via Applications=>CNC->EMC2.  It prompted for a configuration, and we chose "hm2-server -> 5i23" as that matched our configuration.
+Once EMC2 was installed, we started it via Applications -> CNC -> EMC2.  It prompted for a configuration, and we chose "hm2-server -> 5i23" as that matched our configuration.
 
 From there, basically no additional work was needed to have things basically work.  The 7i23, server control daughterboard was hooked up to the first of three 50 pin outputs from the 5i23, and after confirming this is where the configuration expected it by viewing the pinouts via dmesg, we hooked up the encoders and they worked properly the first time.
 
-After that, we hooked up the Z-axis servo amp and it also worked the first time, with intermittent following errors.  We then hooked up the X and Y axes, but the X axis would attempt to move 
-
-In any case, though, EMC2 was basically functional for moving servos and reading encoders out of the box with the appropriate example configuration.  VERY NICE!
-
+After that, we hooked up the Z-axis servo amp and it also worked the first time, with intermittent following errors.  EMC2 was basically functional for moving servos and reading encoders out of the box with the appropriate example configuration.  VERY NICE!
 
 ==Tuning EMC2==
-Reading through all of the various resources, this can be somewhat of a dark art, but there are some basic things that can be done to make this go smoothly.  We had to work through a problem with runaway axes that was ultimately a bug in pncconf.  To realize that, though, we had to take a methodical approach to tuning the system that ultimately was good practice and exposure to some of the internals of EMC2.
+Reading through all of the various resources, this can be somewhat of a dark art, but there are some basic things that can be done to make this go smoothly.  We had to work through a problem with runaway axes that was ultimately a bug in pncconf.  To realize that, though, we had to take a methodical approach to tuning the system that ultimately was good practice and exposure to some of the internals of EMC2.  This section describes that tuning procedure.
 
 ===Basic machine parameters===
 You'll need to know some basic things about your machine to configure EMC2 properly.  For servo systems, to determine how far the table moves per encoder pulse, you'll want to know:
@@ -274,7 +274,14 @@ Once you have this information, enter it into the fields in pncconf in the per-a
 
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/axis-scale-calc.png
 
-This needs to be done for each axis.
+This needs to be done for each axis.  On our mill, the values are:
+
+||              || *X* || *Y* || *Z* ||
+|| *Pulley teeth motor*  || 2 || 2 || 5 ||
+|| *Pulley teeth leadscrew*  || 3 || 3 || 9 ||
+|| *Encoder lines per revolution* || 1000  || 1000  || 1000  ||
+|| *Leadscrew TPI*      || 5.0  || 5.0  || 5.0  ||
+|| *Calculated scale*   || 13333.333 || 13333.333 || 11111.111 ||
 
 ===Calibrating the encoders===
 There are two important dimensions to proper encoders.  They should indicate movement in the proper direction, and they should accurately indicate the distance moved.
