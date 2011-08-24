@@ -174,7 +174,7 @@ K3: *Bottom relay*
 Ground path is the same as K1
 When energized drives the K2 solid state relay on the back side of the board to enable the spindle relay and provide 120VAC to the servo amp power supply.
 
-The signals from the integration board to the Anilam PC 801 board are shown below, pin 1 being the lower pin on the integration board:
+The signals from the integration board to the Anilam PC 801 board are shown below, pin 1 being the lower right pin on the integration board:
 
 ||Integration board pin||Relay board pin||Description||
 ||15||1||  ||
