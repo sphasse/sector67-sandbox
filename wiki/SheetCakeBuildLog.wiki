@@ -94,3 +94,18 @@ So, moving forward the next steps for the mill controller are:
   * Configure the table axes limits properly
 
 I realized that when I calculated the encoder ticks, I was turning the handle one turn, but that was including the gear ratio in the measured value.  That means the numbers from the Anilam configuration now make much more sense.
+
+== 8/23/2011: servo reset automation investigation ==
+I was "faking" a servo reset button with the spindle CW output pin, and had the rude realization that if I left servo reset on, if the machine when to a limit switch, when I manually recovered it it would head back into enable mode and potentially start spinning the servos again.  There are really two deficiencies here that combined to make this unsafe behavior:
+
+1) The servo reset out should not be able to be constantly enabled.  Instead, it should either be a momentary enable push button, or it could also be an automatic ~1s pulse on machine on.  David is working on the push button approach with PyVCP, and I have started investigations of the automated solution using ladder logic.
+
+2) When the machine hits a limit switch, it should put the machine into the estop state.  The way the latching circuit works, it will be somewhat complicated to have a single "NO_FAULT" type signal.  However, an extra input pin could be used to provide the "ALL_LIMITS_OK" signal to EMC2, and then hook that up to a ladder program to go to an estop state.  I am somewhat surprised pncconf does not have a ready-made input for limit switches (I have till now told it not to home, etc.), and it is possible it does, so I'll investigate.  It appears I just need to tell pncconf that there are physical limit switches, but no home switches, and then see if it gives me a pin to hook up.  I expect it will.  I'll then need to solder wires to the ALL_LIMIT_OK signal, and likely have it inverted in EMC2 to work properly.
+
+Both of these really should be done in the interest of safety.
+
+In addition, I have been curious about adding additional stepper motors to this system, but have noticed that when adding stepgens using pncconf that they are mapped to pins that are not output pins in the isolated I/O card.  According to documentation here:
+
+http://blog.gmane.org/gmane.linux.distributions.emc.devel
+
+This might mean that stepgens are relatively difficult to use with the isolated I/O card (without remapping the cable), and that I should put general purpose I/O on the third connector, and leave connector #2 for stepgens.  Alternatively, I could make a cable that would remap the pins appropriately, but that might be more confusing than it is worth.  I expect that servo drivers take ttl directly and do not need isolated I/O.
