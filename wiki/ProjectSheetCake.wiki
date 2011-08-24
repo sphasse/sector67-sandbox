@@ -343,10 +343,10 @@ Reading through all of the available resources show that this is somewhat of a d
 
 TODO: document how we ultimately tuned in the mill.
 
-=Extending=
+= Extending the system =
+One of the major goals of this retrofit was to enable additional system customizations and extensions.  This section describes some of those customizations and extensions.
 
-==Integrating additional control capability==
-=== Automated servo reset pulse ===
+== Automated servo reset pulse ==
 The Anilam mill had a separate servo reset that was used to establish a hardware relay latch circuit as part of the estop/limit servo enable circuit.  As mentioned above, as different people might be hacking on the EMC2 software, we wanted to maintain hardware-level estop, limits, etc.  This meant preserving the Anilam servo enable/relay board, and the servo reset signal as well.  Since the Axis EMC2 interface does not have a concept of servo reset, it needs to be added.  
 
 There are several ways of doing this, including:
@@ -359,16 +359,16 @@ In a nutshell, ladder logic is a programming language that uses relays and other
 
 A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.
 
-==== Creation of the ladder program ====
+=== Creation of the ladder program ===
 TODO: finish this documentation.
-==== Integration using pncconf ====
+=== Integration using pncconf ===
 TODO: finish this documentation.
-==== Verification using halmeter ====
+=== Verification using halmeter ===
 TODO: finish this documentation.
 
-=== The spindle===
-=== Generic relays and solenoids ===
-=== Additional steppers ===
-=== A fourth servo axis ===
+== The spindle ==
+== Generic relays and solenoids ==
+== Additional steppers ==
+== A fourth servo axis ==
 =Build log=
 Check out the SheetCakeBuildLog.
