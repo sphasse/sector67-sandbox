@@ -359,7 +359,7 @@ In a nutshell, ladder logic is a programming language that uses relays and other
 
 A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.
 
-==== Creation of the ====
+==== Creation of the ladder program ====
 TODO: finish this documentation.
 ==== Integration using pncconf ====
 TODO: finish this documentation.
