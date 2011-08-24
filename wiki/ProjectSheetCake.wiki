@@ -346,8 +346,28 @@ TODO: document how we ultimately tuned in the mill.
 =Extending=
 
 ==Integrating additional control capability==
+=== Automated servo reset pulse ===
+The Anilam mill had a separate servo reset that was used to establish a hardware relay latch circuit as part of the estop/limit servo enable circuit.  As mentioned above, as different people might be hacking on the EMC2 software, we wanted to maintain hardware-level estop, limits, etc.  This meant preserving the Anilam servo enable/relay board, and the servo reset signal as well.  Since the Axis EMC2 interface does not have a concept of servo reset, it needs to be added.  
+
+There are several ways of doing this, including:
+
+  * Map a different output signal.  My initial quick and dirty implementation of mapping it to the spindle clockwise output signals.  This was not ideal as the spindle cw signal is not momentary, and I once left it enabled and hit a limit switch.  Since the limit switches were not yet hooked into EMC2 properly, movement stopped but EMC2 did not get out of the machine on state, and so when I manually moved the machine back in limit, the servos activated and ran the machine out of limits again.  So, having it possible for the servo reset signal out to not be momentary is not safe. 
+  * Adding a push button.  David is working on using PyVCP to integrate a servo reset button into the AXIS gui.  TODO: get details from David.
+  * Automatically generate a pulse.  We could also make a ~1s servo reset pulse automatic upon going to the machine on state.  This is a good use case for ladder logic, and this section describes that implementation.
+
+In a nutshell, ladder logic is a programming language that uses relays and other physical objects as a programming metaphor.  Ladders of logic are programmed, a classicladder hal component is loaded and associated with the servo thread, a specific classic ladder program is loaded and mapped into a namespace, and the inputs and outputs of that are mapped to HAL pins so that the program can affect changes in EMC2.
+
+A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.
+
+==== Creation of the ====
+TODO: finish this documentation.
+==== Integration using pncconf ====
+TODO: finish this documentation.
+==== Verification using halmeter ====
+TODO: finish this documentation.
+
 === The spindle===
-=== Generic relays ===
+=== Generic relays and solenoids ===
 === Additional steppers ===
 === A fourth servo axis ===
 =Build log=
