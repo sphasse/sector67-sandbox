@@ -176,15 +176,16 @@ When energized drives the K2 solid state relay on the back side of the board to 
 
 The signals from the integration board to the Anilam PC 801 board are shown below, pin 1 being the lower right pin on the integration board:
 
+TODO: this is currently inaccurate: fix 801 connector descriptions and all pin descriptions to be accurate.
 ||Integration board pin||Relay board pin||Description||
-||15||1||  ||
-||16||2||  ||
-||17||3||Signal pin indicating the servos are in an off state.  This is connected to the normally closed output of the K1 relay.||
-||18||4||  ||
-||19||5||  ||
-||20||6||  ||
-||21||7||  ||
-||22||8||  ||
+||P3-1||1||  ||
+||P3-2||2||+24VDC supply from the relay board||
+||P3-3||3||Signal pin indicating the servos are in an off state.  This is connected to the normally closed output of the K1 relay.||
+||P3-4||4||K1,K4 ground side of the relay coils, intended to be connected to ground through the estop button ||
+||P3-5||5||  ||
+||P3-6||6||+24V ground from the relay board||
+||P3-7||7||  ||
+||P3-8||8||  ||
 
 TODO: servo enable circuit diagrame here.
 
