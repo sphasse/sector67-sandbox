@@ -153,11 +153,11 @@ Each axis has a set of limit switches that are wired in series, along with an DP
 
 The relays are:
 
-K4: Top relay, enabled state represents servo enable, 
+K4: *Top relay*, enabled state represents servo enable, 
 Ground path controlled by the PC "servo enable" flag.  
 When energized helps complete the ground path for K1 and K3.
 
-K1: Middle relay, active output facilitates the latching circuit by providing the ground circuit to itself
+K1: *Middle relay*, active output facilitates the latching circuit by providing the ground circuit to itself
 Ground path controlled by (in series):
 
   * The limit switches
@@ -170,45 +170,23 @@ The closed when non-energized portion of this relay controlls the "servo off" si
 
 SERVO_RESET is meant to be temporarily engergized to allow the latch state to be set up.  It should then be disabled so that if the ground path is broken via the limit switches, estop, etc., K1 will be de-energized. 
 
-K3: Bottom relay
+K3: *Bottom relay*
 Ground path is the same as K1
 When energized drives the K2 solid state relay on the back side of the board to enable the spindle relay and provide 120VAC to the servo amp power supply.
 
+The signals from the integration board to the Anilam PC 801 board are shown below, pin 1 being the lower pin on the integration board:
 
-Input signals:
+||Integration board pin||Relay board pin||Description||
+||15||1||  ||
+||16||2||  ||
+||17||3||Signal pin indicating the servos are in an off state.  This is connected to the normally closed output of the K1 relay.||
+||18||4||  ||
+||19||5||  ||
+||20||6||  ||
+||21||7||  ||
+||22||8||  ||
 
-SERVO_OFF
-
-X_LIMIT
-
-Y_LIMIT
-
-Z_LIMIT
-
-ALL_LIMITS_OK
-
-E_STOP_OK
-
-SERVO_RESET_IN
-
-MANUAL?
-
-Not all of these signals will need to be fed to EMC2.  Some may just be represented with LEDs on the integration board.
- 
-Signals from the PC:
-
-SERVO_ENABLE: When active specifies that the servos should be enabled
-
-SERVO_RESET: When momentarily active allows ground to flow past the K1 relay to allow K1 to energize and set up the latched circuit.
-
-E_STOP: A part of the estop circuit.  Needs to be active to allow the servos to energize.  Allows for a software estop.
-
-
-The signals from the PC will need to be mapped to pins within EMC2.  Normally, EMC2 manages a "MACHINE_ON" and TODO: get signal..., and these can be mapped in the following way:
-
-A separate SERVO_RESET will need to be created and managed via the EMC2 software.  This could be done via a normally-open hardware button as well (or even making use of the existing Anilam console servo reset button), but managing it in software seems to be the most straightforward method of handling this signal.  When this signal is momentarily enabled, it allows the latching circuit to be set up.
-
-TODO: servo enable circuit here.
+TODO: servo enable circuit diagrame here.
 
 == The servo amplifiers ==
 The existing servo amplifiers are Anilam brand amps.  TODO: Anilam part number here.  We don't have ready specs on the amps, but since they work with the existing controller, they seem to be serviceable.  They take in +/-10V for direction and speed, and they receive velocity feedback from the motors.  
