@@ -120,7 +120,7 @@
   <property name="max_feed_override" type="float" value="2.0"/>
   <property name="max_linear_velocity" type="float" value="1.0"/>
   <property name="max_spindle_override" type="float" value="1.0"/>
-  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', '864375bb0d76e6601403c765bb5cf58e'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', '629167c55c3e3330c97bbe0339b05890'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', '2b1a876e899e20c28b81728ab2b0b987')]"/>
+  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', 'fd688648d6db108f3958bfcd9fff7eea'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', '3b21e507f72d809abf828ae7ad46d8fb'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', 'c274440d9af6e6d9dc8196c482fa008f')]"/>
   <property name="mesa0_boardname" type="string" value="5i23"/>
   <property name="mesa0_currentfirmwaredata" type="eval" value="['5i23', 'SVST4_8', 'hm2_pci', 4, 4, 8, 3, 6, 1, 72, 48, 96, [2, 3, 4], [u'Quad Encoder-B', 1], [u'Quad Encoder-A', 1], [u'Quad Encoder-B', 0], [u'Quad Encoder-A', 0], [u'Quad Encoder-I', 1], [u'Quad Encoder-I', 0], [u'Pulse Width Gen-P', 1], [u'Pulse Width Gen-P', 0], [u'Pulse Width Gen-D', 1], [u'Pulse Width Gen-D', 0], [u'Pulse Width Gen-E', 1], [u'Pulse Width Gen-E', 0], [u'Quad Encoder-B', 3], [u'Quad Encoder-A', 3], [u'Quad Encoder-B', 2], [u'Quad Encoder-A', 2], [u'Quad Encoder-I', 3], [u'Quad Encoder-I', 2], [u'Pulse Width Gen-P', 3], [u'Pulse Width Gen-P', 2], [u'Pulse Width Gen-D', 3], [u'Pulse Width Gen-D', 2], [u'Pulse Width Gen-E', 3], [u'Pulse Width Gen-E', 2], [u'Step/Dir Gen-A', 0], [u'Step/Dir Gen-B', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 1], [u'Step/Dir Gen-B', 1], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 2], [u'Step/Dir Gen-B', 2], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 3], [u'Step/Dir Gen-B', 3], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 4], [u'Step/Dir Gen-B', 4], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 5], [u'Step/Dir Gen-B', 5], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 6], [u'Step/Dir Gen-B', 6], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 7], [u'Step/Dir Gen-B', 7], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0]]"/>
   <property name="mesa0_firmware" type="string" value="SVST4_8"/>
@@ -329,7 +329,7 @@
   <property name="mesa0c4pin2inv" type="bool" value="False"/>
   <property name="mesa0c4pin2type" type="string" value="GPIO Input"/>
   <property name="mesa0c4pin3" type="string" value="all-limit"/>
-  <property name="mesa0c4pin3inv" type="bool" value="True"/>
+  <property name="mesa0c4pin3inv" type="bool" value="False"/>
   <property name="mesa0c4pin3type" type="string" value="GPIO Input"/>
   <property name="mesa0c4pin4" type="string" value="unused-input"/>
   <property name="mesa0c4pin4inv" type="bool" value="False"/>
@@ -1564,7 +1564,7 @@
   <property name="xleadscrew" type="int" value="5"/>
   <property name="xmaxacc" type="float" value="2.0"/>
   <property name="xmaxferror" type="float" value="1.005"/>
-  <property name="xmaxlim" type="float" value="24.0"/>
+  <property name="xmaxlim" type="float" value="29.0"/>
   <property name="xmaxoutput" type="float" value="10.0"/>
   <property name="xmaxvel" type="float" value="3.33333333333"/>
   <property name="xmicrostep" type="int" value="1"/>
@@ -1574,7 +1574,7 @@
   <property name="xoutputscale" type="float" value="1.0"/>
   <property name="xpulleydriven" type="int" value="3"/>
   <property name="xpulleydriver" type="int" value="2"/>
-  <property name="xscale" type="float" value="13333.3333333"/>
+  <property name="xscale" type="float" value="30000.0"/>
   <property name="xsearchdir" type="int" value="0"/>
   <property name="xsteprev" type="int" value="200"/>
   <property name="xstepspace" type="float" value="1000.0"/>
@@ -1608,7 +1608,7 @@
   <property name="yleadscrew" type="int" value="5"/>
   <property name="ymaxacc" type="float" value="2.0"/>
   <property name="ymaxferror" type="float" value="1.25"/>
-  <property name="ymaxlim" type="float" value="12.0"/>
+  <property name="ymaxlim" type="float" value="14.0"/>
   <property name="ymaxoutput" type="float" value="10.0"/>
   <property name="ymaxvel" type="float" value="3.33333333333"/>
   <property name="ymicrostep" type="int" value="1"/>
@@ -1618,7 +1618,7 @@
   <property name="youtputscale" type="float" value="1.0"/>
   <property name="ypulleydriven" type="int" value="3"/>
   <property name="ypulleydriver" type="int" value="2"/>
-  <property name="yscale" type="float" value="13333.3333333"/>
+  <property name="yscale" type="float" value="30000.0"/>
   <property name="ysearchdir" type="int" value="0"/>
   <property name="ysteprev" type="int" value="200"/>
   <property name="ystepspace" type="float" value="1000.0"/>
@@ -1631,7 +1631,7 @@
   <property name="zFF1" type="float" value="0.0"/>
   <property name="zFF2" type="float" value="0.0"/>
   <property name="zI" type="float" value="0.0"/>
-  <property name="zP" type="float" value="0.1"/>
+  <property name="zP" type="float" value="10.0"/>
   <property name="zbacklash" type="float" value="0.0"/>
   <property name="zbias" type="float" value="0.0"/>
   <property name="zcompfilename" type="string" value="zcompensation"/>
@@ -1662,7 +1662,7 @@
   <property name="zoutputscale" type="float" value="1.0"/>
   <property name="zpulleydriven" type="int" value="9"/>
   <property name="zpulleydriver" type="int" value="5"/>
-  <property name="zscale" type="float" value="11111.1111111"/>
+  <property name="zscale" type="float" value="36000.0"/>
   <property name="zsearchdir" type="int" value="0"/>
   <property name="zsteprev" type="int" value="200"/>
   <property name="zstepspace" type="float" value="1000.0"/>
