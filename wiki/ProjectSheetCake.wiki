@@ -120,12 +120,12 @@ I originally ordered 1' 50-pin ribbon connectors from Mesa, but realized quickly
 Once we get things fully working, I want to find the distance from the PC to the daughter cards and get/make appropriate twisted pair ribbon cables:
 
 || *Part* || *Price per* || *Quantity* || *Description* || *Vendor* || *Part Number* ||
-|| CABLE 50 COND 5FT TWISTED PAIR || $18.20 || 2 || 5' 50 conductor 0.05" pitch twisted pair ribbon cable for the card connections || Digikey || MC50F-5-ND ||
-|| 50 pin cable ends || $2.86 || 4 || CONN SOCKET 50POS W/ STRAIN RLF || Digikey ||OR987-ND ||
+|| CABLE 50 COND 5FT TWISTED PAIR || $18.20 || 3 || 5' 50 conductor 0.05" pitch twisted pair ribbon cable for the card connections || Digikey || MC50F-5-ND ||
+|| 50 pin cable ends || $2.86 || 6 || CONN SOCKET 50POS W/ STRAIN RLF || Digikey ||OR987-ND ||
 
 TODO: finish this once we settle on where the PC will live relative to the controller.
 
-Twisted pair cables are somewhat better in that they reduce the exposure to RF interference.
+Twisted pair cables are somewhat better in that they reduce the exposure to RF interference.  The cables should be shielded between the PC and the controller box.
 
 =Understanding the current mill and controller=
 ==The servo encoders==
