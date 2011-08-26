@@ -278,13 +278,13 @@ http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/ax
 This needs to be done for each axis.  On our mill, the values are:
 
 ||              || *X* || *Y* || *Z* ||
-|| *Pulley teeth motor*  || 2 || 2 || 5 ||
-|| *Pulley teeth leadscrew*  || 3 || 3 || 9 ||
+|| *Pulley teeth motor*  || 3 || 3 || 9 ||
+|| *Pulley teeth leadscrew*  || 2 || 2 || 5 ||
 || *Encoder lines per revolution* || 1000  || 1000  || 1000  ||
 || *Leadscrew TPI*      || 5.0  || 5.0  || 5.0  ||
-|| *Calculated scale*   || 13333.333 || 13333.333 || 11111.111 ||
+|| *Calculated scale*   || 30,000 || 30,000 || 36,000 ||
 
-Of course every machine is different.
+Of course every machine is different.  I dod confirm these measurements after putting them in EMC2 by putting a dial caliper on each axis.
 
 ===Max velocity and acceleration===
 TODO: find a way to determine this
