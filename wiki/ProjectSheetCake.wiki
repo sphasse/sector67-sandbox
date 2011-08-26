@@ -103,12 +103,16 @@ There are 9 LEDs on the integration board, and from left to right, when lit they
 ||8||SERVO ENABLED||EMC2 is sending a signal that the servos should be enabled.  The servo reset still needs to happen for the servos to actually get power.||
 ||9||SERVO OFF (red)||The servos are not enabled.  The servo amplifiers should not be receiving power.||
 
-Of these, only ESTOP OK is being sent into EMC2 as an (inverted) input signal.  Since the limit switches are in series, you have to look at the first unlit LED to determine which axis is at limit.  For instance, if the X axis is at limit, X, Y, Z and ALL LIMITS will be unlit.  If the Y axis is at limit, the X axis will be lit, but Z and all will be unlit.  The A axis limit is not hooked up, and there is a jumper skipping it currently.
+Of these, only ESTOP OK (inverted) and ALL LIMITS OK (not inverted) are being sent into EMC2 as input signals.  Since the limit switches are in series, you have to look at the first unlit LED to determine which axis is at limit.  For instance, if the X axis is at limit, X, Y, Z and ALL LIMITS will be unlit.  If the Y axis is at limit, the X axis will be lit, but Z and all will be unlit.  The A axis limit is not hooked up, and there is a jumper skipping it currently.
 
 ==The PCI I/O card==
 The PCI I/O card was fairly easy to install.  It installs as a typical full-height PCI card, and the ribbon cables are run out the back in a slot left open for this purpose in the end of the card.  The card has jumper-settable supply voltage for the daughter cards, which should already be set at +5V.  The other voltage settings were already at +3.3V, so out of the box this card was configured correctly for my purposes.
 
 After installing EMC2 via the live CD, I verified that the hostmot2 packages were already installed, so there was no additional work there, and looking through dmesg output, the board was identified by the driver without issue.
+
+Because of the way the hostmot2 driver and pncconf work, we are running the servo functions off of the #1 50 pin ribbon, any potential stepgen functions off of the #2 50 pin ribbon, and custom isolated I/O off of the #3 50 pin ribbon.  The reason for this is that the hostmot2 driver is not compatible in its stepgen pin assignments with the isolated I/O card for stepgens, so we'd run any stepper drivers with TTL logic.  Whereas the limit, enable out, etc. need to be isolated I/O.
+
+This is not really a limitation for us, as we currently have plenty of isolated I/O from just one 7i37TA daughter card.
 
 == The 50 pin ribbon connectors ==
 I originally ordered 1' 50-pin ribbon connectors from Mesa, but realized quickly these would be much too short for this application.  Luckily, we had some longer 50 pin cables sitting around S67.  Old SCSI cables with any terminators removed seem to work fine for testing purposes at least.
@@ -336,14 +340,45 @@ There are several ways of doing this, including:
 
 In a nutshell, ladder logic is a programming language that uses relays and other physical objects as a programming metaphor.  Ladders of logic are programmed, a classicladder hal component is loaded and associated with the servo thread, a specific classic ladder program is loaded and mapped into a namespace, and the inputs and outputs of that are mapped to HAL pins so that the program can affect changes in EMC2.
 
-A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.
+A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.  
 
 === Creation of the ladder program ===
-TODO: finish this documentation.
+After enabling the classic ladder component in pncconf, when you start EMC2 you will have a TODO: get option File->... option to start the ladder editor.  The ladder editor can be a bit clunky, but there integration manual is somewhat helpful.  Pncconf expects your custom program to be stored in the same directory as the rest of the configuration and named custom.clp.  It automatically adds entries into the hal files to load the classic ladder module, and to load your custom.clp program.  
+
+The ladder program for the one-off reset pulse looks like so:
+
+TODO: ladder program image
+
+There is a simple input, an IEC timer in TP mode with a 1 second preset and a simple output.  Documentation of all of the classic ladder components can be found here:
+
+http://linuxcnc.org/docs/html/ladder_classic_ladder.html
+
+and the custom.clp program itself is available from the S67 code sandbox.
+
 === Integration using pncconf ===
-TODO: finish this documentation.
-=== Verification using halmeter ===
-TODO: finish this documentation.
+Pncconf provides a standard way to integrate existing custom ladder programs into your configuration.  You enable it to do so by choosing (TODO: names of the check box) to enable ladder logic and existing custom program.  You also need to select (TODO: get name) so that it will add entries to the ini file to load the custom_postgui.hal file by default.  The custom_postgui.hal file will contain your hand-generated hal commands to associate the classicladder pins with pins and signals that actually do something in EMC2.  Pncconf will generate a custom_postgui.hal file for you once, but will then not overwrite it.  In our case, we wanted to read the input from the "enable" signal as %I0 in our ladder program, so we need a line in custom_postgui.hal like so:
+
+{{{
+net enable => classicladder.0.in-00
+}}}
+
+I chose to assign the pncconf "Digital out 0" pin to be the servo reset output in pncconf, so I unlink the output pin pncconf assigns and assign the classicladder %Q0 output pin to the dout-00 signal with the following lines in custom_postgui.hal:
+
+{{{
+unlinkp  motion.digital-out-00
+net dout-00 <= classicladder.0.out-00
+}}}
+
+There might be a more elegant method for this than unlinking the current pin, but there can be only one output pin driving a signal, and I needed the classicladder.0.out.00 pin to drive the dout-00 signal, so that is how I got it to work.
+
+=== Verification of the functionality ===
+After making those changes, you will need to restart the axis interface, and you should be able to go into the classicladder editor and confirm the pin assignments by pushing the "signals" button.  It should have actual assignments like this:
+
+TODO: signals image
+
+You should then be able to visually confirm operation of the ladder program by enabling the machine and watching the a one second pulse signals flow through the ladder editor GUI.  The servos should actually enable of course as well.
+
+In addition, you can use halmeter (launched from the Axis GUI menu) to watch the dout-00 net to (hopefully) observe the correct behavior.
 
 == The spindle ==
 == Generic relays and solenoids ==
