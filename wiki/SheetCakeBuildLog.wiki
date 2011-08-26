@@ -114,7 +114,7 @@ This might mean that stepgens are relatively difficult to use with the isolated 
 I spend most of the evening at S67 tonight working on this project.  I made a lot of progress, including:
   * Took the board out and soldered wires for the limit switches and attached them to an input pin
   * Got some pictures of the integration board with my camera phone (forgot a better camera).
-  * Re-ordered the 50 pin cables so that custom I/O is using the last 50 pin cable in case we want to use stepgens which automatically get put to board 2 with.
+  * Re-ordered the 50 pin cables so that custom I/O is using the last 50 pin cable in case we want to use stepgens which automatically get put to specific pins on board 2 that are not compatible with the isolated I/O card.  Looks like I bought one too many isolated I/O cards.  Perhaps if we convert the 3300 mill :-).  The stepper controllers for stepgens would need to take TTL level signals, which should be fine.
   * Upgraded to EMC 2.4.6 via buildbot.linuxcnc.org and confirmed the MAX_OUTPUT bug is fixed.
   * Measured axis values to determine X, Y, Z scales of 30000, 30000 and 36000.  Output is now scaled correctly, but I'm not sure why that doesn't add up to what Anilam was using for config.
   * Used the new pncconf to re-generate the configuration, fixing following error, max velocity, acceleration, encoder scaling so that the mill is basically a stable mover now and should be basically accurate.
