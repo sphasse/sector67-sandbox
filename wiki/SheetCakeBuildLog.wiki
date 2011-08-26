@@ -109,3 +109,31 @@ In addition, I have been curious about adding additional stepper motors to this 
 http://blog.gmane.org/gmane.linux.distributions.emc.devel
 
 This might mean that stepgens are relatively difficult to use with the isolated I/O card (without remapping the cable), and that I should put general purpose I/O on the third connector, and leave connector #2 for stepgens.  Alternatively, I could make a cable that would remap the pins appropriately, but that might be more confusing than it is worth.  I expect that servo drivers take ttl directly and do not need isolated I/O.
+
+== 8/25/2011: a productive night at S67 ==
+I spend most of the evening at S67 tonight working on this project.  I made a lot of progress, including:
+  * Took the board out and soldered wires for the limit switches and attached them to an input pin
+  * Got some pictures of the integration board with my camera phone (forgot a better camera).
+  * Re-ordered the 50 pin cables so that custom I/O is using the last 50 pin cable in case we want to use stepgens which automatically get put to board 2 with.
+  * Upgraded to EMC 2.4.6 via buildbot.linuxcnc.org and confirmed the MAX_OUTPUT bug is fixed.
+  * Measured axis values to determine X, Y, Z scales of 30000, 30000 and 36000.  Output is now scaled correctly, but I'm not sure why that doesn't add up to what Anilam was using for config.
+  * Used the new pncconf to re-generate the configuration, fixing following error, max velocity, acceleration, encoder scaling so that the mill is basically a stable mover now and should be basically accurate.
+  * Did some investigation of PID tuning, but only preliminary
+  * Drilled holes in the back of the integration board for eventual mounting (7/32" holes 8 3/8" apart centered on the board).  Slots might be easier to install, but holes were easier to make.
+  * Put numerous generations of the configuration under revision control.
+  * Implemented a timed servo reset classic ladder program that seems to work as expected.  This, along with the limit switch addition should make things easier and safer.  It took some debugging to get it integrated via pncconf.  pncconf was not adding custom.hal to the ini file hal entries for some reason, even when seemingly requested to do so.
+  * Speaking of which, hooking up an all axis limit switch was easy, and now the machine realizes is has hit a limit switch and stops on its own (in addition to the hardware switches stopping the servos).  The limit switch did not need to be inverted in pncconf, as it is a signal that indicates the limit was hit.
+  * Re-ran the EMC2.4AXIS program with a sharpie with the correct scaling.  Looks great, and can't wait to run a real program.
+
+Now to-do:
+  * PID tuning as needed for all axis
+  * Send an email to the list as to why I am getting consistent following error
+  * Try a USB joystick for jogging.
+  * Try a relay on the isolated I/O, how to hook this up to custom gcode?
+  * Disable ubuntu update to it is not prompting to update packages, which might break EMC2
+  * Document most of what I did tonight in earnest
+  * Note to the list about pncconf not including HAL ini entries for custom.hal and custom_postgui.hal (get emc2 version for this)
+  * Document the relay board pins in the wiki
+  * Document the relay board circuit in KiCad
+
+I probably should start in on the frosting extrusion problem, but in any case probably won't get that done by Aug 31.
