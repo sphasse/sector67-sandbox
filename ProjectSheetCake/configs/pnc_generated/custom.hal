@@ -1,0 +1,6 @@
+# Include your customized HAL commands here
+# This file will not be overwritten when you run PNCconf again
+unlinkp  motion.digital-out-00
+net enable => classicladder.0.in-00
+net dout-00 <= classicladder.0.out-00
+

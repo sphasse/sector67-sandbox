@@ -51,7 +51,7 @@
   <property name="available_axes" type="eval" value="['x', 'y', 'z', 's']"/>
   <property name="axes" type="int" value="0"/>
   <property name="baseperiod" type="float" value="50000.0"/>
-  <property name="classicladder" type="bool" value="False"/>
+  <property name="classicladder" type="bool" value="True"/>
   <property name="createshortcut" type="bool" value="False"/>
   <property name="createsymlink" type="bool" value="True"/>
   <property name="customhal" type="bool" value="False"/>
@@ -134,7 +134,7 @@
   <property name="max_feed_override" type="float" value="2.0"/>
   <property name="max_linear_velocity" type="float" value="3.33333333333"/>
   <property name="max_spindle_override" type="float" value="1.0"/>
-  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', '0cfb04188cf8fc313002860bc349861e'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', '368097e7dcaab370c539858a198676a3'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', '2aacba524f31c6fa5377071409eee7f8')]"/>
+  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', '7ad14e725d56ba359f0710b33f69baf9'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', 'a7eb3a54e804ce422a48ed0a55537b05'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', '8a973d527fa0857cf4d9418c684b0f23')]"/>
   <property name="mesa0_boardname" type="string" value="5i23"/>
   <property name="mesa0_boardtitle" type="string" value="5i23"/>
   <property name="mesa0_currentfirmwaredata" type="eval" value="['5i23', '5i23', 'SVST4_8', '5i23', 'hm2_pci', 4, 4, 8, 3, 6, 1, 72, 48, 96, [2, 3, 4], [u'Quad Encoder-B', 1], [u'Quad Encoder-A', 1], [u'Quad Encoder-B', 0], [u'Quad Encoder-A', 0], [u'Quad Encoder-I', 1], [u'Quad Encoder-I', 0], [u'Pulse Width Gen-P', 1], [u'Pulse Width Gen-P', 0], [u'Pulse Width Gen-D', 1], [u'Pulse Width Gen-D', 0], [u'Pulse Width Gen-E', 1], [u'Pulse Width Gen-E', 0], [u'Quad Encoder-B', 3], [u'Quad Encoder-A', 3], [u'Quad Encoder-B', 2], [u'Quad Encoder-A', 2], [u'Quad Encoder-I', 3], [u'Quad Encoder-I', 2], [u'Pulse Width Gen-P', 3], [u'Pulse Width Gen-P', 2], [u'Pulse Width Gen-D', 3], [u'Pulse Width Gen-D', 2], [u'Pulse Width Gen-E', 3], [u'Pulse Width Gen-E', 2], [u'Step/Dir Gen-A', 0], [u'Step/Dir Gen-B', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 1], [u'Step/Dir Gen-B', 1], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 2], [u'Step/Dir Gen-B', 2], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 3], [u'Step/Dir Gen-B', 3], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 4], [u'Step/Dir Gen-B', 4], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 5], [u'Step/Dir Gen-B', 5], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 6], [u'Step/Dir Gen-B', 6], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 7], [u'Step/Dir Gen-B', 7], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0]]"/>
@@ -323,7 +323,7 @@
   <property name="mesa0c4pin18" type="string" value="unused-output"/>
   <property name="mesa0c4pin18inv" type="bool" value="False"/>
   <property name="mesa0c4pin18type" type="string" value="GPIO Output"/>
-  <property name="mesa0c4pin19" type="string" value="spindle-enable"/>
+  <property name="mesa0c4pin19" type="string" value="dout-00"/>
   <property name="mesa0c4pin19inv" type="bool" value="True"/>
   <property name="mesa0c4pin19type" type="string" value="GPIO Output"/>
   <property name="mesa0c4pin1inv" type="bool" value="True"/>
