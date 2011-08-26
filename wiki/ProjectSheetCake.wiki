@@ -92,7 +92,7 @@ _TODO: picture of the board here_
 
 There are 9 LEDs on the integration board, and from left to right, when lit they represent:
 
-||*Position*||*LED name*||*Meaning*||
+|| *Position* || *LED name* || *Meaning* ||
 ||1||24V OK||The integration board is getting +24V from the relay board||
 ||2||X LIMIT OK||The X axis limit switches are not being tripped.||
 ||3||Y LIMIT OK||The X nor Y axes limit switches are being tripped||
