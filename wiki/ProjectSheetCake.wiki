@@ -47,7 +47,7 @@ _The original svg source for this image is under revision control in the sector 
 ==The integration board==
 The integration board is a custom-made board designed to hold the Mesa daughter boards for interfacing with the existing mill's 0.2" and DB9 plugs providing power, estop, limit, rotary encoder in and servo amp out in the servo amp box. It is designed to be a plug and play replacement for the Anilam S1100 distribution board in the large chassis that holds the servo amps. 
 
-We've taken great pains to design this board such that if we ever wanted to restore the original Anilam functioanlity, that could easily be done.
+We've taken great pains to design this board such that if we ever wanted to restore the original Anilam functionality, that could easily be done.
 
 The base of this board is a piece of (TODO: get gauge) 7"x12" aluminum sheet, with a 1/2" strip along the 12" edge folded at 90 degrees to give stiffness and provide a way to secure the board to the chassis. 
 
