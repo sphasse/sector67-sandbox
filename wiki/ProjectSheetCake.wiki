@@ -180,18 +180,17 @@ When energized drives the K2 solid state relay on the back side of the board to 
 
 The signals from the integration board to the Anilam PC 801 board are shown below, pin 1 being the lower right pin on the integration board:
 
-TODO: this is currently inaccurate: fix 801 connector descriptions and all pin descriptions to be accurate.
 ||Integration board pin||Relay board pin||Description||
-||P3-1||1||  ||
+||P3-1||1||K1, K3 ground side of the relay coils.  On the integration board, this is fed to the normally closed estop button.||
 ||P3-2||2||+24VDC supply from the relay board||
-||P3-3||3||Signal pin indicating the servos are in an off state.  This is connected to the normally closed output of the K1 relay.||
-||P3-4||4||K1,K4 ground side of the relay coils, intended to be connected to ground through the estop button ||
-||P3-5||5||  ||
-||P3-6||6||+24V ground from the relay board||
-||P3-7||7||  ||
-||P3-8||8||  ||
+||P3-3||3||Signal pin indicating the servos are in an off state.  This is connected to the normally closed output of the K1 relay.  It is either +24V (servos off) or open (servos on)||
+||P3-4||4||Connects to the K1 relay normally open output, and is a part of the estop/limit ground path.  On the integration board, this pin is wired to the ALL_LIMITS_OK pin.||
+||P3-5||5||Connects between the K1 relay normally open output and the K4 relay normally open output.  On the integration board, this pin is connected to the ALL_LIMITS_OK pin through the SERVO_RESET EMC2 output.  Momentarily enabling SERVO_RESET provides a temporary path to ground for the K1 coil (bypassing the K1 output), so that the K1 relay gets to a latch state where it is providing its own ground signal.||
+||P3-6||6||Connects to the ground side of the K4 relay.  On the integration board, this is connected to ground through the EMC2 MACHINE_ON signal.||
+||P3-7||7||GND for the +24V supply||
+||P3-8||8||Connects to the normally open output of the K4 relay.  On the integration board, this is connected to the normally-closed estop switch.||
 
-TODO: servo enable circuit diagrame here.
+TODO: servo enable circuit diagram here.
 
 == The servo amplifiers ==
 The existing servo amplifiers are Anilam brand amps.  TODO: Anilam part number here.  We don't have ready specs on the amps, but since they work with the existing controller, they seem to be serviceable.  They take in +/-10V for direction and speed, and they receive velocity feedback from the motors.  
