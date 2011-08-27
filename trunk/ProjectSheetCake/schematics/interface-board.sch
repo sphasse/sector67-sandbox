@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 8/19/2011 10:26:13 PM
+EESchema Schematic File Version 2  date 8/25/2011 11:29:30 PM
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,13 +29,14 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:interface-board-cache
 EELAYER 25  0
 EELAYER END
 $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "20 aug 2011"
+Date "26 aug 2011"
 Rev ""
 Comp ""
 Comment1 ""
@@ -43,6 +44,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	4850 4450 4200 4450
+Wire Wire Line
+	4200 4450 4200 4150
+Wire Wire Line
+	1650 4150 4200 4150
+Wire Wire Line
+	1650 4150 1650 6700
 Wire Wire Line
 	16200 8600 10500 8600
 Wire Wire Line
@@ -237,8 +246,6 @@ Connection ~ 3100 5350
 Connection ~ 3000 5450
 Connection ~ 3000 5750
 Connection ~ 1650 5350
-Wire Wire Line
-	1650 5350 1650 6700
 Wire Wire Line
 	1650 6700 3300 6700
 Wire Wire Line
@@ -581,6 +588,16 @@ Wire Wire Line
 	15900 8300 10800 8300
 Wire Wire Line
 	10600 8500 16100 8500
+Wire Wire Line
+	5550 1750 5400 1750
+Wire Wire Line
+	5400 1750 5400 3800
+Wire Wire Line
+	5400 3800 4500 3800
+Wire Wire Line
+	4500 3800 4500 4350
+Wire Wire Line
+	4500 4350 4850 4350
 Text Notes 9400 5450 0    60   ~ 0
 7i33TA card
 Text Notes 5500 5500 0    60   ~ 0
