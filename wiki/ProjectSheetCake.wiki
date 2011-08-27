@@ -88,7 +88,9 @@ Integration board parts list
 || Green LEDs || $0.52 || 10 || Green light-emitting diodes for on-board indicators || Digikey || 511-1254-1-ND ||
 || 2.2k 1/2 watt LED pull-up resistors || $0.093 || 20 || Pull-up resistors for LEDs on the 24V circuits || Digikey || 2.2KH-ND ||
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/whole-board.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/whole-board=thumb.JPG]
+A picture of the completed integration board is shown below.
+
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/whole-board.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/whole-board-thumb.jpg]
 
 _More pictures of the integration board can be found at [http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FProjectSheetCake%2Fdocs%2Fimages%2Fboard-pictures S67 code sandbox]_
 
