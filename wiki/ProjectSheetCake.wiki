@@ -297,7 +297,7 @@ This needs to be done for each axis.  On our mill, the values are:
 || *Leadscrew TPI*      || 5.0  || 5.0  || 5.0  ||
 || *Calculated scale*   || 30,000 || 30,000 || 36,000 ||
 
-Of course every machine is different.  I dod confirm these measurements after putting them in EMC2 by putting a dial caliper on each axis.
+Of course every machine is different.  I did confirm these measurements after putting them in EMC2 by putting a dial caliper on each axis.
 
 ===Max velocity and acceleration===
 TODO: find a way to determine this
