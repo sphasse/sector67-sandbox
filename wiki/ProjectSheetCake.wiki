@@ -242,7 +242,11 @@ After install, there were options to start EMC2, view the documentation or run o
 One minor Linux customization was to configure the screen saver not to lock the PC, and to have it only come on after 30 minutes.  
 
 ==Updating EMC2==
-TODO: document the update procedure here once we do that.
+Since there are many fixes available to the live CD version of EMC2 (2.4.3), updating is recommended.  We initially did not do this and as a result a bug in pncconf caused us to lose a significant amount of time.  The updated procedure can be found at:
+
+http://buildbot.linuxcnc.org/
+
+We are using Lucid (Ubuntu 10.4) 32-bit only (not the simulation), and chose to update to the 2.4 branch.  The documented update procedure took around 10 minutes to download and install the components.  No problems have been encountered so far due to updating to the latest stable version.
 
 ==Configuring EMC2==
 Once EMC2 was installed, we started it via Applications -> CNC -> EMC2.  It prompted for a configuration, and we chose "hm2-server -> 5i23" as that matched our configuration.
