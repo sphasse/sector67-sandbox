@@ -323,6 +323,8 @@ Reading through all of the available resources show that this is somewhat of a d
 ||X||9||4.5||1.125||Rapid axis oscillation (~1/8")||
 ||X||9||4.5||0||Basically stable, seemingly not as good as 15 0 0||
 
+*NOTE*: these are example values gathered when the axes were not scaled properly.
+
 TODO: document how we ultimately tuned in the mill.
 
 = Extending the system =
