@@ -347,7 +347,7 @@ After enabling the classic ladder component in pncconf, when you start EMC2 you 
 
 The ladder program for the one-off reset pulse looks like so:
 
-TODO: ladder program image
+http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-ladder-program.png
 
 There is a simple input, an IEC timer in TP mode with a 1 second preset and a simple output.  Documentation of all of the classic ladder components can be found here:
 
