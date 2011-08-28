@@ -137,3 +137,17 @@ Now to-do:
   * Document the relay board circuit in KiCad
 
 I probably should start in on the frosting extrusion problem, but in any case probably won't get that done by Aug 31.
+
+
+== 8/26/2011: some playing with frosting ==
+Spent a little time working on this today.  Looks like a USB joystick will be fairly easy to integrate, hooked mine up and was able to fairly quickly get hal pins firing from it.  
+
+I also realized on re-reading the EMC2 user's manual that the digital out pin I was using for servo reset is probably intended as the digital out gcode command, so I will need to re-map that, which will be actually clean up the custom hal a tiny bit.
+
+Most significantly, though, Luke and I spent some time fabricating a pressure pot for the frosting, and playing with frosting under pressure.  It seems that 80psi will be sufficient for what we want to do, and putting a pinch valve at the bottom of the pot should be good as well.  The major problem with our version 1 design is that the air pressure tunnels through while there is still a lot of frosting sticking to the sides, and the exiting air tends to be devastating to any frosting already laid down.  I tried a simple floating plunger, but I need to have one with some height so that it does not get sideways, as my initial attempt failed in that way.
+
+I had the additional thought to put a rubber cone on the bottom of the floating plunger such that when it reached the bottom of the cylinder it would seal it.  This would provide an empty cylinder mode of off versus open, which would be greatly superior.
+
+In general, though, the extrusion itself looked fairly reasonable, although I have not done any serious testing.
+
+I need to order solenoids appropriate for the pinch valve and start testing how much force it will take on a relay that is normally closed.  That is, how much will it take to have the fail safe mode close the valves.  I expect I might need to add springs for that, but I am not sure.
