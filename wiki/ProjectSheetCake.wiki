@@ -5,6 +5,8 @@ A three-axis CNC Mill Conversion from Anilam 1100M controls to EMC2
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/mill.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/mill-thumb.jpg]
 
+_The mill mid-conversion_
+
 <wiki:toc max_depth="3" />
 
 ==Introduction==
