@@ -175,6 +175,4 @@ This seems to be an even simpler and better option worth investigating:
 
 http://wiki.linuxcnc.org/uploads/joypad_v3.hal
 
-
-
-With that working
+As an aside, I am finally starting to get a good sense for hal modules, the ini file, hal files and how they interface with a gui like axis.  I'm also getting a decent sense of what pncconf does for you and what it does not do.  It is a very well thought out and well executed system.
