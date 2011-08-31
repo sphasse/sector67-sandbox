@@ -153,7 +153,7 @@ In general, though, the extrusion itself looked fairly reasonable, although I ha
 I need to order solenoids appropriate for the pinch valve and start testing how much force it will take on a relay that is normally closed.  That is, how much will it take to have the fail safe mode close the valves.  I expect I might need to add springs for that, but I am not sure.
 
 
-== 8/26/2011: joystick jog basically functional ==
+== 8/30/2011: joystick jog basically functional ==
 I used the very helpful procedures and code here:
 
 http://wiki.linuxcnc.org/emcinfo.pl?Simple_Remote_Pendant
