@@ -151,3 +151,30 @@ I had the additional thought to put a rubber cone on the bottom of the floating 
 In general, though, the extrusion itself looked fairly reasonable, although I have not done any serious testing.
 
 I need to order solenoids appropriate for the pinch valve and start testing how much force it will take on a relay that is normally closed.  That is, how much will it take to have the fail safe mode close the valves.  I expect I might need to add springs for that, but I am not sure.
+
+
+== 8/26/2011: joystick jog basically functional ==
+I used the very helpful procedures and code here:
+
+http://wiki.linuxcnc.org/emcinfo.pl?Simple_Remote_Pendant
+
+and
+
+http://softsolder.com/2010/10/23/logitech-gamepad-as-emc2-pendant-eagle-schematics-for-the-joggy-thing/
+
+to implement a simple joystick jog.  Luckily, I had the same exact joystick, so all of the input pins matched up.  I had to comment out the fourth axis stuff, as my halui did not have those entries, but other than that, I used pncconf to register (not sure if that is the right terminology) the device.  My understanding of that is that it puts a file in the /etc/udev/rules.d  directory that sets permissions on the joystick device (e.g. /dev/input/js0) such that it can be read by the user.  From there it is a matter of custom_postgui.hal entries to perform the appropriate logic and mapping of the inputs to the halui jogging functions.
+
+In addition, the following is needed, which I added into the:
+
+{{{
+loadusr -W hal_input -KRAL Logitech
+}}}
+Your device name might vary, as it needs to be unique.  I should try literally putting the full ""Logitech Logitech Dual Action" string in double or single quotes to see if that will work.  The hal_input man page seems to indicate it might.
+
+This seems to be an even simpler and better option worth investigating:
+
+http://wiki.linuxcnc.org/uploads/joypad_v3.hal
+
+
+
+With that working
