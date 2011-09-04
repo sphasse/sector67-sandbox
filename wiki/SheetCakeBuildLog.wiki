@@ -201,3 +201,10 @@ I have been thinking of a shield format, much like Arduino has, so that addition
 I finally did make use of the Anilam +5,+15,-15 power supply.  It is rated for 2 amps on each of the 15V legs, and 6 amps on the 5v leg, so it should easily be able to drive a small stepper via the A4988 driver.  I have the interface board nearly done, I just need a stepper motor for testing hooked to the correct pins.
 
 To find the pin assignment, I used the output of "dmesg" with the XYZA stepper motor configuration running.
+
+Todo:
+  * Fix my soldering defect on the stepper board
+  * Get the stepper motor for testing
+  * Wire enable to the stepper driver and assign a pin?
+  * Jumpers for selecting microstepping?
+  * Actually test moving the stepper
