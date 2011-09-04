@@ -185,7 +185,7 @@ More testing today with the frosting extruder.  I will probably want to add a de
 
 A pinch valve run directly from a solenoid is going to be challenging, as the force needed seems quite high.  I am going to try a gate valve rated for 30 PSI and see how that fares.  If well, the design will be quite simple.
 
-== 9/4/2011: frosting, refinement and steppers ==
+== 9/4/2011: more failed frosting tests, digital I/O refinement and steppers ==
 I started the day with some frosting testing.  40PSI is definitely enough to push frosting through the 1/4" NPT barbed fittings I have.  Unfortunately, the gas valve Chris loaned me could not shut off the frosting, even close to its rated 30PSI.  So, it's back to the drawing board on that one.
 
 I was able to clean up the extra digital I/O though.  I assigned pins to all 4 digital inputs and outputs, and added a custom servo-reset net and assigned servo reset to that.  All you need to do in pncconf is type a name into one of the pins and it will be added as a custom net.  Not that obvious from the user interface, but handy nonetheless.  I also modularized the custom hal by using the "source" hal command and extra files (e.g. "source servo-reset.hal").  This cleaned up the custom_postgui.hal quite a bit and should allow me to mix and match features more easily.
@@ -201,4 +201,3 @@ I have been thinking of a shield format, much like Arduino has, so that addition
 I finally did make use of the Anilam +5,+15,-15 power supply.  It is rated for 2 amps on each of the 15V legs, and 6 amps on the 5v leg, so it should easily be able to drive a small stepper via the A4988 driver.  I have the interface board nearly done, I just need a stepper motor for testing hooked to the correct pins.
 
 To find the pin assignment, I used the output of "dmesg" with the XYZA stepper motor configuration running.
-
