@@ -155,7 +155,7 @@ Direct linear encoders are also sometimes used.  These measure the movement of t
 
 ==The servo enable/estop circuit==
 
-The server enable circuit is basically a set of four relays that are used to provide 120VAC to the servo power supply and power to the spindle relay.  Most of the heavy lifting of the servo enable circuit is done on a separate circuit board ("Anilam PC 801") that contains the physical relays and connects to out integration board via an 8 pin header.
+The current Anilam server enable circuit is basically a set of four relays that are used to provide 120VAC to the servo power supply and power to the spindle relay.  Most of the heavy lifting of the servo enable circuit is done on a separate circuit board ("Anilam PC 801") that contains the physical relays and connects to out integration board via an 8 pin header.  If you are working on servo enable problems or want to understand how the servos are enabled, you should read this section.
 
 Although it would be possible to run the estop and limit functions completely in software with emc2, we are choosing to preserve the existing hardware solution, with machine state being read by emc2.
 
