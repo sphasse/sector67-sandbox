@@ -214,26 +214,26 @@ Todo:
 == 9/16/2011: a step back for some prioritization ==
 I have some time away from this project for my father-in-laws visitation, funeral and burial, which should be a good chance to do some thinking about relative priorities and TODOs moving forward.  Some possibilities:
 
-* Drill a hole in the case for the 50 pin ribbons so that the box door can be closed during milling.
-* Test voltage loss on a 5' 50 pin cable to see if we could put the PC in the cabinet on the other side of the mill and still use ribbon-supplied 5V.
-* Test the stepper driver chip+circuit+motor w an Arduino while away from S67
-* Solder stepper card enable, MS0,1,2 do digital IO (digital IO to spare, makes microstepping rate software-controlled)
-* Determine wiring/interface standard for digital and analog I/O to arbitrary mill accessories (banana plugs?)
-* Get the probe assigned as a pin
-* Get a spindle encoder installed and wired up
-* Get the spindle speed and direction control wired up as the 4th axis.
-* Get the spindle enable and brake wired up for safety.
-* Wire the manual spindle controls into EMC2, and then configure EMC2 to allow manual or automatic spindle control (in theory the best of both worlds, but not easily reversible if we want to go back to the Anilam control
-* Sample frequency=>voltage and voltage=>frequency circuits with LM311 chips and the software config (encoder and PWMgen) for them
-* Document the servo reset circuit for the wiki
-* Finish other misc TODOs currently on the wiki page
-* Update to EMC 2.5 when available/stable for coordinated analog motion
-* Investigate the relatively high following error and resolve
-* Complete PID tuning of each axis
-* Learn how to interface custom components properly with axis and halgui
-* Test the frosting servo using a 12V supply
-* PVC pressure vessel?
-* Design and fabricate a frostruding cake tip adapter
-* Understand how to cut pipe threads on a lathe with no taper
+  * Drill a hole in the case for the 50 pin ribbons so that the box door can be closed during milling.
+  * Test voltage loss on a 5' 50 pin cable to see if we could put the PC in the cabinet on the other side of the mill and still use ribbon-supplied 5V.
+  * Test the stepper driver chip+circuit+motor w an Arduino while away from S67
+  * Solder stepper card enable, MS0,1,2 do digital IO (digital IO to spare, makes microstepping rate software-controlled)
+  * Determine wiring/interface standard for digital and analog I/O to arbitrary mill accessories (banana plugs?)
+  * Get the probe assigned as a pin
+  * Get a spindle encoder installed and wired up
+  * Get the spindle speed and direction control wired up as the 4th axis.
+  * Get the spindle enable and brake wired up for safety.
+  * Wire the manual spindle controls into EMC2, and then configure EMC2 to allow manual or automatic spindle control (in theory the best of both worlds, but not easily reversible if we want to go back to the Anilam control
+  * Sample frequency=>voltage and voltage=>frequency circuits with LM311 chips and the software config (encoder and PWMgen) for them
+  * Document the servo reset circuit for the wiki
+  * Finish other misc TODOs currently on the wiki page
+  * Update to EMC 2.5 when available/stable for coordinated analog motion
+  * Investigate the relatively high following error and resolve
+  * Complete PID tuning of each axis
+  * Learn how to interface custom components properly with axis and halgui
+  * Test the frosting servo using a 12V supply
+  * PVC pressure vessel?
+  * Design and fabricate a frostruding cake tip adapter
+  * Understand how to cut pipe threads on a lathe with no taper
 
-Whew, OK there is plenty there.
+Whew, OK there is plenty to work on in that list.
