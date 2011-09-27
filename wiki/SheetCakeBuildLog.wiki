@@ -237,3 +237,8 @@ I have some time away from this project for my father-in-laws visitation, funera
   * Understand how to cut pipe threads on a lathe with no taper
 
 Whew, OK there is plenty to work on in that list.
+
+== 9/26/2011: re-visiting PID tuning ==
+Found this link that provides a seemingly reasonable procedure:
+
+http://www.newport.com/servicesupport/Tutorials/default.aspx?id=152
