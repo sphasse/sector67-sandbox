@@ -198,8 +198,9 @@ The signals from the integration board to the Anilam PC 801 board are shown belo
 ||P3-7||7||GND for the +24V supply||
 ||P3-8||8||Connects to the normally open output of the K4 relay.  On the integration board, this is connected to the normally-closed estop switch.||
 
-TODO: servo enable circuit diagram here.
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-circuit.png]
 
+_A logical view of the servo reset circuit.  The fill circuit diagram in KiCad format is available for download in the S67 sandbox_
 == The servo amplifiers ==
 The existing servo amplifiers are Anilam brand amps.  TODO: Anilam part number here.  We don't have ready specs on the amps, but since they work with the existing controller, they seem to be serviceable.  They take in +/-10V for direction and speed, and they receive velocity feedback from the motors.  
 
