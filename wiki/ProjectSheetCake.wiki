@@ -402,7 +402,7 @@ In addition, you can use halmeter (launched from the Axis GUI menu) to watch the
 =Lessons learned so far=
   * EMC2 is a lot more mature, stable and user-friendly than I expected.  There are some important concepts to understand, but it really is a great system.
 
-  * The pin numbers shown in pncconf may different than the pin numbers on the isolated I/O board, which might be different than the pins on the 50 condutor ribbon cable.  You need to use the isolated I/O board manual to make sure you map these pins correctly.
+  * The pin numbers shown in pncconf may different than the pin numbers on the isolated I/O board, which might be different than the pins on the 50 conductor ribbon cable.  You need to use the isolated I/O board manual to make sure you map these pins correctly.
 
   * pncconf is a great time saver, but it is not bug free and sometimes does things that are not expected.  It helps to understand a bit about what it is doing by looking at the generated .hal and .ini files.
 
