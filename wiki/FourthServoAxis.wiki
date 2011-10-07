@@ -3,7 +3,7 @@
 <wiki:toc max_depth="3" />
 
 = Introduction =
-At the October 2011 monthly meeting at [sector67.org Sector67], we went around and briefly introduced ourselves.  I mentioned I was working on the mill conversion, and TODO: get permission to name this person mentioned they were also working on a mill conversion.  After the meeting we continued discussing the conversions, and XXX graciously agreed to donate a set of three servo motors, encoders and servo controllers to the mill conversion effort.  As a direct result of that, the possibility of a servo-based 4th axis became a reality.
+At the October 2011 monthly meeting at [http://sector67.org Sector67], we went around and briefly introduced ourselves.  I mentioned I was working on the mill conversion, and TODO: get permission to name this person mentioned they were also working on a mill conversion.  After the meeting we continued discussing the conversions, and XXX graciously agreed to donate a set of three servo motors, encoders and servo controllers to the mill conversion effort.  As a direct result of that, the possibility of a servo-based 4th axis became a reality.
 
 This page provides more detail for our implementation of a fourth servo axis as part of the larger [ProjectSheetCake Anilam EMC2 conversion project].
 
