@@ -14,6 +14,8 @@ CP550-1000LD-4895
 
 from the data sheet at:
 
+http://www.opticalencoder.com/pdf/CP-500_size_15_hollow_shaft.pdf
+
 this is a CP-550 Incremental Digital Hollow Shaft Encoder with 1000 cycles per revolution and linedriver pinout.  The pinout looking into the female 10 pin connector is:
 
 ||+5V||+5V||
@@ -21,6 +23,9 @@ this is a CP-550 Incremental Digital Hollow Shaft Encoder with 1000 cycles per r
 ||B||-B|| Notch ||
 ||GND||I||
 ||GND||-I||
+
+Since this is a linedriver output encoder (differential encoder signals), the default "TTL" encoder mode of the Mesa 7I33 will not work so we'll need to switch that axis to RS-422 mode and properly wire the inverted encoder signals from the encoder to the 7I33 board.  As the Anilam system used DB9 connectors for the encoders, we'll stick with that and adapt the 10-pin 0.1" header to a DB9 connector.
+
 
 == The servo controller ==
 = Interfacing to EMC2 =
