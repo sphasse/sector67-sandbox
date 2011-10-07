@@ -9,6 +9,12 @@ This page provides more detail for our implementation of a fourth servo axis as 
 
 = The hardware =
 == The servo motor ==
+The servo motors are Litton Clifton Precision brushed DC servos, U/T C23-L50W10M09, P/N 31-1200-0043, D/C 9547.  I have not been able to come by actual specs for these motors yet, but I have found a minimal amount of information here:
+
+TODO: url
+
+and I am presuming that the servo controllers had been properly tuned for the servo motors, so I may be able to back into some specs from the controllers.
+
 == The encoder ==
 The motors came with an encoder already attached.  Pulling the tape covering one side of the encoder revealed the manufacturer and part number:
 
@@ -32,7 +38,7 @@ Since this is a linedriver output encoder with differential encoder signals, the
 
 == The servo controller ==
 
-The servo controller is a Copley Controls Corp model #412.  This is a 24-90VDC 10A servo controller card.  The data sheet can be found here:
+The servo controller is a Copley Controls Corp model #412.  This is a 24-90VDC 10A DC brush servo controller card.  The data sheet can be found here:
 
 http://www.copleycontrols.com/motion/pdf/412.pdf
 
