@@ -1,4 +1,4 @@
-#The fourth servo axis implementation for our Anliam conversion
+#summary The fourth servo axis implementation for our Anliam conversion
 
 = Introduction =
 This page provides more detail for our implementation of a fourth servo axis during our [ProjectSheetCake Anilam EMC2 conversion project].
