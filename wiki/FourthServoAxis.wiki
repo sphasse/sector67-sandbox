@@ -1,4 +1,14 @@
 #summary The fourth servo axis implementation for our Anliam conversion
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 This page provides more detail for our implementation of a fourth servo axis during our [ProjectSheetCake Anilam EMC2 conversion project].
+= The hardware =
+== The servo motor ==
+== The encoder ==
+== The servo controller ==
+= Interfacing to EMC2 =
+== Modifying the integration board ==
+== Wiring the enclosure ==
+= Making use of it =
