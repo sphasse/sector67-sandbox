@@ -14,13 +14,13 @@ CP550-1000LD-4895
 
 from the data sheet at:
 
-this is a CP-550 Incremental Digital Hollow Shaft Encoder with 1000 cycles per revolution and linedriver pinout.  The pinout of the 10 pin connector is:
+this is a CP-550 Incremental Digital Hollow Shaft Encoder with 1000 cycles per revolution and linedriver pinout.  The pinout looking into the female 10 pin connector is:
 
 ||+5V||+5V||
 ||A||-A||
-||B||-B|| ||
-||A||I||
-||A||-I||
+||B||-B|| Notch ||
+||GND||I||
+||GND||-I||
 
 == The servo controller ==
 = Interfacing to EMC2 =
