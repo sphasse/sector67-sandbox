@@ -24,10 +24,13 @@ this is a CP-550 Incremental Digital Hollow Shaft Encoder with 1000 cycles per r
 ||GND||I||
 ||GND||-I||
 
-Since this is a linedriver output encoder with differential encoder signals, the default "TTL" encoder mode of the Mesa 7I33 will not work so we'll need to switch that axis to RS-422 mode and properly wire the inverted encoder signals from the encoder to the 7I33 board.  As the Anilam system used DB9 connectors for the encoders, we'll stick with that and adapt the 10-pin 0.1" header to a DB9 connector.
+Since this is a linedriver output encoder with differential encoder signals, the default "TTL" encoder mode of the Mesa 7I33 will not work so we'll need to switch that axis to RS-422 mode and properly wire the inverted encoder signals from the encoder to the 7I33 board.  As the Anilam system used DB9 connectors for the encoders, we'll need to interface the 2x5-pin 0.1" header from the encoder to the DB9 connector on the integration board.
 
 
 == The servo controller ==
+
+The servo controller is a Compley Controls Corp model #412.  This is a 24-90VDC 10A servo controller card.
+
 = Interfacing to EMC2 =
 == Modifying the integration board ==
 == Wiring the enclosure ==
