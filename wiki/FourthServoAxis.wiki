@@ -7,6 +7,21 @@ This page provides more detail for our implementation of a fourth servo axis dur
 = The hardware =
 == The servo motor ==
 == The encoder ==
+The motors came with an encoder already attached.  Pulling the tape covering one side of the encoder revealed the manufacturer and part number:
+
+Computer Optical Products, Inc.
+CP550-1000LD-4895
+
+from the data sheet at:
+
+this is a CP-550 Incremental Digital Hollow Shaft Encoder with 1000 cycles per revolution and linedriver pinout.  The pinout of the 10 pin connector is:
+
+||+5V||+5V||
+||A||-A||
+||B||-B|| ||
+||A||I||
+||A||-I||
+
 == The servo controller ==
 = Interfacing to EMC2 =
 == Modifying the integration board ==
