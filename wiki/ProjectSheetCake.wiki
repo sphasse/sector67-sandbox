@@ -399,6 +399,8 @@ In addition, you can use halmeter (launched from the Axis GUI menu) to watch the
 == Generic relays and solenoids ==
 == Additional steppers ==
 == A fourth servo axis ==
+This implementation is described at [FourthServoAxis].
+
 =Lessons learned so far=
   * EMC2 is a lot more mature, stable and user-friendly than I expected.  There are some important concepts to understand, but it really is a great system.
 
