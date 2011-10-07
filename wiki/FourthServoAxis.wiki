@@ -29,7 +29,11 @@ Since this is a linedriver output encoder with differential encoder signals, the
 
 == The servo controller ==
 
-The servo controller is a Compley Controls Corp model #412.  This is a 24-90VDC 10A servo controller card.
+The servo controller is a Copley Controls Corp model #412.  This is a 24-90VDC 10A servo controller card.  The data sheet can be found here:
+
+http://www.copleycontrols.com/motion/pdf/412.pdf
+
+
 
 = Interfacing to EMC2 =
 == Modifying the integration board ==
