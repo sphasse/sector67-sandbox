@@ -14,7 +14,6 @@ The servo motors are Litton Clifton Precision brushed DC servos, U/T C23-L50W10M
 http://www.ni.com/devzone/advisors/motion/clifton.htm
 
 ||Model||Size||Max Tc (N-cm)||Max Ic (A)||Max Vr (V)||Tpk (N-cm)||Kt (N-cm/A)||Kv (V/krpm)||Vmax (V)||Max rpm (rpm)*||
-
 ||C23-L50-W10||N23||29.7||5.7|| ||254.2||5.2||5.41|| ||5,549.1||
 
 and I am presuming that the servo controllers had been properly tuned for the servo motors, so I may be able to back into some specs from the controllers.
