@@ -13,12 +13,12 @@ The servo motors are Litton Clifton Precision brushed DC servos, U/T C23-L50W10M
 
 http://www.ni.com/devzone/advisors/motion/clifton.htm
 
-Definition of symbols
-Tc	 = 	Continuous stall torque
-Ic	 = 	Continuous stall current
-Vr	 = 	Rated Voltage
-Tpk	 = 	Peak Torque
-Kt	 = 	Torque Constant
+Definition of symbols:
+Tc	 = 	Continuous stall torque,
+Ic	 = 	Continuous stall current,
+Vr	 = 	Rated Voltage,
+Tpk	 = 	Peak Torque,
+Kt	 = 	Torque Constant,
 Kv	 = 	Voltage Constant
 
 ||Model||Size||Max Tc (N-cm)||Max Ic (A)||Max Vr (V)||Tpk (N-cm)||Kt (N-cm/A)||Kv (V/krpm)||Vmax (V)||Max rpm (rpm)`*`||
