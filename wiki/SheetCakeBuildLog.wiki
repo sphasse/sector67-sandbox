@@ -243,7 +243,7 @@ Found this link that provides a seemingly reasonable procedure:
 
 http://www.newport.com/servicesupport/Tutorials/default.aspx?id=152
 
-== 10/18/2011: servo drive troubleshooting ==
+== 10/18/2011: Spindle VFD drive troubleshooting ==
 For posterity, I manually modified the ini files to set the axis ranges plus and minus their extents, so after homing you can still move the Z axis in the positive direction.  I'll need to make that change the next time I generate via pncconf.
 
 Finally getting back to this project and wanting to mill some stuff.  The spindle VFD drive has been acting up (Compumotor DriveBlok that came with our HH Roberts spindle head).  We get a DC under voltage condition (5 red LED flashes).  We took the capacitor portion of the DC supply off (the "Cap Blok") and it seems to be OK, but we can't be sure.  We had some fits getting RS-485 communications working to the drive, but now basically have things functional.  Problems included:
