@@ -242,3 +242,17 @@ Whew, OK there is plenty to work on in that list.
 Found this link that provides a seemingly reasonable procedure:
 
 http://www.newport.com/servicesupport/Tutorials/default.aspx?id=152
+
+== 10/18/2011: servo drive troubleshooting ==
+For posterity, I manually modified the ini files to set the axis ranges plus and minus their extents, so after homing you can still move the Z axis in the positive direction.  I'll need to make that change the next time I generate via pncconf.
+
+Finally getting back to this project and wanting to mill some stuff.  The spindle VFD drive has been acting up (Compumotor DriveBlok that came with our HH Roberts spindle head).  We get a DC under voltage condition (5 red LED flashes).  We took the capacitor portion of the DC supply off (the "Cap Blok") and it seems to be OK, but we can't be sure.  We had some fits getting RS-485 communications working to the drive, but now basically have things functional.  Problems included:
+
+1) Use of a null model serial cable instead of a straight through cable.
+2) Potentially bad RS232-RS485 converter or dead batteries in the converter.
+3) Send and receive wires needed to be reversed from the diagram.
+4) Not knowing the device address ("1") or the default/configured serial port values (9600-8-N-1 no flow control).
+
+Now we are able to send commands and receive error messages, so we seemingly need to work out the checksum calculations or get an RS485 client.
+
+At that point we can perhaps get better diagnostics.
