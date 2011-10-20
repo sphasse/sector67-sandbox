@@ -8,7 +8,7 @@
 # repr, useful for debug purposes)
 
 
-import sys, os, serial, threading
+import sys, os, serial, threading, time
 
 def key_description(character):
     """generate a readable description for a key"""
@@ -242,6 +242,7 @@ class RS485Term:
                         self.serial.write(self.newline)         # send newline character(s)
                     else:
                         self.serial.write(c)                    # send character
+                time.sleep(0.1)
         except:
             self.alive = False
             raise
