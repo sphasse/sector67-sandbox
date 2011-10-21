@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# Very simple serial terminal
+# Very simple serial terminal for talking RS485 to a Compumotor DriveBlok VFD
+# Adapted from miniterm which is:
 # (C)2002-2009 Chris Liechti <cliechti@gmx.net>
 
 # Input characters are sent directly (only LF -> CR/LF/CRLF translation is
@@ -8,7 +9,7 @@
 # repr, useful for debug purposes)
 
 
-import sys, os, serial, threading, time
+import sys, serial, threading, time, binascii
 
 def key_description(character):
     """generate a readable description for a key"""
@@ -99,31 +100,35 @@ def dump_ascii(data):
 
 def dump_dec(data):
     print "data as decimal :  ",
-    for c in data:
-        print ord(c),
+    print int(data, 16),
     print
     
 def dump_output(command):
     #remove trailing newline if it exists
     command = command.rstrip('\n')
     checksum = command[-1]
-    cmd_char = command[0]
+    action_char = command[0]
     address = command[1]
-    data = command[2:-1]
+    cmd = command[2:5]
+    data = command[5:-1]
     
     print "******* beginning command output dump *********"
-    print "command : " + command
-    print "cmd char: " + cmd_char
-    print "address : " + address
-    print "data    : " + data
-    print "checksum: " + checksum
+    print "command    : " + command
+    print "action char: " + action_char
+    print "command    : " + cmd
+    print "address    : " + address
+    print "data       : " + data
+    print "checksum   : " + checksum
     
-    dump_bits(data)
-    dump_hex(data)
-    dump_ascii(data)
+    
+    computed_checksum = compute_checksum(action_char + address + cmd + data)
+
+    hexdata = binascii.unhexlify(data)
+    dump_bits(hexdata)
+    dump_hex(hexdata)
+    dump_ascii(hexdata)
     dump_dec(data)
-    
-    computed_checksum = compute_checksum(cmd_char + address + data)
+
     
     if (computed_checksum == checksum):
         print "Checksum is valid"
@@ -236,6 +241,7 @@ class RS485Term:
                     self.stop()
                     break
                 command = generate_command(input)
+                command = command + '\r';
                 print
                 for c in command:
                     if c == '\n':
