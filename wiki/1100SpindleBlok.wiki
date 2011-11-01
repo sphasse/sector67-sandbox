@@ -1,7 +1,21 @@
 #summary A page for documentation of the HH Roberts spindle and SpindleBlok controller
 
 = Introduction =
-This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and SpindleBlok controller.  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power 
+This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and SpindleBlok controller.  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power contactors being enabled when the servos were enabled.
+
+This generally worked fine as the mill does not have an automatic tool changer, and the manual controls ("local controls" in SpindleBlok terminology) provided sufficient feedback to run mill operations.
+
+However in mid-2011 the spindle started to have intermittent faults which put parts and tooling at risk because the mill would happily continue machining not knowing the spindle had stopped.  We started a somehwhat lengthy diagnostic procedure that we hope will eventually lead us to a completely stable solution, with some of the steps being:
+
+  * Review the wiring in the local control box.  Some of this is fairly shoddily done and could stand to be re-done but we don't believe this is currently the source of the faults.
+  * Remove the VFD control panel cover to be able to view the flashing LED fault codes upon encountering a fault condition.  Viewing two faults in this way showed five flashes, which is a "DC Link Undervoltage" condition.
+  * Enable the RS485 serial connection to the controller to be able to read system settings and older faults, and to be able to gather ongoing diagnostics and configure the drive as needed.  This is a small saga all by itself, and we had to work through several issues including:
+    * Errant use of a null model cable instead of a straight through DB9 cable
+    * Creation of a (subsequently unnecessary) custom headphone jack 12V power cable for the serial converter.
+    * Mislabeled/confusingly labeled RS485 send/receive terminals 
+    * Unknown default serial port settings for the drive
+    * Unknown device RS485 ID for the controller 
+  * Development of a Python-based RS485 serial terminal to simplify sending
 
 
 
@@ -12,8 +26,8 @@ This page contains documentation of the Anilam 1100M mill's HH Roberts spindle a
 == Useful links ==
 Some useful links for this spindle head are:
 
-The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes:
-[]
+The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes.  It is probably important to note that this spindle head no longer ships with a SpindleBlok, but a different VFD controller:
+  * []TODO
 
 The SpindleBlok manual describing the VFD controller in detail:
   * [http://www.compumotor.com/new_ulm/manuals_download.htm]
@@ -25,4 +39,7 @@ The SpindkeBlok Windows serial control software.  Very helpful for configuring t
   * [http://www.compumotor.com/new_ulm/Downloads/SpindleWare_1p00p01_Release_10p29p2004.zip]
 
 Our own Python-based serial terminal that calculates checksums, sends commands, etc.:
-[http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FRS485Terminal%2Fsrc]
+  * [http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FRS485Terminal%2Fsrc]
+
+RS485 serial converter manuals:
+  * []TODO
