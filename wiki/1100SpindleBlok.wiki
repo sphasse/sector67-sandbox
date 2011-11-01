@@ -5,7 +5,7 @@ This page contains documentation of the Anilam 1100M mill's HH Roberts spindle a
 
 This generally worked fine as the mill does not have an automatic tool changer, and the manual controls ("local controls" in !SpindleBlok terminology) provided sufficient feedback to run mill operations.
 
-= Drive faulting =
+== Drive faulting ==
 However in mid-2011 the spindle started to have intermittent faults which put parts and tooling at risk because the mill would happily continue machining not knowing the spindle had stopped.  We started a somewhat lengthy diagnostic procedure that we hope will eventually lead us to a completely stable solution, with some of the steps being:
 
   * Review the wiring in the local control box.  Some of this is fairly shoddily done and could stand to be re-done but we don't believe this is currently the source of the faults.
@@ -16,11 +16,34 @@ However in mid-2011 the spindle started to have intermittent faults which put pa
     * Mislabeled/confusingly labeled RS485 send/receive terminals 
     * Unknown default serial port settings for the drive
     * Unknown device RS485 ID for the controller
-  We were eventually able to work through all of these issues to achieve serial communication to the SpindleBlok controller.
+  We were eventually able to work through all of these issues to achieve serial communication to the !SpindleBlok controller.
   * Development of a Python-based RS485 serial terminal to simplify sending and receiving commands.  This software calculates the checksums of both send and received data and formats returned data into various forms.
   * Discovery and use of the Spindleware Windows-based software for reading and writing data to the controller.  This software provides great diagnostic information and interprets the information from the controller for easy consumption.
 
-= EMC2 integration =
+Using Spindleware, we are able to see that the last four fault conditions were:
+
+TODO: capture this information here
+
+The !SpindleBlok manual describes these fault conditions as:
+
+||Fault No
+(hex)||Fault No
+(decimal)||Fault LED||Blink Count||Description Cause and Remedy||
+||3000h||12288||3||Phase Overcurrent||The motor current sensors detected excessive current and shut the drive down. If this happened during commissioning or at start, the current regulators may be unstable. Try reducing the current regulator gains by half (parameters K07 kp_i_nom and K08 kd_i_nom). If this does not solve the problem, make sure that the motor parameters match the motor. Make sure the magnetizing current (G18 k_id) is not too large. It should not be above 60 except in special cases. Try reducing the per-unit-resistance (G17 k_rs) by half and recommissioning. If the overcurrent happened while the motor is loaded, try reducing the load limit (G10 load_lim). If the motor rated current matches the drive rated current then the load limit should not exceed 200%. If the overcurrent happened during field weakening then check the slip limit (G11 slip_lim). Most standard AC motors have a slip limit between 200% and 300%. Special spindle motors may have a limit as high as 450%. Also make sure that the appropriate rated slip is programmed by setting rated speed (G02 rated_speed). If this is a low slip motor then you may need to reduce the rate limits on flux (L04 flux_rate_lim_pos and L05 flux_rate_lim_neg). Finally experiment with the leakage inductance parameter G06 ll_lm by increasing
+or decreasing it by 10.||
+{{{TODO: get}}}
+
+and
+
+{{{
+}}}
+
+The Spindleware software has a software oscilloscope facility that we can use to capture ongoing data.  Until we are able to resolve the fault condition completely, we are asking mill users to run the oscilloscope diagnostics during their milling operations.
+
+Of course now that we have better diagnostic monitoring in place the controller has not faulted after many hours of operation.
+
+== EMC2 integration ==
+The current plan is to integrate the drive to EMC2 in a few steps.  The first step will be to tie the spindle fault condition into EMC2 such that when/if the controller faults, the mill will stop.
 
 == Useful links ==
 Some useful links for this spindle head are:
