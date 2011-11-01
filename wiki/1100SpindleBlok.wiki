@@ -5,6 +5,7 @@ This page contains documentation of the Anilam 1100M mill's HH Roberts spindle a
 
 This generally worked fine as the mill does not have an automatic tool changer, and the manual controls ("local controls" in SpindleBlok terminology) provided sufficient feedback to run mill operations.
 
+= Drive faulting =
 However in mid-2011 the spindle started to have intermittent faults which put parts and tooling at risk because the mill would happily continue machining not knowing the spindle had stopped.  We started a somehwhat lengthy diagnostic procedure that we hope will eventually lead us to a completely stable solution, with some of the steps being:
 
   * Review the wiring in the local control box.  Some of this is fairly shoddily done and could stand to be re-done but we don't believe this is currently the source of the faults.
@@ -14,14 +15,12 @@ However in mid-2011 the spindle started to have intermittent faults which put pa
     * Creation of a (subsequently unnecessary) custom headphone jack 12V power cable for the serial converter.
     * Mislabeled/confusingly labeled RS485 send/receive terminals 
     * Unknown default serial port settings for the drive
-    * Unknown device RS485 ID for the controller 
-  * Development of a Python-based RS485 serial terminal to simplify sending
+    * Unknown device RS485 ID for the controller
+  We were eventually able to work through all of these issues to achieve serial communication to the SpindleBlok controller.
+  * Development of a Python-based RS485 serial terminal to simplify sending and receiving commands.  This software calculates the checksums of both send and received data and formats returned data into various forms.
+  * Discovery and use of the Spindleware Windows-based software for reading and writing data to the controller.  This software provides great diagnostic information and interprets the information from the controller for easy consumption.
 
-
-
-
-
-= Details =
+= EMC2 integration =
 
 == Useful links ==
 Some useful links for this spindle head are:
