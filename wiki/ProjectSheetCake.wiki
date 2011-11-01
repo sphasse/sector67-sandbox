@@ -396,6 +396,7 @@ You should then be able to visually confirm operation of the ladder program by e
 In addition, you can use halmeter (launched from the Axis GUI menu) to watch the dout-00 net to (hopefully) observe the correct behavior.
 
 == The spindle ==
+This implementation is described at [1100SpindleBlok].
 == Generic relays and solenoids ==
 == Additional steppers ==
 == A fourth servo axis ==
