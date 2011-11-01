@@ -1,0 +1,27 @@
+#summary A page for documentation of the HH Roberts spindle and SpindleBlok controller
+
+= Introduction =
+This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and SpindleBlok controller.  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power 
+
+
+
+
+
+= Details =
+
+== Useful links ==
+Some useful links for this spindle head are:
+
+The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes:
+[]
+
+The SpindleBlok manual describing the VFD controller in detail:
+[http://www.compumotor.com/new_ulm/manuals_download.htm]
+[http://www.compumotor.com/new_ulm/manual/Spindle.zip]
+[http://www.compumotor.com/new_ulm/pdf/5004-0502%20layout%20asrd.pdf]
+
+The SpindkeBlok Windows serial control software.  Very helpful for configuring the controller and reading diagnostics.
+[]
+
+Our own Python-based serial terminal that calculates checksums, etc.:
+[]
