@@ -16,12 +16,13 @@ The HH Roberts manual for the complete head, including some basic wiring diagram
 []
 
 The SpindleBlok manual describing the VFD controller in detail:
-[http://www.compumotor.com/new_ulm/manuals_download.htm]
-[http://www.compumotor.com/new_ulm/manual/Spindle.zip]
-[http://www.compumotor.com/new_ulm/pdf/5004-0502%20layout%20asrd.pdf]
+  * [http://www.compumotor.com/new_ulm/manuals_download.htm]
+  * [http://www.compumotor.com/new_ulm/manual/Spindle.zip]
+  * [http://www.compumotor.com/new_ulm/pdf/5004-0502%20layout%20asrd.pdf]
 
 The SpindkeBlok Windows serial control software.  Very helpful for configuring the controller and reading diagnostics.
-[]
+  * [http://www.compumotor.com/new_ulm/downloads_current.htm]
+  * [http://www.compumotor.com/new_ulm/Downloads/SpindleWare_1p00p01_Release_10p29p2004.zip]
 
-Our own Python-based serial terminal that calculates checksums, etc.:
-[]
+Our own Python-based serial terminal that calculates checksums, sends commands, etc.:
+[http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FRS485Terminal%2Fsrc]
