@@ -46,7 +46,7 @@ The third step will be to configure EMC2 to optionally be able to control the sp
 Some useful links for this spindle head are:
 
 The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes.  It is probably important to note that this spindle head no longer ships with a SpindleBlok, but a different VFD controller:
-  * []TODO
+  * [http://www.hhrobertsmachinery.com/HHRM-docs/Topwell/GL%20220V%20Head%20Replacment%20Manual%20Rev%204A.pdf]
 
 The SpindleBlok manual describing the VFD controller in detail:
   * [http://www.compumotor.com/new_ulm/manuals_download.htm]
