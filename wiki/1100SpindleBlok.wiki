@@ -1,12 +1,12 @@
 #summary A page for documentation of the HH Roberts spindle and SpindleBlok controller
 
 = Introduction =
-This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and SpindleBlok controller.  This is the spindle head for the Sector67 1100M mill that was [ProjectSheetCake Converted to EMC2].  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power contactors being enabled when the servos were enabled.
+This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and !SpindleBlok controller.  This is the spindle head for the Sector67 1100M mill that was [ProjectSheetCake Converted to EMC2].  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power contactors being enabled when the servos were enabled.
 
-This generally worked fine as the mill does not have an automatic tool changer, and the manual controls ("local controls" in SpindleBlok terminology) provided sufficient feedback to run mill operations.
+This generally worked fine as the mill does not have an automatic tool changer, and the manual controls ("local controls" in !SpindleBlok terminology) provided sufficient feedback to run mill operations.
 
 = Drive faulting =
-However in mid-2011 the spindle started to have intermittent faults which put parts and tooling at risk because the mill would happily continue machining not knowing the spindle had stopped.  We started a somehwhat lengthy diagnostic procedure that we hope will eventually lead us to a completely stable solution, with some of the steps being:
+However in mid-2011 the spindle started to have intermittent faults which put parts and tooling at risk because the mill would happily continue machining not knowing the spindle had stopped.  We started a somewhat lengthy diagnostic procedure that we hope will eventually lead us to a completely stable solution, with some of the steps being:
 
   * Review the wiring in the local control box.  Some of this is fairly shoddily done and could stand to be re-done but we don't believe this is currently the source of the faults.
   * Remove the VFD control panel cover to be able to view the flashing LED fault codes upon encountering a fault condition.  Viewing two faults in this way showed five flashes, which is a "DC Link Undervoltage" condition.
