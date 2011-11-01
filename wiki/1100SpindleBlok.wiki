@@ -38,6 +38,10 @@ Of course now that we have better diagnostic monitoring in place the controller 
 == EMC2 integration ==
 The current plan is to integrate the drive to EMC2 in a few steps.  The first step will be to tie the spindle fault condition into EMC2 such that when/if the controller faults, the mill will stop.
 
+The second step will be to configure EMC2 to monitor additional drive parameters such as RPM.
+
+The third step will be to configure EMC2 to optionally be able to control the spindle automatically, either via I/O lines or RS485 serial commands.  The drive unfortunately does not talk modbus, so there would be some customization work to get serial control fully working.
+
 == Useful links ==
 Some useful links for this spindle head are:
 
