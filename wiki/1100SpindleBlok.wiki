@@ -1,5 +1,7 @@
 #summary A page for documentation of the HH Roberts spindle and SpindleBlok controller
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and !SpindleBlok controller.  This is the spindle head for the Sector67 1100M mill that was [ProjectSheetCake Converted to EMC2].  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power contactors being enabled when the servos were enabled.
 
