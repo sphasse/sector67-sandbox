@@ -377,14 +377,13 @@ Pncconf provides a standard way to integrate existing custom ladder programs int
 net enable => classicladder.0.in-00
 }}}
 
-I chose to assign the pncconf "Digital out 0" pin to be the servo reset output in pncconf, so I unlink the output pin pncconf assigns and assign the classicladder %Q0 output pin to the dout-00 signal with the following lines in custom_postgui.hal:
+I chose to assign the a custom-named digital output via pncconf to be "servo-reset".  This allows me to assign the classicladder %Q0 output pin to the servo-reset signal with the following lines in custom_postgui.hal:
 
 {{{
-unlinkp  motion.digital-out-00
-net dout-00 <= classicladder.0.out-00
+net servo-reset <= classicladder.0.out-00
 }}}
 
-There might be a more elegant method for this than unlinking the current pin, but there can be only one output pin driving a signal, and I needed the classicladder.0.out.00 pin to drive the dout-00 signal, so that is how I got it to work.
+You can assign custom names to input and output pins in pncconf simply by selecting the pin and typing the name.
 
 === Verification of the functionality ===
 After making those changes, you will need to restart the axis interface, and you should be able to go into the classicladder editor and confirm the pin assignments by pushing the "signals" button.  It should have actual assignments like this:
@@ -393,7 +392,7 @@ TODO: signals image
 
 You should then be able to visually confirm operation of the ladder program by enabling the machine and watching the a one second pulse signals flow through the ladder editor GUI.  The servos should actually enable of course as well.
 
-In addition, you can use halmeter (launched from the Axis GUI menu) to watch the dout-00 net to (hopefully) observe the correct behavior.
+In addition, you can use halmeter (launched from the Axis GUI menu) to watch the servo-reset net to (hopefully) observe the correct behavior.
 
 == The spindle ==
 This implementation is described at [1100SpindleBlok].
