@@ -1,6 +1,6 @@
 #summary A page for documentation of the HH Roberts spindle and SpindleBlok controller
 
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 = Introduction =
 This page contains documentation of the Anilam 1100M mill's HH Roberts spindle and !SpindleBlok controller.  This is the spindle head for the Sector67 1100M mill that was [ProjectSheetCake Converted to EMC2].  The HH Roberts spindle head was an aftermarket add-on to the Anilam mill to replace a failed head, and as such was basically not integrated into the mill controls except for the three-phase power contactors being enabled when the servos were enabled.
@@ -43,6 +43,21 @@ The current plan is to integrate the drive to EMC2 in a few steps.  The first st
 The second step will be to configure EMC2 to monitor additional drive parameters such as RPM.
 
 The third step will be to configure EMC2 to optionally be able to control the spindle automatically, either via I/O lines or RS485 serial commands.  The drive unfortunately does not talk modbus, so there would be some customization work to get serial control fully working.
+
+The sections below describe those steps.
+
+=== Integration step 1: spindle controller fault ===
+This was begun in earnest last night, with the basic steps being:
+  # Wire one of the digital output pins of the SpindleBlok to the isolated I/O card.
+  # Configure the SpindleBlok via the RS485 serial interface to send the appropriate output signal on the wired output pin
+  # Configure EMC2 via pncconf to treat the wired input pin as a spindle fault.
+
+The plan was basically a good one, but several problems were encountered:
+
+  # The way Anilam is setup to control the spindle, when the machine is not enabled, the 3-phase 240V power is not flowing to the spindle controller.  Since the spindle controller internal logic is also ultimately powered from this supply, the SpindleBlok as configured is not manageable via the serial console unless it is powered.  The relay board, on the other hand, only powers the SpindleBlok if it is in a non-estop state.  So, there is a basic chicken-and-egg problem both in configuring the SpindleBlok (which can be overcome to some degree), and more importantly on SpindleBlok startup.  More on this below.
+  # I had initially assumed the digital outputs were TTL logic, but in fact they are open collector outputs that need to be pulled up to an external voltage.  After using the on-board 12V supply through a 3k resistor, EMC2 was then able to see the state changes from the spindle controller.
+
+
 
 == Useful links ==
 Some useful links for this spindle head are:
