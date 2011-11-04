@@ -61,7 +61,7 @@ The various documentation sources define polarity of their signals like so:
 
 ||Source||Name||Description||
 ||SpindleBlok output||Fault xrst (Fault Assert)||Asserted when the drive is faulted, except when the fault is the reset fault. De-asserted when the fault is cleared.  When digital outputs are asserted, the digital output pins are pulled low.||
-||Mesa 7i33 Isolated I/O card||Connector 4 pin 9||
+||Mesa 7i33 Isolated I/O card||Connector 4 pin 9||The opto-isolated inputs have 4.4K Ohm series resistors and reverse input protection diodes across the opto-isolator LEDS. Input current an the maximum 24V input is approximately 5mA. The isolated inputs will work with input voltages from 4 to 24V.  All controller interface pins are active low. This means a low controller output indicates power applied to an opto-isolated input. A low output activates the corresponding output MOSFET.||
 
 So the fundamental problem with the startup process and wiring is that in a powered-off state, there is no 12V source and the Mesa card will report a low (active) state.  When the 12V source is established, the line will be pulled up to a high state, and the Mesa card will report a high state, interpreted as a fault.  As configured during testing, this caused the power to be cut off to the spindle and EMC2 to be put in an estop state.  
 
