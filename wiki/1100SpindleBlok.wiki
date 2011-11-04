@@ -57,7 +57,28 @@ The plan was basically a good one, but several problems were encountered:
   # The way Anilam is setup to control the spindle, when the machine is not enabled, the 3-phase 240V power is not flowing to the spindle controller.  Since the spindle controller internal logic is also ultimately powered from this supply, the SpindleBlok as configured is not manageable via the serial console unless it is powered.  The relay board, on the other hand, only powers the SpindleBlok if it is in a non-estop state.  So, there is a basic chicken-and-egg problem both in configuring the SpindleBlok (which can be overcome to some degree), and more importantly on SpindleBlok startup.  More on this below.
   # I had initially assumed the digital outputs were TTL logic, but in fact they are open collector outputs that need to be pulled up to an external voltage.  After using the on-board 12V supply through a 3k resistor, EMC2 was then able to see the state changes from the spindle controller.
 
+The various documentation sources define polarity of their signals like so:
 
+||Source||Name||Description||
+||SpindleBlok output||Fault xrst (Fault Assert)||Asserted when the drive is faulted, except when the fault is the reset fault. De-asserted when the fault is cleared.  When digital outputs are asserted, the digital output pins are pulled low.||
+||Mesa 7i33 Isolated I/O card||Connector 4 pin 9||
+
+So the fundamental problem with the startup process and wiring is that in a powered-off state, there is no 12V source and the Mesa card will report a low (active) state.  When the 12V source is established, the line will be pulled up to a high state, and the Mesa card will report a high state, interpreted as a fault.  As configured during testing, this caused the power to be cut off to the spindle and EMC2 to be put in an estop state.  
+
+So, any attempt to get to the machine on state resulted in an immediate return to the estop state.
+
+Even using the relay outputs with a voltage source from the mill might have this same problem, as the relay would presumably also go through either an open->closed->open or closed->open->closed transition as the controller started up, although that can be verified.
+
+A different option to solve this in software might be to tie the fault to the "abort" halui signal.  What abort does is not well documented, but it seems that it would abort when running a program, but not in manual mode.  That might be workable, depending on what "abort" accomplishes.
+
+A more stable solution would likely be to implement a classicladder logic to delay checking for a spindle fault until some delay after servo reset.  We would name a custom pin in pncconf for servo-fault and tie that to some logical halui component.
+
+In the long run, once we no longer want the option to convert back to the Anilam controls, we could change the spindle wiring such that it was generally powered up but not enabled.  This would probably give us better failure modes (brake the spindle on an estop for instance rather than coast to a stop), and allow the serial communications to work even when the spindle was faulted.  However, there is something to be said for powering down the spindle completely.  
+
+If the VFD digital logic could be separately powered from an external source that would probably provide the best of all worlds, but I have not found an option for that in the SpindleBlok manual.
+
+
+As a separate thought, it would be good to hook up external fault as well so that an estop will brake the motor.  This should also be fairly easy by feeding the 12V supply.  However, since the Anilam servo board is turning power to the spindle off on an estop, we still might not get the braking we want in an estop state.
 
 == Useful links ==
 Some useful links for this spindle head are:
