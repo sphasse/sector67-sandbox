@@ -358,7 +358,7 @@ In a nutshell, ladder logic is a programming language that uses relays and other
 A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.  
 
 === Creation of the ladder program ===
-After enabling the classic ladder component in pncconf, when you start EMC2 you will have a TODO: get option File->... option to start the ladder editor.  The ladder editor can be a bit clunky, but there integration manual is somewhat helpful.  Pncconf expects your custom program to be stored in the same directory as the rest of the configuration and named custom.clp.  It automatically adds entries into the hal files to load the classic ladder module, and to load your custom.clp program.  
+After enabling the classic ladder component in pncconf, when you start EMC2 you will have a TODO: get option "File->Ladder Editor" option to start the ladder editor.  The ladder editor can be a bit clunky, but there integration manual is somewhat helpful.  Pncconf expects your custom program to be stored in the same directory as the rest of the configuration and named custom.clp.  It automatically adds entries into the hal files to load the classic ladder module, and to load your custom.clp program.  
 
 The ladder program for the one-off reset pulse looks like so:
 
