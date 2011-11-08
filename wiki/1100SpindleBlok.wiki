@@ -73,7 +73,11 @@ A different option to solve this in software might be to tie the fault to the "a
 
 A more stable solution would likely be to implement a classicladder logic to delay checking for a spindle fault until some delay after servo reset.  We would name a custom pin in pncconf for servo-fault and tie that to some logical halui component.
 
-This solution has now been implemented.  It took a little more work than expected, since the simple pncconf assignment of an estop signal to an input signal needed to be replaced with a custom classicladder program for estop as well.  The pncconf capability of specifying a custom estop program was used, and then that custom.clp was modified to add the servo reset ladder program needed to enable the servos (documented on the [ProjectSheetCake main] page) and a separate spindle fault classic ladder program that required the machine to be on before considering the spindle fault an estop condition.  These were added to the custom.clp program and the signals for enabling the spindle fault were integrated via separate a hal file:
+This solution has now been implemented.  It took a little more work than expected, since the simple pncconf assignment of an estop signal to an input signal needed to be replaced with a custom classicladder program for estop as well.  The pncconf capability of specifying a custom estop program was used, and then that custom.clp was modified to add the servo reset ladder program needed to enable the servos (documented on the [ProjectSheetCake main] page) and a separate spindle fault classic ladder program that required the machine to be on before considering the spindle fault an estop condition.  That classicladder program is shown below:
+
+http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png
+
+These were added to the custom.clp program and the signals for enabling the spindle fault were integrated via separate a hal file:
 
 spindle-fault.hal:
 {{{
