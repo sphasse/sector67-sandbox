@@ -1,0 +1,7 @@
+#enable signal in from the machine
+net enable => classicladder.0.in-15
+#spindle fault in from the VFD
+net spindle-fault => classicladder.0.in-16
+#spindle fault out to the classicladder estop
+net spindle-fault-out <= classicladder.0.out-15
+net spindle-fault-out => classicladder.0.in-03
