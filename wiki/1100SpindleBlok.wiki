@@ -67,11 +67,32 @@ So the fundamental problem with the startup process and wiring is that in a powe
 
 So, any attempt to get to the machine on state resulted in an immediate return to the estop state.
 
-Even using the relay outputs with a voltage source from the mill might have this same problem, as the relay would presumably also go through either an open->closed->open or closed->open->closed transition as the controller started up, although that can be verified.
+Even using the relay outputs with a voltage source from the mill would have this same problem, as the relay would also go through either an open->closed->open or closed->open->closed transition as the controller started up, although that can be verified.
 
 A different option to solve this in software might be to tie the fault to the "abort" halui signal.  What abort does is not well documented, but it seems that it would abort when running a program, but not in manual mode.  That might be workable, depending on what "abort" accomplishes.
 
 A more stable solution would likely be to implement a classicladder logic to delay checking for a spindle fault until some delay after servo reset.  We would name a custom pin in pncconf for servo-fault and tie that to some logical halui component.
+
+This solution has now been implemented.  It took a little more work than expected, since the simple pncconf assignment of an estop signal to an input signal needed to be replaced with a custom classicladder program for estop as well.  The pncconf capability of specifying a custom estop program was used, and then that custom.clp was modified to add the servo reset ladder program needed to enable the servos (documented on the [ProjectSheetCake main] page) and a separate spindle fault classic ladder program that required the machine to be on before considering the spindle fault an estop condition.  These were added to the custom.clp program and the signals for enabling the spindle fault were integrated via separate a hal file:
+
+spindle-fault.hal:
+{{{
+#enable signal in from the machine
+net enable => classicladder.0.in-15
+#spindle fault in from the VFD
+net spindle-fault => classicladder.0.in-16
+#spindle fault out to the classicladder estop
+net spindle-fault-out <= classicladder.0.out-15
+net spindle-fault-out => classicladder.0.in-03
+}}}
+
+that is sourced from the custom_postgui.hal file:
+
+{{{
+TODO: get
+}}}
+
+The spindle fault was created in classicladder as a high signal representing a fault, so that if we really wanted to run without the spindle powered up, we can simply comment the sourcing of the spindle-fault.hal program in the custom_postgui.hal file.
 
 In the long run, once we no longer want the option to convert back to the Anilam controls, we could change the spindle wiring such that it was generally powered up but not enabled.  This would probably give us better failure modes (brake the spindle on an estop for instance rather than coast to a stop), and allow the serial communications to work even when the spindle was faulted.  However, there is something to be said for powering down the spindle completely.  
 
