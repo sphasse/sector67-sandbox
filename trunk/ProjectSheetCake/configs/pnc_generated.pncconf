@@ -57,8 +57,8 @@
   <property name="customhal" type="bool" value="False"/>
   <property name="default_angular_velocity" type="float" value="0.25"/>
   <property name="default_linear_velocity" type="float" value="0.25"/>
-  <property name="digitsin" type="float" value="15.0"/>
-  <property name="digitsout" type="float" value="15.0"/>
+  <property name="digitsin" type="float" value="20.0"/>
+  <property name="digitsout" type="float" value="20.0"/>
   <property name="dirhold" type="int" value="20000"/>
   <property name="dirsetup" type="int" value="20000"/>
   <property name="drivertype" type="string" value="other"/>
@@ -71,7 +71,7 @@
   <property name="geometry" type="string" value="xyz"/>
   <property name="guimpg" type="bool" value="True"/>
   <property name="halencoderinputsignames" type="eval" value="[]"/>
-  <property name="halinputsignames" type="eval" value="[]"/>
+  <property name="halinputsignames" type="eval" value="['spindle-fault']"/>
   <property name="haloutputsignames" type="eval" value="['Servo Reset', 'servo-reset']"/>
   <property name="halpwmoutputsignames" type="eval" value="[]"/>
   <property name="halsteppersignames" type="eval" value="[]"/>
@@ -120,7 +120,7 @@
   <property name="joystickjograpidrate2" type="float" value="10.0"/>
   <property name="joystickjograpidrate3" type="float" value="100.0"/>
   <property name="ladderconnect" type="bool" value="True"/>
-  <property name="ladderhaltype" type="int" value="0"/>
+  <property name="ladderhaltype" type="int" value="1"/>
   <property name="laddername" type="string" value="custom.clp"/>
   <property name="latency" type="float" value="20000.0"/>
   <property name="limitshared" type="bool" value="False"/>
@@ -135,7 +135,7 @@
   <property name="max_feed_override" type="float" value="2.0"/>
   <property name="max_linear_velocity" type="float" value="3.33333333333"/>
   <property name="max_spindle_override" type="float" value="1.0"/>
-  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', 'e6154b080b466094a1b65b03d116e436'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', 'f8fd22e4b11fc4367489e86a5c12af82'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', '0f0818bcdb8af8bd014f0a257b2792a6')]"/>
+  <property name="md5sums" type="eval" value="[('/home/sector67/emc2/configs/pnc_generated/README', 'c50a3932650e428585fa8741689d1a5e'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.ini', '737a7293331e12065fff9c7cee7a54e2'), ('/home/sector67/emc2/configs/pnc_generated/pnc_generated.hal', '81c333ff7d44ddba6c72532648584a4c')]"/>
   <property name="mesa0_boardname" type="string" value="5i23"/>
   <property name="mesa0_boardtitle" type="string" value="5i23"/>
   <property name="mesa0_currentfirmwaredata" type="eval" value="['5i23', '5i23', 'SVST4_8', '5i23', 'hm2_pci', 4, 4, 8, 3, 6, 1, 72, 48, 96, [2, 3, 4], [u'Quad Encoder-B', 1], [u'Quad Encoder-A', 1], [u'Quad Encoder-B', 0], [u'Quad Encoder-A', 0], [u'Quad Encoder-I', 1], [u'Quad Encoder-I', 0], [u'Pulse Width Gen-P', 1], [u'Pulse Width Gen-P', 0], [u'Pulse Width Gen-D', 1], [u'Pulse Width Gen-D', 0], [u'Pulse Width Gen-E', 1], [u'Pulse Width Gen-E', 0], [u'Quad Encoder-B', 3], [u'Quad Encoder-A', 3], [u'Quad Encoder-B', 2], [u'Quad Encoder-A', 2], [u'Quad Encoder-I', 3], [u'Quad Encoder-I', 2], [u'Pulse Width Gen-P', 3], [u'Pulse Width Gen-P', 2], [u'Pulse Width Gen-D', 3], [u'Pulse Width Gen-D', 2], [u'Pulse Width Gen-E', 3], [u'Pulse Width Gen-E', 2], [u'Step/Dir Gen-A', 0], [u'Step/Dir Gen-B', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 1], [u'Step/Dir Gen-B', 1], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 2], [u'Step/Dir Gen-B', 2], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 3], [u'Step/Dir Gen-B', 3], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 4], [u'Step/Dir Gen-B', 4], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 5], [u'Step/Dir Gen-B', 5], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 6], [u'Step/Dir Gen-B', 6], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step/Dir Gen-A', 7], [u'Step/Dir Gen-B', 7], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0]]"/>
@@ -327,7 +327,7 @@
   <property name="mesa0c4pin19" type="string" value="servo-reset"/>
   <property name="mesa0c4pin19inv" type="bool" value="True"/>
   <property name="mesa0c4pin19type" type="string" value="GPIO Output"/>
-  <property name="mesa0c4pin1inv" type="bool" value="True"/>
+  <property name="mesa0c4pin1inv" type="bool" value="False"/>
   <property name="mesa0c4pin1type" type="string" value="GPIO Input"/>
   <property name="mesa0c4pin2" type="string" value="din-01"/>
   <property name="mesa0c4pin20" type="string" value="dout-02"/>
@@ -351,7 +351,7 @@
   <property name="mesa0c4pin4inv" type="bool" value="True"/>
   <property name="mesa0c4pin4type" type="string" value="GPIO Input"/>
   <property name="mesa0c4pin5" type="string" value="unused-input"/>
-  <property name="mesa0c4pin5inv" type="bool" value="False"/>
+  <property name="mesa0c4pin5inv" type="bool" value="True"/>
   <property name="mesa0c4pin5type" type="string" value="GPIO Input"/>
   <property name="mesa0c4pin6" type="string" value="din-03"/>
   <property name="mesa0c4pin6inv" type="bool" value="True"/>
@@ -362,7 +362,7 @@
   <property name="mesa0c4pin8" type="string" value="unused-input"/>
   <property name="mesa0c4pin8inv" type="bool" value="False"/>
   <property name="mesa0c4pin8type" type="string" value="GPIO Input"/>
-  <property name="mesa0c4pin9" type="string" value="unused-input"/>
+  <property name="mesa0c4pin9" type="string" value="spindle-fault"/>
   <property name="mesa0c4pin9inv" type="bool" value="False"/>
   <property name="mesa0c4pin9type" type="string" value="GPIO Input"/>
   <property name="mesa0c5pin0" type="string" value="unused-input"/>
@@ -1588,7 +1588,7 @@
   <property name="xmaxvel" type="float" value="3.33333333333"/>
   <property name="xmicrostep" type="int" value="1"/>
   <property name="xminferror" type="float" value="1.0005"/>
-  <property name="xminlim" type="float" value="0.0"/>
+  <property name="xminlim" type="float" value="-29.0"/>
   <property name="xoutputoffset" type="float" value="0.0"/>
   <property name="xoutputscale" type="float" value="1.0"/>
   <property name="xpulleydriven" type="int" value="3"/>
@@ -1632,7 +1632,7 @@
   <property name="ymaxvel" type="float" value="3.33333333333"/>
   <property name="ymicrostep" type="int" value="1"/>
   <property name="yminferror" type="float" value="1.0005"/>
-  <property name="yminlim" type="float" value="0.0"/>
+  <property name="yminlim" type="float" value="-14.0"/>
   <property name="youtputoffset" type="float" value="0.0"/>
   <property name="youtputscale" type="float" value="1.0"/>
   <property name="ypulleydriven" type="int" value="3"/>
@@ -1671,7 +1671,7 @@
   <property name="zleadscrew" type="int" value="5"/>
   <property name="zmaxacc" type="float" value="15.0"/>
   <property name="zmaxferror" type="float" value="1.005"/>
-  <property name="zmaxlim" type="float" value="0.0"/>
+  <property name="zmaxlim" type="float" value="4.0"/>
   <property name="zmaxoutput" type="float" value="10.0"/>
   <property name="zmaxvel" type="float" value="2.5"/>
   <property name="zmicrostep" type="int" value="1"/>
