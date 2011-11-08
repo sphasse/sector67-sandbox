@@ -77,7 +77,7 @@ This solution has now been implemented.  It took a little more work than expecte
 
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png
 
-These were added to the custom.clp program and the signals for enabling the spindle fault were integrated via separate a hal file:
+The signals to integrate with this program were integrated via separate a hal file:
 
 spindle-fault.hal:
 {{{
