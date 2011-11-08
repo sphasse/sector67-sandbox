@@ -358,29 +358,33 @@ In a nutshell, ladder logic is a programming language that uses relays and other
 A momentary output pulse based on going to the machine on state is a very simple ladder program, but provides a good demonstration of how this sort of customization is done.  An excellent classic ladder tutorial can be found in the EMC2 Integrator's Manual.  
 
 === Creation of the ladder program ===
-After enabling the classic ladder component in pncconf, when you start EMC2 you will have a TODO: get option "File->Ladder Editor" option to start the ladder editor.  The ladder editor can be a bit clunky, but there integration manual is somewhat helpful.  Pncconf expects your custom program to be stored in the same directory as the rest of the configuration and named custom.clp.  It automatically adds entries into the hal files to load the classic ladder module, and to load your custom.clp program.  
+After enabling the classic ladder component in pncconf, when you start EMC2 you will have a "File->Ladder Editor" option to start the ladder editor.  The ladder editor is a bit clunky, but the EMC2 integration manual is somewhat helpful.  Pncconf expects your custom program to be stored in the same directory as the rest of the configuration and named custom.clp.  If in our case you need a custom estop as well, when you choose that in pncconf it automatically adds entries into the hal files to load the classic ladder module, integrate the estop ladder program and load your custom.clp program.  
 
-The ladder program for the one-off reset pulse looks like so:
+The ladder program for the one-off servo-reset pulse looks like so:
 
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-ladder-program.png
 
-There is a simple input, an IEC timer in TP mode with a 1 second preset and a simple output.  Documentation of all of the classic ladder components can be found here:
+There is a simple input, an IEC timer in TP mode with a 2 second preset and a simple output.  Documentation of all of the classic ladder components can be found here:
 
 http://linuxcnc.org/docs/html/ladder_classic_ladder.html
 
-and the custom.clp program itself is available from the S67 code sandbox.
+and the custom.clp program itself is available from the S67 code sandbox.  The custom.clp currently includes three rungs:
+
+  * A custom estop program that includes the spindle fault as an estop source
+  * The servo reset functionality on machine on
+  * The spindle fault functionality to ignore spindle faults until one second after the machine in in the on state.
 
 === Integration using pncconf ===
-Pncconf provides a standard way to integrate existing custom ladder programs into your configuration.  You enable it to do so by choosing (TODO: names of the check box) to enable ladder logic and existing custom program.  You also need to select (TODO: get name) so that it will add entries to the ini file to load the custom_postgui.hal file by default.  The custom_postgui.hal file will contain your hand-generated hal commands to associate the classicladder pins with pins and signals that actually do something in EMC2.  Pncconf will generate a custom_postgui.hal file for you once, but will then not overwrite it.  In our case, we wanted to read the input from the "enable" signal as %I0 in our ladder program, so we need a line in custom_postgui.hal like so:
+Pncconf provides a standard way to integrate existing custom ladder programs into your configuration.  You enable it to do so by choosing (TODO: names of the check box) to enable ladder logic and TODO: custom estop option.  You also need to select (TODO: get name) so that it will add entries to the ini file to load the custom_postgui.hal file by default.  The custom_postgui.hal file contains additional hal commands to source files that associate the classicladder pins with pins and signals that actually do something in EMC2.  Pncconf will generate a custom_postgui.hal file for you once, but will then not overwrite it.  In our case, we wanted to read the input from the "enable" signal as %I10 in our ladder program, so we need a line in custom_postgui.hal like so:
 
 {{{
-net enable => classicladder.0.in-00
+net enable => classicladder.0.in-10
 }}}
 
-I chose to assign the a custom-named digital output via pncconf to be "servo-reset".  This allows me to assign the classicladder %Q0 output pin to the servo-reset signal with the following lines in custom_postgui.hal:
+I chose to assign the a custom-named digital output via pncconf to be "servo-reset".  This allows me to assign the classicladder %Q10 output pin to the servo-reset signal with the following lines in custom_postgui.hal:
 
 {{{
-net servo-reset <= classicladder.0.out-00
+net servo-reset <= classicladder.0.out-10
 }}}
 
 You can assign custom names to input and output pins in pncconf simply by selecting the pin and typing the name.
