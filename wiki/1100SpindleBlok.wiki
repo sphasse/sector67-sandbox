@@ -121,7 +121,7 @@ The !SpindleBlok manual describing the VFD controller in detail:
   * [http://www.compumotor.com/new_ulm/manual/Spindle.zip]
   * [http://www.compumotor.com/new_ulm/pdf/5004-0502%20layout%20asrd.pdf]
 
-The SpindkeBlok Windows serial control software.  Very helpful for configuring the controller and reading diagnostics.
+The !SpindkeBlok Windows serial control software.  Very helpful for configuring the controller and reading diagnostics.
   * [http://www.compumotor.com/new_ulm/downloads_current.htm]
   * [http://www.compumotor.com/new_ulm/Downloads/SpindleWare_1p00p01_Release_10p29p2004.zip]
 
