@@ -49,8 +49,8 @@ The sections below describe those steps.
 
 === Integration step 1: spindle controller fault ===
 This was begun in early November 2011, with the basic steps being:
-  # Wire one of the digital output pins of the SpindleBlok to the isolated I/O card.
-  # Configure the SpindleBlok via the RS485 serial interface to send the appropriate output signal on the wired output pin
+  # Wire one of the digital output pins of the !SpindleBlok to the isolated I/O card.
+  # Configure the !SpindleBlok via the RS485 serial interface to send the appropriate output signal on the wired output pin
   # Configure EMC2 via pncconf to treat the wired input pin as a spindle fault.
 
 The plan was basically a good one, but several problems were encountered:
@@ -105,7 +105,7 @@ This has not yet begun, but will involve either reading the RPM serially or read
 === Integration step 3: spindle controller fault ===
 In the long run, once we no longer want the option to convert back to the Anilam controls, we could change the spindle wiring such that it was generally powered up but not enabled.  This would probably give us better failure modes (brake the spindle on an estop for instance rather than coast to a stop), and allow the serial communications to work even when the spindle was faulted.  However, there is something to be said for powering down the spindle completely.  
 
-If the VFD digital logic could be separately powered from an external source that would probably provide the best of all worlds, but I have not found an option for that in the SpindleBlok manual.
+If the VFD digital logic could be separately powered from an external source that would probably provide the best of all worlds, but I have not found an option for that in the !SpindleBlok manual.
 
 
 As a separate thought, it would be good to hook up external fault as well so that an estop will brake the motor.  This should also be fairly easy by feeding the 12V supply.  However, since the Anilam servo board is turning power to the spindle off on an estop, we still might not get the braking we want in an estop state.
@@ -113,10 +113,10 @@ As a separate thought, it would be good to hook up external fault as well so tha
 == Useful links ==
 Some useful links for this spindle head are:
 
-The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes.  It is probably important to note that this spindle head no longer ships with a SpindleBlok, but a different VFD controller:
+The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes.  It is probably important to note that this spindle head no longer ships with a !SpindleBlok, but a different VFD controller:
   * [http://www.hhrobertsmachinery.com/HHRM-docs/Topwell/GL%20220V%20Head%20Replacment%20Manual%20Rev%204A.pdf]
 
-The SpindleBlok manual describing the VFD controller in detail:
+The !SpindleBlok manual describing the VFD controller in detail:
   * [http://www.compumotor.com/new_ulm/manuals_download.htm]
   * [http://www.compumotor.com/new_ulm/manual/Spindle.zip]
   * [http://www.compumotor.com/new_ulm/pdf/5004-0502%20layout%20asrd.pdf]
