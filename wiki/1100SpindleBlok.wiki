@@ -20,11 +20,12 @@ However in mid-2011 the spindle started to have intermittent faults which put pa
     * Unknown device RS485 ID for the controller
   We were eventually able to work through all of these issues to achieve serial communication to the !SpindleBlok controller.
   * Development of a Python-based RS485 serial terminal to simplify sending and receiving commands.  This software calculates the checksums of both send and received data and formats returned data into various forms.
-  * Discovery and use of the Spindleware Windows-based software for reading and writing data to the controller.  This software provides great diagnostic information and interprets the information from the controller for easy consumption.
+  * Discovery and use of the !SpindleWare Windows-based software for reading and writing data to the controller.  This software provides great diagnostic information and interprets the information from the controller for easy consumption.
 
-Using Spindleware, we are able to see that the last four fault conditions were:
+Using !SpindleWare, we are able to see that the last four fault conditions were:
 
-TODO: capture this information here
+TODO: capture this information here (All were DC Undervoltage)
+
 
 The !SpindleBlok manual describes these fault conditions as:
 
@@ -33,7 +34,7 @@ The !SpindleBlok manual describes these fault conditions as:
 ||5000h||20480||5||DC link undervoltage||The voltage sensor has detected a low bus voltage. If the drive is a 240 volt or 480 volt class drive with three phase power within line voltage specification then the most likely explanation is that a momentary input line dropout occurred. If the problem persists, monitor the input line voltage. If the input power is single phase or the drive is a 115 volt class drive then drawing excessive power from the motor may droop the line or cause enough ripple on the DC bus to cause an undervoltage trip. Increasing the DC bus capacitance will reduce the DC bus ripple.||
 
 
-The Spindleware software has a software oscilloscope facility that we can use to capture ongoing data.  Until we are able to resolve the fault condition completely, we are asking mill users to run the oscilloscope diagnostics during their milling operations.
+The !Spindleware software has a software oscilloscope facility that we can use to capture ongoing data.  Until we are able to resolve the fault condition completely, we are asking mill users to run the oscilloscope diagnostics during their milling operations.
 
 Of course now that we have better diagnostic monitoring in place the controller has not faulted after many hours of operation.
 
@@ -47,14 +48,14 @@ The third step will be to configure EMC2 to optionally be able to control the sp
 The sections below describe those steps.
 
 === Integration step 1: spindle controller fault ===
-This was begun in earnest last night, with the basic steps being:
+This was begun in early November 2011, with the basic steps being:
   # Wire one of the digital output pins of the SpindleBlok to the isolated I/O card.
   # Configure the SpindleBlok via the RS485 serial interface to send the appropriate output signal on the wired output pin
   # Configure EMC2 via pncconf to treat the wired input pin as a spindle fault.
 
 The plan was basically a good one, but several problems were encountered:
 
-  # The way Anilam is setup to control the spindle, when the machine is not enabled, the 3-phase 240V power is not flowing to the spindle controller.  Since the spindle controller internal logic is also ultimately powered from this supply, the SpindleBlok as configured is not manageable via the serial console unless it is powered.  The relay board, on the other hand, only powers the SpindleBlok if it is in a non-estop state.  So, there is a basic chicken-and-egg problem both in configuring the SpindleBlok (which can be overcome to some degree), and more importantly on SpindleBlok startup.  More on this below.
+  # The way Anilam is setup to control the spindle, when the machine is not enabled, the 3-phase 240V power is not flowing to the spindle controller.  Since the spindle controller internal logic is also ultimately powered from this supply, the !SpindleBlok as configured is not manageable via the serial console unless it is powered.  The relay board, on the other hand, only powers the !SpindleBlok if it is in a non-estop state.  So, there is a basic chicken-and-egg problem both in configuring the !SpindleBlok (which can be overcome to some degree), and more importantly on !SpindleBlok startup.  More on this below.
   # I had initially assumed the digital outputs were TTL logic, but in fact they are open collector outputs that need to be pulled up to an external voltage.  After using the on-board 12V supply through a 3k resistor, EMC2 was then able to see the state changes from the spindle controller.
 
 The various documentation sources define polarity of their signals like so:
@@ -63,17 +64,15 @@ The various documentation sources define polarity of their signals like so:
 ||SpindleBlok output||Fault xrst (Fault Assert)||Asserted when the drive is faulted, except when the fault is the reset fault. De-asserted when the fault is cleared.  When digital outputs are asserted, the digital output pins are pulled low.||
 ||Mesa 7i33 Isolated I/O card||Connector 4 pin 9||The opto-isolated inputs have 4.4K Ohm series resistors and reverse input protection diodes across the opto-isolator LEDS. Input current an the maximum 24V input is approximately 5mA. The isolated inputs will work with input voltages from 4 to 24V.  All controller interface pins are active low. This means a low controller output indicates power applied to an opto-isolated input. A low output activates the corresponding output MOSFET.||
 
-So the fundamental problem with the startup process and wiring is that in a powered-off state, there is no 12V source and the Mesa card will report a low (active) state.  When the 12V source is established, the line will be pulled up to a high state, and the Mesa card will report a high state, interpreted as a fault.  As configured during testing, this caused the power to be cut off to the spindle and EMC2 to be put in an estop state.  
+So the fundamental problem with the start-up process and wiring is that in a powered-off state, there is no 12V source and the Mesa card will report a low (active) state.  When the 12V source is established, the line will be pulled up to a high state, and the Mesa card will report a high state, interpreted as a fault.  As configured during testing, this caused the power to be cut off to the spindle and EMC2 to be put in an estop state.  
 
 So, any attempt to get to the machine on state resulted in an immediate return to the estop state.
 
 Even using the relay outputs with a voltage source from the mill would have this same problem, as the relay would also go through either an open->closed->open or closed->open->closed transition as the controller started up, although that can be verified.
 
-A different option to solve this in software might be to tie the fault to the "abort" halui signal.  What abort does is not well documented, but it seems that it would abort when running a program, but not in manual mode.  That might be workable, depending on what "abort" accomplishes.
+We have implemented a solution that includes implementing a classicladder rung to delay enabling a spindle fault until some delay after the machine is enabled.  We named a custom input pin in pncconf for the servo-fault signal from the VFD and tied that to an estop ladder program implementing the enable delay.  The output of that ladder program was fed into the estop ladder rung as another source of estop.
 
-A more stable solution would likely be to implement a classicladder logic to delay checking for a spindle fault until some delay after servo reset.  We would name a custom pin in pncconf for servo-fault and tie that to some logical halui component.
-
-This solution has now been implemented.  It took a little more work than expected, since the simple pncconf assignment of an estop signal to an input signal needed to be replaced with a custom classicladder program for estop as well.  The pncconf capability of specifying a custom estop program was used, and then that custom.clp was modified to add the servo reset ladder program needed to enable the servos (documented on the [ProjectSheetCake main] page) and a separate spindle fault classic ladder program that required the machine to be on before considering the spindle fault an estop condition.  That classicladder program is shown below:
+Implementing this solution tool a little more work than expected, since the simple pncconf assignment of an estop signal to an input signal needed to be replaced with a custom classicladder program for estop.  The pncconf capability of specifying a custom estop program was used, and then that custom.clp was modified to add the servo reset ladder program needed to enable the servos (documented on the [ProjectSheetCake main] page) and a separate spindle fault classic ladder program that required the machine to be on before considering the spindle fault an estop condition.  The spindle-fault classicladder program is shown below:
 
 http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png
 
@@ -96,8 +95,14 @@ that is sourced from the custom_postgui.hal file:
 TODO: get
 }}}
 
-The spindle fault was created in classicladder as a high signal representing a fault, so that if we really wanted to run without the spindle powered up, we can simply comment the sourcing of the spindle-fault.hal program in the custom_postgui.hal file.
+The spindle fault was created in classicladder as a high signal representing a fault, so that if we really wanted to run without the spindle powered up, we can simply comment the sourcing of the spindle-fault.hal program in the custom_postgui.hal file, that signal will be low, and will not generate an estop.
 
+As of 2011/11/07 this solution has been tested and is now in production on the mill.
+
+=== Integration step 2: spindle RPM feedback and monitoring ===
+This has not yet begun, but will involve either reading the RPM serially or reading an analog output pin into EMC2.  To read the analog output pin, we'll need to have an analog to frequency converter and configure an encoder in EMC2.
+
+=== Integration step 3: spindle controller fault ===
 In the long run, once we no longer want the option to convert back to the Anilam controls, we could change the spindle wiring such that it was generally powered up but not enabled.  This would probably give us better failure modes (brake the spindle on an estop for instance rather than coast to a stop), and allow the serial communications to work even when the spindle was faulted.  However, there is something to be said for powering down the spindle completely.  
 
 If the VFD digital logic could be separately powered from an external source that would probably provide the best of all worlds, but I have not found an option for that in the SpindleBlok manual.
