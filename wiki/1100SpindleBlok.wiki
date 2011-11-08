@@ -110,7 +110,7 @@ If the VFD digital logic could be separately powered from an external source tha
 
 As a separate thought, it would be good to hook up external fault as well so that an estop will brake the motor.  This should also be fairly easy by feeding the 12V supply.  However, since the Anilam servo board is turning power to the spindle off on an estop, we still might not get the braking we want in an estop state.
 
-== Useful links ==
+= Useful links =
 Some useful links for this spindle head are:
 
 The HH Roberts manual for the complete head, including some basic wiring diagrams and diagnostic codes.  It is probably important to note that this spindle head no longer ships with a !SpindleBlok, but a different VFD controller:
