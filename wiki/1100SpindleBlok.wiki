@@ -92,10 +92,15 @@ net spindle-fault-out => classicladder.0.in-03
 that is sourced from the custom_postgui.hal file:
 
 {{{
-TODO: get
+# Include your customized HAL commands here
+source analog-joystick-jog.hal
+source servo-reset.hal
+# put a pound sign in front of the line below to disable spindle faults
+# causing estops
+source spindle-fault.hal
 }}}
 
-The spindle fault was created in classicladder as a high signal representing a fault, so that if we really wanted to run without the spindle powered up, we can simply comment the sourcing of the spindle-fault.hal program in the custom_postgui.hal file, that signal will be low, and will not generate an estop.
+The classicladder.0.in-03 signal is an input to the estop rung.  The spindle fault was created in classicladder as a high signal representing a fault, so that if we really wanted to run without the spindle powered up, we can simply comment the sourcing of the spindle-fault.hal program in the custom_postgui.hal file, that signal will be low, and will not generate an estop.
 
 As of 2011/11/07 this solution has been tested and is now in production on the mill.
 
