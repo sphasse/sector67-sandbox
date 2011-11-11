@@ -1,4 +1,5 @@
 #summary A 3-axis CNC mill conversion from Anilam 1100M controls to EMC2
+#labels Featured
 
 =Project Sheet Cake=
 A three-axis CNC Mill Conversion from Anilam 1100M controls to EMC2
