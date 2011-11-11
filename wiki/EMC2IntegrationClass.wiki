@@ -6,68 +6,68 @@ If you have a working mill or are planning to build one and are interested in co
 <wiki:toc max_depth="1" />
 
 =Introduction to machine control concepts=
-  Big picture goals
-  Stepper and servo systems compare and contrast
-  Understanding types of feedback and encoders
+  * Big picture goals
+  * Stepper and servo systems compare and contrast
+  * Understanding types of feedback and encoders
 
 =Motion control issues=
-  Acceleration and velocity
-  Real-time motion planning
-  PID tuning concepts
+  * Acceleration and velocity
+  * Real-time motion planning
+  * PID tuning concepts
 
 =Introduction to EMC2=
-  Background and history
-  Basic architecture
-  Real-time considerations
-  Comparison with Mach3
-  Choosing and testing PC hardware for EMC2
-  Choosing interface hardware for EMC2
-    Parallel ports
-    Dedicated I/O boards
-  The EMC2 live CD
-  Updating the software via the EMC2 buildbot
-  Running EMC2 in simulation mode for development and testing
+  * Background and history
+  * Basic architecture
+  * Real-time considerations
+  * Comparison with Mach3
+  * Choosing and testing PC hardware for EMC2
+  * Choosing interface hardware for EMC2
+    * Parallel ports
+    * Dedicated I/O boards
+  * The EMC2 live CD
+  * Updating the software via the EMC2 buildbot
+  * Running EMC2 in simulation mode for development and testing
 
 =EMC2 configuration=
-  Keeping your software configuration under revision control
-  Using pncconf for generating your configuration
-  Hardware drivers
-  The ini file
-  The HAL files
-  User interface components
-  Axis UI
+  * Keeping your software configuration under revision control
+  * Using pncconf for generating your configuration
+  * Hardware drivers
+  * The ini file
+  * The HAL files
+  * User interface components
+  * Axis UI
 
 =Concerns when interfacing the hardware electronics=
-  failure modes
-  mains isolation
-  electrical noise
-  ground loops
-  optical isolation
-  physical robustness
-  heat dissipation
-  emergency stops
-  machine limits
+  * Failure modes
+  * Mains isolation
+  * Electrical noise
+  * Ground loops
+  * Optical isolation
+  * Physical robustness
+  * Heat dissipation
+  * Emergency stops
+  * Machine limits
 
 =Integrating the hardware electronics=
   
 
 =Debugging EMC2=
-  HAL meter
-  HAL scope
-  HAL command lines
+  * HAL meter
+  * HAL scope
+  * HAL command lines
 
 =Moving the machine under feedback control=
-  PID tuning applied
+  * PID tuning applied
 
 =Customizing the software futher=
-  classicladder-based programs
-  PyVCP UI elements
-  custom gcode integration
-  Machine communication via IRC
+  * Classicladder-based programs
+  * PyVCP UI elements
+  * Custom gcode integration
+  * Machine communication via IRC?
   
 =Customizing the hardware further=
-  Various 4th axis configuration scenarios
-  Probe input for touch off and automated sensing
-  Automated tool changers
-  Coordinated spindle moves (tapping, etc.)
-  Different spindle heads (plastic extrusion, frosting extrusion, tangential knife, etc.)
+  * Various 4th axis configuration scenarios
+  * Probe input for touch off and automated sensing
+  * Automated tool changers
+  * Coordinated spindle moves (tapping, etc.)
+  * Different spindle heads (plastic extrusion, frosting extrusion, tangential knife, etc.)
