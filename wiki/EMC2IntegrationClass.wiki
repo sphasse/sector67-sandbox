@@ -49,7 +49,7 @@ If you have a working mill or are planning to build one and are interested in co
   * Machine limits
 
 =Integrating the hardware electronics=
-  
+  * Review of the 1100 mill conversion integration
 
 =Debugging EMC2=
   * HAL meter
