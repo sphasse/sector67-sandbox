@@ -1,22 +1,21 @@
 #summary An outline of the content of the Sector67 EMC2 Machine Integrator's class
 
-Title: "Implementing CNC motion control with EMC2" 
-
-Abstract:
-
+=Implementing CNC motion control with EMC2=
 If you have a working mill or are planning to build one and are interested in controlling it via computer.  This class will prepare attendees to convert or build the computer control system for a mill or other machine with the Linux-based open source EMC2 software suite.  The class will cover choosing and configuring the software, PC, I/O interface components, electronic interface hardware, motors and motor controllers needed to move a machine.  The actual mechanics of machine building (axes, lead screws, etc.) are not covered in this class.
 
+<wiki:toc max_depth="1" />
 
-Introduction to machine control concepts
-  Stepper systems and servo systems compare and contrast
-  Feedback and encoders
+=Introduction to machine control concepts=
+  Big picture goals
+  Stepper and servo systems compare and contrast
+  Understanding types of feedback and encoders
 
-Motion control issues
+=Motion control issues=
   Acceleration and velocity
   Real-time motion planning
   PID tuning concepts
 
-Introduction to EMC2
+=Introduction to EMC2=
   Background and history
   Basic architecture
   Real-time considerations
@@ -29,7 +28,7 @@ Introduction to EMC2
   Updating the software via the EMC2 buildbot
   Running EMC2 in simulation mode for development and testing
 
-EMC2 configuration
+=EMC2 configuration=
   Keeping your software configuration under revision control
   Using pncconf for generating your configuration
   Hardware drivers
@@ -38,7 +37,7 @@ EMC2 configuration
   User interface components
   Axis UI
 
-Concerns when interfacing the hardware electronics
+=Concerns when interfacing the hardware electronics=
   failure modes
   mains isolation
   electrical noise
@@ -49,25 +48,25 @@ Concerns when interfacing the hardware electronics
   emergency stops
   machine limits
 
-Integrating the hardware electronics
+=Integrating the hardware electronics=
   
 
-Debugging EMC2
+=Debugging EMC2=
   HAL meter
   HAL scope
   HAL command lines
 
-Actually moving things
+=Moving the machine under feedback control=
   PID tuning applied
 
-Customizing the software futher
+=Customizing the software futher=
   classicladder-based programs
   PyVCP UI elements
   custom gcode integration
   Machine communication via IRC
   
-Customizing the hardware further
-  Various 4th axis configurations
+=Customizing the hardware further=
+  Various 4th axis configuration scenarios
   Probe input for touch off and automated sensing
   Automated tool changers
   Coordinated spindle moves (tapping, etc.)
