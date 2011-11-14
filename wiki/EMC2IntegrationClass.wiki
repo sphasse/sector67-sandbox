@@ -63,7 +63,8 @@ If you have a working mill or are planning to build one and are interested in co
   * Classicladder-based programs
   * PyVCP UI elements
   * Custom gcode integration
-  * Machine communication via IRC?
+  * Machine communication to outside sources (IRC, X)?
+  * Displaying custom messages in axis
   
 =Customizing the hardware further=
   * Various 4th axis configuration scenarios
