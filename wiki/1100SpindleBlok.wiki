@@ -104,6 +104,8 @@ The classicladder.0.in-03 signal is an input to the estop rung.  The spindle fau
 
 As of 2011/11/07 this solution has been tested and is now in production on the mill.
 
+There is one more minor TODO which is to use an add-on component to generate a message that it was in fact the spindle that faulted.
+
 == Integration stage 2: spindle RPM feedback and monitoring ==
 This has not yet begun, but will involve either reading the RPM serially or reading an analog output pin into EMC2.  To read the analog output pin, we'll need to have an analog to frequency converter and configure an encoder in EMC2.
 
@@ -114,6 +116,8 @@ If the VFD digital logic could be separately powered from an external source tha
 
 
 As a separate thought, it would be good to hook up external fault as well so that an estop will brake the motor.  This should also be fairly easy by feeding the 12V supply.  However, since the Anilam servo board is turning power to the spindle off on an estop, we still might not get the braking we want in an estop state.
+
+Looking at this problem further, writing a python hal module that would perform the serial communication might be one relatively straightforward way of making this work.  More flexible and perhaps simpler than wiring it in local control mode and making an analog signal via PWM to drive the speed analog VFD input.  Too bad the VFD does not have a PWM input as that would be trivial.
 
 = Useful links =
 Some useful links for this spindle head are:
