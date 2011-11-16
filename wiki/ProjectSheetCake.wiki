@@ -406,18 +406,20 @@ This implementation is described at [1100SpindleBlok].
 == A fourth servo axis ==
 This implementation is described at [FourthServoAxis].
 == Custom keyboard mappings ==
-TODO: implement space bar as a program pause via ~/.halrc command as documented here:
+We want the space bar to pause a running program.  Custom keyboard mappings can be implemented for the axis interface by putting the appropriate commands into the ~/.axisrc file as documented here:
 
 [http://linuxcnc.org/docs/html/gui_axis.html#r1_11_4]
 
-The proper ~/.axisrc file structure is:
+The proper ~/.axisrc file commands to map the space bar to program pause and display this on the help page are:
 
 {{{
 root_window.bind("<space>", "task_pause")
-help2.append(("Space", "Pause Program"))
+help2.append(("Space", "Pause program"))
 }}}
 
-These values were figured out by looking at the possible keyboard bindings within tkInter and the tasks in axis.tcl.  More keyboard bindings are definitely possible as needed.
+These values were determined by looking at the possible keyboard bindings within tkInter and the tasks in axis.tcl.  More keyboard bindings are definitely possible as needed.
+
+TODO: put this in place for real.
 
 TODO: implement a dead man switch on the joystick jog so that if the joystick gets accidentally activated somehow it is not a danger.
 
