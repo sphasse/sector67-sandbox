@@ -405,6 +405,21 @@ This implementation is described at [1100SpindleBlok].
 == Additional steppers ==
 == A fourth servo axis ==
 This implementation is described at [FourthServoAxis].
+== Custom keyboard mappings ==
+TODO: implement space bar as a program pause via ~/.halrc command as documented here:
+
+[http://linuxcnc.org/docs/html/gui_axis.html#r1_11_4]
+
+The proper ~/.axisrc file structure is:
+
+{{{
+root_window.bind("<space>", "task_pause")
+help2.append(("Space", "Pause Program"))
+}}}
+
+These values were figured out by looking at the possible keyboard bindings within tkInter and the tasks in axis.tcl.  More keyboard bindings are definitely possible as needed.
+
+TODO: implement a dead man switch on the joystick jog so that if the joystick gets accidentally activated somehow it is not a danger.
 
 =Lessons learned so far=
   * EMC2 is a lot more mature, stable and user-friendly than I expected.  There are some important concepts to understand, but it really is a great system.
