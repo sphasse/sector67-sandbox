@@ -150,7 +150,7 @@ The 7i33 can be configured via jumpers for two sorts of encoder input, TTL or RS
 
 While the encoder feedback primarily allows for accurate positioning, it does have an additional benefit that the controller can determine when the machine is not accurately following the instructions given.  This sort of error is called "following error" and when EMC2 detects following error it will put the machine into an machine stopped but non-estop state.
 
-While the encoders provide information about the shaft turning, they do not specify an absolute distance or angle turned.  In order for EMC2 to be able to accurately position the system, it needs to be able to translate rotary encoder pulses into a linear distance moved.  This depends on both the pitch of the mill lead screws and the number of pluses per turn of the encoders.  A procedure for determining those is described in the [#Basic_machine_parameters Basic Machine Parameters] section below.
+While the encoders provide information about the shaft turning, they do not specify an absolute linear distance moved by a given axis.  In order for EMC2 to be able to accurately position the system, it needs to be able to translate rotary encoder pulses into a linear distance moved.  This depends on both the pitch of the mill lead screws and the number of pulses per turn of the encoders.  A procedure for determining those is described in the [#Basic_machine_parameters Basic Machine Parameters] section below.
 
 Direct linear encoders are also sometimes used.  These measure the movement of the table itself via pulses, but our mill does not have them.  Linear encoders are helpful in that you can directly measure and compensate for backlash in lead screws, but they are tend to be more complex and are not cheap.
 
