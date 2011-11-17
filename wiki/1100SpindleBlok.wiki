@@ -109,6 +109,16 @@ There is one more minor TODO which is to use an add-on component to generate a m
 == Integration stage 2: spindle RPM feedback and monitoring ==
 This has not yet begun, but will involve either reading the RPM serially or reading an analog output pin into EMC2.  To read the analog output pin, we'll need to have an analog to frequency converter and configure an encoder in EMC2.
 
+Looking at this problem further, it appears that integrating via a python user space HAL module to send serial commands to the VFD should be fairly straightforward.  The python implementation provided is current 2.6.5, and pySerial is installed.  A rough outline of tasks would be:
+
+  # Create a generic serial buffer python module configurable with baud rate, etc.
+  # Create a python module to send and receive the appropriate commands to the SpindleBlok, including checksum calculation and verification.  This is largely done.
+  # Create a script that exposes HAL pins for key metrics and forward/reverse/RPM
+  # Create a PyVCP panel to expose the spindle information
+  # Create a custom HAL module to hook the axis spindle pins up to the python module
+
+All-in-all some work is required, but it would give nice flexible control of the spindle without needing to re-wire or disable the local controls or create voltage-to-frequency and frequency-to-voltage circuits for driving the RPM.  This approach would be user space only and thus not able to perform coordinated spindle motion, so that is probably the most significant drawback.
+
 == Integration stage 3: spindle control ==
 In the long run, once we no longer want the option to convert back to the Anilam controls, we could change the spindle wiring such that it was generally powered up but not enabled.  This would probably give us better failure modes (brake the spindle on an estop for instance rather than coast to a stop), and allow the serial communications to work even when the spindle was faulted.  However, there is perhaps something to be said for powering down the spindle completely.  
 
