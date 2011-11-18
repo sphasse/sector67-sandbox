@@ -256,3 +256,9 @@ Finally getting back to this project and wanting to mill some stuff.  The spindl
 Now we are able to send commands and receive error messages, so we seemingly need to work out the checksum calculations or get an RS485 client.
 
 At that point we can perhaps get better diagnostics.
+
+
+== 11/17/2011: Fourth axis progress ==
+Lots has happened since the last update, including significant progress understanding and integrating the [1100SpindleBlok VFD drive].  With a little classic ladder integration, spindle drive faults now estop the mill.
+
+Additionally, the smaller servo drives are now well understood, and the [FourthServoAxis encoders and signals] have been integrated in a very basic way.  The main challenges were that the encoders were differential not TTL and the supply voltage and operation mode for the servo amps was not known.  The 4th axis is now basically ready for integration into hardware.
