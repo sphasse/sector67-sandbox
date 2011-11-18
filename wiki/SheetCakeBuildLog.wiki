@@ -261,4 +261,6 @@ At that point we can perhaps get better diagnostics.
 == 11/17/2011: Fourth axis progress ==
 Lots has happened since the last update, including significant progress understanding and integrating the [1100SpindleBlok VFD drive].  With a little classic ladder integration, spindle drive faults now estop the mill.
 
+I had an exciting win of the Madison SOUP idea contest to net $180 toward the 4th axis project.
+
 Additionally, the smaller servo drives are now well understood, and the [FourthServoAxis encoders and signals] have been integrated in a very basic way.  The main challenges were that the encoders were differential not TTL and the supply voltage and operation mode for the servo amps was not known.  The 4th axis is now basically ready for integration into hardware.
