@@ -49,7 +49,6 @@ class Test(unittest.TestCase):
             self.assertEqual(hexString, DataUtils.signed_int_to_hex_string(DataUtils.hex_string_to__signed_int(hexString), 16))
         
     def test_mock_channel(self):
-    
         mock_channel = MockCommandChannel()
         mock_channel.start()
         request = RS485Command.create_outgoing_command("$", "1", "C00", "ffff")
@@ -66,6 +65,8 @@ class Test(unittest.TestCase):
 
         mock_channel.stop()
 
+    def test_user_interface(self):
+        pass
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

@@ -255,8 +255,13 @@ executing commands and reading state.
 class SpindleBlok:
     STOPPED = 0
     STARTED = 1
-    def __init__(self, command_channel):
+    def __init__(self, command_channel, address=1):
         self.command_channel = command_channel
+        self.address = str(address)
+        # get constants
+        self.kv = self.get_kv()
+        self.max_speed = self.get_max_speed()
+        self.ki_imag = self.get_ki_imag()
 
     kv = 0
     max_speed = 0
@@ -324,143 +329,152 @@ class SpindleBlok:
      "Bit 6: Reserved",
      "Bit 7: Reserved"]
 
-
-
-
-
-
-
-
     """
     drive API version 0.1 below
     """
-
+    def get_signed_int(self, command, timeout=1):
+        request = RS485Command.create_outgoing_command("$", self.address, command, "")
+        self.command_channel.send_command(request)
+        reply = self.command_channel.receive_reply(timeout)
+        return DataUtils.hex_string_to_signed_int(reply.data)
+    
+    def get_hex_string(self, command, timeout=1):
+        request = RS485Command.create_outgoing_command("$", self.address, command, "")
+        self.command_channel.send_command(request)
+        reply = self.command_channel.receive_reply(timeout)
+        return reply.data
+        
     """
     Read all bits from C01.  Returns two bytes of hex string data.
     """
     def read_drive_mode(self, data):
-        pass
+        return self.get_hex_string("C01")
 
     """
     Write all bits from C01.  C01 should in general be changed in a read->modify->write mode to 
     avoid setting or clearing wrongly.  Expects two bytes of hex string data (e.g. "ffff")
     """
     def write_drive_mode(self, data):
-        pass
+        raise NotImplementedError
 
     """
     Sets the correct bits on the drive mode (C01) to enable serial control
     """
     def set_serial_control(self):
-        pass
+        raise NotImplementedError
 
     """
     Sets the correct bits on the drive mode (C01) to enable local control
     """
     def set_local_control(self):
-        pass
+        raise NotImplementedError
 
     """
     Non-NVRam RPM set, can be called frequently, set via C02
     """
     def set_rpm(self):
-        pass
+        raise NotImplementedError
 
     def request_start(self):
-        pass
+        raise NotImplementedError
 
     """
     Set a bit in the 
     """
     def request_stop(self):
-        pass
+        raise NotImplementedError
 
     """
     Read from D00
     """
     def get_drive_state(self):
-        pass
+        return self.get_hex_string("D00")
 
     """
-    Read frmo D03
+    Read from D03
     """
     def get_i_mag(self):
-        pass
+        return self.get_signed_int("D03")
 
     """
-    Output voltage, read frmo D06
+    Output voltage, read from D06
     """
     def get_vout(self):
-        pass
+        return self.get_signed_int("D06")
 
     """
     DC link voltage, * kv, read from D07
+    This method scales the voltage to the actual value
     """
     def get_vdc_dsp(self):
-        pass
+        result = self.get_signed_int("D07") / self.kv
+        return result
 
     """
     The 10 * Hz of the drive, read via D08
     """
     def get_omega_dsp(self):
-        pass
+        result = self.get_signed_int("D08") / 10
+        return result
 
     """
     The RPM of the drive, read via D09
     """
     def get_omega_m_dsp(self):
-        pass
+        return self.get_signed_int("D09")
 
     """
     Read via D0A
     """    
     def get_heatsink_temp(self):
-        pass
+        return self.get_signed_int("D0A")
 
     """
     Read via D0C
     """    
     def get_power_in(self):
-        pass
+        return self.get_signed_int("D0C")
+
 
     """
     Read via D0D
     """ 
     def get_elapsed_lo(self):
-        pass
+        return self.get_signed_int("D0D")
+
 
     """
     Read via D0E
     """
     def get_elapsed_hrs(self):
-        pass
-
+        return self.get_signed_int("D0E")
+ 
     """
     A scaling factor, read via A08
     """
     def get_ki_imag(self):
-        pass
+        return self.get_signed_int("A08")
 
     """
     A scaling factor, read via A09 
     """
     def get_kv(self):
-        pass
+        return self.get_signed_int("A09")
 
     """
     The max speed in RPM, read via F00  
     """
     def get_max_speed(self):
-        pass
-
+        return self.get_signed_int("F00")
+    
     """
     0.052 second increments to wait before a serial communication timeout causes problems, set via J02
     1 second is roughly 19 increments
     5 seconds is roughly 96 increments
-
-    def set_comm_timer_max():
-       pass
     """
+    def set_comm_timer_max(self):
+        raise NotImplementedError
+
 
 """
 An abstract command channel
@@ -603,64 +617,45 @@ class MockCommandChannel(CommandChannel):
             self.alive = False
             raise
 
-
-
-
 """
-returns an object that can be started to initiate serial communications
+A class to encapsulate a simple command line user interface
 """
-def get_serial_channel():
-    port = 0
-    baudrate = 9600
-    parity = 'N'
-    rtscts = False
-    xonxoff = False
-    try:
-        channel = SerialCommandChannel(
-            port,
-            baudrate,
-            parity,
-            rtscts=rtscts,
-            xonxoff=xonxoff
-        )
-    except serial.SerialException, e:
-        sys.stderr.write("could not open port %r: %s\n" % (port, e))
-        sys.exit(1)
-        
-    return channel
-    
-
-
-"""
-"""
-DataUtils.dump_bits("ffab", SpindleBlok.C00_DESCRIPTONS)
-
-DataUtils.dump_bits(DataUtils.apply_or_bit_mask("00c0", "F0F0"), SpindleBlok.C01_DESCRIPTONS)
-
-
-
-
-"""
-"""
-#general algorithm for control:
-
 class UserInterface:
 
     requestedRPM = 0
-
+    """
+    returns an object that can be started to initiate serial communications
+    """
+    def get_serial_channel(self):
+        port = 0
+        baudrate = 9600
+        parity = 'N'
+        rtscts = False
+        xonxoff = False
+        try:
+            channel = SerialCommandChannel(
+                port,
+                baudrate,
+                parity,
+                rtscts=rtscts,
+                xonxoff=xonxoff
+            )
+        except serial.SerialException, e:
+            sys.stderr.write("could not open port %r: %s\n" % (port, e))
+            sys.exit(1)
+            
+        return channel
 
     def setup(self):
         #setup serial reader and writer threads
-        self.serial_channel = get_serial_channel()
+        self.serial_channel = self.get_serial_channel()
         self.serial_channel.start()
         self.vfd = SpindleBlok(self.serial_channel)
         #set_serial_control()
         #set_rpm(0)
         #request_stop()
         #set_comm_timer_max(96)    
-        self.kv = self.vfd.get_kv()
-        self.max_speed = self.vfd.get_max_speed()
-        self.ki_imag = self.vfd.get_ki_imag()
+
 
     def loop(self):
         if (self.serial_channel.alive):
@@ -676,6 +671,7 @@ class UserInterface:
                     request_start()
                 else:
                     raise Exception("The state needs to be either stopped or started")
+                currentState = requestedState
             """
             self.currentRPM = self.vfd.get_omega_m_dsp()
             self.currentVDC = self.vfd.get_vdc_dsp()
@@ -692,5 +688,14 @@ class UserInterface:
         self.vfd.set_local_control()
         #shutdown serial reader and writer threads
         self.serial_channel.stop()
+
+
+
+
+"""
+"""
+DataUtils.dump_bits("ffab", SpindleBlok.C00_DESCRIPTONS)
+
+DataUtils.dump_bits(DataUtils.apply_or_bit_mask("00c0", "F0F0"), SpindleBlok.C01_DESCRIPTONS)
 
 
