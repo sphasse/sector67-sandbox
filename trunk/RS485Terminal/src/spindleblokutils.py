@@ -462,14 +462,36 @@ class SpindleBlok:
        pass
     """
 
-
-
+"""
+An abstract command channel
+"""
+class CommandChannel:
+    incoming_commands = []
+    outgoing_commands = []
+    """
+    called by a client to send a command
+    """
+    def send_command(self, command):
+        self.outgoing_commands.append(command)
+    
+    """
+    called by a client wishing to receive a command in reply to the one they sent
+    """
+    def receive_reply(self, timeout=1):
+        delay = 0.1
+        i = 0.0
+        while (i < timeout):
+            i = i + delay
+            if (len(self.incoming_commands) > 0):
+                reply = self.incoming_commands.pop(0)
+                return reply
+            time.sleep(delay)
+        raise Exception("This should be some sort of delay exceeded exception");    
 """
 A class represeting a serial channel to communicate with the SpindleBlok
 """
-class SerialCommandChannel:
-    incoming_commands = []
-    outgoing_commands = []
+class SerialCommandChannel(CommandChannel):
+
 
     def __init__(self, port, baudrate, parity, rtscts, xonxoff):
         try:
@@ -501,25 +523,7 @@ class SerialCommandChannel:
         self.transmitter_thread.join()
         self.receiver_thread.join()
         
-    """
-    called by a client to send a command
-    """
-    def send_command(self, command):
-        self.outgoing_commands.append(command)
-    
-    """
-    called by a client wishing to receive a command in reply to the one they sent
-    """
-    def receive_reply(self, timeout=1):
-        delay = 0.1
-        i = 0.0
-        while (i < timeout):
-            i = i + delay
-            if (len(self.incoming_commands) > 0):
-                reply = self.incoming_commands.pop(0)
-                return reply
-            time.sleep(delay)
-        raise Exception("This should be some sort of delay exceeded exception");
+ 
     
     def reader(self):
         """loop and copy serial->console, decoding full commands"""
@@ -557,12 +561,11 @@ class SerialCommandChannel:
 
 """
 """
-class MockCommandChannel:  
+class MockCommandChannel(CommandChannel):  
 
 
     def __init__(self):
-        self.incoming_commands = []
-        self.outgoing_commands = []
+        pass
         
     def start(self):
         self.alive = True
@@ -570,26 +573,6 @@ class MockCommandChannel:
         self.transmitter_thread = threading.Thread(target=self.writer)
         self.transmitter_thread.setDaemon(1)
         self.transmitter_thread.start()
-    
-    """
-    called by a client to send a command
-    """
-    def send_command(self, command):
-        self.outgoing_commands.append(command)
-    
-    """
-    called by a client wishing to receive a command in reply to the one they sent
-    """
-    def receive_reply(self, timeout=1):
-        delay = 0.1
-        i = 0.0
-        while (i < timeout):
-            i = i + delay
-            if (len(self.incoming_commands) > 0):
-                reply = self.incoming_commands.pop(0)
-                return reply
-            time.sleep(delay)
-        raise Exception("This should be some sort of delay exceeded exception");
         
     def stop(self):
         self.alive = False
@@ -610,6 +593,9 @@ class MockCommandChannel:
                     # create a mock reply to the outgoing request
                     if (command.cmd == "C00"):
                         reply = RS485Command.create_outgoing_command("$", "1", "C00", "ffff")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "C01"):
+                        reply = RS485Command.create_outgoing_command("$", "1", "C01", "ffff")
                         self.incoming_commands.append(reply)
                     else:
                         raise Exception("I did not recognize the command to return a mock response: " + command.full_string)

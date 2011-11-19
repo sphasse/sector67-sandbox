@@ -62,6 +62,7 @@ class Test(unittest.TestCase):
         request = RS485Command.create_outgoing_command("$", "1", "C01", "ffff")
         mock_channel.send_command(request)
         reply = mock_channel.receive_reply(1)
+        self.assertEqual("$1C01ffffd", reply.full_string)
 
         mock_channel.stop()
 
