@@ -99,7 +99,6 @@ class DataUtils:
             i = i + 1
             return format % i
 
-
     """
     expects a string like "ab01" and returns bytes representing that data.  Does not preserve leading zeros.
     """
@@ -186,8 +185,6 @@ class DataUtils:
         formatted = format % result
         return formatted
 
-
-
 class RS485Command:
     def __init__(self, command_string):
         command = command_string.rstrip('\n')
@@ -221,8 +218,6 @@ class RS485Command:
     @staticmethod
     def parse_incoming_command(command):
         return RS485Command(command)
-        
-    
 
 """
 This class holds helper functions for RS485 communication
@@ -246,7 +241,6 @@ class RS485Utils:
         checksum = RS485Utils.compute_checksum(command)
         result = result + checksum
         return result
-        
 
 """
 This class represents a physical SpindleBlok VFD.  It stores the state of the drive and has methods for
@@ -435,13 +429,11 @@ class SpindleBlok:
     def get_power_in(self):
         return self.get_signed_int("D0C")
 
-
     """
     Read via D0D
     """ 
     def get_elapsed_lo(self):
         return self.get_signed_int("D0D")
-
 
     """
     Read via D0E
@@ -500,13 +492,13 @@ class CommandChannel:
                 reply = self.incoming_commands.pop(0)
                 return reply
             time.sleep(delay)
-        raise Exception("This should be some sort of delay exceeded exception");    
+        raise Exception("This should be some sort of delay exceeded exception");
+    
+
 """
 A class represeting a serial channel to communicate with the SpindleBlok
 """
 class SerialCommandChannel(CommandChannel):
-
-
     def __init__(self, port, baudrate, parity, rtscts, xonxoff):
         try:
             self.serial = serial.serial_for_url(port, baudrate, parity=parity, rtscts=rtscts, xonxoff=xonxoff, timeout=1)
@@ -574,10 +566,9 @@ class SerialCommandChannel(CommandChannel):
 
 
 """
+A mock command channel for testing the vfd offline.  This mock fakes returned data.
 """
 class MockCommandChannel(CommandChannel):  
-
-
     def __init__(self):
         pass
         
@@ -656,7 +647,9 @@ class UserInterface:
         #request_stop()
         #set_comm_timer_max(96)    
 
-
+    """
+    The main loop of the UI.  TODO: try to make this less SpindleBlok specific (make the spindleblok interface more generic
+    """
     def loop(self):
         if (self.serial_channel.alive):
             self.driveState = self.vfd.get_drive_state()
@@ -698,4 +691,26 @@ DataUtils.dump_bits("ffab", SpindleBlok.C00_DESCRIPTONS)
 
 DataUtils.dump_bits(DataUtils.apply_or_bit_mask("00c0", "F0F0"), SpindleBlok.C01_DESCRIPTONS)
 
-
+"""
+HAL motion spindle pins:
+motion.spindle-at-speed
+    (bit, in) Motion will pause until this pin is TRUE, under the following conditions: before the first feed move after each spindle start or speed change; before the start of every chain of spindle-synchronized moves; and if in CSS mode, at every rapid to feed transition. This input can be used to ensure that the spindle is up to speed before starting a cut, or that a lathe spindle in CSS mode has slowed down after a large to small facing pass before starting the next pass at the large diameter. Many VFDs have an "at speed" output. Otherwise, it is easy to generate this signal with the HAL near component, by comparing requested and actual spindle speeds.
+motion.spindle-brake
+    (bit, out) TRUE when the spindle brake should be applied.
+motion.spindle-forward
+    (bit, out) TRUE when the spindle should rotate forward.
+motion.spindle-index-enable
+    (bit, I/O) For correct operation of spindle synchronized moves, this pin must be hooked to the index-enable pin of the spindle encoder. 
+motion.spindle-on
+    (bit, out) TRUE when spindle should rotate.
+motion.spindle-reverse
+    (bit, out) TRUE when the spindle should rotate backward
+motion.spindle-revs
+    (float, in) For correct operation of spindle synchronized moves, this signal must be hooked to the position pin of the spindle encoder. The spindle encoder position should be scaled such that spindle-revs increases by 1.0 for each rotation of the spindle in the clockwise (M3) direction.
+motion.spindle-speed-in
+    (float, in) Feedback of actual spindle speed in rotations per second. This is used by feed-per-revolution motion (G95). If your spindle encoder driver does not have a velocity output, you can generate a suitable one by sending the spindle position through a ddt component.
+motion.spindle-speed-out
+    (float, out) Commanded spindle speed in rotations per minute. Positive for spindle forward (M3), negative for spindle reverse (M4).
+motion.spindle-speed-out-rps
+    (float, out) Commanded spindle speed in rotations per second. Positive for spindle forward (M3), negative for spindle reverse (M4).
+"""
