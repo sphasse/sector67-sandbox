@@ -51,18 +51,25 @@ class Test(unittest.TestCase):
     def test_mock_channel(self):
         mock_channel = MockCommandChannel()
         mock_channel.start()
-        request = RS485Command.create_outgoing_command("$", "1", "C00", "ffff")
-        # put a command
+        
+        request = RS485Command.create_read_request_command("1", "C00")
         mock_channel.send_command(request)
-        # wait for the reply
-        reply = mock_channel.receive_reply(1)
-        self.assertEqual("$1C00ffffc", reply.full_string)
+        reply = mock_channel.receive_reply("C00", 1)
+        self.assertEqual("%1C00ffffc", reply.full_string)
+        self.assertEqual(RS485Command.READ_RESPONSE, reply.type)
 
-        request = RS485Command.create_outgoing_command("$", "1", "C01", "ffff")
+        request = RS485Command.create_read_request_command("1", "C01")
         mock_channel.send_command(request)
-        reply = mock_channel.receive_reply(1)
-        self.assertEqual("$1C01ffffd", reply.full_string)
+        reply = mock_channel.receive_reply("C01", 1)
+        self.assertEqual("%1C01ffffd", reply.full_string)
+        self.assertEqual(RS485Command.READ_RESPONSE, reply.type)
 
+        request = RS485Command.create_write_request_command("1", "C02", "0010")
+        mock_channel.send_command(request)
+        reply = mock_channel.receive_reply("C02", 1)
+        self.assertEqual("#1@", reply.full_string)
+        self.assertEqual(RS485Command.WRITE_RESPONSE, reply.type)
+        
         mock_channel.stop()
 
     def test_user_interface(self):

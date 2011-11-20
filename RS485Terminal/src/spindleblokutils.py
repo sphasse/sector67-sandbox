@@ -185,33 +185,102 @@ class DataUtils:
         formatted = format % result
         return formatted
 
+"""
+A class to represent the RS485 commands as documented in the DriveBlok and SpindleBlok manuals
+"""
 class RS485Command:
+    READ_REQUEST = "$"
+    READ_RESPONSE = "%"
+    WRITE_REQUEST = "&"
+    WRITE_RESPONSE= "#"
+    ERROR = "?"
     def __init__(self, command_string):
+
         command = command_string.rstrip('\n')
         self.action_char = command[0]
-        self.address = command[1]
-        self.cmd = command[2:5]
-        self.data = command[5:-1]
-        self.checksum = command[-1]
-        self.full_string = self.action_char + self.address + self.cmd + self.data + self.checksum
+        if (self.action_char == RS485Command.READ_REQUEST):
+            # read request
+            self.type = RS485Command.READ_REQUEST
+            self.address = command[1]
+            self.cmd = command[2:5]
+            self.data = ""
+            self.checksum = command[-1]
+            self.full_string = self.action_char + self.address + self.cmd + self.data + self.checksum
+        elif (self.action_char == RS485Command.READ_RESPONSE):
+            # read response
+            self.type = RS485Command.READ_RESPONSE
+            self.address = command[1]
+            self.cmd = command[2:5]
+            self.data = command[5:-1]
+            self.checksum = command[-1]
+            self.full_string = self.action_char + self.address + self.cmd + self.data + self.checksum
+        elif (self.action_char == RS485Command.WRITE_REQUEST):
+            # write request
+            self.type = RS485Command.WRITE_REQUEST
+            self.address = command[1]
+            self.cmd = command[2:5]
+            self.data = command[5:-1]
+            self.checksum = command[-1]
+            self.full_string = self.action_char + self.address + self.cmd + self.data + self.checksum
+        elif (self.action_char == RS485Command.WRITE_RESPONSE):
+            # write response
+            self.type = RS485Command.WRITE_RESPONSE
+            self.address = command[1]
+            self.cmd = ""
+            self.data = ""
+            self.checksum = command[-1]
+            self.full_string = self.action_char + self.address + self.cmd + self.data + self.checksum
+        elif (self.action_char == RS485Command.ERROR):
+            # error response
+            self.type = RS485Command.ERROR
+            self.address = command[1]
+            self.cmd = command[2]
+            self.data = ""
+            self.checksum = command[-1]
+            self.full_string = self.action_char + self.address + self.cmd + self.data + self.checksum
+        else:
+            raise Exception("I cannot parse this command string: " + command_string)    
         
     def is_valid(self):
         check = RS485Utils.compute_checksum(self.action_char + self.address + self.cmd + self.data)
-        if (check == self.checksum):
+        if (check == self.checksum and self.action_char != "?"):
             return True
         else:
             return False
+    
     
     """
     Create an outgoing command, computing the checksum
     """
     @staticmethod
-    def create_outgoing_command(action, address, command, data):
+    def create_command(action, address, command, data):
         result = action + address + command + data
         checksum = RS485Utils.compute_checksum(command)
         result = result + checksum
         return RS485Command(result)
 
+    @staticmethod
+    def create_read_request_command(address, command):
+        return RS485Command.create_command(RS485Command.READ_REQUEST, address, command, "")
+
+    @staticmethod
+    def create_read_response_command(address, command, data):
+        return RS485Command.create_command(RS485Command.READ_RESPONSE, address, command, data)
+
+    @staticmethod
+    def create_write_request_command(address, command, data):
+        return RS485Command.create_command(RS485Command.WRITE_REQUEST, address, command, data)
+
+    @staticmethod
+    def create_write_response_command(address):
+        return RS485Command.create_command(RS485Command.WRITE_RESPONSE, address, "", "")
+
+    @staticmethod
+    def create_error_command(address, command):
+        return RS485Command.create_command(RS485Command.ERROR, address, command, "")
+
+
+            
     """
     Parse an incoming command
     """
@@ -329,13 +398,25 @@ class SpindleBlok:
     def get_signed_int(self, command, timeout=1):
         request = RS485Command.create_outgoing_command("$", self.address, command, "")
         self.command_channel.send_command(request)
-        reply = self.command_channel.receive_reply(timeout)
+        reply = self.command_channel.receive_reply(command, timeout)
+        if (not(reply.is_valid())):
+            raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
         return DataUtils.hex_string_to_signed_int(reply.data)
     
     def get_hex_string(self, command, timeout=1):
         request = RS485Command.create_outgoing_command("$", self.address, command, "")
         self.command_channel.send_command(request)
-        reply = self.command_channel.receive_reply(timeout)
+        reply = self.command_channel.receive_reply(command, timeout)
+        if (not(reply.is_valid())):
+            raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
+        return reply.data
+
+    def write_hex_string(self, command, timeout=1):
+        request = RS485Command.create_outgoing_command("&", self.address, command, "")
+        self.command_channel.send_command(request)
+        reply = self.command_channel.receive_reply(command, timeout)
+        if (not(reply.is_valid())):
+            raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
         return reply.data
         
     """
@@ -483,13 +564,16 @@ class CommandChannel:
     """
     called by a client wishing to receive a command in reply to the one they sent
     """
-    def receive_reply(self, timeout=1):
+    def receive_reply(self, command, timeout=1):
         delay = 0.1
         i = 0.0
         while (i < timeout):
             i = i + delay
             if (len(self.incoming_commands) > 0):
                 reply = self.incoming_commands.pop(0)
+                if (reply.type == RS485Command.READ_RESPONSE and reply.cmd != command):
+                    # check the reply is for the correct request
+                    raise Exception("I received a reply for (" + reply.cmd + ") but was expecting a reply for " + command)
                 return reply
             time.sleep(delay)
         raise Exception("This should be some sort of delay exceeded exception");
@@ -596,14 +680,19 @@ class MockCommandChannel(CommandChannel):
                     command = self.outgoing_commands.pop(0)
                     time.sleep(0.1)
                     # create a mock reply to the outgoing request
-                    if (command.cmd == "C00"):
-                        reply = RS485Command.create_outgoing_command("$", "1", "C00", "ffff")
+                    if (command.cmd == "C00" and command.type == RS485Command.READ_REQUEST):
+                        reply = RS485Command.create_read_response_command("1", "C00", "ffff")
                         self.incoming_commands.append(reply)
-                    elif (command.cmd == "C01"):
-                        reply = RS485Command.create_outgoing_command("$", "1", "C01", "ffff")
+                    elif (command.cmd == "C01" and command.type == RS485Command.READ_REQUEST):
+                        reply = RS485Command.create_read_response_command("1", "C01", "ffff")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "C02" and command.type == RS485Command.WRITE_REQUEST):
+                        reply = RS485Command.create_write_response_command("1")
                         self.incoming_commands.append(reply)
                     else:
-                        raise Exception("I did not recognize the command to return a mock response: " + command.full_string)
+                        reply = RS485Command.create_error_command("1", "1")
+                        self.incoming_commands.append(reply)
+                        raise Exception("I don't have a response for " + command.full_string)
         except:
             self.alive = False
             raise
