@@ -104,8 +104,24 @@ The classicladder.0.in-03 signal is an input to the estop rung.  The spindle fau
 
 As of 2011/11/07 this solution has been tested and is now in production on the mill.
 
-There is one more minor TODO which is to use an add-on component to generate a message that it was in fact the spindle that faulted.
 
+There is one more minor TODO which is to use an add-on component to generate a message that it was in fact the spindle that faulted.  Work has begun on this solution, using the message comp that is supposed to be bundled in version 2.5.  Since it is not bundled in our current version, the steps to install the component are:
+
+  * Download the code of the comp from [http://thread.gmane.org/gmane.linux.distributions.emc.user/29167 this discussion thread] and save it to a file named "message.comp".
+  * Run the following to install the comp:
+
+{{{
+sudo comp --install message.comp
+}}}
+
+The component should then be successfully built and installed.
+  * Then the component can be loaded, specifying the appropriate configuration for a custom spindle fault message:
+
+{{{
+TODO: get the file from the current mill
+}}}
+
+TODO
 == Integration stage 2: spindle RPM feedback and monitoring ==
 This has not yet begun, but will involve either reading the RPM serially or reading an analog output pin into EMC2.  To read the analog output pin, we'll need to have an analog to frequency converter and configure an encoder in EMC2.
 
