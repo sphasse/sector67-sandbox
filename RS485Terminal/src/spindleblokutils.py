@@ -748,12 +748,21 @@ class UserInterface:
             requestedMode = getRequestedMode()
             if (requestedState != currentState):
                 if (requestedState == SpindleBlok.STOPPED):
-                    request_stop()
+                    self.vfd.stop()
                 else if (requestedState == SpindleBlok.STARTED):
-                    request_start()
+                    self.vfd.start()
                 else:
                     raise Exception("The state needs to be either stopped or started")
                 currentState = requestedState
+            requestedDirection = getRequestedDirection()
+            if (requestedDirection != currentDirection):
+                if (requestedDirection == SpindleBlok.FORWARD):
+                    self.vfd.forward()
+                else if (requestedState == SpindleBlok.REVERSE):
+                    self.vfd.reverse()
+                else:
+                    raise Exception("The direction needs to be either forward or reverse")
+                currentDirection = requestedDirection
             """
             self.currentRPM = self.vfd.get_omega_m_dsp()
             self.currentVDC = self.vfd.get_vdc_dsp()
@@ -786,20 +795,43 @@ motion.spindle-at-speed
     (bit, in) Motion will pause until this pin is TRUE, under the following conditions: before the first feed move after each spindle start or speed change; before the start of every chain of spindle-synchronized moves; and if in CSS mode, at every rapid to feed transition. This input can be used to ensure that the spindle is up to speed before starting a cut, or that a lathe spindle in CSS mode has slowed down after a large to small facing pass before starting the next pass at the large diameter. Many VFDs have an "at speed" output. Otherwise, it is easy to generate this signal with the HAL near component, by comparing requested and actual spindle speeds.
 motion.spindle-brake
     (bit, out) TRUE when the spindle brake should be applied.
+    
+    should correspond to a vfd.stop() operation
+    
 motion.spindle-forward
     (bit, out) TRUE when the spindle should rotate forward.
+    
+    should correspond to a vfd.forward() operation
+    
 motion.spindle-index-enable
     (bit, I/O) For correct operation of spindle synchronized moves, this pin must be hooked to the index-enable pin of the spindle encoder. 
 motion.spindle-on
     (bit, out) TRUE when spindle should rotate.
+
+    should correspond to a vfd.start() operation    
+    
 motion.spindle-reverse
     (bit, out) TRUE when the spindle should rotate backward
+
+    should correspond to a vfd.reverse() operation
+
 motion.spindle-revs
     (float, in) For correct operation of spindle synchronized moves, this signal must be hooked to the position pin of the spindle encoder. The spindle encoder position should be scaled such that spindle-revs increases by 1.0 for each rotation of the spindle in the clockwise (M3) direction.
+    
+    
 motion.spindle-speed-in
     (float, in) Feedback of actual spindle speed in rotations per second. This is used by feed-per-revolution motion (G95). If your spindle encoder driver does not have a velocity output, you can generate a suitable one by sending the spindle position through a ddt component.
+
+    should correspond to a vfd.getRPM() operation
+
 motion.spindle-speed-out
     (float, out) Commanded spindle speed in rotations per minute. Positive for spindle forward (M3), negative for spindle reverse (M4).
+
+    should correspond to a vfd.setRPM() operation
+
 motion.spindle-speed-out-rps
     (float, out) Commanded spindle speed in rotations per second. Positive for spindle forward (M3), negative for spindle reverse (M4).
+
+    should correspond to a vfd.getRPS() operation
+
 """
