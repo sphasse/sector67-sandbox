@@ -4,11 +4,10 @@ Created on Nov 29, 2010
 @author: shasse
 '''
 import unittest
-import spindleblokutils
 from spindleblokutils import DataUtils
 from spindleblokutils import MockCommandChannel
 from spindleblokutils import RS485Command
-import re, time
+#import re, time
 
 class Test(unittest.TestCase):
 
