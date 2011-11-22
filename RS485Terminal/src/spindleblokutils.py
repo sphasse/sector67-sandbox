@@ -322,9 +322,9 @@ class SpindleBlok:
         self.command_channel = command_channel
         self.address = str(address)
         # get constants
-        self.kv = self.get_kv()
+        self.kv = self._get_kv()
         self.max_speed = self.get_max_speed()
-        self.ki_imag = self.get_ki_imag()
+        self.ki_imag = self._get_ki_imag()
 
     kv = 0
     max_speed = 0
@@ -446,6 +446,36 @@ class SpindleBlok:
         self._write_hex_string("C00", data)
 
     """
+    Read via D0D
+    """ 
+    def _get_elapsed_lo(self):
+        return self._get_signed_int("D0D")
+
+    """
+    Read via D0E
+    """
+    def _get_elapsed_hrs(self):
+        return self._get_signed_int("D0E")
+ 
+    """
+    A scaling factor, read via A08
+    """
+    def _get_ki_imag(self):
+        return self._get_signed_int("A08")
+
+    """
+    A scaling factor, read via A09 
+    """
+    def _get_kv(self):
+        return self._get_signed_int("A09")
+
+    """
+    The actual (not commanded) RPM of the drive as a signed int, read via D09
+    """
+    def _get_omega_m_dsp(self):
+        return self._get_signed_int("D09")
+
+    """
     Sets the correct bits on the drive mode (C01) in read->modify->write mode 
     to enable serial control
     """
@@ -467,18 +497,17 @@ class SpindleBlok:
         self._write_drive_mode(newMode)
 
     """
-    Non-NVRam RPM set, can be called frequently, set via C02
+    Non-NVRam commanded RPM set, can be called frequently, set via C02
     """
     def set_rpm(self, rpm):
         hexValue = DataUtils.signed_int_to_hex_string(rpm, 16)
         self._write_hex_string("C02", hexValue)
 
     """
-    Non-NVRam RPM read, can be called frequently, read via C02
+    Actual (not commanded) RPM of the drive as an int, read via D09 
     """
     def get_rpm(self):
-        hexData = self._get_hex_string("C02")
-        return DataUtils.hex_string_to_signed_int(hexData)
+        return self._get_omega_m_dsp()
 
     def request_start(self):
         startCommand = "FFFD"
@@ -504,13 +533,7 @@ class SpindleBlok:
             raise Exception("The command was not acknowledged")
 
     """
-    Read from D00
-    """
-    def get_drive_state(self):
-        return self._get_hex_string("D00")
-
-    """
-    Read from D03
+    Output current magnitude, read from D03
     """
     def get_i_mag(self):
         return self._get_signed_int("D03")
@@ -538,12 +561,6 @@ class SpindleBlok:
         return result
 
     """
-    The RPM of the drive, read via D09
-    """
-    def get_omega_m_dsp(self):
-        return self._get_signed_int("D09")
-
-    """
     Read via D0A
     """    
     def get_heatsink_temp(self):
@@ -554,30 +571,6 @@ class SpindleBlok:
     """    
     def get_power_in(self):
         return self._get_signed_int("D0C")
-
-    """
-    Read via D0D
-    """ 
-    def get_elapsed_lo(self):
-        return self._get_signed_int("D0D")
-
-    """
-    Read via D0E
-    """
-    def get_elapsed_hrs(self):
-        return self._get_signed_int("D0E")
- 
-    """
-    A scaling factor, read via A08
-    """
-    def get_ki_imag(self):
-        return self._get_signed_int("A08")
-
-    """
-    A scaling factor, read via A09 
-    """
-    def get_kv(self):
-        return self._get_signed_int("A09")
 
     """
     The max speed in RPM, read via F00  
@@ -593,6 +586,12 @@ class SpindleBlok:
     def set_comm_timer_max(self, serialTimeout=96):
         hexValue = DataUtils.signed_int_to_hex_string(serialTimeout, 16)
         self._write_hex_string("J02", hexValue)
+
+    """
+    Returns the running time in hundredths of an hour
+    """
+    def get_elapsed_time(self):
+        return (self._get_elapsed_hrs() * 100) + self._get_elapsed_lo()  
 
 """
 An abstract command channel
@@ -746,6 +745,25 @@ class MockCommandChannel(CommandChannel):
                         reply = RS485Command.create_write_response_command("1")
                         self.rpm = DataUtils.hex_string_to_signed_int(command.data)
                         self.incoming_commands.append(reply)
+                    elif (command.cmd == "D07" and command.type == RS485Command.READ_REQUEST):
+                        reply = RS485Command.create_read_response_command("1", "D07", "0100")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "D09" and command.type == RS485Command.READ_REQUEST):
+                        data = DataUtils.signed_int_to_hex_string(self.rpm, 16)
+                        reply = RS485Command.create_read_response_command("1", "D09", data)
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "D0A" and command.type == RS485Command.READ_REQUEST):
+                        data = DataUtils.signed_int_to_hex_string(20, 16)
+                        reply = RS485Command.create_read_response_command("1", "D0A", data)
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "D0D" and command.type == RS485Command.READ_REQUEST):
+                        data = DataUtils.signed_int_to_hex_string(50, 16)
+                        reply = RS485Command.create_read_response_command("1", "D0D", data)
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "D0E" and command.type == RS485Command.READ_REQUEST):
+                        data = DataUtils.signed_int_to_hex_string(100, 16)
+                        reply = RS485Command.create_read_response_command("1", "D0E", data)
+                        self.incoming_commands.append(reply)
                     elif (command.cmd == "A09" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "A09", "0010")
                         self.incoming_commands.append(reply)
@@ -775,7 +793,7 @@ class UserInterface:
     """
     returns an object that can be started to initiate serial communications
     """
-    def get_serial_channel(self):
+    def _get_serial_channel(self):
         port = 0
         baudrate = 9600
         parity = 'N'
@@ -797,42 +815,36 @@ class UserInterface:
 
     def setup(self):
         #setup serial reader and writer threads
-        self.serial_channel = self.get_serial_channel()
+        self.serial_channel = self._get_serial_channel()
         self.serial_channel.start()
         self.vfd = SpindleBlok(self.serial_channel)
         self.vfd.set_serial_control(96)
         self.vfd.set_rpm(0)
         self.vfd.request_stop()
+        
+        self.currentState = SpindleBlok.STOPPED
+        self.currentRPM = 0
 
     """
     The main loop of the UI.  TODO: try to make this less SpindleBlok specific (make the spindleblok interface more generic
     """
     def loop(self):
         if (self.serial_channel.alive):
-            self.driveState = self.vfd.get_drive_state()
-            
-            """
-            set_rpm(requestedRPM)
-            requestedMode = getRequestedMode()
-            if (requestedState != currentState):
+
+            requestedState = getRequestedState()
+            requestedRPM = getRequestedRPM()
+
+            self.vfd.set_rpm(requestedRPM)
+            if (self.requestedState != self.currentState):
                 if (requestedState == SpindleBlok.STOPPED):
-                    self.vfd.stop()
-                else if (requestedState == SpindleBlok.STARTED):
-                    self.vfd.start()
+                    self.vfd.request_stop()
+                elif (requestedState == SpindleBlok.STARTED):
+                    self.vfd.request_start()
                 else:
                     raise Exception("The state needs to be either stopped or started")
-                currentState = requestedState
-            requestedDirection = getRequestedDirection()
-            if (requestedDirection != currentDirection):
-                if (requestedDirection == SpindleBlok.FORWARD):
-                    self.vfd.forward()
-                else if (requestedState == SpindleBlok.REVERSE):
-                    self.vfd.reverse()
-                else:
-                    raise Exception("The direction needs to be either forward or reverse")
-                currentDirection = requestedDirection
-            """
-            self.currentRPM = self.vfd.get_omega_m_dsp()
+                self.currentState = requestedState
+                
+            self.currentRPM = self.vfd.get_rpm()
             self.currentVDC = self.vfd.get_vdc_dsp()
             
         else:
