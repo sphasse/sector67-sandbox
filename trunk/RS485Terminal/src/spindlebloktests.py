@@ -85,7 +85,11 @@ class Test(unittest.TestCase):
         vfd.request_start()
         vfd.set_rpm(1000)
         self.assertEqual(1000, vfd.get_rpm())
-
+        vfd.get_vdc_dsp()
+        
+        self.assertEqual(10050, vfd.get_elapsed_time())
+        self.assertEqual(20, vfd.get_heatsink_temp())
+        
         vfd.set_rpm(0)
         vfd.set_comm_timer_max(0)
         vfd.request_stop()
