@@ -71,7 +71,7 @@ class DataUtils:
     should be zero padded if necessary to accurately represent the intended length of the signed int.
     """
     @staticmethod
-    def hex_string_to__signed_int(data):
+    def hex_string_to_signed_int(data):
         bits = DataUtils.hex_string_to_bit_string(data)
         x = int(data, 16)
         if bits[0] == '1': # "sign bit", big-endian
@@ -136,7 +136,7 @@ class DataUtils:
 
     """
     takes in a string of hex representing a bit mask and a string of hex data and apply the mask to the data.
-    Returns a string of hex data.  Preserves leading zeros.
+    Returns a string of hex data.  Preserves leading zeros.  Returns lower case hex data.
     """
     @staticmethod
     def apply_or_bit_mask(mask, data):
@@ -153,7 +153,7 @@ class DataUtils:
 
     """
     takes in a string of hex representing a bit mask and a string of hex data and apply the mask to the data.
-    Returns a string of hex data.  Preserves leading zeros.
+    Returns a string of hex data.  Preserves leading zeros.  Returns lower case hex data.
     """
     @staticmethod
     def apply_and_bit_mask(mask, data):
@@ -170,7 +170,7 @@ class DataUtils:
 
     """
     takes in a string of hex representing a bit mask and a string of hex data and apply the mask to the data.
-    Returns a string of hex data.  Preserves leading zeros.
+    Returns a string of hex data.  Preserves leading zeros.  Returns lower case hex data.
     """
     @staticmethod
     def apply_xor_bit_mask(mask, data):
@@ -243,7 +243,7 @@ class RS485Command:
         
     def is_valid(self):
         check = RS485Utils.compute_checksum(self.action_char + self.address + self.cmd + self.data)
-        if (check == self.checksum and self.action_char != "?"):
+        if (check == self.checksum and self.type != RS485Command.ERROR):
             return True
         else:
             return False
@@ -255,7 +255,7 @@ class RS485Command:
     @staticmethod
     def create_command(action, address, command, data):
         result = action + address + command + data
-        checksum = RS485Utils.compute_checksum(command)
+        checksum = RS485Utils.compute_checksum(result)
         result = result + checksum
         return RS485Command(result)
 
@@ -395,24 +395,24 @@ class SpindleBlok:
     """
     drive API version 0.1 below
     """
-    def get_signed_int(self, command, timeout=1):
-        request = RS485Command.create_outgoing_command("$", self.address, command, "")
+    def _get_signed_int(self, command, timeout=1):
+        request = RS485Command.create_read_request_command(self.address, command)
         self.command_channel.send_command(request)
         reply = self.command_channel.receive_reply(command, timeout)
         if (not(reply.is_valid())):
             raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
         return DataUtils.hex_string_to_signed_int(reply.data)
     
-    def get_hex_string(self, command, timeout=1):
-        request = RS485Command.create_outgoing_command("$", self.address, command, "")
+    def _get_hex_string(self, command, timeout=1):
+        request = RS485Command.create_read_request_command(self.address, command)
         self.command_channel.send_command(request)
         reply = self.command_channel.receive_reply(command, timeout)
         if (not(reply.is_valid())):
             raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
         return reply.data
 
-    def write_hex_string(self, command, timeout=1):
-        request = RS485Command.create_outgoing_command("&", self.address, command, "")
+    def _write_hex_string(self, command, data, timeout=1):
+        request = RS485Command.create_write_request_command(self.address, command, data)
         self.command_channel.send_command(request)
         reply = self.command_channel.receive_reply(command, timeout)
         if (not(reply.is_valid())):
@@ -422,132 +422,177 @@ class SpindleBlok:
     """
     Read all bits from C01.  Returns two bytes of hex string data.
     """
-    def read_drive_mode(self, data):
-        return self.get_hex_string("C01")
+    def _read_drive_mode(self):
+        return self._get_hex_string("C01")
 
     """
     Write all bits from C01.  C01 should in general be changed in a read->modify->write mode to 
     avoid setting or clearing wrongly.  Expects two bytes of hex string data (e.g. "ffff")
     """
-    def write_drive_mode(self, data):
-        raise NotImplementedError
+    def _write_drive_mode(self, data):
+        self._write_hex_string("C01", data)
 
     """
-    Sets the correct bits on the drive mode (C01) to enable serial control
+    Read all bits from C00.  Returns two bytes of hex string data.
+    """
+    def _read_drive_command(self):
+        return self._get_hex_string("C00")
+
+    """
+    Write all bits to C00.  Expects two bytes of hex string data (e.g. "ffff"), generally with
+    one bit cleared indicating the command.
+    """
+    def _write_drive_command(self, data):
+        self._write_hex_string("C00", data)
+
+    """
+    Sets the correct bits on the drive mode (C01) in read->modify->write mode 
+    to enable serial control
     """
     def set_serial_control(self):
-        raise NotImplementedError
+        # set bits 8 and 9 of C01
+        currentMode = self._read_drive_mode()
+        serialMask = "0300"
+        newMode = DataUtils.apply_or_bit_mask(currentMode, serialMask)
+        self._write_drive_mode(newMode)
 
     """
-    Sets the correct bits on the drive mode (C01) to enable local control
+    Clears the correct bits on the drive mode (C01) to enable local control
     """
     def set_local_control(self):
-        raise NotImplementedError
+        # clear bits 8 and 9 of C01
+        currentMode = self._read_drive_mode()
+        serialMask = "FCFF"
+        newMode = DataUtils.apply_and_bit_mask(currentMode, serialMask)
+        self._write_drive_mode(newMode)
 
     """
     Non-NVRam RPM set, can be called frequently, set via C02
     """
-    def set_rpm(self):
-        raise NotImplementedError
+    def set_rpm(self, rpm):
+        hexValue = DataUtils.signed_int_to_hex_string(rpm, 16)
+        self._write_hex_string("C02", hexValue)
+
+    """
+    Non-NVRam RPM read, can be called frequently, read via C02
+    """
+    def get_rpm(self):
+        hexData = self._get_hex_string("C02")
+        return DataUtils.hex_string_to_signed_int(hexData)
 
     def request_start(self):
-        raise NotImplementedError
+        startCommand = "FFFD"
+        self._write_drive_command(startCommand)
+        ack = self._read_drive_command()
+        #TODO: need to loop here?
+        if (DataUtils.apply_or_bit_mask(startCommand, ack) == "ffff"):
+            return
+        else:
+            raise Exception("The command was not acknowledged")
 
     """
-    Set a bit in the 
+    Set a bit in the C00 command to request a stop 
     """
     def request_stop(self):
-        raise NotImplementedError
+        stopCommand = "FFFE"
+        self._write_drive_command(stopCommand)
+        ack = self._read_drive_command()
+        #TODO: need to loop here?
+        if (DataUtils.apply_or_bit_mask(stopCommand, ack) == "ffff"):
+            return
+        else:
+            raise Exception("The command was not acknowledged")
 
     """
     Read from D00
     """
     def get_drive_state(self):
-        return self.get_hex_string("D00")
+        return self._get_hex_string("D00")
 
     """
     Read from D03
     """
     def get_i_mag(self):
-        return self.get_signed_int("D03")
+        return self._get_signed_int("D03")
 
     """
     Output voltage, read from D06
     """
     def get_vout(self):
-        return self.get_signed_int("D06")
+        return self._get_signed_int("D06")
 
     """
     DC link voltage, * kv, read from D07
     This method scales the voltage to the actual value
     """
     def get_vdc_dsp(self):
-        result = self.get_signed_int("D07") / self.kv
+        result = self._get_signed_int("D07") / self.kv
         return result
 
     """
     The 10 * Hz of the drive, read via D08
+    This method scales the Hz to the actual value
     """
     def get_omega_dsp(self):
-        result = self.get_signed_int("D08") / 10
+        result = self._get_signed_int("D08") / 10
         return result
 
     """
     The RPM of the drive, read via D09
     """
     def get_omega_m_dsp(self):
-        return self.get_signed_int("D09")
+        return self._get_signed_int("D09")
 
     """
     Read via D0A
     """    
     def get_heatsink_temp(self):
-        return self.get_signed_int("D0A")
+        return self._get_signed_int("D0A")
 
     """
     Read via D0C
     """    
     def get_power_in(self):
-        return self.get_signed_int("D0C")
+        return self._get_signed_int("D0C")
 
     """
     Read via D0D
     """ 
     def get_elapsed_lo(self):
-        return self.get_signed_int("D0D")
+        return self._get_signed_int("D0D")
 
     """
     Read via D0E
     """
     def get_elapsed_hrs(self):
-        return self.get_signed_int("D0E")
+        return self._get_signed_int("D0E")
  
     """
     A scaling factor, read via A08
     """
     def get_ki_imag(self):
-        return self.get_signed_int("A08")
+        return self._get_signed_int("A08")
 
     """
     A scaling factor, read via A09 
     """
     def get_kv(self):
-        return self.get_signed_int("A09")
+        return self._get_signed_int("A09")
 
     """
     The max speed in RPM, read via F00  
     """
     def get_max_speed(self):
-        return self.get_signed_int("F00")
+        return self._get_signed_int("F00")
     
     """
     0.052 second increments to wait before a serial communication timeout causes problems, set via J02
     1 second is roughly 19 increments
     5 seconds is roughly 96 increments
     """
-    def set_comm_timer_max(self):
-        raise NotImplementedError
-
+    def set_comm_timer_max(self, serialTimeout=96):
+        hexValue = DataUtils.signed_int_to_hex_string(serialTimeout, 16)
+        self._write_hex_string("J02", hexValue)
 
 """
 An abstract command channel
@@ -662,6 +707,7 @@ class MockCommandChannel(CommandChannel):
         self.transmitter_thread = threading.Thread(target=self.writer)
         self.transmitter_thread.setDaemon(1)
         self.transmitter_thread.start()
+        self.rpm = 0
         
     def stop(self):
         self.alive = False
@@ -683,10 +729,33 @@ class MockCommandChannel(CommandChannel):
                     if (command.cmd == "C00" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "C00", "ffff")
                         self.incoming_commands.append(reply)
+                    elif (command.cmd == "C00" and command.type == RS485Command.WRITE_REQUEST):
+                        reply = RS485Command.create_write_response_command("1")
+                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C01" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "C01", "ffff")
                         self.incoming_commands.append(reply)
+                    elif (command.cmd == "C01" and command.type == RS485Command.WRITE_REQUEST):
+                        reply = RS485Command.create_write_response_command("1")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "C02" and command.type == RS485Command.READ_REQUEST):
+                        data = DataUtils.signed_int_to_hex_string(self.rpm, 16)
+                        reply = RS485Command.create_read_response_command("1", "C02", data)
+                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C02" and command.type == RS485Command.WRITE_REQUEST):
+                        reply = RS485Command.create_write_response_command("1")
+                        self.rpm = DataUtils.hex_string_to_signed_int(command.data)
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "A09" and command.type == RS485Command.READ_REQUEST):
+                        reply = RS485Command.create_read_response_command("1", "A09", "0010")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "F00" and command.type == RS485Command.READ_REQUEST):
+                        reply = RS485Command.create_read_response_command("1", "F00", "0100")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "A08" and command.type == RS485Command.READ_REQUEST):
+                        reply = RS485Command.create_read_response_command("1", "A08", "0020")
+                        self.incoming_commands.append(reply)
+                    elif (command.cmd == "J02" and command.type == RS485Command.WRITE_REQUEST):
                         reply = RS485Command.create_write_response_command("1")
                         self.incoming_commands.append(reply)
                     else:
@@ -731,10 +800,9 @@ class UserInterface:
         self.serial_channel = self.get_serial_channel()
         self.serial_channel.start()
         self.vfd = SpindleBlok(self.serial_channel)
-        #set_serial_control()
-        #set_rpm(0)
-        #request_stop()
-        #set_comm_timer_max(96)    
+        self.vfd.set_serial_control(96)
+        self.vfd.set_rpm(0)
+        self.vfd.request_stop()
 
     """
     The main loop of the UI.  TODO: try to make this less SpindleBlok specific (make the spindleblok interface more generic
