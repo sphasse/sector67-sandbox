@@ -9,9 +9,9 @@ VirtualBox is open source virtualization software, much like VMWare Workstation 
 This virtual EMC2 instance will be used during the class to obtain familiarity with the EMC2 installation process, EMC2 configuration, the various user interfaces and to practice creation of integrations such as custom user space components and classic ladder programs.
 
 = Details =
-
-You will need the following software:
 == Pre-requisite software ==
+You will need the following software:
+
 A !VirtualBox install appropriate for your PC, available from [https://www.virtualbox.org/wiki/Downloads the VirtualBox site].  This example uses VirtualBox 4.1.6.
 
 The EMC2 Ubuntu 10.04 live CD iso image, available from [http://www.linuxcnc.org/ the EMC2 site]
