@@ -25,3 +25,31 @@ For the base memory size, you can choose 256MB.  For the Start-up disk, choose t
 After the virtual machine is created, we'll need to configure it to boot from the EMC2 live CD iso image.  An actual burned CD is not necessary, but could alternatively be used for the installation (but would be significantly slower).
 
 With your virtual machine instance highlighted, click "Settings".  Under the "storage" tab, select the "Empty" CD icon under the "IDE Controller" and click the CD icon on the far right to set up the CD/DVD drive.  If installing from an iso image, select "Choose a virtual CD/DVD disk file..." and browse to the location of your live CD.
+
+...
+
+== Updating EMC2 ==
+Since there are many fixes available to the current live CD version of EMC2 (2.4.3), updating is recommended.  The updated procedure can be found at:
+
+[http://buildbot.linuxcnc.org/]
+
+We are using Lucid (Ubuntu 10.4) "(32-bit only), realtime", and should update the 2.4 branch for now.  We are not running the pure simulation, but rather the real time system virtualized.  This will of course not really work for real time operations, but suits our purposes well.  Updating requires adding the following to the /etc/apt/sources.list.d/emc2-buildbot.list file:
+
+{{{
+deb     http://buildbot.linuxcnc.org/ lucid v2.4_branch-rt
+deb-src http://buildbot.linuxcnc.org/ lucid v2.4_branch-rt
+}}}
+
+and then running:
+
+{{{
+sudo apt-get update
+sudo apt-get install emc2
+}}}
+
+== Linux customizations ==
+During install you hopefully chose to have the user logged in automatically.  It is also convenient and safer to have the screen saver not lock the machine and of course to not put the machine to sleep after an idle period of time.  This is done via:
+
+TODO: get
+
+== Starting a machine simulation ==
