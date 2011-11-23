@@ -14,7 +14,7 @@ You will need the following software:
 == Pre-requisite software ==
 A !VirtualBox install appropriate for your PC, available from [https://www.virtualbox.org/wiki/Downloads the VirtualBox site].  This example uses VirtualBox 4.1.6.
 
-The EMC2 Ubuntu 10.04 live CD iso image, available from [http://www.linuxcnc.org/content/view/21/4/lang,english/ the EMC2 site]
+The EMC2 Ubuntu 10.04 live CD iso image, available from [http://www.linuxcnc.org/ the EMC2 site]
 
 == Virtual machine creation ==
 After following the installation instructions for your platform, start VirtualBox and run "Machine->New...".  This should start the new virtual machine wizard.  Click "Next" to continue.  You will then need to choose a name for your virtual machine, such as "EMC2Sandbox".  For the "Operating System" and "Version" choose "Linux" and "Ubuntu".  Click "Next".  
@@ -25,4 +25,3 @@ For the base memory size, you can choose 256MB.  For the Start-up disk, choose t
 After the virtual machine is created, we'll need to configure it to boot from the EMC2 live CD iso image.  An actual burned CD is not necessary, but could alternatively be used for the installation (but would be significantly slower).
 
 With your virtual machine instance highlighted, click "Settings".  Under the "storage" tab, select the "Empty" CD icon under the "IDE Controller" and click the CD icon on the far right to set up the CD/DVD drive.  If installing from an iso image, select "Choose a virtual CD/DVD disk file..." and browse to the location of your live CD.
-
