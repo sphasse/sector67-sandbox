@@ -2,11 +2,27 @@
 
 = Introduction =
 
-This exercise is a part of the [EMC2
+This exercise is a part of the Sector67 [EMC2IntegrationClass].  In this exercise you will create a virtual EMC2 instance using VirtualBox and the EMC2 live CD.
+
+VirtualBox is open source virtualization software, much like VMWare Workstation or Parallels.
+
+This virtual EMC2 instance will be used during the class to obtain familiarity with the EMC2 installation process, EMC2 configuration, the various user interfaces and to practice creation of integrations such as custom user space components and classic ladder programs.
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+You will need the following software:
+== Pre-requisite software ==
+A !VirtualBox install appropriate for your PC, available from [https://www.virtualbox.org/wiki/Downloads the VirtualBox site].  This example uses VirtualBox 4.1.6.
+
+The EMC2 Ubuntu 10.04 live CD iso image, available from [http://www.linuxcnc.org/content/view/21/4/lang,english/ the EMC2 site]
+
+== Virtual machine creation ==
+After following the installation instructions for your platform, start VirtualBox and run "Machine->New...".  This should start the new virtual machine wizard.  Click "Next" to continue.  You will then need to choose a name for your virtual machine, such as "EMC2Sandbox".  For the "Operating System" and "Version" choose "Linux" and "Ubuntu".  Click "Next".  
+
+For the base memory size, you can choose 256MB.  For the Start-up disk, choose to create a new hard disk, choose the VDI type disk and click "Next".  A dynamically allocated disk will be fine for our EMC2 sandbox.  The default Location and 4 GB should be sufficient for the hard disk size.  Click "Next" to continue to installation wizard, and click "Create" to create the virtual machine.
+
+== Installing EMC2 ==
+After the virtual machine is created, we'll need to configure it to boot from the EMC2 live CD iso image.  An actual burned CD is not necessary, but could alternatively be used for the installation (but would be significantly slower).
+
+With your virtual machine instance highlighted, click "Settings".  Under the "storage" tab, select the "Empty" CD icon under the "IDE Controller" and click the CD icon on the far right to set up the CD/DVD drive.  If installing from an iso image, select "Choose a virtual CD/DVD disk file..." and browse to the location of your live CD.
+
