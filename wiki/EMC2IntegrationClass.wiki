@@ -28,12 +28,17 @@ If you have a working mill or are planning to build one and are interested in co
   * Updating the software via the EMC2 buildbot
   * Running EMC2 in simulation mode for development and testing
 
+==Exercise 1: installing a virtual EMC2 instance==
+The first exercise is to create a virtual EMC2 sandbox for yourself.  This sandbox will have multiple uses, including familiarizing yourself with EMC2 configuration, practice using various EMC2 GUIs, practice configuration editing and things like classic ladder development.
+
+Please reference [InstallEMC2InAVirtualBox] for the detailed exercise.
+
 =EMC2 configuration=
   * Keeping your software configuration under revision control
   * Using pncconf for generating your configuration
+  * The HAL files
   * Hardware drivers
   * The ini file
-  * The HAL files
   * User interface components
   * Axis UI
 
