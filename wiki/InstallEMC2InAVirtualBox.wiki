@@ -19,7 +19,7 @@ The EMC2 Ubuntu 10.04 live CD iso image, available from [http://www.linuxcnc.org
 == Virtual machine creation ==
 After following the installation instructions for your platform, start !VirtualBox and run "Machine->New...".  This should start the new virtual machine wizard.  Click "Next" to continue.  You will then need to choose a name for your virtual machine, such as "EMC2Sandbox".  For the "Operating System" and "Version" choose "Linux" and "Ubuntu".  Click "Next".  
 
-For the base memory size, you can choose 256MB.  For the Start-up disk, choose to create a new hard disk, choose the VDI type disk and click "Next".  A dynamically allocated disk will be fine for our EMC2 sandbox.  The default Location and 4 GB should be sufficient for the hard disk size.  Click "Next" to continue to installation wizard, and click "Create" to create the virtual machine.
+For the base memory size, you can choose 384MB.  For the Start-up disk, choose to create a new hard disk, choose the VDI type disk and click "Next".  A dynamically allocated disk will be fine for our EMC2 sandbox.  The default Location and 4 GB should be sufficient for the hard disk size.  Click "Next" to continue to installation wizard, and click "Create" to create the virtual machine.
 
 == Installing EMC2 ==
 After the virtual machine is created, we'll need to configure it to boot from the EMC2 live CD iso image.  An actual burned CD is not necessary, but could alternatively be used for the installation (but would be significantly slower).
