@@ -30,6 +30,14 @@ Then click "Start" to start the virtual machine.  You may see a couple of warnin
 
 We'll use the live CD to install a local copy, which is the same process that would be used for a real mill.
 
+Once Ubuntu has booted completely, click the "Install Ubuntu 10.04 LTS" icon.  "LTS" stands for long-term support and it is used to designate versions of Ubuntu that are commercially-supported for a long term.
+
+NOTE: _Alternatively at this point you could run EMC2 or any of the utilities directly from the live CD.  This is useful to test the latency of a PCs without doing a full install._
+
+Clicking the install icon will start the installation wizard.  Choose your language, location, keyboard layout.  Choose to erase and use the entire disk you allocated during machine creation.  Choose an account and password and give the pc an appropriate name.  Click install to begin the installation.
+
+The installation process, including formatting the virtual disk, should begin.
+
 == Install Virtual Machine extensions ==
 The Linux virtual machine functions significantly better with guest extensions installed.  
 
