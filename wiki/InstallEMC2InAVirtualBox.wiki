@@ -47,12 +47,14 @@ The Linux virtual machine functions significantly better with guest extensions i
 
 "Devices->Install Guest Additions..."
 
+Ubuntu should detect installed media.  Choose to autorun the media, and then choose to install the software.  You'll need to supply the administrative password to install the guest additions. 
+
 == Updating EMC2 ==
 Since there are many fixes available to the current live CD version of EMC2 (2.4.3), updating is recommended.  The updated procedure can be found at:
 
 [http://buildbot.linuxcnc.org/]
 
-We are using Lucid (Ubuntu 10.4) "(32-bit only), realtime", and should update the 2.4 branch for now.  We are not running the pure simulation, but rather the real time system virtualized.  This will of course not really work for real time operations, but suits our purposes well.  Updating requires adding the following to the /etc/apt/sources.list.d/emc2-buildbot.list file:
+We are using Lucid (Ubuntu 10.4) "(32-bit only), realtime", and should update the 2.4 branch for now.  We are not running the pure simulation, but rather the real time system virtualized.  This will of course not really work for real time operations, but suits our purposes well.  Updating requires adding the following to the /etc/apt/sources.list.d/emc2-buildbot.list file (you'll need to edit the file using "sudo" as it is a system file):
 
 {{{
 deb     http://buildbot.linuxcnc.org/ lucid v2.4_branch-rt
@@ -69,7 +71,9 @@ sudo apt-get install emc2
 == Linux customizations ==
 During install you hopefully chose to have the user logged in automatically.  It is also convenient and safer to have the screen saver not lock the machine and of course to not put the machine to sleep after an idle period of time.  This is done via:
 
-TODO: get
+1) Choosing "System->Preferences->Screen Saver", increasing the idle time to 30 minutes and un-checking the option to lock the screen.
+
+2) You can then click the "Power Management" button and confirm that the machine will not be put to sleep when idle.
 
 == Starting a machine simulation ==
 You should now be ready to start playing with EMC2 in earnest.  In the base install there are 
