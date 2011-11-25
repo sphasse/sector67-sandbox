@@ -34,7 +34,7 @@ Once Ubuntu has booted completely, click the "Install Ubuntu 10.04 LTS" icon.  "
 
 NOTE: _Alternatively at this point you could run EMC2 or any of the utilities directly from the live CD.  This is useful to test the latency of a PCs without doing a full install._
 
-Clicking the install icon will start the installation wizard.  Choose your language, location, keyboard layout.  Choose to erase and use the entire disk you allocated during machine creation.  Choose an account and password and give the pc an appropriate name.  Click install to begin the installation.
+Clicking the install icon will start the installation wizard.  Choose your language, location, keyboard layout.  Choose to erase and use the entire disk you allocated during machine creation.  Choose an account and password and give the PC an appropriate name.  It will be most convenient if you choose to "Log in Automatically", however you will still need to know the account password to perform administrative operations.  Click install to begin the installation.
 
 The installation process, including formatting the virtual disk, should begin.
 
