@@ -38,6 +38,10 @@ Clicking the install icon will start the installation wizard.  Choose your langu
 
 The installation process, including formatting the virtual disk, should begin.
 
+After the installation is complete, before choosing to restart, right mouse on the CD icon at the bottom of the virtual machine window and choose "Remove disk from virtual drive" to avoid booting from the live CD again.
+
+When the machine reboots, it should boot to the installed Ubuntu 10.04 EMC2 installation.
+
 == Install Virtual Machine extensions ==
 The Linux virtual machine functions significantly better with guest extensions installed.  
 
