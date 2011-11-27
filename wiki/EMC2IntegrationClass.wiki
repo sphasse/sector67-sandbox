@@ -44,9 +44,12 @@ EMC stands for "Enhanced Machine Control".  It is a software system for computer
 EMC was originally developed by the National Institutes of Standards and Technology
  
 == Community and support ==
+EMC2 has a thriving community and excellent support is available from several sources.  There is an IRC channel, emc-users (and developer) mailing lists, and online forums.
 
-  * Basic architecture
-  * Real-time considerations
+== Basic architecture ==
+== Real-time considerations ==
+=== Base thread ===
+=== Servo thread ===
   * Comparison with Mach3
   * Choosing and testing PC hardware for EMC2
   * Choosing interface hardware for EMC2
