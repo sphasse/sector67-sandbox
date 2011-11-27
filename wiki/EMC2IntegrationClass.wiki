@@ -3,7 +3,7 @@
 =Implementing CNC motion control with EMC2=
 If you have a working mill or are planning to build one and are interested in controlling it via computer.  This class will prepare attendees to convert or build the computer control system for a mill or other machine with the Linux-based open source EMC2 software suite.  The class will cover choosing and configuring the software, PC, I/O interface components, electronic interface hardware, motors and motor controllers needed to move a machine.  The actual mechanics of machine building (axes, lead screws, etc.) are not covered in this class.
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="3" />
 
 = Introduction to machine control concepts =
 == Big picture goals ==
