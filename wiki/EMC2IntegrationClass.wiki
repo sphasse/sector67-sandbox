@@ -5,17 +5,32 @@ If you have a working mill or are planning to build one and are interested in co
 
 <wiki:toc max_depth="1" />
 
-=Introduction to machine control concepts=
-  * Big picture goals
-  * Stepper and servo systems compare and contrast
-  * Understanding types of feedback and encoders
+= Introduction to machine control concepts =
+== Big picture goals ==
+== Brief gcode primer ==
+To illustrate some of the challenges of motion control, we'll consider an extremely simple snippet of gcode to rapidly move the machine to the home position and then move one unit in the X direction at a feed speed of 100 units per minute:
 
-=Motion control issues=
-  * Acceleration and velocity
+{{{
+G00 X0 Y0 Z0
+G01 X1 Y0 Z0 F100
+}}}
+
+Assuming the machine is already at the home position, in an ideal world the machine would immediately start to travel at the feed rate, reach the end of the move and immediately stop.  In the real world of course, the table, motors and other moving machine components have mass and momentum and so the machine needs to accelerate to reach the desired velocity.
+
+  * Mass, momentum, acceleration and velocity
   * Real-time motion planning
-  * PID tuning concepts
+  * PID tuning concepts introduced
+  * Understanding types of feedback and encoders
+  * Stepper and servo systems compare and contrast
 
-=Introduction to EMC2=
+= Simplified block diagram of a motion control system =
+  * Motors
+  * Motor controllers
+  * Encoder feedback
+  * Controller interface hardware
+  * Motion planning software
+
+= Introduction to EMC2 =
   * Background and history
   * Basic architecture
   * Real-time considerations
