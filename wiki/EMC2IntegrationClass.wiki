@@ -29,12 +29,17 @@ Most modern operating systems are shared, interrupt-driven and function with eve
   * Stepper and servo systems compare and contrast
   * PID tuning concepts introduced
 
-= Simplified block diagram of a typical motion control system =
+== Simplified block diagram of a typical motion control system =
   * Motors
   * Motor controllers
   * Encoder feedback
   * Controller interface hardware
   * Motion planning software
+
+== Machine shop tour ==
+=== Proprietary Anliam control system ===
+=== EMC2 converted control system ===
+=== Small mill stepper control system ===
 
 = Introduction to EMC2 =
 == Introduction ==
