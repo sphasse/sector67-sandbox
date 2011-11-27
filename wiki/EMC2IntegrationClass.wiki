@@ -7,7 +7,7 @@ If you have a working mill or are planning to build one and are interested in co
 
 = Introduction to machine control concepts =
 == Big picture goals ==
-There are many different reasons for wanting to implement computerized motion control, including mills, lathes.  In all of these cases, we want to be able to move machines accurately and efficiently with as little hardware and software cost as possible.  EMC2 can help fulfill those goals.
+There are many different reasons for wanting to implement computerized motion control, including mills, lathes, plastic extrusion, plasma or laser cutting and other applications unrelated to manufacturing.  In all of these cases, we want to be able to move machines accurately, efficiently and reliably with the minimum hardware and software cost required to get the job done.  EMC2 as part of an overall motion control solution can help fulfill those goals.
 
 == Brief gcode primer ==
 To illustrate some of the challenges of motion control, we'll consider an extremely simple snippet of gcode to rapidly move the machine to the home position and then move one unit in the X direction at a feed speed of 100 units per minute:
