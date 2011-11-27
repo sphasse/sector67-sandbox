@@ -37,7 +37,8 @@ Most modern operating systems are shared, interrupt-driven and function with eve
   * Motion planning software
 
 == Machine shop tour ==
-=== Proprietary Anliam control system ===
+Time to put see the simplified block diagram in practice in a few different configurations.  A tour of the Sector 67 machine shop will allow us to see at least three different types of systems.
+=== Proprietary Anilam control system ===
 === EMC2 converted control system ===
 === Small mill stepper control system ===
 
