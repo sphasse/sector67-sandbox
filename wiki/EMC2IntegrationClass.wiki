@@ -7,6 +7,8 @@ If you have a working mill or are planning to build one and are interested in co
 
 = Introduction to machine control concepts =
 == Big picture goals ==
+There are many different reasons for wanting to implement computerized motion control, including mills, lathes.  In all of these cases, we want to be able to move machines accurately and efficiently with as little hardware and software cost as possible.  EMC2 can help fulfill those goals.
+
 == Brief gcode primer ==
 To illustrate some of the challenges of motion control, we'll consider an extremely simple snippet of gcode to rapidly move the machine to the home position and then move one unit in the X direction at a feed speed of 100 units per minute:
 
@@ -15,7 +17,7 @@ G00 X0 Y0 Z0
 G01 X1 Y0 Z0 F100
 }}}
 
-Assuming the machine is already at the home position, in an ideal world the machine would immediately start to travel at the feed rate, reach the end of the move and immediately stop.  In the real world of course, the table, motors and other moving machine components have mass and momentum and so the machine needs to accelerate to reach the desired velocity.
+Assuming the machine is already at the home position, in an ideal world the machine would immediately start to travel at the feed rate, reach the end of the move and immediately stop.  In the real world of course, the table, motors and other moving machine components have mass and momentum and so the machine needs to accelerate to reach the desired velocity, and then decelerate to not overshoot at the end of motion.  Because of these real-world concerns, even seemingly simple machine motion operations present quite sophisticated motion planning challenges.
 
   * Mass, momentum, acceleration and velocity
   * Real-time motion planning
@@ -23,7 +25,7 @@ Assuming the machine is already at the home position, in an ideal world the mach
   * Understanding types of feedback and encoders
   * Stepper and servo systems compare and contrast
 
-= Simplified block diagram of a motion control system =
+= Simplified block diagram of a typical motion control system =
   * Motors
   * Motor controllers
   * Encoder feedback
@@ -31,7 +33,14 @@ Assuming the machine is already at the home position, in an ideal world the mach
   * Motion planning software
 
 = Introduction to EMC2 =
-  * Background and history
+== Introduction ==
+EMC stands for "Enhanced Machine Control".  It is a software system for computer control of machine tools such as milling machines and lathes.  EMC is free software with open source code. Current versions of EMC are entirely licensed under the GNU General Public License and Lesser GNU General Public License (GPL and LGPL).  It is a very mature motion control platform, capable of control of up to 9 axes.
+
+== Background and history ==
+EMC was originally developed by the National Institutes of Standards and Technology
+ 
+== Community and support ==
+
   * Basic architecture
   * Real-time considerations
   * Comparison with Mach3
