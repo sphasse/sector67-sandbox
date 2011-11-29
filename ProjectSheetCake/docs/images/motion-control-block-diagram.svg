@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="motion-control-block-diagram.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path4197"
+         style="font-size:12.0;fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.2020815"
+     inkscape:cx="526.18109"
+     inkscape:cy="436.48966"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-global="true"
+     inkscape:window-width="1371"
+     inkscape:window-height="924"
+     inkscape:window-x="316"
+     inkscape:window-y="31"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-308.2677)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3793"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:100%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3795"><rect
+           id="rect3797"
+           width="188.40649"
+           height="40.614574"
+           x="15.794557"
+           y="50.536041"
+           style="line-height:100%" /></flowRegion><flowPara
+         id="flowPara3799" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3923"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3925"><rect
+           id="rect3927"
+           width="117.33099"
+           height="59.793678"
+           x="50.768215"
+           y="236.68617" /></flowRegion><flowPara
+         id="flowPara3929" /></flowRoot>    <g
+       id="g4416"
+       transform="translate(-13.212403,-41.681275)">
+      <rect
+         ry="17.403236"
+         rx="13.533275"
+         y="509.46783"
+         x="89.102821"
+         height="302.36404"
+         width="180.16246"
+         id="rect2987"
+         style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.53467524;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <flowRoot
+         style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         id="flowRoot3801-0"
+         xml:space="preserve"
+         transform="translate(71.016083,558.83292)"><flowRegion
+           id="flowRegion3803-7"><rect
+             style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle"
+             y="52.792404"
+             x="16.922739"
+             height="98.213341"
+             width="181.27959"
+             id="rect3805-8" /></flowRegion><flowPara
+           id="flowPara3881"
+           style="font-weight:bold">User Interface</flowPara><flowPara
+           id="flowPara4098">(PC, dedicated UI hardware, or headless)</flowPara></flowRoot>    </g>
+    <rect
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.02729821;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-8"
+       width="180.23935"
+       height="135.42688"
+       x="299.42078"
+       y="633.55933"
+       rx="13.539051"
+       ry="7.7947955" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3801-8"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(278.9262,615.73286)"><flowRegion
+         id="flowRegion3803-1"><rect
+           id="rect3805-9"
+           width="185.79233"
+           height="61.742752"
+           x="16.922739"
+           y="52.792404"
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3807-2">Programmable motion controller</flowPara></flowRoot>    <rect
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.04688215;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-1-5-1"
+       width="232.32002"
+       height="109.11146"
+       x="738.2699"
+       y="539.2547"
+       rx="17.451199"
+       ry="6.2801542" />
+    <flowRoot
+       transform="translate(795.46151,506.35879)"
+       xml:space="preserve"
+       id="flowRoot3801-0-0-86-0"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3803-7-70-1-9"><rect
+           id="rect3805-8-2-7-9"
+           width="180.5092"
+           height="64.306404"
+           x="16.922739"
+           y="52.792404"
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3881-0-7-3" /><flowPara
+         id="flowPara4014-1-1">Motor</flowPara></flowRoot>    <flowRoot
+       transform="translate(447.36793,419.21722)"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot3801-8-5"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3803-1-0"><rect
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle"
+           y="52.792404"
+           x="16.922739"
+           height="23.414585"
+           width="369.6236"
+           id="rect3805-9-4" /></flowRegion><flowPara
+         id="flowPara3807-2-2"
+         style="font-size:12px">Position feedback signals (closed loop systems)</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3113"
+       style="font-size:28px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(0,308.2677)"><flowRegion
+         id="flowRegion3115"><rect
+           id="rect3117"
+           width="861.17645"
+           height="64.705879"
+           x="98.823532"
+           y="41.741543"
+           style="font-size:28px;text-align:center;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3119">Motion Control System</flowPara><flowPara
+         id="flowPara3121">Basic Block Diagram</flowPara></flowRoot>    <rect
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.65710247;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-1-5-1-3"
+       width="91.195312"
+       height="109.51035"
+       x="738.07953"
+       y="539.0553"
+       rx="6.8503237"
+       ry="6.303113" />
+    <flowRoot
+       transform="translate(675.57163,506.35882)"
+       xml:space="preserve"
+       id="flowRoot3801-0-0-86-0-1"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3803-7-70-1-9-4"><rect
+           id="rect3805-8-2-7-9-8"
+           width="180.5092"
+           height="64.306404"
+           x="16.922739"
+           y="52.792404"
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3881-0-7-3-2" /><flowPara
+         id="flowPara3324">Encoder</flowPara></flowRoot>    <rect
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:4.20711994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3328"
+       width="30.938597"
+       height="10.829645"
+       x="973.21692"
+       y="588.39563" />
+    <rect
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.3914851;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-1-5-1-31"
+       width="157.85777"
+       height="101.70803"
+       x="531.65936"
+       y="542.68469"
+       rx="30.931059"
+       ry="6.2598271" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3801-8-8"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(500.01304,516.83894)"><flowRegion
+         id="flowRegion3803-1-3"><rect
+           id="rect3805-9-3"
+           width="185.79233"
+           height="61.742752"
+           x="16.922739"
+           y="52.792404"
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3807-2-5">Motor controller/</flowPara><flowPara
+         id="flowPara4167">amplifier</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 600,336.12502 0,43.26358 284.70588,0 0,-39.29014"
+       id="path4169"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc"
+       transform="translate(0,308.2677)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-mid:none;marker-end:url(#Arrow2Lend)"
+       d="m 783.52941,230.7876 0,-37.28135 -305.54725,0"
+       id="path4171"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc"
+       transform="translate(0,308.2677)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Lend)"
+       d="m 478.81405,571.18571 52.84531,0"
+       id="path5347"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.3914851;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-1-1-5-1-31-7"
+       width="157.85777"
+       height="101.70803"
+       x="531.65936"
+       y="750.70502"
+       rx="30.931059"
+       ry="6.2598271" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3801-8-8-1"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(500.76012,732.06631)"><flowRegion
+         id="flowRegion3803-1-3-3"><rect
+           id="rect3805-9-3-8"
+           width="185.79233"
+           height="61.742752"
+           x="16.922739"
+           y="52.792404"
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara4167-9">Power supply</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend);stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 561.19321,442.44353 0,-106.32472"
+       id="path5581"
+       inkscape:connector-curvature="0"
+       transform="translate(0,308.2677)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Lend)"
+       d="m 256.1723,701.30801 40.07879,0"
+       id="path5765"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Lend)"
+       d="m 299.45923,659.49651 -40.07879,0"
+       id="path5767"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.97264576;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2987-8-8"
+       width="180.29401"
+       height="121.3639"
+       x="297.51331"
+       y="469.60556"
+       rx="13.543157"
+       ry="6.9853683" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3801-8-0"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(277.59292,455.45789)"><flowRegion
+         id="flowRegion3803-1-1"><rect
+           id="rect3805-9-6"
+           width="185.79233"
+           height="61.742752"
+           x="16.922739"
+           y="52.792404"
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3807-2-8">Interface </flowPara><flowPara
+         id="flowPara6190">hardware</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Lend)"
+       d="m 349.37737,633.55934 0,-42.58987"
+       id="path6192"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow2Lend)"
+       d="m 414.08325,590.96947 0,42.58987"
+       id="path6194"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="translate(222.46389,666.38847)"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot3801-8-5-6"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3803-1-0-5"><rect
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle"
+           y="52.792404"
+           x="16.922739"
+           height="50.407112"
+           width="78.398018"
+           id="rect3805-9-4-6" /></flowRegion><flowPara
+         id="flowPara3807-2-2-1"
+         style="font-size:12px">Position </flowPara><flowPara
+         id="flowPara6405"
+         style="font-size:12px">commands</flowPara></flowRoot>    <flowRoot
+       transform="translate(255.47386,545.35286)"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot3801-8-5-6-6"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3803-1-0-5-1"><rect
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle"
+           y="52.792404"
+           x="16.922739"
+           height="50.407112"
+           width="78.398018"
+           id="rect3805-9-4-6-8" /></flowRegion><flowPara
+         id="flowPara6405-9"
+         style="font-size:12px">Typically</flowPara><flowPara
+         style="font-size:12px"
+         id="flowPara6439">Pulses</flowPara></flowRoot>    <flowRoot
+       transform="translate(433.21403,525.77118)"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot3801-8-5-6-6-0"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3803-1-0-5-1-0"><rect
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle"
+           y="52.792404"
+           x="16.922739"
+           height="61.590427"
+           width="83.15799"
+           id="rect3805-9-4-6-8-2" /></flowRegion><flowPara
+         id="flowPara6405-9-3"
+         style="font-size:12px">Typically</flowPara><flowPara
+         style="font-size:12px"
+         id="flowPara6439-6">Voltage levels</flowPara><flowPara
+         style="font-size:12px"
+         id="flowPara6471">or discrete steps</flowPara></flowRoot>    <flowRoot
+       transform="translate(709.37419,637.65659)"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       id="flowRoot3801-8-5-6-6-0-1"
+       xml:space="preserve"><flowRegion
+         id="flowRegion3803-1-0-5-1-0-9"><rect
+           style="font-size:20px;text-align:center;line-height:125%;text-anchor:middle"
+           y="52.792404"
+           x="16.922739"
+           height="50.407112"
+           width="78.398018"
+           id="rect3805-9-4-6-8-2-2" /></flowRegion><flowPara
+         id="flowPara6405-9-3-7"
+         style="font-size:12px">Typically</flowPara><flowPara
+         style="font-size:12px"
+         id="flowPara6471-7">controlled current</flowPara></flowRoot>  </g>
+</svg>
