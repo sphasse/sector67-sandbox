@@ -30,17 +30,30 @@ Most modern operating systems are shared, interrupt-driven and function with eve
   * PID tuning concepts introduced
 
 == Simplified block diagram of a typical motion control system =
+  * User interface
+  * Programmable motion controller
+  * Interface hardware
+  * Power supply
+  * Motor controllers/amplifiers
   * Motors
-  * Motor controllers
+  * Encoders
   * Encoder feedback
-  * Controller interface hardware
-  * Motion planning software
 
 == Machine shop tour ==
-Time to put see the simplified block diagram in practice in a few different configurations.  A tour of the Sector 67 machine shop will allow us to see at least three different types of systems.
+Time to put see the simplified block diagram in practice in a few different configurations.  A tour of the Sector 67 machine shop will allow us to see at least three different types of systems that we can map onto our basic block diagram.
+
 === Proprietary Anilam control system ===
+The Anilam 3300 system is a sophisticated 3-axis closed-loop commercial servo system.  The user interface runs under DOS on a dedicated "PC on a card" industrial PC system.  The programmable motion control board is an ISA card.  Both of these are in the upper cabinet.  The interface hardware, which for this system also controls estop and limit functions and can completely disable servo amp power, is in the lower cabinet, along with the servo amplifiers and amplifier power supply.
+
 === EMC2 converted control system ===
+Many more details of our EMC2 converted system can be found at [ProjectSheetCake].  The User interface and programmable motion controller are EMC2 on a Linux real-time kernel.  The interface hardware is a Mesa PCI I/O board with daughterboards for servo control (cleaning up encoder input and performing frequency to voltage conversion for the servo control signals) and optically isolated I/O.  The Anilam estop and limit functions were preserved and are interfaced to EMC2 via isolated I/O.
+
 === Small mill stepper control system ===
+Joe's mini mill is an open-loop servo control system using Mach3 on a Windows PC to control stepper amps.  This system performs motion planning in software and uses the PC's parallel port for interfacing to the Xylotex stepper motor controllers.
+
+=== A Makerbot ===
+The Makerbot is an open-loop stepper-based system.  It uses a PC for the user interface, and an Arduino for the programmable motion controller.  GCode commands are sent to the Arduino via a serial interface, and the relatively low-power Arduino performs linear interpolation of any arc commands sent.  
+
 
 = Introduction to EMC2 =
 == Introduction ==
