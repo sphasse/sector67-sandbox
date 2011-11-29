@@ -30,6 +30,9 @@ Most modern operating systems are shared, interrupt-driven and function with eve
   * PID tuning concepts introduced
 
 == Simplified block diagram of a typical motion control system =
+
+http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/motion-control-block-diagram.png
+
   * User interface
   * Programmable motion controller
   * Interface hardware
