@@ -76,4 +76,7 @@ During install you hopefully chose to have the user logged in automatically.  It
 2) You can then click the "Power Management" button and confirm that the machine will not be put to sleep when idle.
 
 == Starting a machine simulation ==
-You should now be ready to start playing with EMC2 in earnest.  In the base install there are several useful simulations.  To run one, choose "Applications->CNC->EMC2".  To see a servo system, choose "Simulations->servo sim".  To see a stepper system, choose "".  In either case, it is a good idea to choose "yes" when asked to copy the files to your home directory, as you can then more easily edit the configurations.
+You should now be ready to start playing with EMC2 in earnest.  In the base install there are several useful simulations.  A good starting point is the "axis" simulator.  You can see it home all axes automatically and get a good feel for the UI.  It is generally a good idea to choose "yes" when asked to copy the files to your home directory and create a desktop shortcut, as you can then more easily edit the configurations.
+
+== Additional exercises ==
+TODO: provide some steps to work through the basic simulator, using hal meter and hal scope to view values.
