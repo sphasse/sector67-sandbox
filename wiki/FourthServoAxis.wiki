@@ -60,6 +60,9 @@ http://www.copleycontrols.com/motion/pdf/412.pdf
 
 
 = Interfacing to EMC2 =
+
 == Modifying the integration board ==
+The existing integration board wiring needed to be modified with extra connections to support the differential encoder mode, and one jumper on the Mesa servo interface board needed to be switched such that the A axis encoder can be read in differential mode.  After doing that the encoder was able to be read successfully in EMC2.
+
 == Wiring the enclosure ==
 = Making use of it =
