@@ -3,7 +3,8 @@
 <wiki:toc max_depth="3" />
 
 = Introduction =
-At the October 2011 monthly meeting at [http://sector67.org Sector67], we went around and briefly introduced ourselves.  I mentioned I was working on the mill conversion, and TODO: get permission to name this person mentioned they were also working on a mill conversion.  After the meeting we continued discussing the conversions, and XXX graciously agreed to donate a set of three servo motors, encoders and servo controllers to the mill conversion effort.  As a direct result of that, the possibility of a servo-based 4th axis became a reality.
+At the October 2011 monthly meeting at [http://sector67.org Sector67], we went around and briefly introduced ourselves.  I mentioned I was working on the mill conversion, and John Lash from [www.dancingarc.com]
+mentioned he was also working on a mill conversion.  After the meeting we continued discussing the conversions, and John graciously agreed to donate a set of three servo motors, encoders and servo controllers to the mill conversion effort.  As a direct result of that, the possibility of a servo-based 4th axis became a reality.
 
 In addition, Scott attended the Nov 2011 [http://sundaysoup.org/madison-soup Madison SOUP] event and with his presentation on the ProjectSheetCake 4th axis won the $180 kitty!  That prize money will go directly to fund a horizontal/vertical rotary table that we can convert to CNC control using a motor and controller from John.
 
