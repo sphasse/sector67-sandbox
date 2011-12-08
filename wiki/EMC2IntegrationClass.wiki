@@ -134,6 +134,19 @@ Please reference [InstallEMC2InAVirtualBox] for the detailed exercise.
   * User interface components
   * Axis UI
 
+== HAL manual configuration exercise ==
+
+
+=== Debugging EMC2 ===
+  * HAL meter
+  * HAL scope
+  * HAL command lines
+
+== stepconf configuration exercise ==
+
+== pncconf configuration exercise ==
+
+
 =Concerns when interfacing the hardware electronics=
   * Failure modes
   * Mains isolation
@@ -148,15 +161,11 @@ Please reference [InstallEMC2InAVirtualBox] for the detailed exercise.
 =Integrating the hardware electronics=
   * Review of the 1100 mill conversion integration
 
-=Debugging EMC2=
-  * HAL meter
-  * HAL scope
-  * HAL command lines
 
 =Moving the machine under feedback control=
   * PID tuning applied
 
-=Customizing the software futher=
+=Customizing EMC2 software futher=
   * Classicladder-based programs
   * PyVCP UI elements
   * Custom gcode integration
