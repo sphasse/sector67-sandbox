@@ -73,7 +73,9 @@ EMC stands for "Enhanced Machine Control".  It is a software system for computer
 EMC was originally developed by the National Institutes of Standards and Technology
 
 == EMC2 core concepts ==
-This section is basically copied from [http://linuxcnc.org/docview/2.5/html/hal/intro.html#_hal_concepts_a_id_sec_hal_concepts_a].  It contains descriptions of key concepts needed to understand EMC2 configuration.
+The design of EMC2 makes it basically analogous to a component-based hardware system.  This is very useful, as what is typically a software "black box" control system is actually componentized and you can diagnose problems at the component level.  This also makes for a very flexible system as you can connect components in different ways for different functions.
+
+The section below is basically copied from [http://linuxcnc.org/docview/2.5/html/hal/intro.html#_hal_concepts_a_id_sec_hal_concepts_a].  It contains descriptions of key concepts needed to understand EMC2 configuration.  
 
 === Component ===
 When we talked about hardware design, we referred to the individual pieces as "parts", "building blocks", "black boxes", etc. The HAL equivalent is a "component" or "HAL component".  A HAL component is a piece of software with well-defined inputs (pins and parameters), and outputs (also pins and parameters) that can be interconnected to other components via signals, and behavior (functions) that can be installed and run via association to a thread.
