@@ -10,6 +10,8 @@ In addition, Scott attended the Nov 2011 [http://sundaysoup.org/madison-soup Mad
 
 This page provides more detail for our implementation of a fourth servo axis as part of the larger [ProjectSheetCake Anilam EMC2 conversion project].
 
+NOTE:  As of December 2011, work on the fourth axis capability this project has shifted to the FourthStepperAxis project.
+
 = The hardware =
 == The servo motor ==
 The servo motors are Litton Clifton Precision brushed DC servos, U/T C23-L50W10M09, P/N 31-1200-0043, D/C 9547.  I have not been able to come by actual specs for these motors yet, but I have found a minimal amount of information here:
