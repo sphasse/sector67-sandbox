@@ -1,0 +1,25 @@
+#summary The fourth stepper axis implementation for our Anliam conversion
+
+<wiki:toc max_depth="3" />
+
+= Introduction =
+As we started to implement 4th axis capability for our mills in earnest, we acquired a 8" horizontal/vertical rotary table with a stepper motor already integrated.  This led us to transition our effort away from the [FourthServoAxis| servo-based fourth axis] to a stepper-based system.  It's a testament to the flexibility of EMC2 and our implementation that this really won't cause us to change much at all with respect to the implementation.  
+
+It will give us a chance to work out some issues associated with integrating a stepper into a servo-based system.
+
+== Stepper driver ==
+The stepper drive we are using is labled DS335, and we were able to find datasheets and some integration information for it here:
+
+[http://www.interinar.com/ds335.html]
+[http://www.interinar.com/public_docs/DS335.pdf]
+
+== Stepper motor ==
+
+== Rotary table ==
+
+=== Backlash tuning ===
+
+== Motor/table integration ==
+Since the system already came as an integrated unit, this was very straightforward.  The stepper shaft is coupled to a coupler 
+
+== EMC2 configuration ==
