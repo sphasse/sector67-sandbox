@@ -14,6 +14,7 @@ The stepper drive we are using is labled DS335, and we were able to find datashe
 [http://www.interinar.com/public_docs/DS335.pdf]
 
 == Stepper motor ==
+The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely no specifications on the motor itself.  The phases are non-tapped, TODO: get Ohm resistance, and the motor seems functional with a 3.5 amp controller at ~30 volts.
 
 == Rotary table ==
 
