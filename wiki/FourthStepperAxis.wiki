@@ -17,6 +17,8 @@ The stepper drive we are using is labled DS335, and we were able to find datashe
 The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely no specifications on the motor itself.  The phases are non-tapped, TODO: get Ohm resistance, and the motor seems functional with a 3.5 amp controller at ~30 volts.
 
 == Rotary table ==
+TODO: picture of the exploded table
+=== Basic mechanics ===
 The rotary table we are using is a basic Chinese 8" horizontal/vertical table with a direct-drive stepper motor adapter and coupling.  We took it apart to asses our backlash tuning options.  The turntable itself is held in place by a large threaded ring on the back of the turntable.  This ring is half split, presumably to provide some spring loading to hold the table in place.
 
 TODO: picture of this nut
@@ -24,7 +26,6 @@ TODO: picture of this nut
 The table itself turns on ground beds that have elliptical channels for distributing the grease.
 
 TODO: picture of the bed and turntable.
-
 
 === Backlash tuning ===
 The worm drive has no support on the internal end and runs in a bushing whose center is eccentric, presumably to allow backlash tuning.  This bushing is held in place with a screw labeled for backlash adjustment:
