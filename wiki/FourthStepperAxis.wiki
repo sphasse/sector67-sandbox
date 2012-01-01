@@ -30,11 +30,11 @@ The rotary table we are using is a basic 8" horizontal/vertical table with a dir
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_underside.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table_underside.JPG]
 
-_The rotary table underside_
+_The underside of the rotary table showing the gear teeth_
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_bottom.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table_bottom.JPG]
 
-_The rotary table bottom_
+_The base of the rotary table_
 
 The turntable itself is held in place by a large threaded ring on the back of the turntable.  This ring is half split, presumably to provide some spring loading to hold the table in place.
 
@@ -44,18 +44,22 @@ The table is turned by a worm drive that meshes with screw teeth around the insi
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/screw_shaft.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/screw_shaft.JPG]
 
-_The rotary table underside_
+_The screw shaft assembly_
 
 === Backlash tuning ===
-The worm drive has no support on the internal end and runs in a bushing whose center is eccentric, presumably to allow backlash tuning.  This bushing is held in place with a screw labeled for backlash adjustment:
+The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning.  This bushing is held in place with a screw labeled for backlash adjustment:
 
-TODO: picture of the backlash adjustment nut.
+TODO: picture of the backlash adjustment screw
+
+
+TODO: picture of the off-center adjustment backlash adjustment nut.
+
 
 This nut serves no useful adjustment purpose with this device coupled to a motor, so the thumb screw should be replaced with a set screw so that the adjustment is not messed up by accident.
 
 If this rotary table had a simple hand wheel for turning the table, this mechanism would probably be workable, but since they adapted the direct drive shaft to it, the motor coupling needs to be attached in a fixed location.  This means you can tune the backlash once via the eccentric bushing.  This was done at the factory, and then holes were drilled and tapped for the motor adapter.
 
-Well, actually it was done three times at the factory as you can see that the holes were aligned three times and twice bolts were screwed in and ground off.  We'll have to try and determine if the current settings minimize the backlash and perhaps adjust them it they are wildly off.
+Well, actually it was done three times (at the factory?) as you can see that the holes were aligned three times and twice bolts were screwed in and ground off.  We'll have to try and determine if the current settings minimize the backlash and perhaps adjust them it they are wildly off.
 
 You can only put so much lipstick on a pig, but we've ordered two sets of pin thrust bearings, one to replace the existing mostly frozen bicycle-style ball thrust bearings.
 
