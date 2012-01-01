@@ -1,6 +1,7 @@
 
 import binascii
-import threading, time, sys, serial
+import threading, time, sys
+import serial
 
 """
 
@@ -287,6 +288,18 @@ class RS485Command:
     @staticmethod
     def parse_incoming_command(command):
         return RS485Command(command)
+        
+        
+    @staticmethod
+    def tostring(command):
+        result = "RS485 Command: " + command.full_string + "\n"
+        result = result + "    address : " + command.address + "\n"
+        result = result + "    address : " + command.address + "\n"
+        result = result + "    command : " + command.cmd + "\n"
+        result = result + "    data    : " + command.data + "\n"
+        result = result + "    checksum: " + command.checksum + "\n"
+        return result
+
 
 """
 This class holds helper functions for RS485 communication
@@ -312,12 +325,19 @@ class RS485Utils:
         return result
 
 """
+A super class for general spindle operations
+"""
+class Spindle:
+    STOPPED_STATE=0
+    STARTED_STATE=1
+    DIRECTION_CW = 0
+    DIRECTION_CCW = 1
+
+"""
 This class represents a physical SpindleBlok VFD.  It stores the state of the drive and has methods for
 executing commands and reading state.  
 """
 class SpindleBlok:
-    STOPPED = 0
-    STARTED = 1
     def __init__(self, command_channel, address=1):
         self.command_channel = command_channel
         self.address = str(address)
@@ -329,7 +349,6 @@ class SpindleBlok:
     kv = 0
     max_speed = 0
     ki_imag = 0
-    currentState = STOPPED
 
     """
     C01:
@@ -399,24 +418,27 @@ class SpindleBlok:
         request = RS485Command.create_read_request_command(self.address, command)
         self.command_channel.send_command(request)
         reply = self.command_channel.receive_reply(command, timeout)
+        #print("_get_signed_int reply: " + reply.data + ", expected command: " + command)
         if (not(reply.is_valid())):
-            raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
+            raise Exception("I received an invalid response of [" + reply.full_string + " ] for " + request.full_string)
         return DataUtils.hex_string_to_signed_int(reply.data)
     
     def _get_hex_string(self, command, timeout=1):
         request = RS485Command.create_read_request_command(self.address, command)
         self.command_channel.send_command(request)
         reply = self.command_channel.receive_reply(command, timeout)
+        #print("_get_hex_string reply: " + reply.data + ", expected command: " + command)
         if (not(reply.is_valid())):
-            raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
+            raise Exception("I received an invalid response of [" + reply.full_string + " ] for " + request.full_string)
         return reply.data
 
     def _write_hex_string(self, command, data, timeout=1):
         request = RS485Command.create_write_request_command(self.address, command, data)
         self.command_channel.send_command(request)
         reply = self.command_channel.receive_reply(command, timeout)
+        #print("_write_hex_string reply: expected command: " + command)
         if (not(reply.is_valid())):
-            raise Exception("I received an invalid response of [" + reply.full_string + " ]for " + request.full_string)
+            raise Exception("I received an invalid response of [" + reply.full_string + " ] for " + request.full_string)
         return reply.data
         
     """
@@ -582,6 +604,7 @@ class SpindleBlok:
     0.052 second increments to wait before a serial communication timeout causes problems, set via J02
     1 second is roughly 19 increments
     5 seconds is roughly 96 increments
+    0 disables the timeout
     """
     def set_comm_timer_max(self, serialTimeout=96):
         hexValue = DataUtils.signed_int_to_hex_string(serialTimeout, 16)
@@ -615,6 +638,7 @@ class CommandChannel:
             i = i + delay
             if (len(self.incoming_commands) > 0):
                 reply = self.incoming_commands.pop(0)
+                #print("receive_reply is processing: " + RS485Command.tostring(reply))
                 if (reply.type == RS485Command.READ_RESPONSE and reply.cmd != command):
                     # check the reply is for the correct request
                     raise Exception("I received a reply for (" + reply.cmd + ") but was expecting a reply for " + command)
@@ -637,6 +661,31 @@ class SerialCommandChannel(CommandChannel):
         self.dtr_state = True
         self.rts_state = True
         self.break_state = False
+
+    """
+    returns an object that can be started to initiate serial communications
+    the instance will not be started, and so will still need start to be called
+    """
+    @staticmethod
+    def get_instance():
+        port = 0
+        baudrate = 9600
+        parity = 'N'
+        rtscts = False
+        xonxoff = False
+        try:
+            channel = SerialCommandChannel(
+                port,
+                baudrate,
+                parity,
+                rtscts=rtscts,
+                xonxoff=xonxoff
+            )
+        except serial.SerialException, e:
+            sys.stderr.write("could not open port %r: %s\n" % (port, e))
+            sys.exit(1)
+            
+        return channel
 
     def start(self):
         self.alive = True
@@ -699,6 +748,16 @@ A mock command channel for testing the vfd offline.  This mock fakes returned da
 class MockCommandChannel(CommandChannel):  
     def __init__(self):
         pass
+
+
+    """
+    returns an object that can be started to initiate mock communications
+    the instance will not be started, and so will still need start to be called
+    """
+    @staticmethod
+    def get_instance():
+        mock_channel = MockCommandChannel()
+        return mock_channel        
         
     def start(self):
         self.alive = True
@@ -723,151 +782,65 @@ class MockCommandChannel(CommandChannel):
             while self.alive:
                 if (len(self.outgoing_commands) > 0):
                     command = self.outgoing_commands.pop(0)
+                    #print("Mock Channel is processing command: " + RS485Command.tostring(command))
                     time.sleep(0.1)
                     # create a mock reply to the outgoing request
                     if (command.cmd == "C00" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "C00", "ffff")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C00" and command.type == RS485Command.WRITE_REQUEST):
                         reply = RS485Command.create_write_response_command("1")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C01" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "C01", "ffff")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C01" and command.type == RS485Command.WRITE_REQUEST):
                         reply = RS485Command.create_write_response_command("1")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C02" and command.type == RS485Command.READ_REQUEST):
                         data = DataUtils.signed_int_to_hex_string(self.rpm, 16)
                         reply = RS485Command.create_read_response_command("1", "C02", data)
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "C02" and command.type == RS485Command.WRITE_REQUEST):
                         reply = RS485Command.create_write_response_command("1")
                         self.rpm = DataUtils.hex_string_to_signed_int(command.data)
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "D07" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "D07", "0100")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "D09" and command.type == RS485Command.READ_REQUEST):
                         data = DataUtils.signed_int_to_hex_string(self.rpm, 16)
                         reply = RS485Command.create_read_response_command("1", "D09", data)
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "D0A" and command.type == RS485Command.READ_REQUEST):
                         data = DataUtils.signed_int_to_hex_string(20, 16)
                         reply = RS485Command.create_read_response_command("1", "D0A", data)
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "D0D" and command.type == RS485Command.READ_REQUEST):
                         data = DataUtils.signed_int_to_hex_string(50, 16)
                         reply = RS485Command.create_read_response_command("1", "D0D", data)
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "D0E" and command.type == RS485Command.READ_REQUEST):
                         data = DataUtils.signed_int_to_hex_string(100, 16)
                         reply = RS485Command.create_read_response_command("1", "D0E", data)
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "A09" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "A09", "0010")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "F00" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "F00", "0100")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "A08" and command.type == RS485Command.READ_REQUEST):
                         reply = RS485Command.create_read_response_command("1", "A08", "0020")
-                        self.incoming_commands.append(reply)
                     elif (command.cmd == "J02" and command.type == RS485Command.WRITE_REQUEST):
                         reply = RS485Command.create_write_response_command("1")
-                        self.incoming_commands.append(reply)
                     else:
                         reply = RS485Command.create_error_command("1", "1")
-                        self.incoming_commands.append(reply)
                         raise Exception("I don't have a response for " + command.full_string)
+
+                    #print("Mock Channel is replying with: " + RS485Command.tostring(reply))
+                    self.incoming_commands.append(reply)
+                        
         except:
             self.alive = False
             raise
 
-"""
-A class to encapsulate a simple command line user interface
-"""
-class UserInterface:
-
-    requestedRPM = 0
-    """
-    returns an object that can be started to initiate serial communications
-    """
-    def _get_serial_channel(self):
-        port = 0
-        baudrate = 9600
-        parity = 'N'
-        rtscts = False
-        xonxoff = False
-        try:
-            channel = SerialCommandChannel(
-                port,
-                baudrate,
-                parity,
-                rtscts=rtscts,
-                xonxoff=xonxoff
-            )
-        except serial.SerialException, e:
-            sys.stderr.write("could not open port %r: %s\n" % (port, e))
-            sys.exit(1)
-            
-        return channel
-
-    def setup(self):
-        #setup serial reader and writer threads
-        self.serial_channel = self._get_serial_channel()
-        self.serial_channel.start()
-        self.vfd = SpindleBlok(self.serial_channel)
-        self.vfd.set_serial_control(96)
-        self.vfd.set_rpm(0)
-        self.vfd.request_stop()
-        
-        self.currentState = SpindleBlok.STOPPED
-        self.currentRPM = 0
-
-    """
-    The main loop of the UI.  TODO: try to make this less SpindleBlok specific (make the spindleblok interface more generic
-    """
-    def loop(self):
-        if (self.serial_channel.alive):
-
-            requestedState = getRequestedState()
-            requestedRPM = getRequestedRPM()
-
-            self.vfd.set_rpm(requestedRPM)
-            if (self.requestedState != self.currentState):
-                if (requestedState == SpindleBlok.STOPPED):
-                    self.vfd.request_stop()
-                elif (requestedState == SpindleBlok.STARTED):
-                    self.vfd.request_start()
-                else:
-                    raise Exception("The state needs to be either stopped or started")
-                self.currentState = requestedState
-                
-            self.currentRPM = self.vfd.get_rpm()
-            self.currentVDC = self.vfd.get_vdc_dsp()
-            
-        else:
-            #try to establish serial connectivity via setup
-            # for now, raise an exception
-            raise Exception("lost serial connectivity")
-         
-    def shutdown(self):
-        self.vfd.set_rpm(0)
-        self.vfd.request_stop()
-        self.vfd.set_comm_timer_max(0)
-        self.vfd.set_local_control()
-        #shutdown serial reader and writer threads
-        self.serial_channel.stop()
 
 
 
 
 """
 """
-DataUtils.dump_bits("ffab", SpindleBlok.C00_DESCRIPTONS)
+#DataUtils.dump_bits("ffab", SpindleBlok.C00_DESCRIPTONS)
 
-DataUtils.dump_bits(DataUtils.apply_or_bit_mask("00c0", "F0F0"), SpindleBlok.C01_DESCRIPTONS)
+#DataUtils.dump_bits(DataUtils.apply_or_bit_mask("00c0", "F0F0"), SpindleBlok.C01_DESCRIPTONS)
 
 """
 HAL motion spindle pins:

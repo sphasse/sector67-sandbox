@@ -49,7 +49,7 @@ class Test(unittest.TestCase):
             self.assertEqual(hexString, DataUtils.signed_int_to_hex_string(DataUtils.hex_string_to_signed_int(hexString), 16))
         
     def test_mock_channel(self):
-        mock_channel = MockCommandChannel()
+        mock_channel = MockCommandChannel.get_instance()
         mock_channel.start()
         
         request = RS485Command.create_read_request_command("1", "C00")
@@ -73,7 +73,7 @@ class Test(unittest.TestCase):
         mock_channel.stop()
 
     def test_vfd(self):
-        mock_channel = MockCommandChannel()
+        mock_channel = MockCommandChannel.get_instance()
         mock_channel.start()
 
         vfd = SpindleBlok(mock_channel)
