@@ -21,7 +21,8 @@ The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely
 == Rotary table ==
 TODO: picture of the assembled table
 
-TODO: picture of the exploded table
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole_assembly.JPG]
+_The rotary table exploded_
 
 === Basic mechanics ===
 The rotary table we are using is a basic 8" horizontal/vertical table with a direct-drive stepper motor adapter and coupling of Chinese manufacture.  We took it apart to asses our backlash tuning options and just to see how it worked.  The table turns on ground beds that have elliptical channels for distributing the grease.
