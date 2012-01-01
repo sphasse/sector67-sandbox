@@ -59,7 +59,9 @@ This nut serves no useful adjustment purpose with this device coupled to a motor
 
 If this rotary table had a simple hand wheel for turning the table, this mechanism would probably be workable, but since they adapted the direct drive shaft to it, the motor coupling needs to be attached in a fixed location.  This means you can tune the backlash once via the eccentric bushing.  This was done at the factory, and then holes were drilled and tapped for the motor adapter.
 
-Well, actually it was done three times (at the factory?) as you can see that the holes were aligned three times and twice bolts were screwed in and ground off.  We'll have to try and determine if the current settings minimize the backlash and perhaps adjust them it they are wildly off.
+Well, actually it was done three times (at the factory?) as you can see that the holes were aligned three times and twice bolts were screwed in and ground off.  We'll have to try and determine if the current settings minimize the backlash and perhaps adjust them if they are wildly off.
+
+TODO: picture of the ground off bolts.
 
 You can only put so much lipstick on a pig, but we've ordered two sets of pin thrust bearings, one to replace the existing mostly frozen bicycle-style ball thrust bearings.
 
