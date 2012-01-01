@@ -22,18 +22,29 @@ The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely
 TODO: picture of the assembled table
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole_assembly.JPG]
+
 _The rotary table exploded_
 
 === Basic mechanics ===
 The rotary table we are using is a basic 8" horizontal/vertical table with a direct-drive stepper motor adapter and coupling of Chinese manufacture.  We took it apart to asses our backlash tuning options and just to see how it worked.  The table turns on ground beds that have elliptical channels for distributing the grease.
 
-TODO: picture of the bed and turntable.
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_underside.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table_underside.JPG]
+
+_The rotary table underside_
+
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_bottom.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table_bottom.JPG]
+
+_The rotary table bottom_
 
 The turntable itself is held in place by a large threaded ring on the back of the turntable.  This ring is half split, presumably to provide some spring loading to hold the table in place.
 
 TODO: picture of this nut
 
 The table is turned by a worm drive that meshes with screw teeth around the inside perimeter of the turntable.
+
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/screw_shaft.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/screw_shaft.JPG]
+
+_The rotary table underside_
 
 === Backlash tuning ===
 The worm drive has no support on the internal end and runs in a bushing whose center is eccentric, presumably to allow backlash tuning.  This bushing is held in place with a screw labeled for backlash adjustment:
