@@ -59,9 +59,31 @@ The stepper motor we're using should have plenty of torque to run the table, eve
 The coupling casting could use some refinement as well, with the crinkle coat on the end facing the table needing to be machined off and some of the access holes for set screws could be enlarged a bit for easier access.
 
 == Electronic integration ==
-The stepper 
+Our stepper driver 
+
+The 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.
 
 == EMC2 configuration ==
 To configure EMC2, we needed to add some stepgens to the configuration.  This can be done in pncconf.  However, since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).
 
-We can then integrate the stepper 
+Using the new configuration, we can integrate the stepper A axis by choosing the stepgen (on the second connector, somewhat confusing labeled "TODO get what the name of the somewhat "3" label is") as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
+
+To see what 5i23 pins this actually resolves to, you can look at the output of the dmesg command.
+
+TODO: capture example dmesg output here
+
+The pncconf tab for assigning A axis to the stepgen is shown below:
+
+TODO: screen shot of the pncconf allocation tab
+
+And the actual axis configuration is shown below:
+
+TODO: screen shot of the A axis configuration page
+
+The values were arrived at the following:
+
+1) The step and direction delays are conservative based on the vague datasheet "5 ns" value for delays.
+
+2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled: TODO: do this
+
+In my initial integration, I failed to set a scaling number before testing and so the motor was not moving during simple open loop testing.  Once I set a scaling number the motor was able to be moved.
