@@ -13,7 +13,7 @@ The stepper drive we are using is labled DS335, and we were able to find datashe
 [http://www.interinar.com/ds335.html]
 [http://www.interinar.com/public_docs/DS335.pdf]
 
-It will provide up to 3.5 amps and is designed to be optimally run at 36V.  It has optically isolated inputs designed to run with no resistors at 5V, and expects step and pulse inputs as well as +5V.
+It will provide up to 3.5 amps and is designed to be optimally run at 36V.  It has optically isolated inputs designed to run with no resistors at 5V, and expects step and pulse inputs as well as +5V.  Motor timings are somewhat cryptically described as "5 uS", presumably for all values.
 
 == Stepper motor ==
 The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely no specifications on the motor itself.  The phases are non-tapped, TODO: get Ohm resistance, and the motor seems functional with a 3.5 amp controller at 36 volts.
