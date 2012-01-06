@@ -47,39 +47,44 @@ The table is turned by a worm drive that meshes with screw teeth around the insi
 _The screw shaft assembly_
 
 === Backlash tuning ===
-The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning.  This bushing is held in place with a screw labeled for backlash adjustment:
+This table has two major sources of potential backlash.  Firstly, if the worm drive shaft moves back and forth this will introduce backlash.  This is supposed to be prevented by a thrust bearing inside the table and a shaft collar outside the table holding the worm shaft secure.  Unfortunately, the shaft collar could not actually be turned to hold the worm shaft tight, so some minor changes needed to be made to that.
+
+The second potential source of backlash is the worm drive teeth meshing with the gear on the turntable.  The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning.  The tightness of the worm drive to the gear and be changed by rotating the bushing, which moves the spinning shaft closer or further.  Once the bushing is aligned appropriately, it bushing is held in place with a screw labeled for backlash adjustment:
 
 TODO: picture of the backlash adjustment screw
 
 
 TODO: picture of the off-center adjustment backlash adjustment nut.
 
+This nut serves no useful adjustment purpose with this device coupled to a motor (although it is needed to hold the eccentric bushing in place), so the thumb screw should be replaced with a set screw so that the adjustment is not messed up by accident.  I was not able to find a suitable replacement set screw so this was not done.
 
-This nut serves no useful adjustment purpose with this device coupled to a motor, so the thumb screw should be replaced with a set screw so that the adjustment is not messed up by accident.
+If this rotary table had a simple hand wheel for turning the table, this backlash adjustment mechanism would probably be helpful, but since they adapted the direct drive shaft to it, the motor coupling needs to be attached in a fixed location.  This means you can tune the backlash once via the eccentric bushing.  This was done at the factory, and then holes were drilled and tapped for the motor adapter.
 
-If this rotary table had a simple hand wheel for turning the table, this mechanism would probably be workable, but since they adapted the direct drive shaft to it, the motor coupling needs to be attached in a fixed location.  This means you can tune the backlash once via the eccentric bushing.  This was done at the factory, and then holes were drilled and tapped for the motor adapter.
-
-Well, actually it was done three times (at the factory?) as you can see that the holes were aligned three times and twice bolts were screwed in and ground off.  We'll have to try and determine if the current settings minimize the backlash and perhaps adjust them if they are wildly off.
+Well, actually it was done three times (at the factory?) as you can see that the holes were aligned three times and twice bolts were screwed in and ground off.  Thankfully the final location of the motor mount holes allowed the eccentric bushing (when turned CCW) to mesh tightly with the turn table.
 
 TODO: picture of the ground off bolts.
 
-You can only put so much lipstick on a pig, but we've ordered two sets of pin thrust bearings, one to replace the existing mostly frozen bicycle-style ball thrust bearings.
+You can only put so much lipstick on a pig, but we've ordered two sets of pin thrust bearings, one to replace the existing mostly frozen bicycle-style ball thrust bearings inside the table.
 
-The second set will go on the outside of the shaft where previously a shaft collar (with a set screw that tightens directly onto the adjustment threads) just rode directly on the end of the bushing.  This should make it a bit easier to spin, increase the lifetime of the table somewhat and potentially reduce backlash to some small degree.
+The second set was supposed to go on the outside of the shaft where previously a shaft collar (with a set screw that tightens directly onto the adjustment threads) just rode directly on the end of the bushing.  Unfortunately, the diameter of the thrust bearings was too large to use with the motor coupler, so I just turned down a brass bushing instead and put that in place.
 
-Once re-assembled, we can then see how little backlash we've got.  It will probably still be significant, and if so we can compensate in software.
+Additionally, I filed a flat spot on the threaded portion of the worm shaft so that the set screw in the threaded collar did not mess up the threads, preventing future dissassembly and re-tuning if necessary.  
+
+The new thrust bearings were a bit thinner than the stock ball bearings, so the worm shaft sticks out a bit more than previous, which is causing the motor not to fit tightly to the motor coupling.  For the short term, we've used washer spacers and will cover the gap with metal duct tape.  In the long term, putting some more spacer washers on the inside portion of the worm shaft would resolve this issue.
+
+Once re-assembled with these adjustments there was very little backlash.
 
 == Motor/table integration ==
 Since the system already came as an integrated unit, this was very straightforward.  The stepper shaft is attached to a coupler that drives the worm screw directly.  
 
-The stepper motor we're using should have plenty of torque to run the table, even with the relatively lower-power stepper amp we're using.  High end speed might not be that good, but generally that is not too much of a concern for a CNC rotary table.
+The stepper motor we're using should have plenty of torque to run the table, even with the relatively lower-power stepper driver we're using.  High end speed might not be that good, but generally that is not too much of a concern for a CNC rotary table.
 
 The coupling casting could use some refinement as well, with the crinkle coat on the end facing the table needing to be machined off and some of the access holes for set screws could be enlarged a bit for easier access.
 
 == Electronic integration ==
 Our stepper driver 
 
-The 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.
+The 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position.
 
 == EMC2 configuration ==
 To configure EMC2, we needed to add some stepgens to the configuration.  This can be done in pncconf.  However, since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).
@@ -104,4 +109,4 @@ The values were arrived at the following:
 
 2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled: TODO: do this
 
-In my initial integration, I failed to set a scaling number before testing and so the motor was not moving during simple open loop testing.  Once I set a scaling number the motor was able to be moved.
+In my initial integration, I failed to set a scaling number before testing and so the motor was not moving during simple open loop testing.  Once I set a scaling number the motor was able to be moved.  NOTE: it turns out this was not the case, and that the motor was not moving because the Mesa card was configured for 3.3V pullup and the driver required 5V pullup.
