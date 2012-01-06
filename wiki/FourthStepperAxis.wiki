@@ -81,6 +81,8 @@ The stepper motor we're using should have plenty of torque to run the table, eve
 
 The coupling casting could use some refinement as well, with the crinkle coat on the end facing the table needing to be machined off and some of the access holes for set screws could be enlarged a bit for easier access.
 
+I did somewhat enlarge the access hole for the 3mm hex head motor coupler screws, as the existing hole did not allow access to the set screw.
+
 == Electronic integration ==
 Our stepper driver 
 
