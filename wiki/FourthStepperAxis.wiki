@@ -83,6 +83,19 @@ The coupling casting could use some refinement as well, with the crinkle coat on
 
 I did somewhat enlarge the access hole for the 3mm hex head motor coupler screws, as the existing hole did not allow access to the set screw.
 
+== Table/chuck integration ==
+The table has a (TODO: get taper) center spindle, and the table has four T slots at 90 degrees from one another for mounting things.  In practice it is helpful to have a chuck for clamping.  This section describes mounting a four- or three-jaw chuck.
+=== 8" four-jaw chuck ===
+Our larger lathe has 8" chucks and the independent four-jaw chuck has four mounting holes, making it convenient for mounting to the rotary table.  The only challenge was to find T nuts the right size for the T slots, and to find Allen screws appropriate for recessed mounting of the chuck.
+
+=== 6" three-jaw chuck ===
+We also have a 6" three-jaw that can be mounted.  The three-jaw chuck has 3 mounting screws at 120 degrees, so it does not directly match with the rotary table.  As a result an adapter plate is needed to attach the chuck.
+
+TODO: once the adapter plate is working, document.
+
+=== Centering work in a four-jaw chuck ===
+TODO: reference centering video here
+
 == Electronic integration ==
 Our stepper driver 
 
