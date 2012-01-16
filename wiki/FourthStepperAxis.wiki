@@ -68,7 +68,7 @@ You can only put so much lipstick on a pig, but we've ordered two sets of pin th
 
 The second set was supposed to go on the outside of the shaft where previously a shaft collar (with a set screw that tightens directly onto the adjustment threads) just rode directly on the end of the bushing.  Unfortunately, the diameter of the thrust bearings was too large to use with the motor coupler, so I just turned down a brass bushing instead and put that in place.
 
-Additionally, I filed a flat spot on the threaded portion of the worm shaft so that the set screw in the threaded collar did not mess up the threads, preventing future dissassembly and re-tuning if necessary.  
+Additionally, I filed a flat spot at the appropriate location on the threaded portion of the worm shaft so that the set screw in the threaded collar did not mess up the threads, preventing future dissassembly and re-tuning if necessary.  
 
 The new thrust bearings were a bit thinner than the stock ball bearings, so the worm shaft sticks out a bit more than previous, which is causing the motor not to fit tightly to the motor coupling.  For the short term, we've used washer spacers and will cover the gap with metal duct tape.  In the long term, putting some more spacer washers on the inside portion of the worm shaft would resolve this issue.
 
