@@ -7,7 +7,7 @@ As we started to implement 4th axis capability for our mills in earnest, we acqu
 
 It will give us a chance to work out some issues associated with integrating a stepper into a servo-based system.
 
-== Stepper driver ==
+= Stepper driver =
 The stepper drive we are using is labled DS335, and we were able to find datasheets and some integration information for it here:
 
 [http://www.interinar.com/ds335.html]
@@ -15,17 +15,17 @@ The stepper drive we are using is labled DS335, and we were able to find datashe
 
 It will provide up to 3.5 amps and is designed to be optimally run at 36V.  It has optically isolated inputs designed to run with no resistors at 5V, and expects step and pulse inputs as well as +5V.  Motor timings are somewhat cryptically described as "5 uS", presumably for all values.
 
-== Stepper motor ==
+= Stepper motor =
 The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely no specifications on the motor itself.  The phases are non-tapped, TODO: get Ohm resistance, and the motor seems functional with a 3.5 amp controller at 36 volts.
 
-== Rotary table ==
+= Rotary table =
 TODO: picture of the assembled table
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole_assembly.JPG]
 
 _The rotary table exploded_
 
-=== Basic mechanics ===
+== Basic mechanics ==
 The rotary table we are using is a basic 8" horizontal/vertical table with a direct-drive stepper motor adapter and coupling of Chinese manufacture.  We took it apart to asses our backlash tuning options and just to see how it worked.  The table turns on ground beds that have elliptical channels for distributing the grease.
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_underside.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table_underside.JPG]
@@ -46,7 +46,7 @@ The table is turned by a worm drive that meshes with screw teeth around the insi
 
 _The screw shaft assembly_
 
-=== Backlash tuning ===
+== Backlash tuning ==
 This table has two major sources of potential backlash.  Firstly, if the worm drive shaft moves back and forth this will introduce backlash.  This is supposed to be prevented by a thrust bearing inside the table and a shaft collar outside the table holding the worm shaft secure.  Unfortunately, the shaft collar could not actually be turned to hold the worm shaft tight, so some minor changes needed to be made to that.
 
 The second potential source of backlash is the worm drive teeth meshing with the gear on the turntable.  The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning.  The tightness of the worm drive to the gear and be changed by rotating the bushing, which moves the spinning shaft closer or further.  Once the bushing is aligned appropriately, it bushing is held in place with a screw labeled for backlash adjustment:
@@ -74,7 +74,7 @@ The new thrust bearings were a bit thinner than the stock ball bearings, so the 
 
 Once re-assembled with these adjustments there was very little backlash.
 
-== Motor/table integration ==
+= Motor/table integration =
 Since the system already came as an integrated unit, this was very straightforward.  The stepper shaft is attached to a coupler that drives the worm screw directly.  
 
 The stepper motor we're using should have plenty of torque to run the table, even with the relatively lower-power stepper driver we're using.  High end speed might not be that good, but generally that is not too much of a concern for a CNC rotary table.
@@ -83,32 +83,31 @@ The coupling casting could use some refinement as well, with the crinkle coat on
 
 I did somewhat enlarge the access hole for the 3mm hex head motor coupler screws, as the existing hole did not allow access to the set screw.
 
-== Table/chuck integration ==
+= Table/chuck integration =
 The table has a (TODO: get taper) center spindle, and the table has four T slots at 90 degrees from one another for mounting things.  In practice it is helpful to have a chuck for clamping.  This section describes mounting a four- or three-jaw chuck.
-=== 8" four-jaw chuck ===
+
+== 8" four-jaw chuck ==
 Our larger lathe has 8" chucks and the independent four-jaw chuck has four mounting holes, making it convenient for mounting to the rotary table.  The only challenge was to find T nuts the right size for the T slots, and to find Allen screws appropriate for recessed mounting of the chuck.
 
-=== 6" three-jaw chuck ===
+== 6" three-jaw chuck ==
 We also have a 6" three-jaw that can be mounted.  The three-jaw chuck has 3 mounting screws at 120 degrees, so it does not directly match with the rotary table.  As a result an adapter plate is needed to attach the chuck.
 
 TODO: once the adapter plate is working, document.
 
-=== Centering work in a four-jaw chuck ===
+== Centering work in a four-jaw chuck ==
 TODO: reference centering video here
 
-== Electronic integration ==
-Our stepper driver 
-
-The 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position.
+= Electronic integration =
+Our stepper driver requires ~5V signals for proper signaling.  The Mesa 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position.
 
 == EMC2 configuration ==
-To configure EMC2, we needed to add some stepgens to the configuration.  This can be done in pncconf.  However, since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).
+To configure EMC2, we needed to add some stepgens to the configuration.  This can be done using the pncconf configuration generator.  Since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).  TODO: document the option to get 4 stepgens... Unfortunately, pncconf clears out most of the PWMgen/encoder/stepgen configuration when you reconfigure the mesa driver configuration, which required me to re-enter the encoder and PWMgen configuration for the XYZ axes. 
 
-Using the new configuration, we can integrate the stepper A axis by choosing the stepgen (on the second connector, somewhat confusing labeled "TODO get what the name of the somewhat "3" label is") as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
+Using the new configuration, we can integrate the stepper A axis by choosing the stepgen (on the second connector, somewhat confusing labeled "TODO get what the name of the somewhat "3" connector label is") as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
 
 To see what 5i23 pins this actually resolves to, you can look at the output of the dmesg command.
 
-TODO: capture example dmesg output here
+TODO: capture example dmesg output here, showing which pin is pulse and which is dir
 
 The pncconf tab for assigning A axis to the stepgen is shown below:
 
@@ -120,12 +119,12 @@ TODO: screen shot of the A axis configuration page
 
 The values were arrived at the following:
 
-1) The step and direction delays are conservative based on the vague datasheet "5 ns" value for delays.
+1) The step and direction delays are conservative based on the somewhat vague datasheet which lists "5 ns" value for delays.
 
-2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled: TODO: do this
+2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled by using MDI commands in EMC2.
 
 === EMC2 Axis GUI integration ===
-Currently, I don't believe the axis GUI is not properly plotting 4th axis operations.  Although I have only done the operations treating the surface of the cylinder as Z=0, which would make all milling operations appear on a single line.  I need to try plotting a part with the Z=0 set to the center of the cylinder.
+Currently, I don't believe the axis GUI is not properly plotting 4th axis operations.  Although I have only done the operations treating the surface of the cylinder as Z=0, which would make all milling operations appear on a single line.  I need to try backplotting a part with the Z=0 set to the center of the cylinder.
 
 == 4th rotary axis gcode generation ==
 After getting the hardware in place, I had hoped this would be relatively straightforward.  It turns out there are not very many readily-accessible open source solutions for generating 4th rotary axis gcode.  There are of course high-end commercial solutions:
@@ -142,7 +141,7 @@ One basic approach is to generate gcode for the XYZ axis and then convert the Y 
 
 2) 3-dimension arcs (e.g. spirals) are configured in a plane that is declared in the gcode.  Those would likely not be handled properly via this naive approach.
 
-There is perhaps a solution in re-scaling the A axis in EMC2, but that would require re-configuring the machine for each 4th rotary axis project.
+There is perhaps a conceptually simple solution in re-scaling the A axis in EMC2 so that Y axis units make sense when interpreted as degrees, but that would require re-configuring EMC2 scaling for each 4th rotary axis project, and since velocity and acceleration are involved in that, it could be somewhat complex.
 
 == Build log and lessons learned ==
 === 5V pullup or the 5i23 ===
