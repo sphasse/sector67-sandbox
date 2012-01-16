@@ -5,7 +5,7 @@
 = Introduction =
 As we started to implement 4th axis capability for our mills in earnest, we acquired a 8" horizontal/vertical rotary table with a stepper motor already integrated.  This led us to transition our effort away from the servo-based fourth axis described at FourthServoAxis to a stepper-based system.  It's a testament to the flexibility of EMC2 and our implementation that this really won't cause us to change much at all with respect to the implementation.  
 
-It will give us a chance to work out some issues associated with integrating a stepper into a servo-based system.
+It has given us a chance to work out most of the issues associated with integrating a stepper into our servo-based system.
 
 = Stepper driver =
 The stepper drive we are using is labled DS335, and we were able to find datasheets and some integration information for it here:
