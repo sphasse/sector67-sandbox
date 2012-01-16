@@ -111,8 +111,28 @@ The values were arrived at the following:
 
 2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled: TODO: do this
 
+=== EMC2 Axis GUI integration ===
+Currently, I don't believe the axis GUI is not properly plotting 4th axis operations.  Although I have only done the operations treating the surface of the cylinder as Z=0, which would make all milling operations appear on a single line.  I need to try plotting a part with the Z=0 set to the center of the cylinder.
+
+== 4th rotary axis gcode generation ==
+After getting the hardware in place, I had hoped this would be relatively straightforward.  It turns out there are not very many readily-accessible open source solutions for generating 4th rotary axis gcode.  There are of course high-end commercial solutions:
+
+TODO: links
+
+and some lower-end commercial solutions:
+
+
+
+One basic approach is to generate gcode for the XYZ axis and then convert the Y axis to be the A axis.  This is in essence wrapping a flat milling operation around a cylinder.  There are some considerations when taking this approach:
+
+1) The Y axis units are linear and the A axis units are degrees, so the scaling is quite different between the two.  You can scale the drawing to reflect this (e.g. 180 units would be half of the cylinder), but this means that any sort of cutter compensation will not work correctly.  For instance pocketing operations, etc. would be slightly wrong.
+
+2) 3-dimension arcs (e.g. spirals) are configured in a plane that is declared in the gcode.  Those would likely not be handled properly via this naive approach.
+
+There is perhaps a solution in re-scaling the A axis in EMC2, but that would require re-configuring the machine for each 4th rotary axis project.
+
 == Build log and lessons learned ==
-=== 5V pullup ===
+=== 5V pullup or the 5i23 ===
 In my initial integration, I thought I failed to set a scaling number before testing and so the motor was not moving during simple open loop testing.  It turns out this was not the case, and that the motor was not moving because the Mesa card was configured for 3.3V pullup and the stepper driver required 5V pullup.  There are three jumpers on the Mesa card, and two of the three needed to be set for 5V to get a 5V pullup.  I have now moved to having all three jumpers set to the 5V position.
 
 === Driver overheating ===
