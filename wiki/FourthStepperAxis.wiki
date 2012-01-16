@@ -100,7 +100,7 @@ TODO: reference centering video here
 = Electronic integration =
 Our stepper driver requires ~5V signals for proper signaling.  The Mesa 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position.
 
-== EMC2 configuration ==
+= EMC2 configuration =
 To configure EMC2, we needed to add some stepgens to the configuration.  This can be done using the pncconf configuration generator.  Since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).  TODO: document the option to get 4 stepgens... Unfortunately, pncconf clears out most of the PWMgen/encoder/stepgen configuration when you reconfigure the mesa driver configuration, which required me to re-enter the encoder and PWMgen configuration for the XYZ axes. 
 
 Using the new configuration, we can integrate the stepper A axis by choosing the stepgen (on the second connector, somewhat confusing labeled "TODO get what the name of the somewhat "3" connector label is") as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
@@ -123,10 +123,10 @@ The values were arrived at the following:
 
 2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled by using MDI commands in EMC2.
 
-=== EMC2 Axis GUI integration ===
+== EMC2 Axis GUI integration ==
 Currently, I don't believe the axis GUI is not properly plotting 4th axis operations.  Although I have only done the operations treating the surface of the cylinder as Z=0, which would make all milling operations appear on a single line.  I need to try backplotting a part with the Z=0 set to the center of the cylinder.
 
-== 4th rotary axis gcode generation ==
+= 4th rotary axis gcode generation =
 After getting the hardware in place, I had hoped this would be relatively straightforward.  It turns out there are not very many readily-accessible open source solutions for generating 4th rotary axis gcode.  There are of course high-end commercial solutions:
 
 TODO: links
@@ -143,19 +143,19 @@ One basic approach is to generate gcode for the XYZ axis and then convert the Y 
 
 There is perhaps a conceptually simple solution in re-scaling the A axis in EMC2 so that Y axis units make sense when interpreted as degrees, but that would require re-configuring EMC2 scaling for each 4th rotary axis project, and since velocity and acceleration are involved in that, it could be somewhat complex.
 
-== Build log and lessons learned ==
-=== 5V pullup or the 5i23 ===
+= Build log and lessons learned =
+== 5V pullup or the 5i23 ==
 In my initial integration, I thought I failed to set a scaling number before testing and so the motor was not moving during simple open loop testing.  It turns out this was not the case, and that the motor was not moving because the Mesa card was configured for 3.3V pullup and the stepper driver required 5V pullup.  There are three jumpers on the Mesa card, and two of the three needed to be set for 5V to get a 5V pullup.  I have now moved to having all three jumpers set to the 5V position.
 
-=== Stepper driver overheating ===
+== Stepper driver overheating ==
 We are running the stepper driver at its max current setting, and as a result it gets hot if not cooled by a fan.  It will start to malfunction when it gets hot enough.
 
-=== Acceleration and max velocity values too high ===
+== Acceleration and max velocity values too high ==
 These still need to be tuned completely as they are currently too high.  EMC2 currently allows the A access to be driven such that the motor gets to a bad oscillation state, runs backwards for a bit and then whines.  Originally I thought this was a driver overheated state, but it turns out it was EMC2 being configured to allow too high of a velocity.
 
-=== Stepper axis "joint following error" ===
+== Stepper axis "joint following error" ==
 TODO: document why this happens and how to resolve it
 
-=== Test 4th axis program ===
+== Test 4th axis program ==
 
-=== Procedure for testing backlash ===
+== Procedure for testing backlash ==
