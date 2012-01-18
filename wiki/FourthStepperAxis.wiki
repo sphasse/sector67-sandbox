@@ -123,6 +123,8 @@ The values were arrived at the following:
 
 2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled by using MDI commands in EMC2.
 
+We were occasionally encountering joint 3 following errors at the end of a move, after deceleration.  I reconfigured the following error on the A axis, configuring it for MIN_FERROR of 0.005 and FERROR of 0.05.  After doing this, the joint 3 following errors were resolved.
+
 == EMC2 Axis GUI integration ==
 Currently, I don't believe the axis GUI is not properly plotting 4th axis operations.  Although I have only done the operations treating the surface of the cylinder as Z=0, which would make all milling operations appear on a single line.  I need to try backplotting a part with the Z=0 set to the center of the cylinder.
 
@@ -142,6 +144,8 @@ One basic approach is to generate gcode for the XYZ axis and then convert the Y 
 2) 3-dimension arcs (e.g. spirals) are configured in a plane that is declared in the gcode.  Those would likely not be handled properly via this naive approach.
 
 There is perhaps a conceptually simple solution in re-scaling the A axis in EMC2 so that Y axis units make sense when interpreted as degrees, but that would require re-configuring EMC2 scaling for each 4th rotary axis project, and since velocity and acceleration are involved in that, it could be somewhat complex.
+
+This did not work, but the GEOMETRY section in the ini file likely needs to be configured to properly display the A axis.
 
 = Build log and lessons learned =
 == 5V pullup or the 5i23 ==
