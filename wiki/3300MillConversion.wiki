@@ -1,0 +1,24 @@
+#summary A 3-axis CNC mill conversion from Anilam 3300 controls to EMC2
+
+=3300 mill conversion=
+After the successful [ProjectSheetCake conversion] of our 1100 mill to EMC2 at [http://sector67.org Sector67] (and integration of a [FourthStepperAxis fourth-axis rotary table]), we are now tackling a conversion of our exsiting Anilam 3300 mill to EMC2 as well.  This page documents that effort.
+
+=Sponsorship=
+This conversion project has been sponsored by [http://compcc.com Comprehensive Computer Consulting].
+
+In addition, this project would not be possible without significant volunteer effort from members of Sector67 and attendees of the EMC2 integrator's class, which used this project for various laboratory exercises.
+
+=TODOs=
+This project is still just beginning.  We have acquired much of the necessary hardware.  Remaining tasks include:
+
+  * Video of this mill functioning so that when we extract the Anilam controls they can be sold.
+  * Design and testing of the 24V estop circuit
+  * Design and implementation of the limit switch/estop interface daughter board
+  * Design and implementation of the 24V fan interface daughter board
+  * Get an aluminium plate to mount all of the daughter boards, including the Mesa and other boards, and drill appropriate mounting holes for the standoffs.
+  * Cut and wire the encoders to the Mesa servo daughter board
+  * Cut and wire the servo amps to the Mesa servo daughter board
+  * Wire the limits and fans and servo enable 
+  * Determine a location for the PC and put it there.
+
+Once these tasks are complete and the mill is basically functional, we can leverage much of the work on the increasingly misnamed 1100 mill for the EMC2 configuration.
