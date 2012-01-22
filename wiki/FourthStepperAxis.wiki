@@ -163,3 +163,19 @@ TODO: document why this happens and how to resolve it
 == Test 4th axis program ==
 
 == Procedure for testing backlash ==
+
+=TODO=
+There are still several tasks remaining to complete this project fully, including
+
+  * Solder up the motor cord end with the 5-pin XLR connectors from probotix
+  * Drill a hole and mount the 5-pin XLR socket in the back of the right case for connecting the rotary table.
+  * Fix the cord where it is enters the housing on the motor as it is extremely twisted from previous abuse.  Consider some sort of strain relief or conduit for that connection.
+  * Cover the gap in the motor mount with metallic tape (5 minutes) or fix the shaft length by adding washers inside the bushing (~1 hour disassembly of the entire rotary table)
+  * Fix the acceleration and velocity max settings in EMC2 so that the motor cannot be driven too fast.
+  * Get the EMC2 configuration for four-axis milling under revision control in SVN.
+  * Get the values hand-edited in the conf and hal files back into the pncconf so that future tunings can be made via pncconf
+  * Write a procedure for rotary table usage and post it to the internal sector67 wiki
+  * Post our test A axis gcode for public accessibility.
+  * Generate some more compelling A axis test gcode
+  * Correct the GEOMETRY settings in the ini file so that the A axis backplot works.  Consider if this is a bug in pncconf that should be fixed.
+  * Tackle the wiki inline TODOs above this to complete the existing documentation
