@@ -440,3 +440,23 @@ TODO: implement a dead man switch on the joystick jog so that if the joystick ge
 
 =Build log=
 Check out the SheetCakeBuildLog.
+
+=TODO=
+There are quite a few tasks remaining to complete this project.  Some of them are:
+
+  * Video the existing Anilam components functioning properly so we can take them out and sell them
+  * Remove the unneeded boards and package and label them
+  * Move the PC to the left cabinet
+  * Make 3x shielded 50-pin cables with the shielded cat 5 and 50-pin ends
+  * Wire the PC to the mill 120V inside the cabinet
+  * Configure the PC bios to start upon receiving power, so that turning the mill on will boot the PC
+  * Add a separate signal (non-power) conduit from the VFD to the right cabinet for estop signals and eventually potentially encoder and software control of the VFD.
+  * Mount the stepper controller and power supply inside the right cabinet.  Consider potentially mounting these inside the left cabinet where we will have more space.  Access to estopped 120V power might be more difficult though.
+  * Wire the 36V power supply to estopped 120V power
+  * Mount the monitor holder on the monitor arm
+  * get and mount a keyboard/mouse holder on the monitor arm
+  * mount the separate estop button in an accessible location, and consider how to wire up an encoder for controlling feed override.
+  * Complete the PID/FF tuning and configure following error to be realistic and helpful, vs. something like 1 inch which it is now.
+
+
+  * 
