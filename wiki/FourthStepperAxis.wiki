@@ -170,12 +170,16 @@ There are still several tasks remaining to complete this project fully, includin
   * Solder up the motor cord end with the 5-pin XLR connectors from probotix
   * Drill a hole and mount the 5-pin XLR socket in the back of the right case for connecting the rotary table.
   * Fix the cord where it is enters the housing on the motor as it is extremely twisted from previous abuse.  Consider some sort of strain relief or conduit for that connection.
-  * Cover the gap in the motor mount with metallic tape (5 minutes) or fix the shaft length by adding washers inside the bushing (~1 hour disassembly of the entire rotary table)
-  * Fix the acceleration and velocity max settings in EMC2 so that the motor cannot be driven too fast.
+  * DONE 1/22/2012 Cover the gap in the motor mount with metallic tape (5 minutes)
+  * or fix the shaft length by adding washers inside the bushing (~1 hour disassembly of the entire rotary table)
+  * Fix the acceleration and velocity max settings in EMC2 so that the motor cannot be driven too fast.  I tested with the current settings but 
+was unable to drive the table to a bad state like the gcode file was (e.g. G01 A90 F10000 maxed out at a feed rate of 1000 properly.  I'll need to review the gcode file.
   * Get the EMC2 configuration for four-axis milling under revision control in SVN.
   * Get the values hand-edited in the conf and hal files back into the pncconf so that future tunings can be made via pncconf
   * Write a procedure for rotary table usage and post it to the internal sector67 wiki
   * Post our test A axis gcode for public accessibility.
   * Generate some more compelling A axis test gcode
-  * Correct the GEOMETRY settings in the ini file so that the A axis backplot works.  Consider if this is a bug in pncconf that should be fixed.
+  * Correct the GEOMETRY settings in the ini file so that the A axis backplot works.  Consider if this is a bug in pncconf that should be fixed.  GEOMETRY=axyz seems to be working a bit better but needs to be verified.
+  * DONE: Wire up the 36V supply instead of the bench supply.  The table still works fine with the new supply.
+  * Mount the 36V supply and stepper driver in the right cabinet.  This will require tapping into the estopped 120V power, ideally after the fuses.  After we remove the current extraneous 5/15V supply, we should have space for the 36V supply, but we might need to get a bit creative to find a spot for the stepper driver in the right cabinet.
   * Tackle the wiki inline TODOs above this to complete the existing documentation
