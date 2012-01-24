@@ -181,12 +181,20 @@ Please work through the exercises in [http://linuxcnc.org/docview/2.5/html/hal/t
   * PID tuning applied
 
 =Customizing EMC2 software futher=
-  * Classicladder-based programs
-  * PyVCP UI elements
-  * Custom gcode integration
-  * Machine communication to outside sources (IRC, X)?
-  * Displaying custom messages in axis
-  
+==Introduction==
+LinuxCNC is an extremely versatile and open platform.  There are many possible paths for configuration of 
+== Classicladder-based programs ==
+
+== PyVCP UI elements ==
+
+== Custom gcode integration ==
+
+== Machine communication to outside sources ==
+If you want to be able to stream gcode commands to LinuxCNC from a remote source, you can do so using...
+
+== Displaying custom messages in axis ==
+It is sometimes helpful to be able to display a custom message in the user interface.  In the 2.5 release there will be a built-in component to accomplish this, but currently doing this requires installing a custom component.
+
 =Customizing the hardware further=
   * Various 4th axis configuration scenarios
   * Probe input for touch off and automated sensing
