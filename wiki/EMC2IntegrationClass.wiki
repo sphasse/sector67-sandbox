@@ -228,16 +228,28 @@ http://www.linuxcnc.org/docview/2.5/html/man/man1/linuxcncrsh.1.html
 == Displaying custom messages in axis ==
 It is sometimes helpful to be able to display a custom message in the user interface.  In the 2.5 release there will be a built-in component to accomplish this, but currently doing this requires installing a custom component.
 
+== Python conmponents ==
+You can create LinuxCNC components using Python.  There is a simple API to export pins, parameters, etc. needed for your component.
+
+You can then use the full power of python for things like talking over a serial port, image recognition, USB, etc.
+
+Python components are userspace only.
+
+== C components ==
+C components can be userspace or real time.  There is a simplified C interface for creating components.
+
 ==Customized kinematics==
 
 http://www.linuxcnc.org/docview/2.5/html/motion/kinematics.html
+
+EMC2 is used to control a wide variety of motion, including machines like hexapods
 
 = Cool software extension examples =
 == EMC2-based repstrap ==
 
 https://github.com/brendanjerwin/emcrepstrap
 
-This 
+This is a cool collection of extensions to LinuxCNC that basically allow an "off-the-shelf" makerbot printing head to be controlled from LinuxCNC.
 
 =Customizing the hardware further=
   * Various 4th axis configuration scenarios
