@@ -182,18 +182,62 @@ Please work through the exercises in [http://linuxcnc.org/docview/2.5/html/hal/t
 
 =Customizing EMC2 software futher=
 ==Introduction==
-LinuxCNC is an extremely versatile and open platform.  There are many possible paths for configuration of 
+LinuxCNC is an extremely versatile and open platform.  There are many possible paths for extension, some of which are covered here.
+
 == Classicladder-based programs ==
+Ladder programming is a type of programming model that uses relay contacts and coils and as a metaphor for program logic.  It is a common programming model in programmable logic controls (PLC's) and as such is familiar to some machine integrators.
+
+More information can be found here:
+
+http://wiki.linuxcnc.org/cgi-bin/wiki.pl?Classicladder_Ver_7.100
+
+http://www.linuxcnc.org/docview/2.5/html/ladder/ladder_intro.html
 
 == PyVCP UI elements ==
+You can integrate additional functionality into the Axis GUI via PyVCP panels.  The PyVCP elements are tied to HAL pis.  This is useful for instance for spindle control and information, as well as completely custom accessory integration.
+
+http://www.linuxcnc.org/docview/2.5/html/hal/pyvcp_examples.html
 
 == Custom gcode integration ==
+LinuxCNC supports calling out to shell scripts via the user-defined M GCode words.  To use this facility, you create and name a shell script in the PROGRAM_PREFIX directory and then call it using the M appropriate M code
 
-== Machine communication to outside sources ==
-If you want to be able to stream gcode commands to LinuxCNC from a remote source, you can do so using...
+http://www.linuxcnc.org/docview/2.5/html/gcode/m-code.html#_m100_to_m199_user_defined_commands_a_id_sec_m100_to_m199_a
+
+You can pass parameters to the script via the P and Q words.
+
+== Interfacing with HAL via command line ==
+You can execute hal commands using the halcmd command line script.  This allows flexible integration for reading and writing pin values.  An example would be:
+
+{{{
+#!/bin/sh
+# file to turn on parport pin 14 to open the collet closer
+halcmd setp parport.0.pin-14-out True
+exit 0
+}}}
+
+This can work in conjunction with user-defined M codes to iterface with custom hardware (e.g. M101 turns a relay on)
+
+== Standard digitial and analog inputs and outputs ==
+LinuxCNC has four standard digital inputs, four standard digital outputs, four standard analog inputs and four standard analog outputs.  The M62/63/64/65/66/67/68 gcodes control reading and writing these standard values.  They can be written immediately or synchronized with motion, depending on the gcode used.
+
+== Command-line gcode ==
+LinuxCNC comes with a shell interface called linuxcncrsh.  Using this interface you can send gcode commands using a remote program such as telnet.
+
+http://www.linuxcnc.org/docview/2.5/html/man/man1/linuxcncrsh.1.html
 
 == Displaying custom messages in axis ==
 It is sometimes helpful to be able to display a custom message in the user interface.  In the 2.5 release there will be a built-in component to accomplish this, but currently doing this requires installing a custom component.
+
+==Customized kinematics==
+
+http://www.linuxcnc.org/docview/2.5/html/motion/kinematics.html
+
+= Cool software extension examples =
+== EMC2-based repstrap ==
+
+https://github.com/brendanjerwin/emcrepstrap
+
+This 
 
 =Customizing the hardware further=
   * Various 4th axis configuration scenarios
