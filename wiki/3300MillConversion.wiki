@@ -11,11 +11,11 @@ In addition, this project would not be possible without significant volunteer ef
 =TODOs=
 This project is still just beginning.  We have acquired much of the necessary hardware.  Remaining tasks include:
 
-  * Video of this mill functioning so that when we extract the Anilam controls they can be sold.
-  * Design and testing of the 24V estop circuit
+  * Video of this mill functioning so that when we extract the Anilam controls they can be sold (done 1/25/2012), thanks Chris!).
+  * Design and testing of the 24V estop circuit (started but needs more work and verification)
   * Design and implementation of the limit switch/estop interface daughter board
   * Design and implementation of the 24V fan interface daughter board
-  * Get an aluminium plate to mount all of the daughter boards, including the Mesa and other boards, and drill appropriate mounting holes for the standoffs.
+  * Get an aluminium plate to mount all of the daughter boards, including the Mesa and other boards, and drill appropriate mounting holes for the standoffs (done 1/25/2012).
   * Cut and wire the encoders to the Mesa servo daughter board
   * Cut and wire the servo amps to the Mesa servo daughter board
   * Wire the limits and fans and servo enable 
