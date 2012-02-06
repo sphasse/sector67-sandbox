@@ -7,7 +7,7 @@
 
 _The assembled table_
 
-As we started to implement 4th axis capability for our mills in earnest, we acquired a 8" horizontal/vertical rotary table with a stepper motor already integrated.  This led us to transition our effort away from the servo-based fourth axis described at FourthServoAxis to a stepper-based system.  It's a testament to the flexibility of EMC2 and our implementation that this really won't cause us to change much at all with respect to the implementation.  
+As we started to implement 4th axis capability for our mills in earnest, we acquired a 8" horizontal/vertical rotary table with a stepper motor already integrated.  This led us to transition our effort away from the servo-based fourth axis described at FourthServoAxis to a stepper-based system.  It's a testament to the flexibility of LinuxCNC and our implementation that this really won't cause us to change much at all with respect to the implementation.  
 
 It has given us a chance to work out most of the issues associated with integrating a stepper into our servo-based system.
 
@@ -110,8 +110,8 @@ http://www.youtube.com/watch?v=2KMhx4DbyDg&noredirect=1
 = Electronic integration =
 Our stepper driver requires ~5V signals for proper signaling.  The Mesa 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position in order to properly pull up to 5V and reliably signal the stepper driver.
 
-= EMC2 configuration =
-To configure EMC2, we needed to add some stepgens to the configuration.  This can be done using the pncconf configuration generator.  Since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).  TODO: document the option to get 4 stepgens... Unfortunately, pncconf clears out most of the PWMgen/encoder/stepgen configuration when you reconfigure the mesa driver configuration, which required me to re-enter the encoder and PWMgen configuration for the XYZ axes. 
+= LinuxCNC configuration =
+To configure LinuxCNC, we needed to add some stepgens to the configuration.  This can be done using the pncconf configuration generator.  Since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).  TODO: document the option to get 4 stepgens... Unfortunately, pncconf clears out most of the PWMgen/encoder/stepgen configuration when you reconfigure the mesa driver configuration, which required me to re-enter the encoder and PWMgen configuration for the XYZ axes. 
 
 Using the new configuration, we can integrate the stepper A axis by choosing a stepgen (on the second connector, somewhat confusing labeled "connector 3" TODO: confirm) as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
 
@@ -131,11 +131,11 @@ The values were arrived at the following:
 
 1) The step and direction delays are conservative based on the somewhat vague datasheet which lists "5 ns" value for delays.
 
-2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled by using MDI commands in EMC2.
+2) The scaling was calculated by manual measurement of the rotary table and degrees per step.  The values were confirmed when then table was completely assembled by using MDI commands in LinuxCNC.
 
 We were occasionally encountering joint 3 following errors at the end of a move, after deceleration.  I reconfigured the following error on the A axis, configuring it for MIN_FERROR of 0.005 and FERROR of 0.05.  After doing this, the joint 3 following errors were resolved.
 
-== EMC2 Axis GUI integration ==
+== LinuxCNC Axis GUI integration ==
 Currently, I don't believe the axis GUI is not properly plotting 4th axis operations.  Although I have only done the operations treating the surface of the cylinder as Z=0, which would make all milling operations appear on a single line.  I need to try backplotting a part with the Z=0 set to the center of the cylinder.
 
 = 4th rotary axis gcode generation =
@@ -153,7 +153,7 @@ One basic approach is to generate gcode for the XYZ axis and then convert the Y 
 
 2) 3-dimension arcs (e.g. spirals) are configured in a plane that is declared in the gcode.  Those would not be handled properly via this naive approach.
 
-There is perhaps a conceptually simple solution in re-scaling the A axis in EMC2 so that Y axis units make sense when interpreted as degrees, but that would require re-configuring EMC2 scaling for each 4th rotary axis project, and since velocity and acceleration are involved in that, it could be somewhat complex.
+There is perhaps a conceptually simple solution in re-scaling the A axis in LinuxCNC so that Y axis units make sense when interpreted as degrees, but that would require re-configuring LinuxCNC scaling for each 4th rotary axis project, and since velocity and acceleration are involved in that, it could be somewhat complex.
 
 This did not work, but the GEOMETRY section in the ini file likely needs to be configured to properly display the A axis.
 
@@ -165,7 +165,7 @@ In my initial integration, I thought I failed to set a scaling number before tes
 We are running the stepper driver at its max current setting, and as a result it gets hot if not cooled by a fan.  It will start to malfunction when it gets hot enough.
 
 == Acceleration and max velocity values too high ==
-These still need to be tuned completely as they are currently too high.  EMC2 currently allows the A access to be driven such that the motor gets to a bad oscillation state, runs backwards for a bit and then whines.  Originally I thought this was a driver overheated state, but it turns out it was EMC2 being configured to allow too high of a velocity.
+These still need to be tuned completely as they are currently too high.  LinuxCNC currently allows the A access to be driven such that the motor gets to a bad oscillation state, runs backwards for a bit and then whines.  Originally I thought this was a driver overheated state, but it turns out it was LinuxCNC being configured to allow too high of a velocity.
 
 Turns out it might not have been that, and this is still somewhat of a mystery.  I cannot drive the machine to oscillation by maxing out the velocity, so either the test program hit an oscillation velocity or there is some other problem.  This still needs to be determined.
 
@@ -184,9 +184,9 @@ There are still several tasks remaining to complete this project fully, includin
   * Fix the cord where it is enters the housing on the motor as it is extremely twisted from previous abuse.  Consider some sort of strain relief or conduit for that connection.
   * DONE 1/22/2012 Cover the gap in the motor mount with metallic tape (5 minutes)
   * or fix the shaft length by adding washers inside the bushing (~1 hour disassembly of the entire rotary table)
-  * Fix the acceleration and velocity max settings in EMC2 so that the motor cannot be driven too fast.  I tested with the current settings but 
+  * Fix the acceleration and velocity max settings in LinuxCNC so that the motor cannot be driven too fast.  I tested with the current settings but 
 was unable to drive the table to a bad state like the gcode file was (e.g. G01 A90 F10000 maxed out at a feed rate of 1000 properly.  I'll need to review the gcode file.
-  * Get the EMC2 configuration for four-axis milling under revision control in SVN.
+  * Get the LinuxCNC configuration for four-axis milling under revision control in SVN.
   * Get the values hand-edited in the conf and hal files back into the pncconf so that future tunings can be made via pncconf
   * Write a procedure for rotary table usage and post it to the internal sector67 wiki
   * Post our test A axis gcode for public accessibility.
