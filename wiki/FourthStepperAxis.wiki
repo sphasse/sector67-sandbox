@@ -51,10 +51,7 @@ This table has two major sources of potential backlash.  Firstly, if the worm dr
 
 The second potential source of backlash is the worm drive teeth meshing with the gear on the turntable.  The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning.  The tightness of the worm drive to the gear and be changed by rotating the bushing, which moves the spinning shaft closer or further.  Once the bushing is aligned appropriately, it bushing is held in place with a screw labeled for backlash adjustment:
 
-TODO: picture of the backlash adjustment screw
-
-
-TODO: picture of the off-center adjustment backlash adjustment nut.
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/bushing_and_bearing.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/bushing_and_bearing.JPG]
 
 This nut serves no useful adjustment purpose with this device coupled to a motor (although it is needed to hold the eccentric bushing in place), so the thumb screw should be replaced with a set screw so that the adjustment is not messed up by accident.  I was not able to find a suitable replacement set screw so this was not done.
 
