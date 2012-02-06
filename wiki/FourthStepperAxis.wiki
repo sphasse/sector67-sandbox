@@ -3,6 +3,10 @@
 <wiki:toc max_depth="3" />
 
 = Introduction =
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/complete_table.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/complete_table.JPG]
+
+_The assembled table_
+
 As we started to implement 4th axis capability for our mills in earnest, we acquired a 8" horizontal/vertical rotary table with a stepper motor already integrated.  This led us to transition our effort away from the servo-based fourth axis described at FourthServoAxis to a stepper-based system.  It's a testament to the flexibility of EMC2 and our implementation that this really won't cause us to change much at all with respect to the implementation.  
 
 It has given us a chance to work out most of the issues associated with integrating a stepper into our servo-based system.
@@ -19,8 +23,6 @@ It will provide up to 3.5 amps and is designed to be optimally run at 36V.  It h
 The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely no specifications on the motor itself.  The phases are non-tapped, TODO: get Ohm resistance, and the motor seems functional with a 3.5 amp controller at 36 volts.
 
 = Rotary table =
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/complete_table.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/complete_table.JPG]
-_The assembled table_
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole_assembly.JPG]
 
