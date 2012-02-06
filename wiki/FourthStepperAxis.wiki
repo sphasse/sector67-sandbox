@@ -101,15 +101,19 @@ We also have a 6" three-jaw that can be mounted.  The three-jaw chuck has 3 moun
 TODO: once the adapter plate is working, document.
 
 == Centering work in a four-jaw chuck ==
-TODO: reference centering video here
+Some helpful resources for centering work in a four-jaw chuck:
+
+http://littlemachineshop.com/Reference/Centering4-JawChuck.pdf
+
+http://www.youtube.com/watch?v=2KMhx4DbyDg&noredirect=1
 
 = Electronic integration =
-Our stepper driver requires ~5V signals for proper signaling.  The Mesa 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position.
+Our stepper driver requires ~5V signals for proper signaling.  The Mesa 5i23 card has jumpers settable for 3.3 or 5 volt pullup, and I configured the card for 5 volt pullup for this driver.  In the end I now have all three jumpers (on all three connectors) on the 5i23 to be in the "up" position in order to properly pull up to 5V and reliably signal the stepper driver.
 
 = EMC2 configuration =
 To configure EMC2, we needed to add some stepgens to the configuration.  This can be done using the pncconf configuration generator.  Since typically we'll be running in three-axis mode (XYZ), we'll make a separate configuration for a 4-axis rotary table configuration (XYZA).  TODO: document the option to get 4 stepgens... Unfortunately, pncconf clears out most of the PWMgen/encoder/stepgen configuration when you reconfigure the mesa driver configuration, which required me to re-enter the encoder and PWMgen configuration for the XYZ axes. 
 
-Using the new configuration, we can integrate the stepper A axis by choosing the stepgen (on the second connector, somewhat confusing labeled "TODO get what the name of the somewhat "3" connector label is") as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
+Using the new configuration, we can integrate the stepper A axis by choosing a stepgen (on the second connector, somewhat confusing labeled "connector 3" TODO: confirm) as the A axis.  The pins corresponding to the pwmgens, encoders and stepgens are automatically allocated by the hostmot2 driver, and that is why we configured arbitrary I/O on the third connector, so the first two would be free for this "automatic" allocation.
 
 To see what 5i23 pins this actually resolves to, you can look at the output of the dmesg command.
 
@@ -147,7 +151,7 @@ One basic approach is to generate gcode for the XYZ axis and then convert the Y 
 
 1) The Y axis units are linear and the A axis units are degrees, so the scaling is quite different between the two.  You can scale the drawing to reflect this (e.g. 180 units would be half of the cylinder), but this means that any sort of cutter compensation will not work correctly.  For instance pocketing operations, etc. would be slightly wrong.
 
-2) 3-dimension arcs (e.g. spirals) are configured in a plane that is declared in the gcode.  Those would likely not be handled properly via this naive approach.
+2) 3-dimension arcs (e.g. spirals) are configured in a plane that is declared in the gcode.  Those would not be handled properly via this naive approach.
 
 There is perhaps a conceptually simple solution in re-scaling the A axis in EMC2 so that Y axis units make sense when interpreted as degrees, but that would require re-configuring EMC2 scaling for each 4th rotary axis project, and since velocity and acceleration are involved in that, it could be somewhat complex.
 
@@ -163,8 +167,10 @@ We are running the stepper driver at its max current setting, and as a result it
 == Acceleration and max velocity values too high ==
 These still need to be tuned completely as they are currently too high.  EMC2 currently allows the A access to be driven such that the motor gets to a bad oscillation state, runs backwards for a bit and then whines.  Originally I thought this was a driver overheated state, but it turns out it was EMC2 being configured to allow too high of a velocity.
 
+Turns out it might not have been that, and this is still somewhat of a mystery.  I cannot drive the machine to oscillation by maxing out the velocity, so either the test program hit an oscillation velocity or there is some other problem.  This still needs to be determined.
+
 == Stepper axis "joint following error" ==
-TODO: document why this happens and how to resolve it
+TODO: document why this happens and how to resolve it.  One cause was following error too low.  After modestly upping the following error values we were able to resolve this.
 
 == Test 4th axis program ==
 
@@ -174,7 +180,7 @@ TODO: document why this happens and how to resolve it
 There are still several tasks remaining to complete this project fully, including
 
   * Solder up the motor cord end with the 5-pin XLR connectors from probotix
-  * Drill a hole and mount the 5-pin XLR socket in the back of the right case for connecting the rotary table.
+  * Drill a hole and mount the 5-pin XLR socket in the back of the right case for connecting the rotary table.  There might already be holes in the back of the cabinet, there are in the 3300 mill cabinet anyway (consider mounting this in the 3300 mill?).
   * Fix the cord where it is enters the housing on the motor as it is extremely twisted from previous abuse.  Consider some sort of strain relief or conduit for that connection.
   * DONE 1/22/2012 Cover the gap in the motor mount with metallic tape (5 minutes)
   * or fix the shaft length by adding washers inside the bushing (~1 hour disassembly of the entire rotary table)
