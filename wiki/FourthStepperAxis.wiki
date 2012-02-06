@@ -19,7 +19,8 @@ It will provide up to 3.5 amps and is designed to be optimally run at 36V.  It h
 The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely no specifications on the motor itself.  The phases are non-tapped, TODO: get Ohm resistance, and the motor seems functional with a 3.5 amp controller at 36 volts.
 
 = Rotary table =
-TODO: picture of the assembled table
+[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/complete_table.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/complete_table.JPG]
+_The assembled table_
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole_assembly.JPG]
 
@@ -52,6 +53,8 @@ This table has two major sources of potential backlash.  Firstly, if the worm dr
 The second potential source of backlash is the worm drive teeth meshing with the gear on the turntable.  The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning.  The tightness of the worm drive to the gear and be changed by rotating the bushing, which moves the spinning shaft closer or further.  Once the bushing is aligned appropriately, it bushing is held in place with a screw labeled for backlash adjustment:
 
 [http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/bushing_and_bearing.JPG http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/bushing_and_bearing.JPG]
+
+_The busing and bearing.  The backlash adjustment screw is just out of this picture.  The thrust bearing shown in this picture could not be used as the diameter was too large, so it was replaced with a bushing._ 
 
 This nut serves no useful adjustment purpose with this device coupled to a motor (although it is needed to hold the eccentric bushing in place), so the thumb screw should be replaced with a set screw so that the adjustment is not messed up by accident.  I was not able to find a suitable replacement set screw so this was not done.
 
