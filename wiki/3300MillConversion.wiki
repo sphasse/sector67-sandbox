@@ -22,3 +22,37 @@ This project is still just beginning.  We have acquired much of the necessary ha
   * Determine a location for the PC and put it there.
 
 Once these tasks are complete and the mill is basically functional, we can leverage much of the work on the increasingly misnamed 1100 mill for the EMC2 configuration.
+
+= Build Log =
+== 2/9/2012 ==
+
+We made great progress last night during the first half of the mill conversion hackathon.  Scott S dis a great job cleaning out the workspace around the mill control box, and then got straight to work identifying and converting the quadrature TTL-level encoder signals coming from the motors and the +5/GND supply needed to drive the encoders.  Once the X axis was wired to the Mesa servo daughter card we were able build a sample starting configuration using pncconf and see correct movement in the open loop configuration for the axis.
+
+Scott H pulled down LinuxCNC 2.4.7 from the repository to avoid some pncconf bugs.
+
+Brett U and Larry W provided technical assistance confirming proper operation of the encoder signals.  In the mean time Scott H worked on the design and soldering of the I/O integration board, which is the circuit board to integrate LinuxCNC and the relays with the limit and estop switches.
+
+After the encoders for all three axes were wired and confirmed functional, we took a breather to re-group, and then tackled getting the motors to move under LinuxCNC control.  We re-used the existing Anilam servo enable functions to enable power to the drive (rather than hard-coding power, which would take away estop and limit safety).
+
+We tested each axis individually under open loop control to determine which of them needed to be inverted.  After confirming open loop control, we then enabled basic PID control and started a full-blown LinuxCNC instance.  By the end of the session, we had three-axis coordinated motion working.  Some minor problems:
+
+  * Following error needed to be tweaked higher by default.  We need to go back and revisit the PID tuning to resolve this.
+
+  * I had "worked ahead" and defined I/O pins for limits and estop, but since we did not have that board, the maching would not enable (it thought it was on a limit switch), so they had to be removed.
+
+Work we will hopefully accomplish on Sunday 2/12/2012 (noon-5):
+
+  * Fix the shielding on the incoming encoder cables.  This should go to case ground, not ground on the servo card.  We'll want to put a P clamp over the bundle of incoming shielded cables and run that to the star ground.
+  * Test the new I/O integration board out of the mill.
+  * Implement the I/O integration board in the mill.
+  * Remove the existing I/O integration board and extraneous power supplies.
+  * Drill mounting holes in the new I/O integration board to match the existing mounting screws
+  * Figure out of the servo inhibit wires are going to cause us a problem.  This would be easiest if we can find a data sheet for the servo amps.
+  * Wire and confirm the fans are working (check to see if one fan comes on with servo enable and one runs all the time)
+  * Install the new monitor, keyboard and mouse on the PC arm
+  * Secure the monitor, keyboard and mouse wiring to the arm
+  * Wire the ethernet cord to the ceiling
+  * Remove the existing large cable PC plug
+  * Make longer 50 pin twisted cables and route them through the former large cable plug hole.
+  * Create and integrate the servo reset pulse circuit (can copy from the 1100 mill)
+  * Make some chips using LinuxCNC!
