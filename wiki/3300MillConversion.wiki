@@ -1,6 +1,11 @@
 #summary A 3-axis CNC mill conversion from Anilam 3300 controls to EMC2
 
 =3300 mill conversion=
+
+<wiki:toc max_depth="2" />
+
+=Introduction=
+
 After the successful [ProjectSheetCake conversion] of our 1100 mill to EMC2 at [http://sector67.org Sector67] (and integration of a [FourthStepperAxis fourth-axis rotary table]), we are now tackling a conversion of our exsiting Anilam 3300 mill to EMC2 as well.  This page documents that effort.
 
 =Sponsorship=
