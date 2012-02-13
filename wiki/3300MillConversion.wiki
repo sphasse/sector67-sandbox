@@ -77,3 +77,5 @@ This is all great news, and after getting the mill working we were able to remov
 It turns out that if the servo inhibit wires are left to float that they do not inhibit the drivers, although we were not able to find any data sheets for the Anilam servo amplifiers.
 
 We also switched the integration circuit to use the normally open contact on the estop buttons for communicating estop to LinuxCNC.  Although this is workable, it is not ideal, as when the machine is off it shows up as not estopped (but on the limit switches).  This can be a bit confusing and counter-intuitive, and better would be for it to show up as estopped.
+
+For safety purposes we wired a temporary box to hold the estop button using a 120V wall enclosure.  Hopefully this will remain temporary.
