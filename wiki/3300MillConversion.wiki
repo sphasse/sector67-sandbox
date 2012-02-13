@@ -71,7 +71,9 @@ This is all great news, and after getting the mill working we were able to remov
   * Make longer 50-pin ribbon cables
   * Remove the large cable plug and all wires hooked to it
   * Wire the internal 24V power supply to the integration board instead of our bench supply.
-  * Wire the 120V fans to power
+  * Wire the 120V fans to power (crimp terminals to them)
+  * Wire the 24V power supply to power (same crimp terminals)
+  * Fix the shield grounding to the case not the servo board.
   
 
 It turns out that if the servo inhibit wires are left to float that they do not inhibit the drivers, although we were not able to find any data sheets for the Anilam servo amplifiers.
