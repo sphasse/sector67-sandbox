@@ -56,3 +56,17 @@ Work we will hopefully accomplish on Sunday 2/12/2012 (noon-5):
   * Make longer 50 pin twisted cables and route them through the former large cable plug hole.
   * Create and integrate the servo reset pulse circuit (can copy from the 1100 mill)
   * Make some chips using LinuxCNC!
+
+==2/12/2012==
+Another 5 solid hours of build work on the 3300 mill.  Larry W and Scott H got the I/O integration board debugged, tested externally, integrated into LinuxCNC and finally integrated into the overall mill.  With a few minor debugging tangents, it worked exactly as planned.  The integration board, when soldered properly (ha!) works as expected, and, copying the classic ladder 2 second servo reset pulse generator from the 1100 mill we were able to get machine enable working from LinuxCNC.
+
+This is all great news, and after getting the mill working we were able to remove the existing Anilam integration board and 5 and 15V power supplies.  We ran out of time and ended up leaving the machine mid-operation, with some components and wiring still yet to remove and some yet to clean up properly.  The TODOs are:
+
+  * Determine where the PC will ultimately live
+  * Make longer 50-pin ribbon cables
+  * Remove the large cable plug and all wires hooked to it
+  * Wire the internal 24V power supply to the integration board instead of our bench supply.
+  * Wire the 120V fans to power
+  
+
+It turns out that if the servo inhibit wires are left to float that they do not inhibit the drivers, although we were not able to find any data sheets for the Anilam servo amplifiers.
