@@ -96,9 +96,12 @@ This is all great news, and after getting the mill working we were able to remov
   * Wire the 120V fans to power (crimp terminals to them)
   * Wire the 24V power supply to power (same crimp terminals)
   * Fix the shield grounding to the case not the servo board.
+  * Integrate a 3-phase contactor to enable estop
+  * Integrate the oiler power per Chris' request
+  * Integrate the inhibit wires into the clamp function (may require reconfiguring the servo amps for 5V logic, confirming the polarity of the signal is correct and wiring each amp to the enable pin on the servo daughter card.
   
 
-It turns out that if the servo inhibit wires are left to float that they do not inhibit the drivers, although we were not able to find any data sheets for the Anilam servo amplifiers.
+It turns out that if the servo inhibit wires are left to float that they do not inhibit the drivers, although we were not able to find any data sheets for the Anilam servo amplifiers.  
 
 We also switched the integration circuit to use the normally open contact on the estop buttons for communicating estop to LinuxCNC.  Although this is workable, it is not ideal, as when the machine is off it shows up as not estopped (but on the limit switches).  This can be a bit confusing and counter-intuitive, and better would be for it to show up as estopped.
 
