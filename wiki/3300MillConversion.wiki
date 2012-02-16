@@ -2,7 +2,7 @@
 
 =3300 mill conversion=
 
-<wiki:toc max_depth="2" />
+<wiki:toc max_depth="3" />
 
 =Introduction=
 
@@ -12,6 +12,28 @@ After the successful [ProjectSheetCake conversion] of our 1100 mill to EMC2 at [
 This conversion project has been sponsored by [http://compcc.com Comprehensive Computer Consulting].
 
 In addition, this project would not be possible without significant volunteer effort from members of Sector67 and attendees of the EMC2 integrator's class, which used this project for various laboratory exercises.
+= Conversion details =
+== Understanding the Anilam servo amplifiers ==
+
+The servo amplifiers in both of our mills are Anilam brand servo (one is Accu-rite brand) amplfiers with part number SMA7215-200-1 .  These are manufactured by by Glentek, and the manual is availble from http://todo:get after a free resgistration on their site.  The manual contains a nice introduction to DC brushed servo control and describes the amplifiers in detail.
+
+We are running these servo amps in a velocity mode control loop, with tachometer feedback coming from each motor.
+
+=== Motor control DC voltage power supply and relay ===
+The manual proscribes a solid state relay for the DC power supply, and we have moved to a mechanical relay instead.  The previous control boad did have a solid state relay.  I don't expect this will have a significant impact on the operations of the amps, and the reason for the recommendation is not given.  Consulting with some motor control folks has left me relatively confident that we won't weld the contacts of our relays, which would otherwise be one reason to use a solid state relay.
+
+=== Amplifier inhibit ===
+The wires labled "inhibit" on the Anilam control board are wired to the "clamp" input of the amplifier.  The clamp signal is appropriate for estop, as it brakes the motors for a short time before disbling the amplifier.  This should make things stop on a dime on when estopped, and indeed we did notice some drift in the motors on an estop with the "fault" wires just floating.  Depending on how various DIP switches are set, the polarity of this signal can be configured.  TODO: describe how we configured the correct polarity and wired it to the enable signal of the daughter board.
+
+From the Mesa servo control daughter board data sheet, the servo enable signal is described as TODO: get this...
+
+=== Amplifier logic voltage ===
+The amplifiers were configured for 15V logic control.  Since the enable signal of our servo control daughter board is TTL level voltage, we needed to reconfigure the logic control to be +5 volts.  TODO: describe how this is done... This, along with the clamp changes from the section above technically change the model number of this servo amplifier to TODO: figure out the new part number based on the manual.
+
+=== Tuning the amplifiers ===
+The manual gives a specific procedure for tuning the amplifiers out of the box.  In general we can probably assume that the amps are relatively well tuned with respect to the servo drives, but we can record the existing settings and put a scope on the motor output to see if the signals are appropriately tuned.  TODO: do this and record the output.  Additionally, we have noticed a small amount of drift in the amps that can be easily tuned out by adjusting the BAL (balance) pot.
+
+TODO: record the resistance levels on the pots per the manual for each amp.
 
 =TODOs=
 This project is still just beginning.  We have acquired much of the necessary hardware.  Remaining tasks include:
