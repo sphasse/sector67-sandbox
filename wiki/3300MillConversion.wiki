@@ -43,13 +43,15 @@ We used the following components
 and for the custom limit/estop board
 
 || *Component* || *Source* || *Part #* || *Count* || *Total Cost* ||
-|| 2x3" perf board || digikey.com              || || 1 || || 
-|| 10 segment DIP LED || digikey.com           || || 1 || ||
-|| 1/2W 2.2k resistor || digikey.com           || || 6 || ||
-|| 0.2" 3 position pitch screw terminal header || || 4 || ||
-|| 0.1" 6 position screw terminal header       || || 1 || ||
-|| wire                                        || || about 4' || NA ||
-|| crimp terminals                             || ||   || ||
+|| 2x3" perf board || digikey.com                 || || 1   || || 
+|| 10 segment DIP LED || digikey.com              || || 1   || ||
+|| 1/2W 2.2k resistor || digikey.com              || || 6   || ||
+|| 0.2" 3 position pitch screw terminal header || || || 4   || ||
+|| 0.1" 6 position screw terminal header       || || || 1   || ||
+|| 4-40 1/4" male/female aluminum standoffs    || digikey.com || || ~40 || ||
+|| 4-40 nuts and bolts                         || digikey.com || || ~40 || ||
+|| wire                                        || || || about 4' || NA ||
+|| crimp terminals                             || || ||     || ||
 
 == Integrating the encoders ==
 The first step we took on was to integrate the encoder signals.  The encoders are TTL level quadrature with an index signal.  The Mesa 7i23 board makes it very easy to integrate the encoders.  We had to trace down the encoder wires from each axis, cut the wires and wire them up to the appropriate screw terminal on the 7i23.  There were 6-pin Molex connectors on these terminals, and so you could make them pluggable if you wanted but since the 7i32TA has pluggable screw terminals in any case there was really no benefit for us to do this.  
