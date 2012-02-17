@@ -82,7 +82,9 @@ TODO: record the resistance levels on the pots per the manual for each amp.
 
 
 === Integrating servo clamping on disable ===
-The Mesa 7i23 describes the enable circuit like so:
+Ideally we want the motors to briefly brake as they stop in an estop state.  The clamp function enables them to do so.  This is labeled as "inhibit" on the existing Anilam board, and so we want to integrate that clamp function into the Mesa 7i23 servo enable output pin.  This requires some reconfiguration of the Glentek amps, as they are by default configured for +15V logic and the clamp input is configured pull-up, active low.
+
+The Mesa 7i23 describes the enable functions as:
 
 ENABLE INPUT
 Each 7i33 channel has an active low TTL level input.  When this input is high, the corresponding AOUT is forced to 0V regardless of the state of the PWM and direciton inputs.  A pullup resistor keeps the enable high if the controller connection is lost
