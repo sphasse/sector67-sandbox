@@ -50,21 +50,78 @@ TODO: record the resistance levels on the pots per the manual for each amp.
 || Serial number S/N: ||       ||
 || Model number:      ||SMA7215||
 
+==== Y axis ====
+
+|| *Pot*                                                  || *Resistance* ||
+|| Signal Gain pot wiper (RV7) at J2-5 to common (ohms)   || ||
+|| Signal Gain pot wiper (RV9) at J2-6 to common (ohms)   || ||
+|| Signal Gain pot wiper (RV10) at J2-7 to common (ohms)  || ||
+|| Signal Gain pot wiper (RV13) at TP1-K to common (ohms) || ||
+
+|| *Dip-switch* || 1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9 || 10 ||
+|| S1           ||   ||   ||   ||   ||   ||   ||   ||   ||   ||    ||
+
+|| Date data taken:   ||       ||
+|| Serial number S/N: ||       ||
+|| Model number:      ||SMA7215||
+
+==== Z axis ====
+
+|| *Pot*                                                  || *Resistance* ||
+|| Signal Gain pot wiper (RV7) at J2-5 to common (ohms)   || ||
+|| Signal Gain pot wiper (RV9) at J2-6 to common (ohms)   || ||
+|| Signal Gain pot wiper (RV10) at J2-7 to common (ohms)  || ||
+|| Signal Gain pot wiper (RV13) at TP1-K to common (ohms) || ||
+
+|| *Dip-switch* || 1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9 || 10 ||
+|| S1           ||   ||   ||   ||   ||   ||   ||   ||   ||   ||    ||
+
+|| Date data taken:   ||       ||
+|| Serial number S/N: ||       ||
+|| Model number:      ||SMA7215||
+
+
+=== Integrating servo clamping on disable ===
+The Mesa 7i23 describes the enable circuit like so:
+
+ENABLE INPUT
+Each 7i33 channel has an active low TTL level input.  When this input is high, the corresponding AOUT is forced to 0V regardless of the state of the PWM and direciton inputs.  A pullup resistor keeps the enable high if the controller connection is lost
+
+ENABLE OUTPUT
+Each 7I33 channel has a 5V CMOS active high enable output available on the SERVO AMP/ENCODER connector.  These signals are the logical inversion of the enable inputs.
+
+
+The Glentek amps describe their input types like so on page 20 of the manual:
+
+Type "A": Requires grounding of the input to disable the amplifier (pull-up, active-low)
+Type "B": Requires a postive voltage at the input to disable the amplifier (pull=down, active-high)
+Type "C": Requires grounding of input to enable the amplifier (pull-up, active-high)
+Type "D": Requries a positive voltage at the input to enable the amplifier (pull-down, active-low)
+
+Looking at both descriptions, it seems that we want the clamp input to be type "D".
+
+Additionally, we would want the logic level to be +5V, rather than the default +15V.
+
+Leaving the rest of the switches in the default mode, we have the following changes:
+
+|| *S1-1* || *OFF* (change to 5V logic) ||
+|| S1-2 || OFF ||
+|| *S1-3* || *ON* (change clamp input to pull-up) ||
+|| S1-4 || ON ||
+|| S1-5 || ON ||
+|| S1-6 || NA ||
+|| S1-7 || ON ||
+|| S1-8 || OFF ||
+|| S1-9 || ON ||
+|| S1-10 || OFF ||
+
+The limit and clamp share S1-7 and thankfully for our desired configuration both should be ON.  
+
+This would in effect change the model number (which informatin on how the switches are configured) to: SMA7215-282 TODO: confirm
+
 
 =TODOs=
-This project is still just beginning.  We have acquired much of the necessary hardware.  Remaining tasks include:
-
-  * Video of this mill functioning so that when we extract the Anilam controls they can be sold (done 1/25/2012), thanks Chris!).
-  * Design and testing of the 24V estop circuit (started but needs more work and verification)
-  * Design and implementation of the limit switch/estop interface daughter board
-  * Design and implementation of the 24V fan interface daughter board
-  * Get an aluminium plate to mount all of the daughter boards, including the Mesa and other boards, and drill appropriate mounting holes for the standoffs (done 1/25/2012).
-  * Cut and wire the encoders to the Mesa servo daughter board
-  * Cut and wire the servo amps to the Mesa servo daughter board
-  * Wire the limits and fans and servo enable 
-  * Determine a location for the PC and put it there.
-
-Once these tasks are complete and the mill is basically functional, we can leverage much of the work on the increasingly misnamed 1100 mill for the EMC2 configuration.
+Individual TODOs are listed in the build log per day.
 
 = Build Log =
 == 2/9/2012 ==
@@ -122,3 +179,32 @@ It turns out that if the servo inhibit wires are left to float that they do not 
 We also switched the integration circuit to use the normally open contact on the estop buttons for communicating estop to LinuxCNC.  Although this is workable, it is not ideal, as when the machine is off it shows up as not estopped (but on the limit switches).  This can be a bit confusing and counter-intuitive, and better would be for it to show up as estopped.
 
 For safety purposes we wired a temporary box to hold the estop button using a 120V wall enclosure.  Hopefully this will remain temporary.
+
+== 2012/02/16 ==
+Third night of the mill hackathon.  We again made good progress and are within striking distance of having this project mostly wrapped up.  Scott S was there for the first half, making a longer 50-pin ribbon cable with twisted pairs to connect the Mesa 7i33 servo daughter card to the Mesa 5i23 board.  Scott H spent the rest of the night cleaning up wiring, including removing the large cable that used to connect the upper PC cabinet to the servo amp cabinet.
+
+Scott H wired the encoder and servo signal shield wires to the star ground using a P clamp across the shielding.  This is better than running it to a ground in the servo daughter card.  He also
+
+Peter N worked to figure out the 240V contactors, soldered longer leads onto existing 24V power supply, secured ethernet wiring and was generally helpful in the migration.
+
+The wires in the cabinet were again routed through the conduits and by the end of the night things were looking fairly tidy and still functioning properly.
+
+Still to do:
+  * Figure out how to energize the contactors and wire that properly (enable only not forward/reverse)
+  * Wire the three phase in and out so that the spindle power is not a separate breaker switch (this is a Chris task)
+  * Configure the servo amps for proper inhibit/clamp from the Mesa board.
+  * Record the existing servo tuning parameters (pots)
+  * Wire the inhibit/clamp to the servo daughter board and test
+  * Install conduit in the hole previously used for the large signal cable
+  * Route the 50 pin cables through that hole to the PC
+  * Run the amps in open loop mode and adjust the balance on the axes that move
+  * Put the door back on the amp cabinet
+  
+If we get all that done, we can integrate the 4th stepper axis:
+  * Mount the 36V power supply, wiring it to enabled power
+  * Mount the stepper driver
+  * Mount and wire a fan for the stepper driver (24V or 120V?)
+  * Mount the 5-pin XLR connector to the outside of the case through an existing through hole
+  * Wire the stepper drive to the power supply and 5-pin XLR connector
+  * Run a minimal ribbon wire from the PC to the stepper controller (+5V, step, direction)
+  * Configure LinuxCNC for the 4th rotary axis
