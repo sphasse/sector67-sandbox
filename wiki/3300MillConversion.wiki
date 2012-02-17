@@ -12,7 +12,58 @@ After the successful [ProjectSheetCake conversion] of our 1100 mill to EMC2 at [
 This conversion project has been sponsored by [http://compcc.com Comprehensive Computer Consulting].
 
 In addition, this project would not be possible without significant volunteer effort from members of Sector67 and attendees of the EMC2 integrator's class, which used this project for various laboratory exercises.
+
 = Conversion details =
+
+
+== Overall integration strategy ==
+Efficiently converting the control system of a machine like this requires determining where to "cut the cord" between the existing control system and the new one.  In our case we wanted to preserve the existing motor amps, power supplies, limit switches, estops, etc. but replace the proprietary control system with an open one.  There were basically two reasonable choices for this:
+
+A) Replace the existing DSP board and integrate with the existing relay board.  The DSP board was already receiving and sending all of the appropriate encoder and estop signals and generating servo control voltages.  Somewhat complicating things is that some of the communication between the DSP board and the relay board (presumably for communicating limit state amongst other tings) was done via a CAN bus.  As there is no built-in CAN bus support in Linux CNC we would have to acquire CAN bus integration hardware and write the appropriate LinuxCNC components.  Probably not too daunting, but certainly more complex than hooking up wires.
+
+B) Replace the existing DSP board and relay board.  This would require creation of a new limit/relay board.
+
+Our choice after some discussion was to use approach B) and tackle replacement of the both the DSP board and the existing integration/relay board.  This would require us to make our own integration board, but would leave us in essence with no "magic" proprietary boards that we did not understand.  From a hackerspace perspective, in the end we'll have a better understanding of the hardware and better ability to maintain, enhance and repair it.
+
+In addition, this let us avoid implementing CAN bus integration and in general simplified the overall system.  Since the LinuxCNC software is appropriately sophisticated and extensible, we really lost no functionality with this choice.  
+
+This approach is somewhat different that what we took for the 1100 conversion, as the relay board in that case was simpler and easily integrated by simple wiring.  If we take on a more aggressive migration of the 1100 mill, we could replace the servo board as well using the same technique and limit/relay board layout used on the 3300 mill. 
+
+In retrospect the decision to replace the Anilam integration/relay board has been a good one, with the combination of a low-cost relay board, a small custom PCB and the Mesa 7i33 and 7i37 boards providing excellent replacement functionality.
+
+== Bill of materials ==
+We used the following components
+
+|| *Component* || *Source* || *Part #* || *Cost* ||
+|| Mesa 5i23 anything I/O PCI card || mesanet.com ||  ||  ||
+|| Mesa 7i23TA quad analog servo interface daughter card || mesanet.com || || ||
+|| Mesa 7i37TA isolated anything I/O adapter || mesanet.com || || ||
+|| 24V 4-relay board || ebay.com || $12.00 || || || 
+
+and for the custom limit/estop board
+
+|| *Component* || *Source* || *Part #* || *Count* || *Total Cost* ||
+|| 2x3" perf board || digikey.com              || || 1 || || 
+|| 10 segment DIP LED || digikey.com           || || 1 || ||
+|| 1/2W 2.2k resistor || digikey.com           || || 6 || ||
+|| 0.2" 3 position pitch screw terminal header || || 4 || ||
+|| 0.1" 6 position screw terminal header       || || 1 || ||
+|| wire                                        || || about 4' || NA ||
+|| crimp terminals                             || ||   || ||
+
+== Integrating the encoders ==
+The first step we took on was to integrate the encoder signals.  The encoders are TTL level quadrature with an index signal.  The Mesa 7i23 board makes it very easy to integrate the encoders.  We had to trace down the encoder wires from each axis, cut the wires and wire them up to the appropriate screw terminal on the 7i23.  There were 6-pin Molex connectors on these terminals, and so you could make them pluggable if you wanted but since the 7i32TA has pluggable screw terminals in any case there was really no benefit for us to do this.  
+
+The +5V/GND for the encoders was supplied via a separate set of wires, so those were also located, cut and wired to the appropriate 7i23 screw terminals.
+
+With encoder power supplied from the 7i23, we were able to safely verify proper encoder function without powering the mill.
+
+== Integrating the servo control signals ==
+We did strip the wires a few inches back and wire the shields together via a p clamp to the star ground.  This should be better from a noise and ground loop perspective than wiring the shields to the ground on the 7i23.
+
+== Integrating estop, limit and servo enable ==
+
+
 == Understanding the Anilam servo amplifiers ==
 
 The servo amplifiers in both of our mills are Anilam brand servo (one is Accu-rite brand) amplfiers with part number SMA7215-200-1 .  These are manufactured by by Glentek, and the manual is availble from http://todo:get after a free resgistration on their site.  The manual contains a nice introduction to DC brushed servo control and describes the amplifiers in detail.
