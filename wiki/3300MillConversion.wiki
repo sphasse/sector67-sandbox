@@ -274,7 +274,7 @@ The servo amp datasheet specifies a solid state relay, and now I think I know wh
 
 After lamenting this state of affairs somewhat, I decided to integrate a solid state relay instead, and wired that to the 24V enable.  Some amount of wrangling later and it was working by about midnight, with a wiring cleanup going to be necessary before integrating the stepper power supply.
 
-However, it is in a good enough state now to run for basic testing.  My plan is to route the 50-pin cables through 
+However, it is in a good enough state now to run for basic testing.  My plan is to route the 50-pin cables through the outgoing air filter for now.
 
 More work accomplished:
 
@@ -283,7 +283,5 @@ More work accomplished:
   * SSR relay installed and wired temporarily
   * inital work to solder the XLR end onto the servo motor
   * Documented one of the amp's resistance values per the data sheet
-
-
 
 
