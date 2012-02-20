@@ -296,5 +296,4 @@ A bit of work this morning to get things ready for "beta test" mode:
 
 In this configuration, with the SSR, etc. the machine is basically functional.
 
-I've reviewed the data sheet for enabling the limit switches and cannot find where I might have gone wrong.  Fixing the clamp circuit will require more in-depth analysis.
-
+I've reviewed the data sheet for enabling the limit switches and cannot find where I might have gone wrong.  Fixing the clamp circuit will require more in-depth analysis.  The most likely fault IMO is ground differential between the DC power supply and the servo amps.  This theory should be testable.
