@@ -73,7 +73,7 @@ The servo amplifiers in both of our mills are Anilam brand servo (one is Accu-ri
 We are running these servo amps in a velocity mode control loop, with tachometer feedback coming from each motor.
 
 === Motor control DC voltage power supply and relay ===
-The manual proscribes a solid state relay for the DC power supply, and we have moved to a mechanical relay instead.  The previous control boad did have a solid state relay.  I don't expect this will have a significant impact on the operations of the amps, and the reason for the recommendation is not given.  Consulting with some motor control folks has left me relatively confident that we won't weld the contacts of our relays, which would otherwise be one reason to use a solid state relay.
+The manual proscribes a solid state relay for the DC power supply, and we have moved to a mechanical relay instead.  The previous control boad did have a solid state relay.  I don't expect this will have a significant impact on the operations of the amps, and the reason for the recommendation is not given.  Consulting with some motor control folks has left me relatively confident that we won't weld the contacts of our relays, which would otherwise be one reason to use a solid state relay.  NOTE: this confidence was misplaced, perhaps due to our use of cheaper relays.  On one malfunction, the relays welded, and so now we have an SSR in place for the servo DC power supply.
 
 === Amplifier inhibit ===
 The wires labled "inhibit" on the Anilam control board are wired to the "clamp" input of the amplifier.  The clamp signal is appropriate for estop, as it brakes the motors for a short time before disbling the amplifier.  This should make things stop on a dime on when estopped, and indeed we did notice some drift in the motors on an estop with the "fault" wires just floating.  Depending on how various DIP switches are set, the polarity of this signal can be configured.  TODO: describe how we configured the correct polarity and wired it to the enable signal of the daughter board.
@@ -174,6 +174,7 @@ The limit and clamp share S1-7 and thankfully for our desired configuration both
 
 This would in effect change the model number (which informatin on how the switches are configured) to: SMA7215-282 TODO: confirm
 
+NOTE: after doing this for one axis, the servo tripped the 20A circuit breaker and welded the mechanical relay.
 
 =TODOs=
 Individual TODOs are listed in the build log per day.
@@ -274,7 +275,7 @@ The servo amp datasheet specifies a solid state relay, and now I think I know wh
 
 After lamenting this state of affairs somewhat, I decided to integrate a solid state relay instead, and wired that to the 24V enable.  Some amount of wrangling later and it was working by about midnight, with a wiring cleanup going to be necessary before integrating the stepper power supply.
 
-However, it is in a good enough state now to run for basic testing.  My plan is to route the 50-pin cables through the outgoing air filter for now.
+However, it is in a good enough state now to run for basic testing.  My plan is to route the 50-pin cables through the outgoing air filter for now (this didn't work out as there is a grill, but routing them through the former hole for the PC connection cable did work.)
 
 More work accomplished:
 
@@ -283,5 +284,17 @@ More work accomplished:
   * SSR relay installed and wired temporarily
   * inital work to solder the XLR end onto the servo motor
   * Documented one of the amp's resistance values per the data sheet
+  * Monitor clamped to the board
 
+== 02/18/2012 ==
+A bit of work this morning to get things ready for "beta test" mode:
+
+  * The estop button mounted and wired more permanently
+  * The 50-pin cables all routed through the back of the cabinet
+  * The cabinet door back on (although not grounded yet) and locked closed.
+  * PC wires routed and zip tied.
+
+In this configuration, with the SSR, etc. the machine is basically functional.
+
+I've reviewed the data sheet for enabling the limit switches and cannot find where I might have gone wrong.  Fixing the clamp circuit will require more in-depth analysis.
 
