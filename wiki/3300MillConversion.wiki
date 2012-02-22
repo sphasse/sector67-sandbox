@@ -297,3 +297,28 @@ A bit of work this morning to get things ready for "beta test" mode:
 In this configuration, with the SSR, etc. the machine is basically functional.
 
 I've reviewed the data sheet for enabling the limit switches and cannot find where I might have gone wrong.  Fixing the clamp circuit will require more in-depth analysis.  The most likely fault IMO is ground differential between the DC power supply and the servo amps.  This theory should be testable.
+
+== 02/21/2012 ==
+Further work tonight to integrate the 4th stepper axis:
+
+  * Wired up the machine-enabled-only 120V to the 36VDC power supply
+  * Cleaned up the 120V wiring to the main servo DC power supply
+  * Soldered the 5-pin XLR connector to both the stepper motor
+  * Soldered wires to the 5-pin XLR receptacle
+  * Punched a hole in the case for the XLR receptacle and mounted it
+  * Mounted the stepper driver, had some problems with this as the screws I mounted in the chassis are too close together to fit a bolt on :-).  So instead I temporarily screwed through the case.  I can hopefully move the right screw hole over a bit to fix this.
+  * Wired the 
+  * Changed the CMOS battery in the PC so it should boot without errors now (thanks Peter N for work on this)
+  * Added the "second" 50-pin ribbon cable to the 5i23 card and hooked the 50-pin breakout board with stepper signals to the signal port of the stepper amp. 
+  * Integrated the A axis into a new LinuxCNC configuration and tested it.  Worked perfectly the first time!
+
+Still need to:
+  * Mount a fan on the stepper amp (24V machine on only could be easily routed from the SSR
+  * Make a permanent cable for the stepper signal and route it properly
+  * Order 6' or 7' cables from mesa for the rest of the 50-pin connectors
+  * Get an 1 1/2" conduit connectors and mount it in the box
+  * Mount a switch for manual/auto spindle operation and wire 120V enabled for manual mode, versus machine-on-only for auto mode.
+  * Clean up the 24V wiring to the SSR, could do this in conjunction with the fan power.
+  * Machine the adapter plate so we can mount the smaller three-jaw chuck in the rotary axis
+
+All-in-all a solid night of progress with visible results.
