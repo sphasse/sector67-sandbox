@@ -267,13 +267,16 @@ If we get all that done, we can integrate the 4th stepper axis:
 
 
 == 02/17/2012 ==
-Fourth night of the mill hackathon.  A somewhat frustrating and long night.  Thanks much to Brett U and Peter N who worked on getting the fourth stepper axis working.
+Fourth night of the mill hackathon.  A somewhat frustrating and long night.  Thanks much to Brett U and Peter N who worked toward getting the fourth stepper axis working.
 
 We ran into our first real problems tonight.  After wiring up the inhibit on the X axis for what I though would properly inhibit integrated with the Mesa 7i23, I powered the servos and tripped a breaker.  Setting the DIP switches back to stock and unwiring the clamp wire let things start up, but I had actually welded the relay powering the large DC power supply, so the servos were enabled all the time.  obviously not a good situation.
 
 The servo amp datasheet specifies a solid state relay, and now I think I know why anyway.  After switching the relay board (thank goodness we had a spare, it appeared to weld the relay once again on normal powerup, after which it functioned properly but the amps remained powered.  WithY and Z only this did not happen, but with X and Z it did seem to happen but after I heard a click from the relay and it did power down, it was just greatly delayed (like more than a minute).  
 
+  Note: I now think this problem was caused by a basic mistake, a ground differential between the 5/15V power supply on-board the servo amp and the Mesa card.  I am still somewhat amazed everything works, and I can't tell where that 20A went that tripped the breaker, but so far things seem properly functional.  Using the isolated I/O adapter I should be able to handle the clamp signal properly.
+
 After lamenting this state of affairs somewhat, I decided to integrate a solid state relay instead, and wired that to the 24V enable.  Some amount of wrangling later and it was working by about midnight, with a wiring cleanup going to be necessary before integrating the stepper power supply.
+ 
 
 However, it is in a good enough state now to run for basic testing.  My plan is to route the 50-pin cables through the outgoing air filter for now (this didn't work out as there is a grill, but routing them through the former hole for the PC connection cable did work.)
 
