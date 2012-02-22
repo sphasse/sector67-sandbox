@@ -182,7 +182,7 @@ Individual TODOs are listed in the build log per day.
 = Build Log =
 == 2/9/2012 ==
 
-We made great progress last night during the first half of the mill conversion hackathon.  Scott S dis a great job cleaning out the workspace around the mill control box, and then got straight to work identifying and converting the quadrature TTL-level encoder signals coming from the motors and the +5/GND supply needed to drive the encoders.  Once the X axis was wired to the Mesa servo daughter card we were able build a sample starting configuration using pncconf and see correct movement in the open loop configuration for the axis.
+We made great progress last night during the first session of the mill conversion hackathon.  Scott S dis a great job cleaning out the workspace around the mill control box, and then got straight to work identifying and converting the quadrature TTL-level encoder signals coming from the motors and the +5/GND supply needed to drive the encoders.  Once the X axis was wired to the Mesa servo daughter card we were able build a sample starting configuration using pncconf and see correct movement in the open loop configuration for the axis.
 
 Scott H pulled down LinuxCNC 2.4.7 from the repository to avoid some pncconf bugs.
 
@@ -194,7 +194,7 @@ We tested each axis individually under open loop control to determine which of t
 
   * Following error needed to be tweaked higher by default.  We need to go back and revisit the PID tuning to resolve this.
 
-  * I had "worked ahead" and defined I/O pins for limits and estop, but since we did not have that board, the maching would not enable (it thought it was on a limit switch), so they had to be removed.
+  * I had "worked ahead" and defined I/O pins for limits and estop, but since we did not have that board, the maching would not enable (it thought it was on a limit switch), so they had to be removed from the software configuration.
 
 Work we will hopefully accomplish on Sunday 2/12/2012 (noon-5):
 
