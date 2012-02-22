@@ -320,5 +320,6 @@ Still need to:
   * Mount a switch for manual/auto spindle operation and wire 120V enabled for manual mode, versus machine-on-only for auto mode.
   * Clean up the 24V wiring to the SSR, could do this in conjunction with the fan power.
   * Machine the adapter plate so we can mount the smaller three-jaw chuck in the rotary axis
+  * Get the servo clamp working with isolated I/O.  This will likely require adding a ground wire coming from each amp.
 
 All-in-all a solid night of progress with visible results.
