@@ -326,3 +326,37 @@ Still need to:
   * Get the servo clamp working with isolated I/O.  This will likely require adding a ground wire coming from each amp.
 
 All-in-all a solid night of progress with visible results.
+
+== 02/26/2012 ==
+Sunday cleanup, some relay frustration.
+
+I worked most of the day today on cleaning up wiring and wrapping up some other conversion tasks.  Tasks completed include:
+
+  * Finding a 24V fan for the stepper amp and wiring it in place
+  * Stranding the 6' 50 pin cable from Mesa for the I/O and shielding it with metal tape
+  * Switching from the 50-pin breakout board to dedicated wiring for the stepper amp control signals
+  * Implementing a 50-pin cable with about 10 wires run for the stepper amp control signals
+  * Routing all of that signal wire through a plastic shield through the larger hole in the case
+  * Heat shrink tubing on the XLR stepper connector
+  * Wiring in a manual/auto spindle contactor control switch so that when the spindle power is eventually wired through the case, we'll have the ability to run the mill in manual mode.
+  * Took some pictures of the box for documentation
+  * Replace the blown 10A SSR with the 25A Anilam board SSR (See IMPORTANT NOTE #1 below)
+  
+The remaining task list is finally growing somwehwat shorter:
+  * Properly PID tune the servo amps, including max acceleration and velocity.
+  * Consider tuning the balance on the servo amps to be neutral.  Currently the X axis at least floats some.  The other axes probably float a bit as well.  This should make the mills a touch less jittery.
+  * Implement the clamp signal when the machine is not on (see important note #2 below).
+  * Consider a third spindle option (auto, manual, off), or we can just continue to use the breaker switch on the VFD box.
+
+  IMPORTANT NOTE #1: The 10 amp SSR was blown, again compromising estop behavior.  We finally did the smart thing and looked at the rating of the SSR on the existing Anilam board and it was 25A.  So we were basically putting 10A relay devices (at first a mechanical relay that welded, and second a SSR relay that blew) where 25A was needed.  We're currently using the Anilam SSR relay and we'll see how far that gets us.  In theory that should work completely fine, so if we have problems then we know we've got some other issue.
+  
+  The thinking there is that when the capacitor on the large DC power supply is completely uncharged it will draw lots of current on startup.  After charging up it'll draw a lot less.  Thus the need for the higher current rating.  I'll need to talk with some power supply folks to confirm this thinking.
+  
+
+  IMPORTANT NOTE #2: When working to understand the clamp signal, I temporarily attached a 0.1" pin header to the ground pin of the test header.  I could then enable the clamping function by grounding the clamp wire to this wire.  Unfortunately, after ungrounding it (removing the clamp function) the servo motor started to oscillate.  I believe this is due to a combination of things:
+  
+  1) The servos not being properly PID tuned so that oscillation when under control does not dampen.  Currently they are a naive P-only tuning.
+  2) The following error being set to 1 inch so that the oscillation was allowed to continue.
+  3) The clamping function itself moving the servos a bit so that a non-linear correction needed to be applied when motion was restored.
+  
+  This will take some further investigation about how to best resolve it.  Proper PID tuning and tighter following error tolerances are logical next steps for this mill in any case.
