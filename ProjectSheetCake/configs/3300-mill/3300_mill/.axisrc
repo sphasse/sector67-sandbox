@@ -1,0 +1,2 @@
+root_window.bind("<space>", "task_pause")
+help2.append(("Space", "Pause program"))
