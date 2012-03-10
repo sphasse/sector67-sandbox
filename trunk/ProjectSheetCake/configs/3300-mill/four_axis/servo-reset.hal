@@ -1,0 +1,5 @@
+# this sets up the servo reset output links to the custom.clp classicladder program
+# this requires that the appropriate "servo-reset" net has been configured
+# to an output pin in pncconf
+net enable => classicladder.0.in-10
+net servo-reset <= classicladder.0.out-10
