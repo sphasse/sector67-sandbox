@@ -1,0 +1,18 @@
+#http://linuxcnc.org/docs/devel/html/hal/rtcomps.html#sec:Encoder
+# hm2_5i23.0.gpio.048.in is the freqeuncy in
+# create the thread
+#loadrt threads name1=edm-thread period1=200000
+# load the component
+loadrt encoder num_chan=1
+setp encoder.0.counter-mode true
+#encoder.0.phase-A
+net analog-A encoder.0.phase-A <=  hm2_5i23.0.gpio.048.in
+# set the velocity of the encoder for a proper scale
+setp encoder.0.position-scale 1.0
+# set the volicity out to feed the analog input
+net analog-1 <= encoder.0.velocity
+# add the component to the thread
+#addf encoder.update-counters edm-thread
+#addf encoder.capture-position edm-thread
+addf encoder.update-counters base-thread
+addf encoder.capture-position servo-thread
