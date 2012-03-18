@@ -150,6 +150,8 @@ G1 Z#4 (back off when finished to the safe height)
 M30
 }}}
 
+In basic testing this program seems to work as expected.
+
 =Further refinements=
 There is still more jitter/interpolation than expected and the manageable frequencies are lower than expected as well (topping out around 1500Hz with a 50000 uS encoder thread).  Some analysis is probably needed to determine why this is.  1500Hz has a period of 666 uS.  Even assuming 25uS delay on both transitions of the optical isolation, and sampling each 50% duty cycle twice, we should still be able to count much higher frequencies.  More math and perhaps some scope analysis here would be helpful.
 
