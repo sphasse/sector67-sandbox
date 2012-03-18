@@ -61,10 +61,6 @@ This limits our input frequency somewhat.
 =Counting pulses in LinuxCNC=
 Although LinuxCNC does not have a dedicated frequency to analog component, one can easily be made by using an encoder component, configuring it for mode and using the velocity output.
 
-{{{
-
-}}}
-
 =Counting pulses fast enough=
 A big challenge with software-based encoders is counting the pulses quickly enough.  The Mesa board will do a great job with on-board encoders, counting as necessary and keeping track of pulse timings very precisely.  However, with the potential rewiring needed to take advantage of on-board 5i23 encoders we decided to go with software-based encoders instead.
 
