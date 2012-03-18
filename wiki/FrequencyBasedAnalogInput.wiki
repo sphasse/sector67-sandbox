@@ -56,7 +56,7 @@ As mentioned above, the optical isolation is provided by the Mesa daughterboard.
 
 Opto-isolated inputs turn on on ~5 uSec and off in ~25 uSec.
 
-This limits our input frequency somewhat.
+This limits our input frequency somewhat but is not a show stopper for our application.
 
 =Counting pulses in LinuxCNC=
 Although LinuxCNC does not have a dedicated frequency to analog component, one can easily be made by using an encoder component, configuring it for mode and using the velocity output.
