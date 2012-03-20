@@ -7,7 +7,7 @@ This page describes a technique for PID tuning Glentek/Anilam SAM7215 servo amps
 
 =Details=
 
-An excellent book on the subject of PID tuning is _Control System Design Guide_ by George Ellis.  It is basically an academic text book with hands-on software-based exercises.  Chapters 6 and 17 in particular provide a solid background in PID tuning for position control.
+An excellent book on the subject of PID tuning is _Control System Design Guide_ by George Ellis [PIDTuningGlentekAmps#1 [1]].  It is basically an academic text book with hands-on software-based exercises.  Chapters 6 and 17 in particular provide a solid background in PID tuning for position control.
 
 Our basic approach is from [PIDTuningGlentekAmps#1 [1]] chapter 17:
 
