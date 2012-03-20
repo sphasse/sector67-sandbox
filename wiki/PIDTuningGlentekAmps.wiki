@@ -24,4 +24,6 @@ These are fairly common in the CNC world.  Continuing:
 I have observed both of these problems in our P/PI system without feed forward tuning.
 
 ----
-====1====  [http://www.amazon.com/Control-System-Design-Guide-Third/dp/0122374614 Control System Design Guide, George Ellis]
+===References===
+======1======
+[http://www.amazon.com/Control-System-Design-Guide-Third/dp/0122374614 Control System Design Guide, George Ellis]
