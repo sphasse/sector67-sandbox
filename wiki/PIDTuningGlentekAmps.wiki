@@ -23,6 +23,8 @@ These are fairly common in the CNC world.  Continuing:
 
 I have observed both of these problems in our P/PI system without feed forward tuning.
 
+
+
 ----
 ===References===
 =====1=====
