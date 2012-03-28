@@ -115,6 +115,9 @@ The program below shows how we are using the analog value to make a plunge/stay/
 #1=0 (Z safe height)
 #2=-1 (ultimate Z depth)
 #3=0.0001 (Z step)
+(all thresholds between 500 and 1000 )
+#5=750 (upper hold threshold, higher than this plunges )
+#6=650 (lower hold threshold, lower than this retreats)
 
 #4=#1 (current depth, updated as needed)
 
@@ -125,8 +128,8 @@ G1 Z#1
 O101 while [#4 gt #2]
     M66 E0 L0
     (the analog value is stored in #5399)
-    O102 if [#5399 gt 700]
-        O103 if [#5399 GT 900]
+    O102 if [#5399 gt #5]
+        O103 if [#5399 GT #6]
             (voltage is high, plunge forward if not at target depth)
             O104 if [#4 gt #2]
                 #4 = [#4 - #3]
@@ -148,6 +151,7 @@ O101 endwhile
 G1 Z#4 (back off when finished to the safe height)
 
 M30
+
 }}}
 
 In basic testing this program seems to work as expected.
