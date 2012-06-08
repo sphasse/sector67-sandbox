@@ -1,5 +1,5 @@
 # Include your customized HAL commands here
-source analog-joystick-jog.hal
+#source analog-joystick-jog.hal
 source servo-reset.hal
 # put a pound sign in front of the line below to disable spindle faults
 # causing estops
