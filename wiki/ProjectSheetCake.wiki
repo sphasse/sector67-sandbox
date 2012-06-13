@@ -438,25 +438,32 @@ TODO: implement a dead man switch on the joystick jog so that if the joystick ge
 
   * Hardware estop and limits are a good thing to have.  In case of tuning issues or unexpected software or configuration problems, you always have a safe backstop.
 
+=Additional changes=
+6/13/2012, we've continued to work on this mill, taking out the extraneous Anilam components and installing things in a more permanent way.  The manual/auto spindle switch was re-integrated in a more generic way, which required wiring a jumper across the auto/manual switch input on the Anilam relay board.
+
+All-in-all this retrofit continues to be a success.
+
 =Build log=
 Check out the SheetCakeBuildLog.
 
 =TODO=
 There are quite a few tasks remaining to complete this project.  Some of them are:
 
-  * Video the existing Anilam components functioning properly so we can take them out and sell them
-  * Remove the unneeded boards and package and label them
+  * Video the existing Anilam components functioning properly so we can take them out and sell them (done)
+  * Remove the unneeded boards and package and label them (done)
   * Move the PC to the left cabinet
-  * Make 3x shielded 50-pin cables with the shielded cat 5 and 50-pin ends
+  * Make 3x shielded 50-pin cables with the shielded cat 5 and 50-pin ends (done)
   * Wire the PC to the mill 120V inside the cabinet
   * Configure the PC bios to start upon receiving power, so that turning the mill on will boot the PC
   * Add a separate signal (non-power) conduit from the VFD to the right cabinet for estop signals and eventually potentially encoder and software control of the VFD.
-  * Mount the stepper controller and power supply inside the right cabinet.  Consider potentially mounting these inside the left cabinet where we will have more space.  Access to estopped 120V power might be more difficult though.
-  * Wire the 36V power supply to estopped 120V power
+  * Mount the stepper controller and power supply inside the right cabinet.  Consider potentially mounting these inside the left cabinet where we will have more space.  Access to estopped 120V power might be more difficult though. (done but on the 3300 mill)
+  * Wire the 36V power supply to estopped 120V power (done but on the 3300 mill)
   * Mount the monitor holder on the monitor arm
   * get and mount a keyboard/mouse holder on the monitor arm
-  * mount the separate estop button in an accessible location, and consider how to wire up an encoder for controlling feed override.
+  * mount the separate estop button in an accessible location (done)
+  * consider how to wire up an encoder for controlling feed override. 
   * Complete the PID/FF tuning and configure following error to be realistic and helpful, vs. something like 1 inch which it is now.
+
 
 
   * 
