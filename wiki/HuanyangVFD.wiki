@@ -1,0 +1,28 @@
+#summary A page describing integration of the Huanyang 3HP VFD
+
+= Introduction =
+Around 8/2012 Sector67 began an effort to integrate a Huanyang 3HP VFP inverter to control the spindle on our older CNC mill.  This page describes some details of that integration.
+
+This integration is in progress so this page is a placeholder for now.
+
+There were several strategies for integrating the spindle control with the overall LinuxCNC-based system, including
+  * Use analog output from the MESA cards and encoder input, along with the analog input functions of the VFD to implement full control of the spindle via LinuxCNC.  This would ultimately be interesting and allow rigid tapping, but as we have little need for that and typically tweak the spindle speed by hand (and sometimes run the mill in completely manual mode) we did not choose this path.
+  * Use of the "Digital Operator" front panel on the VFD.  This could be extended to the front of the machine.  The interface is a bit clunky for newcomers however and is not very rugged, so we did not pursue this approach either.
+  * Integration to LinuxCNC via RS485.  This would require some software tweaking but would be simpler than implementing a full control loop.  Again though the desire to use the spindle in manual mode precluded this path.
+  * Use of the existing rugged analog control panel.  This panel has a potentimeter for RPM adjustment, an enable switch, a forward/reverse switch and a digital RPM display.  It also has a relay for latching estop functions.
+
+We chose the existing analog control panel approach as it provided the most rugged interface that could be manually controlled.  This might be revisited in the future, especially integrating an encoder with LinuxCNC to provide accurate RPM.
+
+= Issues =
+* The screw terminals on the VFP are fairly small for the expected current.  We had to grind down 10 gauge crimp terminal ends to be able to fit them into the terminals on the device.
+
+= Details =
+
+A table of changed settings
+|| Settings || Factory || Set to || Meaning ||
+|| PD002    || 0       || 1      || Operating frequencies controlled via external terminals ||
+|| PD030    || 0.0     || 5.0    || DC braking time at stop ||
+|| PD031    || 2.0     || ?      || Increase slowly if braking does not stop the device. ||
+|| PD026    || 0       || 1      || Coasting stop (enables braking) ||
+|| PD028    || 0.5     || ?      || Stopping frequency.  Increase to apply braking sooner ||
+|| PD047    || 17      || 09     || Configure input #4 as an external estop ||
