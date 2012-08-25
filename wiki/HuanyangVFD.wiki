@@ -25,7 +25,8 @@ A table of changed settings
 || PD031    || 2.0     || ?      || Increase slowly if braking does not stop the device. ||
 || PD026    || 0       || 1      || Coasting stop (enables braking) ||
 || PD028    || 0.5     || ?      || Stopping frequency.  Increase to apply braking sooner ||
-|| PD047    || 17      || 09     || Configure input #4 (SPH) as an external estop ||
+|| PD047    || 07      || 09     || Configure input #4 (SPH) as an external estop ||
+|| PD048    || 19      || 09     || Configure input #5 (SPL) as an external estop ||
 
 = References =
 A wiring diagram for the HH Roberts analog control panel can be found here:
