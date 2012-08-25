@@ -27,6 +27,7 @@ A table of changed settings
 || PD028    || 0.5     || ?      || Stopping frequency.  Increase to apply braking sooner ||
 || PD047    || 07      || 09     || Configure input #4 (SPH) as an external estop ||
 || PD048    || 19      || 09     || Configure input #5 (SPL) as an external estop ||
+|| PD051    || 03      || 03     || Confirm Y2 output is fault indication.||
 
 = References =
 A wiring diagram for the HH Roberts analog control panel can be found here:
