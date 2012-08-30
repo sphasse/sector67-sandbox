@@ -16,9 +16,14 @@ We chose the existing analog control panel approach as it provided the most rugg
 = Issues =
 * The screw terminals on the VFP are fairly small for the expected current.  We had to grind down 10 gauge crimp terminal ends to be able to fit them into the terminals on the device.
 
+* The terminal labeled +5V seems to be high impedence and does not supply +5V.  This causes a re-work of the enable latching circuit because the existing relay was rated for 5v.  Luckily Chris had 24V CPDT relays handy.  The +5V is not documented on some of the diagrams in the manual, but is clearly labeld on the terminals, so this is a bit of a mystery.  I have not been able to find a setting that would "enable" the +5V output.  The corresponding 24V output works as expected.
+
+* The forward/reverse switch did not function as expected.  It had four terminals and three positions (forward, stop, reverse).  I had assumed this switch was single pole double throw and would have one pair open in the forward position and one pair closed, reversing that for the reverse position and both pairs open in the off position.  It turns out it had both pairs open in the off position, one pair closed in the reverse position and both pairs closed in the forward position.  There was no obvious way to make this switch scheme compatible with the input the VFD expected, so we had to switch to a different forward/off/reverse switch.  Chris had a switch in stock that worked as expected (Sector67 is amazing!).
+
 = Details =
 
 A table of changed settings
+(this table is neither complete not correct currently)
 || Settings || Factory || Set to || Meaning ||
 || PD002    || 0       || 1      || Operating frequencies controlled via external terminals ||
 || PD030    || 0.0     || 5.0    || DC braking time at stop ||
@@ -41,3 +46,13 @@ http://www.hhrobertsmachinery.com/Support/Manual_machine_Parts_Lists/Yaskawa/GL%
 The manual for the VFD can be found here:
 
 http://www.cnczone.com/forums/attachment.php?attachmentid=79285&d=1239132143
+
+= TODO =
+TODO:
+* Test the 5V output and see if it is enabled when the input is 5V.
+* Integrate the spindle lock as an external estop
+* Integrate the LinuxCNC estop as an external estop (parallel)
+* Integrate the fault out into LinuxCNC
+* Shrink wrap and mount the 24V relay
+* Wire the RPM display and calibrate
+* Re-crimp the fan and re-lable it properly as 220V
