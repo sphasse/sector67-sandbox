@@ -25,13 +25,17 @@ We chose the existing analog control panel approach as it provided the most rugg
 A table of changed settings
 (this table is neither complete not correct currently)
 || Settings || Factory || Set to || Meaning ||
+|| PD001    || 0       || 1      || Source of run commands is external terminal ||
 || PD002    || 0       || 1      || Operating frequencies controlled via external terminals ||
 || PD030    || 0.0     || 5.0    || DC braking time at stop ||
 || PD031    || 2.0     || ?      || Increase slowly if braking does not stop the device. ||
-|| PD026    || 0       || 1      || Coasting stop (enables braking) ||
+|| PD026    || 0       || 0      || Decelerating stop (needed for braking) ||
 || PD028    || 0.5     || ?      || Stopping frequency.  Increase to apply braking sooner ||
-|| PD047    || 07      || 09     || Configure input #4 (SPH) as an external estop ||
-|| PD048    || 19      || 09     || Configure input #5 (SPL) as an external estop ||
+|| PD044    || 02      || 02     || Configure input #1 (FOR) forward ||
+|| PD045    || 03      || 03     || Configure input #2 (REV) forward ||
+|| PD047    || 07      || 13     || Configure input #4 (SPH) as an external estop ||
+|| PD048    || 19      || 13     || Configure input #5 (SPM) as an external estop ||
+|| PD049    || 20      || 01     || Configure input #6 (SPL) as run enable ||
 || PD051    || 03      || 03     || Confirm Y2 output is fault indication.||
 
 = References =
