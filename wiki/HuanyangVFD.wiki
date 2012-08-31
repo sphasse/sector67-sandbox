@@ -47,6 +47,24 @@ The manual for the VFD can be found here:
 
 http://www.cnczone.com/forums/attachment.php?attachmentid=79285&d=1239132143
 
+= Wires from the control head =
+
+||Wire  ||VFD Side        ||Control head side   ||
+||Gray  || Sindle lock    ||
+||Purple|| REV            ||
+||Orange|| FOR            ||
+||Brown || ACM            || Ground of speed POT and digital tach || Analog ground signal
+||Tan   || 10V            || Top of speed POT || +10V reference for speed control ||
+||Pink  || V0             || + signal of digital tach || Analog speed out
+||Red   || +24V           ||                    || +24V for latch circuit
+||Black || VI             || Wiper of speed POT || Analog speed signal in 
+
+= Wires from spindle lock =
+
+Spindle lock is normally closed, open when the spindle is locked
+|| Wire || Use ||
+|| Red || Gray signal wire to complete ground circuit. 
+|| Black || DCM || || 
 = TODO =
 TODO:
 * Test the 5V output and see if it is enabled when the input is 5V.
