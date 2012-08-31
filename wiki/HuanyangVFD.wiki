@@ -68,8 +68,16 @@ http://www.cnczone.com/forums/attachment.php?attachmentid=79285&d=1239132143
 
 Spindle lock is normally closed, open when the spindle is locked
 || Wire || Use ||
-|| Red || Gray signal wire to complete ground circuit. 
-|| Black || DCM || || 
+|| Red || Gray signal wire to complete ground circuit. || Allows the spindle lock switch to be a part of estop ||
+|| Black || DCM ||  Digital ground signal ||
+
+= Wires from the Mesa card =
+||Wire || Meaning ||
+|| Orange       || + of the digital input      ||
+|| Orange/white || Ground of the digital input ||
+|| Blue         || + of the isolated digital estop out ||
+|| Blue/white   || Ground of the digital estop out     ||
+
 = TODO =
 TODO:
 * Test the 5V output and see if it is enabled when the input is 5V.
