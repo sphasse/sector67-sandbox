@@ -73,10 +73,10 @@ Spindle lock is normally closed, open when the spindle is locked
 
 = Wires from the Mesa card =
 ||Wire || Meaning ||
-|| Orange       || + of the digital input      ||
-|| Orange/white || Ground of the digital input ||
-|| Blue         || + of the isolated digital estop out ||
-|| Blue/white   || Ground of the digital estop out     ||
+|| Orange       || + of the digital input      ||  Provides input to LinuxCNC when the spindle is faulted ||
+|| Orange/white || Ground of the digital input || || 
+|| Blue         || + of the isolated digital estop out || Provides output from LinuxCNC when the system is estopped ||
+|| Blue/white   || Ground of the digital estop out     || ||
 
 = TODO =
 TODO:
@@ -87,3 +87,8 @@ TODO:
 * Shrink wrap and mount the 24V relay
 * Wire the RPM display and calibrate
 * Re-crimp the fan and re-lable it properly as 220V
+
+= Thoughts on this project =
+In retrospect, it would have probably been easier to mount a cabinet on the back of the mill and mounted the VFD in that.  That would have meant re-wiring the three phases to the motor, the braking resistor, the control signals, and the 3-phase input (basically, re-wiring everything with longer wires).  However, that would have made future maintenance of both the VFD and mill head simpler.
+
+However, for expedience we re-mounted the VFD in the same tight enclosure.  It barely fits and takes contortions to get everything mounted, but it is just workable.
