@@ -1,7 +1,7 @@
 #summary A page describing integration of the Huanyang 3HP VFD
 
 = Introduction =
-Around August 2012 Sector67 began an effort to integrate a Huanyang 3HP VFP inverter HY03D023B (TODO: confirm the model #) to control the spindle on our formerly Anilam 1100 CNC mill.  The need for this transition was caused by the ongoing malfunctioning of our SpindleBlok/CapBlok VFD.  That device was faulting with a low DC bus voltage, even though the bus voltage itself seems to have been fine when measured externally.  This page describes some details of the Huanyang integration.
+Around August 2012 Sector67 began an effort to integrate a Huanyang 3HP VFP inverter HY02D223B(TODO: confirm the model #) to control the spindle on our formerly Anilam 1100 CNC mill.  The need for this transition was caused by the ongoing malfunctioning of our SpindleBlok/CapBlok VFD.  That device was faulting with a low DC bus voltage, even though the bus voltage itself seems to have been fine when measured externally.  This page describes some details of the Huanyang integration.
 
 *This integration is in progress so this page is a placeholder for now.*
 = Basic approach =
