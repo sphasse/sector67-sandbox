@@ -11,7 +11,17 @@ This page describes the conversion of our Sieg CNC lathe to LinuxCNC
 
 == Spindle Encoder ==
 
+AutomationDirect.com 
+
+Plus a dedicated hall encoder for a Z pulse
+
 == Stepper motors and drivers ==
+=== Drivers ===
+Yako YKA2404MA
+
+http://www.yankong.com/doce/product/detail_103.html
+
+
 
 == Spindle motor and drive ==
 
