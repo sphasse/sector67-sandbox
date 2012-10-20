@@ -1,0 +1,20 @@
+#summary A page describing the LinuxCNC conversion of our Sieg CNC Lathe
+
+= Introduction =
+
+This page describes the conversion of our Sieg CNC lathe to LinuxCNC
+
+
+= Details =
+
+Existing configuration
+
+== Spindle Encoder ==
+
+== Stepper motors and drivers ==
+
+== Spindle motor and drive ==
+
+
+
+== Mesa hardware ==
