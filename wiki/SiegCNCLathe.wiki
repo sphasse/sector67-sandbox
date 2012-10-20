@@ -7,7 +7,7 @@ This page describes the conversion of our Sieg CNC lathe to LinuxCNC
 
 = Details =
 
-Existing configuration
+= Existing configuration =
 
 == Spindle Encoder ==
 
@@ -18,3 +18,9 @@ Existing configuration
 
 
 == Mesa hardware ==
+
+1@ 5I23 FPGA based PCI  Anything I/O card - $229 list
+1@ 7I37TA Isolated I/O card - $79 list
+1@ 7I33TA  Quad Analog servo interface - $79 list
+
+3@ DIN RAIL ADPT KIT $5 ea
