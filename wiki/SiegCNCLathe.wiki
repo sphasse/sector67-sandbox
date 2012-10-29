@@ -8,11 +8,18 @@ This page describes the conversion of our Sieg SC2518 CNC lathe to LinuxCNC.
 
 = Existing configuration =
 
-== Spindle Encoder ==
+== Spindle Encoders ==
 
-AutomationDirect.com 
+AutomationDirect.com encoder 
+TRD-S100BD
+http://www.automationdirect.com/static/specs/encoderld.pdf
 
-Plus a dedicated hall encoder for a Z pulse
+100 pulses per revolution
+12-24 VDC input voltage
+NPN open collector
+
+Plus a dedicated hall encoder for a Z pulse, LM5-3001A proximity switch
+
 
 == Stepper motors and drivers ==
 === Drivers ===
