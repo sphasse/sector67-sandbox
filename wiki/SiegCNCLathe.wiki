@@ -18,6 +18,16 @@ http://www.automationdirect.com/static/specs/encoderld.pdf
 12-24 VDC input voltage
 NPN open collector
 
+=== Open collector connections ===
+|| White || OUT B ||
+|| Orange || OUT Z ||
+|| Shield || Ground ||
+|| Black || OUT A ||
+|| Brown || Power source ||
+|| Blue || 0 V ||
+Cable shield is not connected to the encoder body;
+enclosure is grounded through the 0V wire
+
 Plus a dedicated hall encoder for a Z pulse, LM5-3001A proximity switch
 
 
@@ -26,6 +36,10 @@ Plus a dedicated hall encoder for a Z pulse, LM5-3001A proximity switch
 Yako YKA2404MA
 
 http://www.yankong.com/doce/product/detail_103.html
+
+Motors
+YK60HB86-04A
+
 
 
 
