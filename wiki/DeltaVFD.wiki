@@ -9,7 +9,7 @@ After a bad experience with a Huanyang VFD, we subsequently integrated a Delta T
 
 = Details =
 
-= Wiring details
+= Wiring details =
 A table of changed settings
 (this table is neither complete not correct currently)
 || Settings || Factory || Set to || Meaning ||
@@ -27,7 +27,7 @@ A table of changed settings
 || PD049    || 20      || 01     || Configure input #6 (SPL) as run enable (actually the drive does not function properly with run enable configured) ||
 || PD051    || 03      || 03     || Confirm Y2 output is fault indication.||
 
-= References =
+= Control panel =
 A wiring diagram for the HH Roberts analog control panel can be found here:
 
 http://www.hhrobertsmachinery.com/HHRM-docs/Topwell/GL%20220V%20Head%20Replacment%20Manual%20Rev%204A.pdf
@@ -36,6 +36,15 @@ or
 
 http://www.hhrobertsmachinery.com/Support/Manual_machine_Parts_Lists/Yaskawa/GL%20Yaskawa.JPG
 
+This control panel was rewired to:
+
+* Use 24V DC relays for the latching enable circuit
+* Use a different forward/reverse switch that provides independent normally open switches for forward and reverse
+* Simplify the wiring for the analog speed input so that it was independent of the enable latch.  This was needed as this drive has separate DC control and analog in grounds.
+
+The wiring of the latch relay is currently not ideal as the wiring is way over-sided.  Smaller wires with crimp terminals would greatly simplify it and make it more reliable.
+
+= References =
 The manual for the VFD can be found here:
 
 http://www.cnczone.com/forums/attachment.php?attachmentid=79285&d=1239132143
@@ -48,7 +57,7 @@ http://www.cnczone.com/forums/attachment.php?attachmentid=79285&d=1239132143
 ||Orange|| FOR            || Direction switch forward ||          ||
 ||Brown || ACM            || Ground of speed POT and digital tach || Analog ground signal ||
 ||Tan   || 10V            || Top of speed POT || +10V reference for speed control ||
-||Pink  || V0             || + signal of digital tach || Analog speed out ||
+||Pink  || V0             || + signal of digital tach || Analog speed output to the digital tach||
 ||Red   || +24V           ||                    || +24V for latch circuit ||
 ||Black || VI             || Wiper of speed POT || Analog speed signal in 
 ||Blue  || No Connection  || latched ground     || Intended to be a run enable signal ||
