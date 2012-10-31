@@ -3,7 +3,13 @@
 = Introduction =
 Around August 2012 Sector67 began an effort to integrate a Huanyang 3HP VFP inverter HY02D223B(TODO: confirm the model #) to control the spindle on our formerly Anilam 1100 CNC mill.  The need for this transition was caused by the ongoing malfunctioning of our SpindleBlok/CapBlok VFD.  That device was faulting with a low DC bus voltage, even though the bus voltage itself seems to have been fine when measured externally.  This page describes some details of the Huanyang integration.
 
-*This integration is in progress so this page is a placeholder for now.*
+
+*NOTE: We currently do not recommend using this VFD.  The one supplied to us had terminals for a braking resistor, documentation implying a braking resistor would be used and configuration parameters for configuring braking resistor percentages.  However, after configuring appropriate parameters for a braking resistor the VFD went into an DC bus overvoltage condition and was subsequently.  Subsequent disassembly showed that the BRAKING RESISTOR TERMINALS WENT TO THE PC BOARD BUT NOWHERE FROM THERE.  Be strongly cautioned that this drive might not be what is advertised.*
+
+We have subsequently switched to a Delta VFD, documented at [DeltaVFD].
+
+The documentation is being left below for historical purposes.
+
 = Basic approach =
 There were several possible strategies for integrating the spindle control with the overall LinuxCNC-based system, including
   * Use analog output from the MESA cards and encoder input, along with the analog input functions of the VFD to implement full control of the spindle via LinuxCNC.  This would ultimately be interesting and allow rigid tapping, but as we have little need for that and typically tweak the spindle speed by hand (and sometimes run the mill in completely manual mode) we did not choose this path.
