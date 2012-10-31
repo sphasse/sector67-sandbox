@@ -2,9 +2,7 @@
 
 = Introduction =
 
-After a bad experience with a Huanyang VFD, we subsequently integrated a Delta TODO: get model
-
-
+After a bad experience with a Huanyang VFD, we subsequently integrated a Delta (TODO: get model) VFD.  The integration was fairly straightforward as the two VFDs were very similar.
 
 
 = Details =
