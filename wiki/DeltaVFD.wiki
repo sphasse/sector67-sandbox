@@ -18,7 +18,7 @@ After a bad experience with a Huanyang VFD, we subsequently integrated a Delta (
 ||Tan   || 10V            || Top of speed POT || +10V reference for speed control ||
 ||Pink  || V0             || + signal of digital tach || Analog speed output to the digital tach||
 ||Red   || +24V           ||                    || +24V for latch circuit ||
-||Black || VI             || Wiper of speed POT || Analog speed signal in 
+||Black || VI             || Wiper of speed POT || Analog speed signal in ||
 ||Blue  || No Connection  || latched ground     || Intended to be a run enable signal ||
 
 == Wires from spindle lock ==
