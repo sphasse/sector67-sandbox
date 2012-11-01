@@ -85,7 +85,7 @@ http://www.cnczone.com/forums/attachment.php?attachmentid=79285&d=1239132143
 ||Tan   || 10V            || Top of speed POT || +10V reference for speed control ||
 ||Pink  || V0             || + signal of digital tach || Analog speed out ||
 ||Red   || +24V           ||                    || +24V for latch circuit ||
-||Black || VI             || Wiper of speed POT || Analog speed signal in 
+||Black || VI             || Wiper of speed POT || Analog speed signal in ||
 ||Blue  || No Connection  || latched ground     || Intended to be a run enable signal ||
 
 = Wires from spindle lock =
@@ -123,4 +123,4 @@ http://www.hhrobertsmachinery.com/Support/Manual_machine_Parts_Lists/Yaskawa/GL%
 
 The manual for the VFD can be found here:
 
-TODO: link this
+http://www.delta.com.tw/product/em/drive/ac_motor/download/manual/VFD-B_manual_en.pdf
