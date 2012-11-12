@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This page describes the conversion of our Sieg SC2518 CNC lathe to LinuxCNC.
+This page describes the conversion of our Sieg KC4S (SC2518) CNC lathe to LinuxCNC.
 
 = Details =
 
