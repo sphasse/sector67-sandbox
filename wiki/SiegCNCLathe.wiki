@@ -44,7 +44,9 @@ YK60HB86-04A
 
 
 == Spindle motor and drive ==
+The spindle motor is a brushless motor with a 500W controller.  This controller is not well documented, but it takes 0-10V analog input and has a forward/reverse input as well.  The controller is basically three components that work together, the "driver" board (XMT-DRIVER-500-A), the "control" board (XMT-CONTROL-500-A) and an input board (XMT-SK) that provides signals to the control board.  Being a brushless motor, there are encoder inputs to the driver and three phase output.
 
+TODO: more details on the controller...
 
 
 == Mesa hardware ==
