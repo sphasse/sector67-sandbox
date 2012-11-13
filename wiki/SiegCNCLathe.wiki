@@ -58,23 +58,23 @@ TODO: more details on the controller...
 || 3 || DIN RAIL ADPT KIT || $5 ea ||
 =Build log=
 ==Nov 10, 2012==
-Did some work tonight cleaning things up to get ready for the LinuxCNC conversion:
+Did about 2 hours of work this afternoon cleaning things up to get ready for the LinuxCNC conversion:
 
   * Removed the existing controller board and stepper wiring
   * Cleaned up some other wiring
   * Created a pncconf configuration of an XZ stepper lathe with spindle
   * Put the 5i23 card in the PC and hooked up a 50 pin breakout board to the P4 connector for driving the steppers
 
-Chris and I made good progress on the stepper control tonight.  We've got the stepper pins wired properly but don't seem to be able to observe step pulses.  In retrospect this is bacause I had the step rate way too low, it was 200 when it needed to be closer to 10000 (exact values need to be determined).  The pulses were happening but
+Chris and I made good progress on the stepper control.  We've got the stepper pins wired properly but don't seem to be able to observe step pulses.  In retrospect this is because I had the step rate way too low, it was 200 when it needed to be closer to 10000 (exact values need to be determined).  The pulses were happening but
 
 
 ==Nov 11, 2012==
-I stopped in for an hour tonight to get the steppers actually moving.  After re-tuning the step rate and configuring the hold times properly (per the datasheet some were 2500us and some were 1000us), stepping now works well.  There is some extra noise, but I need to look at the microstepping and how the drive current is configured to iron that out.  The axes are not fully tuned yet but they do move when commanded.
+I stopped in for one hour tonight to get the steppers actually moving.  After re-tuning the step rate and configuring the hold times properly (per the datasheet some were 2500us and some were 1000us), stepping now works well.  There is some extra noise, but I need to look at the microstepping and how the drive current is configured to iron that out.  The axes are not fully tuned yet but they do move when commanded.
 
 I would have had it working much sooner if I had the step rates high enough to observe with a multimeter or scope.
 
 ==Nov 12, 2012==
-Lots of progress tonight working with Adam.  
+About 3 hours of work.  Lots of progress tonight working with Adam.  
 
   * Moved the controller board for the brushless drive to a new location, this required tapping some new mounting holes in the backplane.
   * Moved the rectifier for the DC power supply to a new location
