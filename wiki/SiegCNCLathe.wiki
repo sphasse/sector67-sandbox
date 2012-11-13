@@ -54,3 +54,48 @@ YK60HB86-04A
 || 1 || 7I37TA Isolated I/O card || $79 ||
 || 1 || 7I33TA  Quad Analog servo interface || $79 ||
 || 3 || DIN RAIL ADPT KIT || $5 ea ||
+=Build log=
+==Nov 10, 2012==
+Did some work tonight cleaning things up to get ready for the LinuxCNC conversion:
+
+  * Removed the existing controller board and stepper wiring
+  * Cleaned up some other wiring
+  * Created a pncconf configuration of an XZ stepper lathe with spindle
+  * Put the 5i23 card in the PC and hooked up a 50 pin breakout board to the P4 connector for driving the steppers
+
+Chris and I made good progress on the stepper control tonight.  We've got the stepper pins wired properly but don't seem to be able to observe step pulses.  In retrospect this is bacause I had the step rate way too low, it was 200 when it needed to be closer to 10000 (exact values need to be determined).  The pulses were happening but
+
+
+==Nov 11, 2012==
+I stopped in for an hour tonight to get the steppers actually moving.  After re-tuning the step rate and configuring the hold times properly (per the datasheet some were 2500us and some were 1000us), stepping now works well.  There is some extra noise, but I need to look at the microstepping and how the drive current is configured to iron that out.  The axes are not fully tuned yet but they do move when commanded.
+
+I would have had it working much sooner if I had the step rates high enough to observe with a multimeter or scope.
+
+==Nov 12, 2012==
+Lots of progress tonight working with Adam.  
+
+  * Moved the controller board for the brushless drive to a new location, this required tapping some new mounting holes in the backplane.
+  * Moved the rectifier for the DC power supply to a new location
+  * Mounted a DIN rail for the Mesa daughter cards
+  * Wired GND/+5/+12 buses for stepper and encoder support.
+  * Cleared out the bottom enough to place the PC in the cabinet, it is a tight fit but just makes it.
+  * Wired the 0-10V analog output signal from the mesa card to the spindle controller and verified via pncconf open loop control works properly
+  * Wired a breadboard with 1k pull-up resistors to +5V for the encoder and confirmed proper encoder functionality
+  * Got closed-loop control working 
+
+Things generally went smoothly, however, the spindle scale did have some issues.  I initially had the default scaling to 10 in pncconf with a "reverse spindle" setting causing this to be -10 in the .ini file.  This needed to be closer to -1500 to work properly, and after doing so the spindle speeds (e.g. "S500") were in the ballpark but not exactly tuned.  The PID tuning is a bit off as well as you can hear the RPMs undershoot when slowing down.
+
+So many of the major compoents are working properly (stepper controls, spindle control, encoder input), but just need to be wired more permanently and tuned properly.
+
+=TODO=
+
+  * Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
+  * Figure out an approach for powering the PC, should it boot when the machine boots or independently.
+  * Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
+  * Configure proper stepper scaling for both X and Z and confirm with a dial indicator
+  * Figure out and configure the correct spindle and spindle encoder scaling 
+  * Wire up a forward/reverse signal for the spindle, configure such that negative voltages cannot be generated
+  * Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
+  * Mount another DIN rail for the DC bus
+  * DIN mount the isolated I/O card
+  
