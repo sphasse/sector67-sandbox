@@ -56,6 +56,14 @@ TODO: more details on the controller...
 || 1 || 7I37TA Isolated I/O card || $79 ||
 || 1 || 7I33TA  Quad Analog servo interface || $79 ||
 || 3 || DIN RAIL ADPT KIT || $5 ea ||
+
+=Encoder pulley=
+In order to make the Z pulse of the encoder once per rev (a LinuxCNC requirement), I am attempting to 3D print the appropriate 52T 3MM pitch HTD timing pulley using this (hopefully) most excellent parametric model here:
+
+http://www.thingiverse.com/thing:16627
+
+We'll see how that goes...
+
 =Build log=
 ==Nov 10, 2012==
 Did about 2 hours of work this afternoon cleaning things up to get ready for the LinuxCNC conversion:
