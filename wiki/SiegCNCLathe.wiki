@@ -8,7 +8,7 @@ This page describes the conversion of our Sieg KC4S (SC2518) CNC lathe to LinuxC
 
 = Existing configuration =
 
-== Spindle Encoders ==
+== Spindle Encoder ==
 
 AutomationDirect.com encoder 
 TRD-S100BD
@@ -72,7 +72,6 @@ We'll see how that goes...
 
 = Integration board =
 As Mesa did not have the 7i33TA in stock and we needed to use pull-up resistors on the encoder lines in any case (we could have probably done that safely enough with the 7i33TA inline), a small integration board was needed.  This was made from a 2"x3" perf board with a 50 pin interface on one side and screw terminals for the encoder and analog out on the other.
-
 
 =Build log=
 ==Nov 10, 2012==
