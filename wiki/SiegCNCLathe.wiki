@@ -106,7 +106,7 @@ Things generally went smoothly, however, the spindle scale did have some issues.
 
 So many of the major components are working properly (stepper controls, spindle control, encoder input), but just need to be wired more permanently and tuned properly.
 
-= Nov 18, 2012 =
+==Nov 18, 2012==
 I spent a few hours on the project today and Chris helped significantly.  We accomplished the following:
 
   * Soldered up the integration board (described above), wired it in and confirmed proper functionality.
