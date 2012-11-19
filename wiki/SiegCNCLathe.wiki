@@ -18,6 +18,8 @@ http://www.automationdirect.com/static/specs/encoderld.pdf
 12-24 VDC input voltage
 NPN open collector
 
+This is an after-market part, not stock.
+
 === Open collector connections ===
 || White || OUT B ||
 || Orange || OUT Z ||
@@ -48,6 +50,8 @@ The spindle motor is a brushless motor with a 500W controller.  This controller 
 
 TODO: more details on the controller...
 
+* 0-10V analog speed input
+* TTL direction input
 
 == Mesa hardware ==
 
@@ -64,6 +68,12 @@ http://www.thingiverse.com/thing:16627
 
 We'll see how that goes...
 
+... It went quite well with a usable part currently mounted on the encoder, with load tests to follow...
+
+= Integration board =
+As Mesa did not have the 7i33TA in stock and we needed to use pull-up resistors on the encoder lines in any case (we could have probably done that safely enough with the 7i33TA inline), a small integration board was needed.  This was made from a 2"x3" perf board with a 50 pin interface on one side and screw terminals for the encoder and analog out on the other.
+
+
 =Build log=
 ==Nov 10, 2012==
 Did about 2 hours of work this afternoon cleaning things up to get ready for the LinuxCNC conversion:
@@ -73,8 +83,7 @@ Did about 2 hours of work this afternoon cleaning things up to get ready for the
   * Created a pncconf configuration of an XZ stepper lathe with spindle
   * Put the 5i23 card in the PC and hooked up a 50 pin breakout board to the P4 connector for driving the steppers
 
-Chris and I made good progress on the stepper control.  We've got the stepper pins wired properly but don't seem to be able to observe step pulses.  In retrospect this is because I had the step rate way too low, it was 200 when it needed to be closer to 10000 (exact values need to be determined).  The pulses were happening but
-
+Chris and I made good progress on the stepper control.  We've got the stepper pins wired properly but don't seem to be able to observe step pulses.  In retrospect this is because I had the step rate way too low, it was 200 when it needed to be closer to 10000 (exact values need to be determined).  The pulses were happening but too slowly to register on a multimeter as an increase in the average voltage or to be noticed on the scope.  Better triggering might have show the pulses better.
 
 ==Nov 11, 2012==
 I stopped in for one hour tonight to get the steppers actually moving.  After re-tuning the step rate and configuring the hold times properly (per the datasheet some were 2500us and some were 1000us), stepping now works well.  There is some extra noise, but I need to look at the microstepping and how the drive current is configured to iron that out.  The axes are not fully tuned yet but they do move when commanded.
@@ -95,7 +104,24 @@ About 3 hours of work.  Lots of progress tonight working with Adam.
 
 Things generally went smoothly, however, the spindle scale did have some issues.  I initially had the default scaling to 10 in pncconf with a "reverse spindle" setting causing this to be -10 in the .ini file.  This needed to be closer to -1500 to work properly, and after doing so the spindle speeds (e.g. "S500") were in the ballpark but not exactly tuned.  The PID tuning is a bit off as well as you can hear the RPMs undershoot when slowing down.
 
-So many of the major compoents are working properly (stepper controls, spindle control, encoder input), but just need to be wired more permanently and tuned properly.
+So many of the major components are working properly (stepper controls, spindle control, encoder input), but just need to be wired more permanently and tuned properly.
+
+= Nov 18, 2012 =
+I spent a few hours on the project today and Chris helped significantly.  We accomplished the following:
+
+  * Soldered up the integration board (described above), wired it in and confirmed proper functionality.
+  * Removed the hall sensor and associated steel indicator.  Hopefully this will balance the machine better.
+  * Removed the coupling from the X axis stepper motor to the ball screw.  This was a bit of a pain as it was not that accessible.
+  * Looked at the software configuration long enough to figure out that my approach to fwd/reverse on the spindle was not going to work.
+  * Send a query to the LinuxCNC mailing list asking for alternate approaches.
+  * Measured the ball screw thread pitch, on the X axis it is 5mm.
+  * Unmounted the encoder and replaced the pulley with the printed one.  Awaiting the belt to mount it again.
+
+Of note was that the X axis was a bit sticky when turning and in fact it was binding and losing steps.  It turns out the coupler was a solid one, and after removing the motor the x axis ball screw seems to turn more easily.  As a result we are replacing the coupler with a flexing one as it seems clear the alignment to the motor is not perfect.
+
+
+
+
 
 =TODO=
 
