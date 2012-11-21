@@ -143,4 +143,5 @@ As a reminder, on a typical CNC lathe:
   * Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
   * Mount another DIN rail for the DC bus
   * DIN mount the isolated I/O card
-  
+  * Trace out the limit switches to see if they are functional
+  * If so, wire them to the the isolated input card, probably with +12V pullup.
