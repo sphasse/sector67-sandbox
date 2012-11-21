@@ -122,12 +122,12 @@ Of note was that the X axis was a bit sticky when turning and in fact it was bin
 A couple more hours invested tonight:
 
   * Updated to LinuxCNC 2.5 stream.  This required re-doing the pncconf configuration, which was no big deal.
-  * 
+  * Tested the estop.  It basically shuts down AC input.  Somewhat disconcertingly, this is not latching and the failure mode for the estop button is not estopped.
   * Attempted to accurately tune the X axis, but the thread pitch is not the same as the Z axis, so I can either calculate the value or measure the pitch, which will be a pain because it is mostly inside a motor case.
   * The stepper motors ran rough until I re-tuned the step delay settings.  I had forgotten to pull those over when I re-did the pncconf config.  the step and direction hold both needed to be 2500 us.
   * I put the initial config under revision control in SVN
 
-On a typical CNC lathe:
+As a reminder, on a typical CNC lathe:
   * When the TOOL moves right, away from the chuck that is the positive Z direction
   * When the TOOL moves toward the operator that is the positive X direction.
 
