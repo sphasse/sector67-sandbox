@@ -1,2 +1,15 @@
 # Include your custom HAL commands here
 # This file will not be overwritten when you run PNCconf again
+
+# Convert the spindle command to an absolute signal
+
+addf abs.pwm                 servo-thread
+net spindle-vel-cmd => abs.pwm.in
+net spindle-vel-cmd-abs abs.pwm.out => hm2_5i23.0.pwmgen.00.value
+
+# comment this following:
+#net spindle-vel-cmd     => hm2_5i23.0.pwmgen.00.value
+# change this:
+#loadrt abs names=abs.spindle
+# to
+#loadrt abs names=abs.spindle,abs.pwm

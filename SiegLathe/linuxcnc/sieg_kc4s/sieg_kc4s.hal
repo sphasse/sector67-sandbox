@@ -11,7 +11,7 @@ setp     hm2_5i23.0.pwmgen.pwm_frequency 20000
 setp     hm2_5i23.0.pwmgen.pdm_frequency 6000000
 setp     hm2_5i23.0.watchdog.timeout_ns 10000000
 loadrt pid names=pid.s
-loadrt abs names=abs.spindle
+loadrt abs names=abs.spindle,abs.pwm
 loadrt lowpass names=lowpass.spindle
 loadrt scale names=scale.spindle
 loadrt near
@@ -97,7 +97,7 @@ setp   hm2_5i23.0.pwmgen.00.output-type 1
 setp   hm2_5i23.0.pwmgen.00.scale  [SPINDLE_9]OUTPUT_SCALE
 
 
-net spindle-vel-cmd     => hm2_5i23.0.pwmgen.00.value
+#net spindle-vel-cmd     => hm2_5i23.0.pwmgen.00.value
 net machine-is-enabled      => hm2_5i23.0.pwmgen.00.enable
 
 # ---Encoder feedback signals/setup---
