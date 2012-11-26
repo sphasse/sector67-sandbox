@@ -160,12 +160,12 @@ About 4 hours today, with help from Jim and Paul:
   * Integrate the limit switches
   * Integrate estop
   * Integrate machine on, perhaps add a relay inline
-  *X Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
+  * X Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
   * Configure proper stepper scaling for both X and Z and confirm with a dial indicator
-  *X Figure out and configure the correct spindle and spindle encoder scaling 
-  *X Wire up a forward/reverse signal for the spindle, configure such that negative voltages cannot be generated
-  *X Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
-  *X Mount another DIN rail for the DC bus
-  *X DIN mount the isolated I/O card
-  *X Trace out the limit switches to see if they are functional
-  *X If so, wire them to the the isolated input card, probably with +12V pullup.
+  * X Figure out and configure the correct spindle and spindle encoder scaling 
+  * X Wire up a forward/reverse signal for the spindle, configure such that negative voltages cannot be generated
+  * X Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
+  * X Mount another DIN rail for the DC bus
+  * X DIN mount the isolated I/O card
+  * X Trace out the limit switches to see if they are functional
+  * X If so, wire them to the the isolated input card, probably with +12V pullup.
