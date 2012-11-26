@@ -169,3 +169,4 @@ About 4 hours today, with help from Jim and Paul:
   * X DIN mount the isolated I/O card
   * X Trace out the limit switches to see if they are functional
   * X If so, wire them to the the isolated input card, probably with +12V pullup.
+  * X Confirm the default plane is XZ
