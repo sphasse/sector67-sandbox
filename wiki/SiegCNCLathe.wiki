@@ -140,7 +140,7 @@ Two more hours spent today:
   * I started to look at the auto tool changer.  Should be an interesting project.
   * I figured out that although the Z axis coupler being rigid was probably not ideal, most likely the axis problems I was having were due to me missing setting the 2500us set and direction hold times and so the defaults of 1000us were being used for that axis only.  Version controlled configurations are a nice thing, even if they do implicate you.
 
-==Nov 23, 2012==
+==Nov 25, 2012==
 About 4 hours today, with help from Jim and Paul:
   * Talked through PC integration with Paul and how we will mount a monitor and keyboard.  Started in work on that.
   * Cleaned up the wiring significantly, putting some of the wire duct cover back in place, terminated some wire shorter where it made sense, added a star ground line to the control side of the encoder.  This took quite a while but was nice to get done.
@@ -149,23 +149,23 @@ About 4 hours today, with help from Jim and Paul:
   * Toned out the limit switches, there are two limit switches per axis so a + and - limit configuration will be possible.
   * Added to the integration board to add limit switch 6k pull-ups to 12V and wired the limit switches to isolated I/O.
   * Jim fabricated a new spacer for the encoder pulley
-  
+
 
 =TODO=
 
   * Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
   * Figure out an approach for powering the PC, should it boot when the machine boots or independently.
-  X Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
-  * Configure proper stepper scaling for both X and Z and confirm with a dial indicator
-  X Figure out and configure the correct spindle and spindle encoder scaling 
-  X Wire up a forward/reverse signal for the spindle, configure such that negative voltages cannot be generated
-  X Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
-  X Mount another DIN rail for the DC bus
-  X DIN mount the isolated I/O card
-  X Trace out the limit switches to see if they are functional
-  X If so, wire them to the the isolated input card, probably with +12V pullup.
   * Get the spindle at speed signal working.
   * Integrate a PID loop to the spindle control.
   * Integrate the limit switches
   * Integrate estop
   * Integrate machine on, perhaps add a relay inline
+  *X Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
+  * Configure proper stepper scaling for both X and Z and confirm with a dial indicator
+  *X Figure out and configure the correct spindle and spindle encoder scaling 
+  *X Wire up a forward/reverse signal for the spindle, configure such that negative voltages cannot be generated
+  *X Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
+  *X Mount another DIN rail for the DC bus
+  *X DIN mount the isolated I/O card
+  *X Trace out the limit switches to see if they are functional
+  *X If so, wire them to the the isolated input card, probably with +12V pullup.
