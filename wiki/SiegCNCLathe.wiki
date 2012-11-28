@@ -158,6 +158,7 @@ About 4 hours today, with help from Jim and Paul:
   * I played a bit with a PID loop for the spindle and had a slow response working OK, but when I hit stop in the manual spindle control it seems to want to run away.
   * So that is disabled now, with some more playing needed.
   * I temporarily added an OPEN_FILE = <lathe pawn demo> so that a useful lathe demo file is loaded at startup.
+  * The spindle encoder is now mounted more safely and sanely.  I ended up just press fitting the pulley to the encoder shaft which I think should be sufficient.  Time will tell, and a drop of epoxy would probably not hurt.
 
 
 =TODO=
