@@ -101,7 +101,7 @@ About 3 hours of work.  Lots of progress tonight working with Adam.
   * Wired a breadboard with 1k pull-up resistors to +5V for the encoder and confirmed proper encoder functionality
   * Got closed-loop control working 
 
-Things generally went smoothly, however, the spindle scale did have some issues.  I initially had the default scaling to 10 in pncconf with a "reverse spindle" setting causing this to be -10 in the .ini file.  This needed to be closer to -1500 to work properly, and after doing so the spindle speeds (e.g. "S500") were in the ballpark but not exactly tuned.  The PID tuning is a bit off as well as you can hear the RPMs undershoot when slowing down.
+Things generally went smoothly, however, the spindle scale did have some issues.  I initially had the default scaling to 10 in pncconf with a "reverse spindle" setting causing this to be -10 in the .ini file.  This needed to be closer to -1500 to work properly, and after doing so the spindle speeds (e.g. "S500") were in the ballpark but not exactly tuned.  The spindle is still running in open loop mode and you can hear some delay, for instance undershoot when slowing down.
 
 So many of the major components are working properly (stepper controls, spindle control, encoder input), but just need to be wired more permanently and tuned properly.
 
