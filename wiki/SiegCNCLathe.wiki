@@ -155,15 +155,18 @@ About 4 hours today, with help from Jim and Paul:
   * Limit switches integrated and working.  The switches had ~5k inline resistance, so I needed to use ~47k pullup resistors instead of the ~5k I used prior.  Some re-solder work was needed on the board as a result.
   * I struggled through my typical mapping of isolated I/O to pncconf values, but am getting better at that.
   * Software-wise the over-ride limits does not seem to be working properly.  Once I job onto the limits I can't get off of them without going to open look via pncconf.  I'll need a solution for that.
+  * I played a bit with a PID loop for the spindle and had a slow response working OK, but when I hit stop in the manual spindle control it seems to want to run away.
+  * So that is disabled now, with some more playing needed.
+  * I temporarily added an OPEN_FILE = <lathe pawn demo> so that a useful lathe demo file is loaded at startup.
 
 
 =TODO=
 
   * Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
   * Figure out an approach for powering the PC, should it boot when the machine boots or independently.
-  * Get the spindle at speed signal working.
-  * Integrate a PID loop to the spindle control.
-  * Integrate the limit switches
+  * Test the spindle at speed signal working.
+  * Integrate a PID loop to the spindle control (why is it red?).
+  * X Integrate the limit switches
   * Integrate estop
   * Integrate machine on, perhaps add a relay inline
   * X Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
