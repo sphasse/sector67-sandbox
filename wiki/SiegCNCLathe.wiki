@@ -170,16 +170,17 @@ Again solid progress, 4 hours spent:
   * Fixed the spindle at speed LED never lighting green.  I believe this is a pncconf defect that needs to be followed up on.
   * Added to the small post-fix.sh sed script to change the default file to the pawn, and to fix a number of other small issues so I am not manually re-editing after pncconf.
 
+Paul has also done a nice job integrating a monitor stand, a through hole for the keyboard, etc. and a power switch for the pc on the outside of the case.
 
 
   
 
 =TODO=
 
-  * Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
+  * C Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
   * Figure out an approach for powering the PC, should it boot when the machine boots or independently.
-  * Test the spindle at speed signal working.
-  * Integrate a PID loop to the spindle control (why is it red?).
+  * X Test the spindle at speed signal working (why is it always red -- answer: no pyvcl pin mapped by default?).
+  * X Integrate a PID loop to the spindle control.
   * X Integrate the limit switches
   * Integrate estop
   * Integrate machine on, perhaps add a relay inline
