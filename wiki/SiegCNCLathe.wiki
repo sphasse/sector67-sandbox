@@ -160,6 +160,19 @@ About 4 hours today, with help from Jim and Paul:
   * I temporarily added an OPEN_FILE = <lathe pawn demo> so that a useful lathe demo file is loaded at startup.
   * The spindle encoder is now mounted more safely and sanely.  I ended up just press fitting the pulley to the encoder shaft which I think should be sufficient.  Time will tell, and a drop of epoxy would probably not hurt.
 
+==Dec 2, 2012==
+Again solid progress, 4 hours spent:
+
+  * Re-integrating the PID loop and tuning it to be at least close to the open loop control.  More tuning might bear fruit here, I have just ff0 and I tuned currently.
+  * Figured out the X scaling to be a somewhat odd number (25736.5).  At 1.8 degrees per step, 10x microstepping this does not result in a thread pitch that seems off-the-shelf, but I did measure it getting backlash out of the system, etc., and I believe my dial indicator is good.
+  * Solved the limit issue.  Firstly, I did properly have home+limit configured per advice on the linuxcnc mailing list, but I was setting the home location such that it thought it was at the soft limit in one direction and was at the hard limit in the other direction.  Fixing this such that the limit switch was located properly allows a homing to prevent hitting any hard limits.  I gave myself a bit of X negative direction to allow the default pawn program to run and presume some amount of z negative for facing, etc. might be typical.
+  * Configured reasonable values for X max accel and speed, primarily just listening to the motors once I got the scaling correct.
+  * Fixed the spindle at speed LED never lighting green.  I believe this is a pncconf defect that needs to be followed up on.
+  * Added to the small post-fix.sh sed script to change the default file to the pawn, and to fix a number of other small issues so I am not manually re-editing after pncconf.
+
+
+
+  
 
 =TODO=
 
