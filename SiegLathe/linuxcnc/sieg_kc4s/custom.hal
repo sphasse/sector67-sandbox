@@ -3,18 +3,18 @@
 
 # Convert the spindle command to an absolute signal
 addf abs.pwm                 servo-thread
-#temporary comment out for pid loop testing
-net spindle-vel-cmd => abs.pwm.in
 net spindle-vel-cmd-abs abs.pwm.out => hm2_5i23.0.pwmgen.00.value
 
-#now to try PID tuning feedback:
+#comment out to use the pid loop
+#net spindle-vel-cmd => abs.pwm.in
 
+#now to try PID tuning feedback:
 addf scale.pid.s                 servo-thread
 setp pid.s.Pgain 0
-setp pid.s.Igain 0.1
+setp pid.s.Igain 0.2
 setp pid.s.Dgain 0
 setp pid.s.bias 0
-setp pid.s.FF0 0.05
+setp pid.s.FF0 0.81
 setp pid.s.FF1 0
 setp pid.s.FF2 0
 setp pid.s.deadband 0.0
@@ -23,9 +23,9 @@ setp pid.s.maxoutput 1000
 #The PID loop is in RPS but the PWM expects RPM, scale by 60
 
 setp scale.pid.s.gain 60
-net spindle-pid-rps pid.s.output => scale.pid.s.in
-net spindle-pid-rpm scale.pid.s.out => abs.pwm.in
-
+net spindle-on => pid.s.enable
 net spindle-vel-cmd-rps => pid.s.command
 net spindle-vel-fb => pid.s.feedback
-net machine-is-enabled => pid.s.enable
+net spindle-pid-rps pid.s.output => scale.pid.s.in
+
+net spindle-pid-rpm scale.pid.s.out => abs.pwm.in
