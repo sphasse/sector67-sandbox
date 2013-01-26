@@ -14,3 +14,6 @@ net spindle-at-speed => pyvcp.spindle-at-speed-led' pyvcp_options.hal
 sed -i -e '/^OPEN_FILE/d' sieg_kc4s.ini
 sed -i -e '/^\[DISPLAY\]$/ a\
 OPEN_FILE = /home/scott/linuxcnc/nc_files/examples/lathe_pawn.ngc' sieg_kc4s.ini
+
+#allow simultaneous homing
+sed -i -e 's/^HOME_SEQUENCE.*/HOME_SEQUENCE = 0/' sieg_kc4s.ini

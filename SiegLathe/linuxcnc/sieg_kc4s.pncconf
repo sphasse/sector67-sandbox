@@ -247,7 +247,7 @@
   <property name="max_linear_velocity" type="float" value="1.0"/>
   <property name="max_spindle_override" type="float" value="1.0"/>
   <property name="maxspeeddisplay" type="float" value="1000.0"/>
-  <property name="md5sums" type="eval" value="[('/home/scott/linuxcnc/configs/sieg_kc4s/README', 'dbf4d4e1500f205871de4153659f2e49'), ('/home/scott/linuxcnc/configs/sieg_kc4s/sieg_kc4s.hal', '74c3199ffd13225034a02011f151d2ae'), ('/home/scott/linuxcnc/configs/sieg_kc4s/sieg_kc4s.ini', 'dff04d0c16650d38c03124723b4ce20e')]"/>
+  <property name="md5sums" type="eval" value="[('/home/scott/linuxcnc/configs/sieg_kc4s/README', '1c4bde8daaa10242fd590b8d8be4df65'), ('/home/scott/linuxcnc/configs/sieg_kc4s/sieg_kc4s.hal', '5028a530ca52fb71c829e8ea1dc965b0'), ('/home/scott/linuxcnc/configs/sieg_kc4s/sieg_kc4s.ini', 'e580f3b29dfb4824d7eb35721879e2e3')]"/>
   <property name="mesa0_3pwm_frequency" type="float" value="20000.0"/>
   <property name="mesa0_boardtitle" type="string" value="5i23"/>
   <property name="mesa0_currentfirmwaredata" type="eval" value="['5i23', '5i23', 'SVST8_4', '5i23', 'hm2_pci', 8, 3, 0, 10, 8, 3, 0, 0, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 72, 48, 96, [2, 3, 4], [u'Quad Encoder-B', 1], [u'Quad Encoder-A', 1], [u'Quad Encoder-B', 0], [u'Quad Encoder-A', 0], [u'Quad Encoder-I', 1], [u'Quad Encoder-I', 0], [u'Pulse Width Gen-P', 1], [u'Pulse Width Gen-P', 0], [u'Pulse Width Gen-D', 1], [u'Pulse Width Gen-D', 0], [u'Pulse Width Gen-E', 1], [u'Pulse Width Gen-E', 0], [u'Quad Encoder-B', 3], [u'Quad Encoder-A', 3], [u'Quad Encoder-B', 2], [u'Quad Encoder-A', 2], [u'Quad Encoder-I', 3], [u'Quad Encoder-I', 2], [u'Pulse Width Gen-P', 3], [u'Pulse Width Gen-P', 2], [u'Pulse Width Gen-D', 3], [u'Pulse Width Gen-D', 2], [u'Pulse Width Gen-E', 3], [u'Pulse Width Gen-E', 2], [u'Quad Encoder-B', 5], [u'Quad Encoder-A', 5], [u'Quad Encoder-B', 4], [u'Quad Encoder-A', 4], [u'Quad Encoder-I', 5], [u'Quad Encoder-I', 4], [u'Pulse Width Gen-P', 5], [u'Pulse Width Gen-P', 4], [u'Pulse Width Gen-D', 5], [u'Pulse Width Gen-D', 4], [u'Pulse Width Gen-E', 5], [u'Pulse Width Gen-E', 4], [u'Quad Encoder-B', 7], [u'Quad Encoder-A', 7], [u'Quad Encoder-B', 6], [u'Quad Encoder-A', 6], [u'Quad Encoder-I', 7], [u'Quad Encoder-I', 6], [u'Pulse Width Gen-P', 7], [u'Pulse Width Gen-P', 6], [u'Pulse Width Gen-D', 7], [u'Pulse Width Gen-D', 6], [u'Pulse Width Gen-E', 7], [u'Pulse Width Gen-E', 6], [u'Step Gen-A', 0], [u'Dir Gen-B', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step Gen-A', 1], [u'Dir Gen-B', 1], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step Gen-A', 2], [u'Dir Gen-B', 2], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'Step Gen-A', 3], [u'Dir Gen-B', 3], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0], [u'GPIO Input', 0]]"/>
@@ -392,19 +392,19 @@
   <property name="mesa0c3pin23type" type="string" value="GPIO Output"/>
   <property name="mesa0c3pin2inv" type="bool" value="False"/>
   <property name="mesa0c3pin2type" type="string" value="GPIO Input"/>
-  <property name="mesa0c3pin3" type="string" value="min-home-x"/>
+  <property name="mesa0c3pin3" type="string" value="min-x"/>
   <property name="mesa0c3pin3inv" type="bool" value="True"/>
   <property name="mesa0c3pin3type" type="string" value="GPIO Input"/>
   <property name="mesa0c3pin4" type="string" value="unused-input"/>
   <property name="mesa0c3pin4inv" type="bool" value="False"/>
   <property name="mesa0c3pin4type" type="string" value="GPIO Input"/>
-  <property name="mesa0c3pin5" type="string" value="max-home-z"/>
+  <property name="mesa0c3pin5" type="string" value="min-z"/>
   <property name="mesa0c3pin5inv" type="bool" value="True"/>
   <property name="mesa0c3pin5type" type="string" value="GPIO Input"/>
   <property name="mesa0c3pin6" type="string" value="unused-input"/>
   <property name="mesa0c3pin6inv" type="bool" value="False"/>
   <property name="mesa0c3pin6type" type="string" value="GPIO Input"/>
-  <property name="mesa0c3pin7" type="string" value="min-home-z"/>
+  <property name="mesa0c3pin7" type="string" value="max-home-z"/>
   <property name="mesa0c3pin7inv" type="bool" value="True"/>
   <property name="mesa0c3pin7type" type="string" value="GPIO Input"/>
   <property name="mesa0c3pin8" type="string" value="unused-input"/>
@@ -3254,7 +3254,7 @@
   <property name="mesa1sserial0_4subboard" type="string" value="none"/>
   <property name="microstep" type="string" value="137032"/>
   <property name="min_angular_velocity" type="float" value="0.01"/>
-  <property name="min_linear_velocity" type="float" value="0.01"/>
+  <property name="min_linear_velocity" type="float" value="0.00833333333333"/>
   <property name="min_spindle_override" type="float" value="0.5"/>
   <property name="modbus" type="bool" value="False"/>
   <property name="motor_leadscrew" type="string" value="137030"/>
@@ -3487,7 +3487,7 @@
   <property name="pyvcpypos" type="float" value="0.0"/>
   <property name="raise_z_on_toolchange" type="bool" value="False"/>
   <property name="random_toolchanger" type="bool" value="False"/>
-  <property name="require_homing" type="bool" value="False"/>
+  <property name="require_homing" type="bool" value="True"/>
   <property name="restore_joint_position" type="bool" value="False"/>
   <property name="s32in" type="float" value="10.0"/>
   <property name="s32out" type="float" value="10.0"/>
@@ -3681,8 +3681,8 @@
   <property name="xencoderscale" type="int" value="0"/>
   <property name="xhomefinalvel" type="float" value="0.0"/>
   <property name="xhomelatchvel" type="float" value="0.0166666666667"/>
-  <property name="xhomepos" type="float" value="2.5"/>
-  <property name="xhomesearchvel" type="float" value="0.333333333333"/>
+  <property name="xhomepos" type="float" value="2.75"/>
+  <property name="xhomesearchvel" type="float" value="0.316666666667"/>
   <property name="xhomesw" type="float" value="3.03"/>
   <property name="xinvertencoder" type="bool" value="False"/>
   <property name="xinvertmotor" type="bool" value="False"/>
@@ -3849,20 +3849,20 @@
   <property name="zeroz" type="bool" value="False"/>
   <property name="zhomefinalvel" type="float" value="0.0"/>
   <property name="zhomelatchvel" type="float" value="0.0166666666667"/>
-  <property name="zhomepos" type="float" value="8.0"/>
-  <property name="zhomesearchvel" type="float" value="0.333333333333"/>
-  <property name="zhomesw" type="float" value="9.0"/>
+  <property name="zhomepos" type="float" value="6.0"/>
+  <property name="zhomesearchvel" type="float" value="0.316666666667"/>
+  <property name="zhomesw" type="float" value="8.6"/>
   <property name="zinvertencoder" type="bool" value="False"/>
   <property name="zinvertmotor" type="bool" value="True"/>
   <property name="zlatchdir" type="int" value="0"/>
   <property name="zmaxacc" type="float" value="2.0"/>
   <property name="zmaxferror" type="float" value="0.005"/>
-  <property name="zmaxlim" type="float" value="9.0"/>
+  <property name="zmaxlim" type="float" value="8.5"/>
   <property name="zmaxoutput" type="float" value="10.0"/>
-  <property name="zmaxvel" type="float" value="2.5"/>
+  <property name="zmaxvel" type="float" value="0.5"/>
   <property name="zmicrostep" type="int" value="1"/>
   <property name="zminferror" type="float" value="0.0005"/>
-  <property name="zminlim" type="float" value="0.0"/>
+  <property name="zminlim" type="float" value="-1.0"/>
   <property name="zmotor_leadscrew" type="int" value="5"/>
   <property name="zmotor_leadscrew_tpi" type="int" value="5"/>
   <property name="zmotor_pulleydriven" type="int" value="1"/>
@@ -3874,7 +3874,7 @@
   <property name="zoutputscale" type="float" value="10.0"/>
   <property name="zsearchdir" type="int" value="1"/>
   <property name="zsteprev" type="int" value="200"/>
-  <property name="zstepscale" type="float" value="25806.0"/>
+  <property name="zstepscale" type="float" value="10161.67"/>
   <property name="zstepspace" type="float" value="1000.0"/>
   <property name="zsteptime" type="float" value="2500.0"/>
   <property name="zusebacklash" type="bool" value="False"/>
