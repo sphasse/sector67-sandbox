@@ -172,7 +172,19 @@ Again solid progress, 4 hours spent:
 
 Paul has also done a nice job integrating a monitor stand, a through hole for the keyboard, etc. and a power switch for the pc on the outside of the case.
 
+==Jan 26, 2013==
+Lots of progress since the last update several parts made successfully, and I'm working out tooling and tool table issues.  I worked on the Z axis today, confirming that an inch in software really does equal an inch in real life.  Some issues:
+  
+  * Having both switches as home + limit min sometimes makes homing not work, as the "first" home switch is the one configured to be used when homing.  If this is not the proper one to use, the home process will override the limit switches and run off the end.
+  * There was independently an issue with the with the X limit switch where at the max limit the min limit switch was sometimes triggering as well.  The switch needed to be adjusted a bit to resolve this.
 
+Tasks to do:
+
+  * Increase the Z max velocity, attempt to increase the max acceleration.
+  * Determine a sensible Z=0 relative to some part of the cross slide.
+  * Document the tool table meanings.
+  * Document a new tool procedure, including "Machine->zero coordinate systems->P1 G54" before tool adjustment.
+  
   
 
 =TODO=
