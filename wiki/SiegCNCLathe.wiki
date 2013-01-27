@@ -184,7 +184,7 @@ Tasks to do:
   * Determine a sensible Z=0 relative to some part of the cross slide.
   * Document the tool table meanings.
   * Document a new tool procedure, including "Machine->zero coordinate systems->P1 G54" before tool adjustment.
-  
+  * Add a USB extender cable to be able to use a thumb drive to transfer files.
   
 
 =TODO=
