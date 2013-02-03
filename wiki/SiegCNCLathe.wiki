@@ -185,7 +185,10 @@ Tasks to do:
   * Document the tool table meanings.
   * Document a new tool procedure, including "Machine->zero coordinate systems->P1 G54" before tool adjustment.
   * Add a USB extender cable to be able to use a thumb drive to transfer files.
-  
+
+==Feb 2, 2013==
+More good progress, first large test queen part.  Learned that I probably need to keep the roughing tolerance at tool radius + some small amount rather than just the tolerance itself.  First one-hour cut was a bust due to the roughing cuts being tool close.
+
 
 =TODO=
 
@@ -206,3 +209,4 @@ Tasks to do:
   * X Trace out the limit switches to see if they are functional
   * X If so, wire them to the the isolated input card, probably with +12V pullup.
   * X Confirm the default plane is XZ
+  * Add space bar as a pause (see sheetcake project for steps)
