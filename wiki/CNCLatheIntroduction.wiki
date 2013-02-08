@@ -1,5 +1,7 @@
 #summary An introduction to using the CNC Lathe at Sector67.
 
+<wiki:toc max_depth="3" />
+
 =Sector67 Sieg CNC Lathe Introduction=
 
 Sector67 (http://www.sector67.org) recently acquired a Sieg CNC lathe with motors and amps but without a controller.  We integrated a LinuxCNC control system and are in the process of making the lathe ready for production work.  This document provides an overview of some of the concepts needed to understand and properly operate this lathe.  The document was written by Scott Hasse, who did most of the LinuxCNC controller integration, and is from the perspective of, and will be most useful to, someone basicaly familiar with manual lathe operation and operation of our CNC mills (CNC mills without an automatic tool changer).
