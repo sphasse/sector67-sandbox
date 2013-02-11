@@ -160,6 +160,14 @@ Use the following procedure when cutting a part.
 TODO: document
 
 
+===Our tool table===
+The most accurate tool table can always be found on the machine itself.  For starters, though, our tools are:
+
+||Tool || Description ||
+||1    || TCPT32.52 insert 60 degree right hand cutter ||
+||2    || TCPT32.52 insert 60 degree left hand cutter ||
+
+
 ===Practical limitations===
 
   * In a trade-off between rigidity and stock size, the tools are generally set up for stock around 2.5" maximum diameter.  In theory stock up to 4" diameter could be cut.
