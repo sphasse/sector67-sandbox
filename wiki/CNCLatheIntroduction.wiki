@@ -16,7 +16,6 @@ These differences complicate tool handling when working on a CNC lathe.  When wo
 
 This document describes one path for generating accurate CNC lathe tool paths.  There are certainly other ways of doing this, and our approach might evolve over time.
 
-
 ==Tool changer choices==
 As part of the lathe acquisition we also did acquire a motorized four-position tool turret.  In theory this could be integrated fairly simply using our Mesa hardware and LinuxCNC software to provide automated tool changes.  We also had a spare AXA quick change tool post available.  Choosing between the two, our initial strategy has been to utilize the AXA quick-change tool post for a number of reasons:
 
@@ -24,6 +23,8 @@ As part of the lathe acquisition we also did acquire a motorized four-position t
   # Although unattended operation would in theory be great, it is not very likely we will be running many jobs unattended.
   # AXA tool holders are cheap and readily available.
 
+==Tool choices==
+We are for the most part committed to using carbide insert indexable lathe tooling for the CNC lathe.  There are many circumstances where carbide tooling is not appropriate or does not provide the best cutting experience.  However considering many factors including our intended user audience and need for accurate tool offsets, overall it seems to make the most sense for us to make use of insert-based tooling.
 
 ==CNC Lathe Concepts==
 This section contains some concepts that are important to understand when working with a CNC lathe:
