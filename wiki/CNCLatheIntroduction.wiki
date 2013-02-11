@@ -8,9 +8,9 @@ Sector67 (http://www.sector67.org) recently acquired a Sieg CNC lathe with motor
 
 There are significant differences in tool handling and tool pathing between lathe and milling operation.  Many CNC lathe jobs will have one or more tool changes, so accurate tool descriptions and consistent changes become much more important than when working on a mill.  Comparing tool changes on our R8 collect Bridgeport-class CNC knee mills to the CNC lathe:
 
-# On a knee mill when you make a tool change you can use the knee to manually re-adjust the tool offset.  There is no equivalent facility on our lathe.
-# When changing tools on the mills only one axis (Z) needs to be adjusted.  Typically with a lathe tool change there are offsets in two dimensions (X and Z) that need to be applied.
-# The tool footprint for milling operations is nearly always a cylinder or at least radially symmetric, making tool compensation when calculating machine paths relatively simple.  This is generally not true for lathe tools.
+  # On a knee mill when you make a tool change you can use the knee to manually re-adjust the tool offset.  There is no equivalent facility on our lathe.
+  # When changing tools on the mills only one axis (Z) needs to be adjusted.  Typically with a lathe tool change there are offsets in two dimensions (X and Z) that need to be applied.
+  # The tool footprint for milling operations is nearly always a cylinder or at least radially symmetric, making tool compensation when calculating machine paths relatively simple.  This is generally not true for lathe tools.
 
 These differences complicate tool handling when working on a CNC lathe.  When working on a manual lathe (measure->cut->measure cycle) it is simple enough to adjust your work manually, but for a CNC lathe these operations will need to handled programmatically.
 
@@ -20,9 +20,9 @@ This document describes one path for generating accurate CNC lathe tool paths.  
 ==Tool changer choices==
 As part of the lathe acquisition we also did acquire a motorized four-position tool turret.  In theory this could be integrated fairly simply using our Mesa hardware and LinuxCNC software to provide automated tool changes.  We also had a spare AXA quick change tool post available.  Choosing between the two, our initial strategy has been to utilize the AXA quick-change tool post for a number of reasons:
 
-# With this approach we are not limited to four tools, and it is easy to envision more than four tools needed (at least left, right and straight cutters, threading grooving and parting).  Facing versus turning will also add to the tool count.
-# Although unattended operation would in theory be great, it is not very likely we will be running many jobs unattended.
-# AXA tool holders are cheap and readily available.
+  # With this approach we are not limited to four tools, and it is easy to envision more than four tools needed (at least left, right and straight cutters, threading grooving and parting).  Facing versus turning will also add to the tool count.
+  # Although unattended operation would in theory be great, it is not very likely we will be running many jobs unattended.
+  # AXA tool holders are cheap and readily available.
 
 
 ==CNC Lathe Concepts==
@@ -100,18 +100,18 @@ So you may need to create multiple profiles and lathe operations with different 
 
 Each of the following should be done for lathe operations in CamBam:
 
-# Set the "Workplane" to XZ.
-# Ensure the "Stock surface" equals the radius of the stock for that lathe operation.
-# Ensure the "Clearance plane" is greater than the radius of the stock.  You should allow yourself at least 1/4" of clearance to ensure tool changes can happen properly.
-# Ensure the "Machining origin" is a point set along the axis of rotation.  This should be the case by default.
-# Ensure the appropriate tool number is chosen.  Refer to the tool table in LinuxCNC or below.
-# Set the "Tool diameter" to twice the tool nose radius.  This number can be derived from the carbide insert spec as described below.
-# Ensure the "Tool profile" is set to Lathe.
-# Ensure the correct "Roughing/Finishing" option is set.  Roughing will make cutting passes and finish with a cut along the profile leaving a RoughingClearance tolerance.  Finishing will make just one pass.  It is typical to have two operations for each profile, a roughing operation followed by a finishing operation.  With that approach, feeds for roughing operations can be higher.
-# If Roughing, a small RoughingClearance value is set.  This should be set to leave enough material for the finishing pass to make a clean cut.  Carbide is not great at shaving off tiny amounts, so do leave some roughing clearance.
-# DepthIncrement and feedrates are appropriate for the material.  See the speeds and feeds section below for advice.
-# Define the stock object if needed.  This is typically not needed if you set the stock surface properly.
-# The EMC-Turn post processor is selected in the Machining properties.
+  # Set the "Workplane" to XZ.
+  # Ensure the "Stock surface" equals the radius of the stock for that lathe operation.
+  # Ensure the "Clearance plane" is greater than the radius of the stock.  You should allow yourself at least 1/4" of clearance to ensure tool changes can happen properly.
+  # Ensure the "Machining origin" is a point set along the axis of rotation.  This should be the case by default.
+  # Ensure the appropriate tool number is chosen.  Refer to the tool table in LinuxCNC or below.
+  # Set the "Tool diameter" to twice the tool nose radius.  This number can be derived from the carbide insert spec as described below.
+  # Ensure the "Tool profile" is set to Lathe.
+  # Ensure the correct "Roughing/Finishing" option is set.  Roughing will make cutting passes and finish with a cut along the profile leaving a RoughingClearance tolerance.  Finishing will make just one pass.  It is typical to have two operations for each profile, a roughing operation followed by a finishing operation.  With that approach, feeds for roughing operations can be higher.
+  # If Roughing, a small RoughingClearance value is set.  This should be set to leave enough material for the finishing pass to make a clean cut.  Carbide is not great at shaving off tiny amounts, so do leave some roughing clearance.
+  # DepthIncrement and feedrates are appropriate for the material.  See the speeds and feeds section below for advice.
+  # Define the stock object if needed.  This is typically not needed if you set the stock surface properly.
+  # The EMC-Turn post processor is selected in the Machining properties.
 
 
 I have encountered problems with CamBam when a profile crosses over the line at Y=0.  The problem manifested as roughing cuts that were too deep regardless of the roughing clearance setting and in roughing cuts that covered the entire stock regardless of the profile.  As a result, I now make sure that my profiles end at Y=0 in CamBam.  This causes a problem however, since with radiused tools to face off an end for instance you typically want to cut past the center axis a bit or a small nub is left.
@@ -142,18 +142,18 @@ We are investigating what it would take to modify the EMC-Turn post processor to
 ===Cutting a part===
 Use the following procedure when cutting a part.
 
-# Turn on the machine PC and lathe.  Ensure the tailstock is loose and at the end of the bed and that the machine is generally in good working order.
-# Start LinuxCNC (Sieg lathe icon on the desktop), cancel estop and enable the machine
-# Home all the axes.  The machine is currently configured such that it will not run gcode or MDI operations without being homed first.  The hope is that this prevents running jobs with the machine unhomed, which could crash the head.  
-# Load your stock and make sure it is properly supported.  You should load your stock after homing.
-# Transfer and load your gcode file.  You can transfer files via email or the USB extension near the monitor.
-# Ensure the tool that LinuxCNC thinks it has loaded is the tool that is actually loaded.  LinuxCNC shows the tool it believes it has loaded in the bottom status bar.  The physical tools are labeled on the tool holder.  If the tools do not match, you can correct this by running TnM6 in the MDI tab where n is the number of the tool that is actually in the machine.
-# Switch to the MDI tab and execute a G43 to apply tool offsets.  If the proper tool offsets are not in place when you touch off your part in the next step, you could damage your stock, the tooling or the lathe.
-# Touch off the Z axis to the proper location to cut your part.  To do this, jog the machine to a known Z location on your part (for instance the faced end of the stock) make sure that the (TODO: get proper instruction) type of offset is selected, ensure the Z axis is selected and choose "Touch Off".  Ensure that the "TODO: get" option is selected and type in the known Z location.  For instance, if I was cutting a part 2" long with Z=2" defined as the right end of the part I would jog the tool to the faced end of the part and touch off Z at 2.0.
-# After doing this, confim that the tool location in the backplot window (graphical display) is correct relative to the part you are cutting.  As a sanity check, the tool profile shown in the backplot should also match the loaded tool.
-# Close the lathe door
-# Hit the play icon to start cutting.
-# You can pause the program but it will not stop the spindle.  TODO: check if you can stop/start the spindle with MDI when paused.
+  # Turn on the machine PC and lathe.  Ensure the tailstock is loose and at the end of the bed and that the machine is generally in good working order.
+  # Start LinuxCNC (Sieg lathe icon on the desktop), cancel estop and enable the machine
+  # Home all the axes.  The machine is currently configured such that it will not run gcode or MDI operations without being homed first.  The hope is that this prevents running jobs with the machine unhomed, which could crash the head.  
+  # Load your stock and make sure it is properly supported.  You should load your stock after homing.
+  # Transfer and load your gcode file.  You can transfer files via email or the USB extension near the monitor.
+  # Ensure the tool that LinuxCNC thinks it has loaded is the tool that is actually loaded.  LinuxCNC shows the tool it believes it has loaded in the bottom status bar.  The physical tools are labeled on the tool holder.  If the tools do not match, you can correct this by running TnM6 in the MDI tab where n is the number of the tool that is actually in the machine.
+  # Switch to the MDI tab and execute a G43 to apply tool offsets.  If the proper tool offsets are not in place when you touch off your part in the next step, you could damage your stock, the tooling or the lathe.
+  # Touch off the Z axis to the proper location to cut your part.  To do this, jog the machine to a known Z location on your part (for instance the faced end of the stock) make sure that the (TODO: get proper instruction) type of offset is selected, ensure the Z axis is selected and choose "Touch Off".  Ensure that the "TODO: get" option is selected and type in the known Z location.  For instance, if I was cutting a part 2" long with Z=2" defined as the right end of the part I would jog the tool to the faced end of the part and touch off Z at 2.0.
+  # After doing this, confim that the tool location in the backplot window (graphical display) is correct relative to the part you are cutting.  As a sanity check, the tool profile shown in the backplot should also match the loaded tool.
+  # Close the lathe door
+  # Hit the play icon to start cutting.
+  # You can pause the program but it will not stop the spindle.  TODO: check if you can stop/start the spindle with MDI when paused.
 
 
 ===Common problems===
@@ -162,11 +162,11 @@ TODO: document
 
 ===Practical limitations===
 
-* In a trade-off between rigidity and stock size, the tools are generally set up for stock around 2.5" maximum diameter.  In theory stock up to 4" diameter could be cut.
-* The throat of the lathe and chuck will accept stock up to 1" in diameter.  Wider stock will not fit in the throat.
-* <speeds, feeds>
-* If you wish to support stock with a live center, it should be about 12.5" long.
-* We currently only have a 3-jaw 4" chuck, but are looking for a 4" 4-jaw chuck.
+  * In a trade-off between rigidity and stock size, the tools are generally set up for stock around 2.5" maximum diameter.  In theory stock up to 4" diameter could be cut.
+  * The throat of the lathe and chuck will accept stock up to 1" in diameter.  Wider stock will not fit in the throat.
+  * <speeds, feeds>
+  * If you wish to support stock with a live center, it should be about 12.5" long.
+  * We currently only have a 3-jaw 4" chuck, but are looking for a 4" 4-jaw chuck.
 
 
 ==Speeds and feeds==
