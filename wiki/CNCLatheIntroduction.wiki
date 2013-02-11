@@ -73,17 +73,37 @@ If we get access to more sophisticated lathe path generation software in the fut
 This section describes some of the procedures to follow when calibrating tools, testing tool calibration, generating gcode and running jobs. 
 
 ===Calibrating a tool in the tool table===
-It is easy to make mistakes when doing this, and our ideal vision is to have a set of known, calibrated indexable tooling so that we can home the machine, touch off the Z axis and run jobs without needing to calibrate tools at all.  If you need to 
+It is easy to make mistakes when doing this, and our ideal vision is to have a set of known, calibrated indexable tooling so that we can home the machine, touch off the Z axis and run jobs without needing to calibrate tools at all.  If you need to calibrate a new tool, this section gives the procedure.
 
-After starting LinuxCNC:
+To calibrate a tool properly in the tool table (adapted from http://www.linuxcnc.org/docs/2.4/html/lathe_lathe-user.html):
 
-1) Home the machine (once on startup, not needed for successive tools)
-2) Ensure that no machine offsets are applied 
-3) 
-3) T1M6
 
-After performing this procedure, 
 
+
+====X axis====
+
+  * Start LinuxCNC
+  * Home each axis if not homed.
+  * Clear any other offsets (TODO: menu setting)
+  * Set the current tool with "TnM6" where "n" is the tool number.
+  * Put the machine into diameter mode (TODO: Gcode)
+  * Select the X axis in the Manual Control window
+  * Take a test cut and measure the diameter
+  * Since we will be performing cutter compensation in software, our tool control point is not at the cutting edge but in the middle of the tool's radius.  Therefore, you must add the diameter of the cutter to the measured value.  For example, you take a test cut with a TCMT3252 tool (1/32" cutter radius), and measure the cut as 0.5232".  In diameter mode you would add 1/16" (0.0625) to this value to calculate the X position of the tool control point, or 0.5857.
+  * Select Touch Off and (IMPORTANT!) pick "Tool Table" then enter the your calculated tool control point X value.
+
+For zero radius tools (threading, parting) this procedure is somewhat simplified.
+
+====Z axis====
+
+  * Start LinuxCNC
+  * Home each axis if not homed.
+  * Clear any other offsets (TODO: menu setting)
+  * Set the current tool with "TnM6" where "n" is the tool number.
+  * Select the Z axis in the Manual Control window.
+  * Bring the tool close to the control surface. Using a cylinder move the Z away from the control surface until the cylinder just passes between the tool and the control surface.
+  * Select Touch Off and pick Tool Table and set the position to 0.0.
+  * Repeat for each tool using the same cylinder.
 
 ===Ensuring tool calibration with a test part===
 
