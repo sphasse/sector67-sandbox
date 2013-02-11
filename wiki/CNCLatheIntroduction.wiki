@@ -191,6 +191,37 @@ or for more detail:
 
 http://www.ccpa.org/pdf/B212_4.pdf
 
+Taking a common example, our TCMT32.52 tools are:
+
+T: Triangular
+C: 7 degree clearance
+M: (within a certain tolerance)
+T: (certain type of geometry)
+3: 3/8" inscribed circle
+2: 
+5: 5/32" thick
+2: 1/32" corner radius
+
+
+Interstate Turning Inserts
+Shape: 	Triangle
+ANSI Number: 	TCMT32.52
+Manufacturers Catalog Number: 	TCMT3252
+Style: 	TCMT32.52
+Insert Style: 	TCMT
+Insert Size: 	32.52
+Manufacturer's Grade: 	ICP22
+Material: 	Ceramic
+Inscribed Circle (Decimal Inch): 	0.3750
+Inscribed Circle (Inch): 	3/8
+Industry Grade: 	C2
+Insert Thickness (Decimal Inch): 	0.1560
+Insert Thickness (Inch): 	5/32
+Corner Radius (Inch): 	1/32
+Hole Size (Decimal Inch): 	0.1730
+Relief Angle: 	7
+Included Angle: 	60
+Insert Holding Method: 	Screw-On
 
 
 ==Further reading==
