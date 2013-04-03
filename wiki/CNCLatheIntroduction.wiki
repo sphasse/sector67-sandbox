@@ -165,7 +165,7 @@ G43
 
 We are investigating what it would take to modify the EMC-Turn post processor to add a G43 after each tool change, so in the future you might be able to modify the post processor to do this for you, but for now this must be done manually.
 
-For left hand cutting operations, ensure a G41 is run.  For right hand cutting operations, ensure a G42 is run.  To simply modifying the gcode, I name each machining operation with LH or RH so that I can find the appropriate comments in the generated gcode.  Again, there is a possibility that we could modify the CamBam post processor to add this capability, but that will take some time.
+For left hand cutting operations, ensure a G41 is run in your gcode file before the cuts are made.  For right hand cutting operations, ensure a G42 is run in your gcode file before the cuts are made.  You will have to add these manually.  To simply modifying the gcode, I name each machining operation with LH or RH so that I can find the appropriate comments in the generated gcode.  Again, there is a possibility that we could modify the CamBam post processor to add this capability, but that will take some time.
 
 
 ===Cutting a part===
