@@ -91,7 +91,7 @@ To calibrate a tool properly in the tool table (adapted from http://www.linuxcnc
   * Home each axis if not homed.
   * Clear any other offsets (TODO: menu setting)
   * Set the current tool with "TnM6" where "n" is the tool number.
-  * Put the machine into diameter mode (TODO: G7)
+  * Put the machine into diameter mode (MDI window, run a "G7")
   * Select the X axis in the Manual Control window
   * Take a test cut and measure the diameter
   * Select Touch Off and (IMPORTANT!) pick "Tool Table" then enter the your calculated tool control point X value.  Ensure that you are entering a diameter measurement in diameter mode.
