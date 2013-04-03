@@ -6,22 +6,26 @@
 
 Sector67 (http://www.sector67.org) recently acquired a Sieg CNC lathe with motors and amps but without a controller.  We integrated a LinuxCNC control system and are in the process of making the lathe ready for production work.  This document provides an overview of some of the concepts needed to understand and properly operate this lathe.  The document was written by Scott Hasse, who did most of the LinuxCNC controller integration, and is from the perspective of, and will be most useful to, someone basicaly familiar with manual lathe operation and operation of our CNC mills (CNC mills without an automatic tool changer).
 
-There are significant differences in tool handling and tool pathing between lathe and milling operation.  Many CNC lathe jobs will have one or more tool changes, so accurate tool descriptions and consistent changes become much more important than when working on a mill.  Comparing tool changes on our R8 collect Bridgeport-class CNC knee mills to the CNC lathe:
+There are significant differences in tool handling and tool pathing between lathe and milling operation.  Most CNC lathe jobs will have one or more tool changes, so accurate tool descriptions and consistent changes become much more important than when working on a mill.  Comparing tool changes on our R8 collect Bridgeport-class CNC knee mills to the CNC lathe:
 
-  # On a knee mill when you make a tool change you can use the knee to manually re-adjust the tool offset.  There is no equivalent facility on our lathe.
+  # On a knee mill when you make a tool change you can use the knee to manually re-adjust the tool offset (typically a length/Z offset) without changing the offsets in software.  There is no equivalent manual adjustment facility on our lathe.
   # When changing tools on the mills only one axis (Z) needs to be adjusted.  Typically with a lathe tool change there are offsets in two dimensions (X and Z) that need to be applied.
   # The tool footprint for milling operations is nearly always a cylinder or at least radially symmetric, making tool compensation when calculating machine paths relatively simple.  This is generally not true for lathe tools.
 
-These differences complicate tool handling when working on a CNC lathe.  When working on a manual lathe (measure->cut->measure cycle) it is simple enough to adjust your work manually, but for a CNC lathe these operations will need to handled programmatically.
+These differences complicate tool handling when working on a CNC lathe.  When working on a manual lathe (measure->cut->measure cycle) it is simple enough to adjust your work manually, but for a CNC lathe these operations need to handled programmatically.
 
 This document describes one path for generating accurate CNC lathe tool paths.  There are certainly other ways of doing this, and our approach might evolve over time.
 
 ==Tool changer choices==
-As part of the lathe acquisition we also did acquire a motorized four-position tool turret.  In theory this could be integrated fairly simply using our Mesa hardware and LinuxCNC software to provide automated tool changes.  We also had a spare AXA quick change tool post available.  Choosing between the two, our initial strategy has been to utilize the AXA quick-change tool post for a number of reasons:
+As part of the lathe acquisition we also acquired a motorized four-position tool turret.  In theory this could be integrated fairly simply using our Mesa hardware and LinuxCNC software to provide automated tool changes.  We also had a spare AXA quick change tool post available.  Choosing between the two, our initial strategy has been to utilize the AXA quick-change tool post for a number of reasons:
 
   # With this approach we are not limited to four tools, and it is easy to envision more than four tools needed (at least left, right and straight cutters, threading grooving and parting).  Facing versus turning will also add to the tool count.
   # Although unattended operation would in theory be great, it is not very likely we will be running many jobs unattended.
   # AXA tool holders are cheap and readily available.
+  # The tool changer is currently a bit high for directly fitting tools, so some mounting adjustment would be needed
+  # The tool changer currently runs off of 3-phase 240V, and we didn't want to introduce those power requirements to this small lathe
+  
+All that said, in the future it may make sense to integrate the automatic tool changer for some jobs.  We have ample I/O, and it would be simple to convert the changer to use a small stepper motor.
 
 ==Tool choices==
 We are for the most part committed to using carbide insert indexable lathe tooling for the CNC lathe.  There are many circumstances where carbide tooling is not appropriate or does not provide the best cutting experience.  However considering many factors including our intended user audience and need for accurate tool offsets, overall it seems to make the most sense for us to make use of insert-based tooling.
@@ -30,28 +34,30 @@ We are for the most part committed to using carbide insert indexable lathe tooli
 This section contains some concepts that are important to understand when working with a CNC lathe:
 
 ===XZ Axes===
-<proper description of XZ axes here>.  The intuitive way to think of this is 
+The Z axis is the longitudinal axis, while the X axis is the cross slide axis.  One intuitive way to think of this is that the Z axis is parallel with the spindle for both mills and lathes.
 
 ===Tool path===
 This is the programmed motion of the tool.  Depending on the machine configuration it is not always followed 100% accurately, but the goal is that the tool will generally follow the tool path.  It is important to understand that, due to tool size and geometry, the path the tool follows is different than the path that is cut on the part.  The difference beween the tool path and the part cut is known as cutter compensation.
 
 ===Tool control point===
-This is the point relative to the tool that will follow the programmed tool path.  For a flat mill end, this would typically be a point in the center of the bottom of the tool.  For a lathe tool, it is more arbitrary and needs to be defined.  For example for a triangular cutter the control point would traditionally be a point tangent to an X and Z cut done by that tool (which is not necessarily the vertex of the triangle), even though for cutters with a radius that point is off of the actual tool.
+This is the point relative to the tool that will follow the programmed tool path.  For a flat mill end, this would typically be a point in the center of the bottom of the tool.  For a lathe tool, it is more arbitrary and needs to be defined.  For example for a triangular cutter the control point would traditionally be a point tangent to an X and Z cut done by that tool (which is probably not the vertex of the triangle), even though for cutters with a radius that point is off of the actual tool.
 
 ===Tool table===
 This is a text file stored with the LinuxCNC configuration that defines the tools in use.  There is a GUI editor for this text file.  The file contains information such as the offsets in the appropriate axes to the tool control point, the radius of the cutter and other tool meta data that LinuxCNC needs to properly perform cutter compensation.  There are some aspects of 
 
 ===Cutter "front angle"===
-This is the angle of the "front" of the cutter in degrees from zero (Z+ direction)
+This is the angle of the "front" of the cutter in degrees from zero (Z+) direction
 
 ===Cutter "back angle"===
-This is the angle of the "back" of the cutter in degrees from zero (Z+ direction)
+This is the angle of the "back" of the cutter in degrees from zero (Z+) direction
 
 ===Left hand and right hand cutting===
 To me these seem reversed from what would be intuitive.  For a normal lathe setup, "right hand" cutting is with the tool moving to the left and "left hand" cutting is with the tool moving to the right.  Understanding this properly matters when defining different cutting paths in software.
 
+One way to think intuitively is which side of the path is being cut.  In a right hand cut the material is being cut away on the right hand of path of motion.  For a left hand cut, the material is being cut away on the left hand of the path of motion.  Thinking of it this way can simplify cutter compensation configuration.  Thinking of it this way also translates to right and left hand cutter compensation for milling operations.
+
 ===Cutter compensation===
-Cutter compensation is the difference between the tool path and the extents of the part that is actually 
+Cutter compensation is the difference in motion between the tool path and the extents of the part that is actually cut away as intended by a real cutter.
 
 
 ==Generating cutter compensation==
@@ -61,24 +67,23 @@ A) Tell the software about the tooling and let it generate appropriately compens
 
 B) Have the software use zero radius tools and have LinuxCNC perform cutter compensation.
 
-Complicating this is that our current tool for generating lathe gcode (CamBam) does not officially support lathe tool compensation, although it will create a path compensating for a circular cutter.  So, as long as we can approximate our lathe tools with circular cutters, and compensate ourselves for angles that cannot be cut, we can do tool compensation in CamBam this leaves us.
+Complicating this is that our current tool for generating lathe gcode (CamBam) does not officially support lathe tool compensation, although it will create a path compensating for a circular cutter.  So, as long as we can approximate our lathe tools with circular cutters, and compensate ourselves for angles that cannot be cut, we could do tool compensation in CamBam.
 
-In fact since both approaches are viable we could support both approaches.  However, there is a small but critical difference in how the tool table is set up for cutters with a radius.  In the case of LinuxCNC cutter compensation, the tool control point should be at the point of the tool.  If CamBam is considering the tool when doing path generation, the tool control point needs to be the center of the cutting tool radius.  This makes a significant difference in the tool configuration procedure or when entering data into the tool table for X and Z offset.  So generall we need to pick one method and stick with it, or have two definitions for each tool with different control points.
+Alternatively, we can program the direct path (zero radius cutter) in CamBam or other software and have LinuxCNC perform cutter compensation.  The most significant change in this case is that LinuxCNC needs to know if the movement is a left hand or right hand cut and introduce appropriate gcodes such that the correct compensation mode is in place as appropriate.
 
-The approach we are currently taking is to perform the cutter compensation in software (CamBam), and set up the tools with the control point at the center of the radius.  This makes new tool setup more complicated, but hopefully is in general more compatible with how we approach CNC milling and more intuitive for software-centric folks.  With this approach CamBam also does the exit and entry moves.
+In fact since both approaches are viable we could support both approaches.  However, there is a small but critical difference in how the tool table is set up for cutters with a radius.  In the case of LinuxCNC cutter compensation, the tool control point should be at the point of the tool tangential to the X and Z cuts the tool makes.  If CamBam is considering the tool when doing path generation, the tool control point needs to be the center of the cutting tool radius.  This makes a significant difference in the tool configuration procedure or when entering data into the tool table for X and Z offset.  So generally we need to pick one method and stick with it, or have two definitions for each tool with different control points.
 
-If we get access to more sophisticated lathe path generation software in the future, we'll have to evaluate its capability to perform tool compensation.
+The approach we are currently taking is to have LinuxCNC perform cutter compensation.  Most significantly, this simplifies tool setup at the cost of some gcode complexity.  Once we have some more experience under our belt we'll re-evaluate this approach.  For instance if we get access to more sophisticated lathe path generation software in the future, we'll have to evaluate its capability to perform tool compensation.
+
+An additional plus to this approach is that conversation/MDI lathe operations done live at the console make sense, and the LinuxCNC axis GUI is an accurate DRO.  With the tool control points set differently that would not be the case.
 
 ==Procedures==
 This section describes some of the procedures to follow when calibrating tools, testing tool calibration, generating gcode and running jobs. 
 
 ===Calibrating a tool in the tool table===
-It is easy to make mistakes when doing this, and our ideal vision is to have a set of known, calibrated indexable tooling so that we can home the machine, touch off the Z axis and run jobs without needing to calibrate tools at all.  If you need to calibrate a new tool, this section gives the procedure.
+It is very easy to make mistakes when performing this procedure.  In particular it is very simple to use the wrong offset when touching off toos and to forget to use a G43 to apply cutter compensation.  To reduce this risk, our ideal vision is to have a set of known, calibrated indexable tooling so that we can home the machine, touch off the Z axis and run jobs without needing to calibrate tools at all.  However, if you need to calibrate a new tool, this section gives the procedure.
 
 To calibrate a tool properly in the tool table (adapted from http://www.linuxcnc.org/docs/2.4/html/lathe_lathe-user.html):
-
-
-
 
 ====X axis====
 
@@ -86,13 +91,14 @@ To calibrate a tool properly in the tool table (adapted from http://www.linuxcnc
   * Home each axis if not homed.
   * Clear any other offsets (TODO: menu setting)
   * Set the current tool with "TnM6" where "n" is the tool number.
-  * Put the machine into diameter mode (TODO: Gcode)
+  * Put the machine into diameter mode (TODO: G7)
   * Select the X axis in the Manual Control window
   * Take a test cut and measure the diameter
-  * Since we will be performing cutter compensation in software, our tool control point is not at the cutting edge but in the middle of the tool's radius.  Therefore, you must add the diameter of the cutter to the measured value.  For example, you take a test cut with a TCMT3252 tool (1/32" cutter radius), and measure the cut as 0.5232".  In diameter mode you would add 1/16" (0.0625) to this value to calculate the X position of the tool control point, or 0.5857.
-  * Select Touch Off and (IMPORTANT!) pick "Tool Table" then enter the your calculated tool control point X value.
+  * Select Touch Off and (IMPORTANT!) pick "Tool Table" then enter the your calculated tool control point X value.  Ensure that you are entering a diameter measurement in diameter mode.
+  * Run a G43 to apply the new offset.  The DRO should reflect your measured value.
 
-For zero radius tools (threading, parting) this procedure is somewhat simplified.
+
+For tools with multiple possible control points (e.g. a parting tool), you should pick the most logical one.
 
 ====Z axis====
 
@@ -101,9 +107,10 @@ For zero radius tools (threading, parting) this procedure is somewhat simplified
   * Clear any other offsets (TODO: menu setting)
   * Set the current tool with "TnM6" where "n" is the tool number.
   * Select the Z axis in the Manual Control window.
-  * Bring the tool close to the control surface. Using a cylinder move the Z away from the control surface until the cylinder just passes between the tool and the control surface.
-  * Select Touch Off and pick Tool Table and set the position to 0.0.
-  * Repeat for each tool using the same cylinder.
+  * Make a test cut with the tool.
+  * Measure the distance from the face of the chuck to the test cut.
+  * Select Touch Off and (IMPORTANT!) pick Tool Table and set the position to the measured distance from the face of the chuck.
+  * Run a G43 to apply the new offset.  The DRO should reflect your measured value.
 
 ===Ensuring tool calibration with a test part===
 
@@ -115,9 +122,9 @@ http://www.cambam.info/doc/plus/cam/Lathe.htm
 
 As as the CamBam support for lathes evolves we may need to adjust these steps.  The first step is to generate the profile you want to cut.  When doing so, you should treat Y=0 as the center of the axis and draw the profile below the Y axis (negative Y space).  The profile should not cross the Y=0 line and for each cut should be one continuous polyline.  This is done by joining the relevant sections together with a small tolerance.  
 
-When generating the profile(s) for cutting, you need to keep the cutting tool geometry in mind.  For instance, some of our most common roughing cutters will be (TODO: spec) 60 degree triangular left and right hand cutters.  With these tools one edge can cut at 90 degrees (perpendicular to the spindle), but the other edge must cannot be more steep 30 degrees relative to the spindle or the tool will gouge when attempting the cut.
+When generating the profile(s) for cutting, you need to keep the cutting tool geometry in mind.  For instance, some of our most common roughing cutters will be (TODO: spec) 60 degree triangular left and right hand cutters.  With these tools one edge can cut at 90 degrees (perpendicular to the spindle), but the other edge cannot be more steep 30 degrees relative to the spindle or the tool will gouge when attempting the cut.
 
-So you may need to create multiple profiles and lathe operations with different tools keeping these limitations in mind. 
+To successfully cut parts you may need to create multiple profiles and lathe operations with different tools keeping these limitations in mind. 
 
 Each of the following should be done for lathe operations in CamBam:
 
@@ -126,7 +133,7 @@ Each of the following should be done for lathe operations in CamBam:
   # Ensure the "Clearance plane" is greater than the radius of the stock.  You should allow yourself at least 1/4" of clearance to ensure tool changes can happen properly.
   # Ensure the "Machining origin" is a point set along the axis of rotation.  This should be the case by default.
   # Ensure the appropriate tool number is chosen.  Refer to the tool table in LinuxCNC or below.
-  # Set the "Tool diameter" to twice the tool nose radius.  This number can be derived from the carbide insert spec as described below.
+  # Set the "Tool diameter" to zero, as we are having LinuxCNC perform the cutter compensation.
   # Ensure the "Tool profile" is set to Lathe.
   # Ensure the correct "Roughing/Finishing" option is set.  Roughing will make cutting passes and finish with a cut along the profile leaving a RoughingClearance tolerance.  Finishing will make just one pass.  It is typical to have two operations for each profile, a roughing operation followed by a finishing operation.  With that approach, feeds for roughing operations can be higher.
   # If Roughing, a small RoughingClearance value is set.  This should be set to leave enough material for the finishing pass to make a clean cut.  Carbide is not great at shaving off tiny amounts, so do leave some roughing clearance.
@@ -141,9 +148,7 @@ I have encountered problems with CamBam when a profile crosses over the line at 
 ===CamBam gcode generation===
 IMPORTANT:  There are manual changes needed after gcode generation with CamBam.  If these are not done you could damage your stock, the tools or the lathe.  This section describes that procedure.
 
-Since we are making use of automated tool changes and 
-
-Ensure that after each tool change there is a G43 to <todo get correct description of applying the tool offsets>
+Ensure that after each tool change (TnM6) there is a G43 to apply the appropriate tool offsets.
 
 For instance, the G43 blocks below are added correctly after each tool change:
 
@@ -160,21 +165,24 @@ G43
 
 We are investigating what it would take to modify the EMC-Turn post processor to add a G43 after each tool change, so in the future you might be able to modify the post processor to do this for you, but for now this must be done manually.
 
+For left hand cutting operations, ensure a G41 is run.  For right hand cutting operations, ensure a G42 is run.  To simply modifying the gcode, I name each machining operation with LH or RH so that I can find the appropriate comments in the generated gcode.  Again, there is a possibility that we could modify the CamBam post processor to add this capability, but that will take some time.
+
+
 ===Cutting a part===
 Use the following procedure when cutting a part.
 
-  # Turn on the machine PC and lathe.  Ensure the tailstock is loose and at the end of the bed and that the machine is generally in good working order.
-  # Start LinuxCNC (Sieg lathe icon on the desktop), cancel estop and enable the machine
-  # Home all the axes.  The machine is currently configured such that it will not run gcode or MDI operations without being homed first.  The hope is that this prevents running jobs with the machine unhomed, which could crash the head.  
-  # Load your stock and make sure it is properly supported.  You should load your stock after homing.
+  # Turn on the machine PC and lathe (the lathe is turned on by disabling estop).  Ensure the tailstock is loose and at the end of the bed and that the machine is generally in good working order.
+  # Start LinuxCNC (Sieg lathe icon on the desktop), cancel estop button in software and enable the machine in software
+  # Home all the axes.  The machine is currently configured such that it will not run gcode or MDI operations without being homed first.  The hope is that this prevents running jobs with the machine unhomed, which could crash the head.  This is done by (TODO: menu operation)
+  # Load your stock and make sure it is properly supported.  You should load your stock after homing so that the homing operation does not crash.
   # Transfer and load your gcode file.  You can transfer files via email or the USB extension near the monitor.
-  # Ensure the tool that LinuxCNC thinks it has loaded is the tool that is actually loaded.  LinuxCNC shows the tool it believes it has loaded in the bottom status bar.  The physical tools are labeled on the tool holder.  If the tools do not match, you can correct this by running TnM6 in the MDI tab where n is the number of the tool that is actually in the machine.
+  # Ensure the tool that LinuxCNC thinks it has loaded is the tool that is actually loaded.  LinuxCNC shows the tool it believes it has loaded in the bottom status bar.  The physical tools are labeled on the AXA tool holder.  If the tools do not match, you can correct this by running TnM6 in the MDI tab where n is the number of the tool that is actually in the machine.
   # Switch to the MDI tab and execute a G43 to apply tool offsets.  If the proper tool offsets are not in place when you touch off your part in the next step, you could damage your stock, the tooling or the lathe.
-  # Touch off the Z axis to the proper location to cut your part.  To do this, jog the machine to a known Z location on your part (for instance the faced end of the stock) make sure that the (TODO: get proper instruction) type of offset is selected, ensure the Z axis is selected and choose "Touch Off".  Ensure that the "TODO: get" option is selected and type in the known Z location.  For instance, if I was cutting a part 2" long with Z=2" defined as the right end of the part I would jog the tool to the faced end of the part and touch off Z at 2.0.
+  # Touch off the Z axis to the proper location to cut your part.  To do this, jog the machine to a known Z location on your part (for instance the faced end of the stock) make sure that the (TODO: get proper instruction) type of offset is selected, ensure the Z axis is selected and choose "Touch Off".  Ensure that the "TODO: get" option is selected and type in the known Z location.  For instance, if I was cutting a part 2" long with Z=0" defined as the right end of the part I would jog the tool to the faced end of the part and touch off Z as 0.0.  If I was cutting a 4" long part with Z=4" defined as the right end of the part I wuold jog the tool to the faced end of the part and touch off Z as 4.0.
   # After doing this, confim that the tool location in the backplot window (graphical display) is correct relative to the part you are cutting.  As a sanity check, the tool profile shown in the backplot should also match the loaded tool.
   # Close the lathe door
   # Hit the play icon to start cutting.
-  # You can pause the program but it will not stop the spindle.  TODO: check if you can stop/start the spindle with MDI when paused.
+  # You can pause the program with the space bar or pause button, but it will not stop the spindle.  TODO: check if you can stop/start the spindle with MDI when paused.
 
 
 ===Common problems===
@@ -248,3 +256,15 @@ Insert Holding Method: 	Screw-On
 This page gives a good overview of lathe operations for CNC in general and LinuxCNC in particular:
 
 http://www.linuxcnc.org/docs/2.4/html/lathe_lathe-user.html
+
+A short overview of LinuxCNC lathe capability:
+
+http://www.linuxcnc.org/index.php/component/content/article/28-emc2-controls-lathes
+
+Some discussion on advanced features:
+
+http://wiki.linuxcnc.org/cgi-bin/wiki.pl?Lathe_Advanced_Features
+
+A good general machining center discussion, including lathe information.  Gives good coverage of the tool table format.
+
+http://www.linuxcnc.org/docs/2.4/html/common_machining_center.html
