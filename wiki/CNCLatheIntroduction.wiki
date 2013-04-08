@@ -239,6 +239,7 @@ http://www.ccpa.org/pdf/B212_4.pdf
 
 Taking a common example, our TCMT32.52 tools are:
 
+{{{
 T: Triangular
 C: 7 degree clearance
 M: (within a certain tolerance)
@@ -268,7 +269,7 @@ Hole Size (Decimal Inch): 	0.1730
 Relief Angle: 	7
 Included Angle: 	60
 Insert Holding Method: 	Screw-On
-
+}}}
 
 ==Further reading==
 This page gives a good overview of lathe operations for CNC in general and LinuxCNC in particular:
