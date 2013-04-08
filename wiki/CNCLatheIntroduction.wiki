@@ -128,22 +128,34 @@ To successfully cut parts you may need to create multiple profiles and lathe ope
 
 Each of the following should be done for lathe operations in CamBam:
 
-  # Set the "Workplane" to XZ.
-  # Ensure the "Stock surface" equals the radius of the stock for that lathe operation.
+Machining Level:
+  # Ensure the "Machining origin" is a point set along the axis of rotation.  This should be the case by default and typically does not need to be changed.
+  # The EMC2-Turn post processor is selected in the Machining properties.
+
+For each machining operation:
   # Ensure the "Clearance plane" is greater than the radius of the stock.  You should allow yourself at least 1/4" of clearance to ensure tool changes can happen properly.
-  # Ensure the "Machining origin" is a point set along the axis of rotation.  This should be the case by default.
-  # Ensure the appropriate tool number is chosen.  Refer to the tool table in LinuxCNC or below.
-  # Set the "Tool diameter" to zero, as we are having LinuxCNC perform the cutter compensation.
-  # Ensure the "Tool profile" is set to Lathe.
-  # Ensure the correct "Roughing/Finishing" option is set.  Roughing will make cutting passes and finish with a cut along the profile leaving a RoughingClearance tolerance.  Finishing will make just one pass.  It is typical to have two operations for each profile, a roughing operation followed by a finishing operation.  With that approach, feeds for roughing operations can be higher.
-  # If Roughing, a small RoughingClearance value is set.  This should be set to leave enough material for the finishing pass to make a clean cut.  Carbide is not great at shaving off tiny amounts, so do leave some roughing clearance.
   # DepthIncrement and feedrates are appropriate for the material.  See the speeds and feeds section below for advice.
+  # Ensure the "Stock surface" equals the radius of the stock for that lathe operation.
+  # Set the "Workplane" to XZ.
+  # Ensure the correct Lathe Cut Direction is specified per the cut direction specification above.
+  # Ensure the correct "Roughing/Finishing" option is set.  Roughing will make multiple rough cut passes at the "Depth Increment" and finish with a cut along the profile leaving a RoughingClearance tolerance.  Finishing will make just one pass along the profile.  It is typical to have two operations for each profile, a roughing operation followed by a finishing operation.  With that approach, feeds for roughing operations can be higher and the feeds for the finishing operation can be lower for a better surface finish.
+  # If Roughing, a small RoughingClearance value is set.  This should be set to leave enough material for the finishing pass to make a clean cut.  Carbide is not great at shaving off tiny amounts, so it is a good idea to leave some roughing clearance in the roughing operation. 
   # Define the stock object if needed.  This is typically not needed if you set the stock surface properly.
-  # The EMC-Turn post processor is selected in the Machining properties.
+  # Set the "Tool diameter" to zero, as we are having LinuxCNC perform the cutter compensation.  This may need to be re-done after choosing a tool number.
+  # Ensure the appropriate tool number is chosen.  Refer to the tool table in LinuxCNC or below.
+  # Ensure the "Tool profile" is set to Lathe.
 
+I have encountered problems with CamBam when a profile crosses over the line at Y=0.  The problem manifested as roughing cuts that were too deep regardless of the roughing clearance setting and in roughing cuts that covered the entire stock regardless of the profile.  As a result, I now make sure that my profiles end at Y=0 in CamBam.  This causes a problem however, since with radiused tools to face off an end for instance you typically want to cut past the center axis a bit or a small nub is left.  A solution to this needs to be developed.
 
-I have encountered problems with CamBam when a profile crosses over the line at Y=0.  The problem manifested as roughing cuts that were too deep regardless of the roughing clearance setting and in roughing cuts that covered the entire stock regardless of the profile.  As a result, I now make sure that my profiles end at Y=0 in CamBam.  This causes a problem however, since with radiused tools to face off an end for instance you typically want to cut past the center axis a bit or a small nub is left.
+Once you have one machining operation configured, you can copy it for additional operations, changing the primitive ID's, lathe cut direction, roughing/finishing, tool, etc.  CamBam does have styles but they do not transfer with the CamBam file, so they need to be installed separately, which makes them somewhat of a hassle.  
 
+Giving each machining operation a distinct and descriptive name will make it easier to find the various operations in the generated gcode, as the names are added to the gcode in comments.
+
+It is typical for CNC lathe parts to have Z=0 be the right hand edge of the part, so you may want to lay your part out in the lower left quadrant.  There are numerous design considerations, including:
+
+1) You may want to have a short lead-in segment at radius=0 so that the tool cuts in from the edge.
+2) You need to consider if your tool can actually cut the profile, and divide your job into multiple machining operations if not.
+3) The lead-out of your part should be back to the radius of the stock.  If you need to part off, that currently needs to be done separately.  If you need to have the left side of your part have a small diameter, machine the right side first and then have a separate machining operation for the more delicate portion.
 
 ===CamBam gcode generation===
 IMPORTANT:  There are manual changes needed after gcode generation with CamBam.  If these are not done you could damage your stock, the tools or the lathe.  This section describes that procedure.
@@ -163,9 +175,11 @@ G43
 ...
 }}}
 
-We are investigating what it would take to modify the EMC-Turn post processor to add a G43 after each tool change, so in the future you might be able to modify the post processor to do this for you, but for now this must be done manually.
+We are investigating what it would take to modify the EMC2-Turn post processor to add a G43 after each tool change, so in the future you might be able to modify the post processor to do this for you, but for now this must be done manually.
 
 For left hand cutting operations, ensure a G41 is run in your gcode file before the cuts are made.  For right hand cutting operations, ensure a G42 is run in your gcode file before the cuts are made.  You will have to add these manually.  To simply modifying the gcode, I name each machining operation with LH or RH so that I can find the appropriate comments in the generated gcode.  Again, there is a possibility that we could modify the CamBam post processor to add this capability, but that will take some time.
+
+The G41/G42 needs to be added after the G18 XZ plane mode setting.
 
 
 ===Cutting a part===
