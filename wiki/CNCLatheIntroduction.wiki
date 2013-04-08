@@ -42,8 +42,12 @@ This is the programmed motion of the tool.  Depending on the machine configurati
 ===Tool control point===
 This is the point relative to the tool that will follow the programmed tool path.  For a flat mill end, this would typically be a point in the center of the bottom of the tool.  For a lathe tool, it is more arbitrary and needs to be defined.  For example for a triangular cutter the control point would traditionally be a point tangent to an X and Z cut done by that tool (which is probably not the vertex of the triangle), even though for cutters with a radius that point is off of the actual tool.
 
+[http://www.linuxcnc.org/docs/2.4/html/lathe_lathe-user.html This document] has a much better and graphical description of the tool control point.
+
 ===Tool table===
-This is a text file stored with the LinuxCNC configuration that defines the tools in use.  There is a GUI editor for this text file.  The file contains information such as the offsets in the appropriate axes to the tool control point, the radius of the cutter and other tool meta data that LinuxCNC needs to properly perform cutter compensation.  There are some aspects of 
+This is a text file stored with the LinuxCNC configuration that defines the tools in use.  There is a GUI editor for this text file.  The file contains information such as the offsets in the appropriate axes to the tool control point, the radius of the cutter and other tool meta data that LinuxCNC needs to properly perform cutter compensation.  
+
+TODO: understand and document the values in the tool table (radius/diameter??).
 
 ===Cutter "front angle"===
 This is the angle of the "front" of the cutter in degrees from zero (Z+) direction
