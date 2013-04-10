@@ -228,7 +228,7 @@ There are several next steps with CamBam and software integration:
   * Document the settings in the tool table and how they can be adjusted properly to tweak slightly wrong tool alignment.
   * Consider ordering a 20/70 degree tool for testing.
   * Determine how we would do facing and boring operations using CamBam.
-
+  * Test threading and document common threading cases, specific diameters and pitches for ANSI and pipe threads.
 
 
 
