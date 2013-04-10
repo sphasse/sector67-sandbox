@@ -190,6 +190,9 @@ Tasks to do:
 More good progress, first large test queen part.  Learned that I probably need to keep the roughing tolerance at tool radius + some small amount rather than just the tolerance itself.  First one-hour cut was a bust due to the roughing cuts being tool close.
 
 
+==April 6, 2013==
+Taught the Beta 2 version of the class to Joe, Josh, Micah and Mark.  Two hour class.  The curriculum is getting there, need more software examples and more things worked out through the software path.
+
 =TODO hardware=
 
   * X Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
