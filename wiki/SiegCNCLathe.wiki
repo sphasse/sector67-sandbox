@@ -224,6 +224,12 @@ There are several next steps with CamBam and software integration:
   * Is there a way to change the post-processor or tool/machining OP headers/footers to add G41/G42 on right/left hand cutting?
   * Figure out how to do a parting operation in CamBam (fake drill op in XZ plane?)
   * Create a documented demo of a chess pawn from nothing to completed part.
+  * Put the rest of the tools in the LCNC tool table and calibrate them (straight on 60 degree, threading tool, parting tool, others)
+  * Document the settings in the tool table and how they can be adjusted properly to tweak slightly wrong tool alignment.
+  * Consider ordering a 20/70 degree tool for testing.
+  * Determine how we would do facing and boring operations using CamBam.
+
+
 
 
   
