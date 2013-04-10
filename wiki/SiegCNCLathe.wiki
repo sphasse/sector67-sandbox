@@ -190,9 +190,9 @@ Tasks to do:
 More good progress, first large test queen part.  Learned that I probably need to keep the roughing tolerance at tool radius + some small amount rather than just the tolerance itself.  First one-hour cut was a bust due to the roughing cuts being tool close.
 
 
-=TODO=
+=TODO hardware=
 
-  * C Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
+  * X Take the front panel and USB connectors off of the front of the case and figure out how to attach the external components to the PC (power, keyboard, mouse, monitor, external USB)
   * Figure out an approach for powering the PC, should it boot when the machine boots or independently.
   * X Test the spindle at speed signal working (why is it always red -- answer: no pyvcl pin mapped by default?).  Filed as a bug: https://sourceforge.net/tracker/?func=detail&aid=3592225&group_id=6744&atid=106744
   * X Integrate a PID loop to the spindle control.
@@ -200,7 +200,7 @@ More good progress, first large test queen part.  Learned that I probably need t
   * Integrate estop
   * Integrate machine on, perhaps add a relay inline
   * X Look at the stepper drive configuration for current and microstepping to try and make the stepper drives smoother.
-  * Configure proper stepper scaling for both X and Z and confirm with a dial indicator
+  * X Configure proper stepper scaling for both X and Z and confirm with a dial indicator
   * X Figure out and configure the correct spindle and spindle encoder scaling 
   * X Wire up a forward/reverse signal for the spindle, configure such that negative voltages cannot be generated
   * X Order, make or print a 3mm pitch 52 slot 6mm bore encoder pulley
@@ -210,3 +210,20 @@ More good progress, first large test queen part.  Learned that I probably need t
   * X If so, wire them to the the isolated input card, probably with +12V pullup.
   * X Confirm the default plane is XZ
   * Add space bar as a pause (see sheetcake project for steps)
+
+=TODO Software=
+There are several next steps with CamBam and software integration:
+
+  * Document the constant surface speed spindle setting, how to do it manually
+  * Investigate if there is a CamBam-based way of doing constant surface speed
+  * Investigate what it would take to create the proper tool configuration in CamBam (zero diameter, proper tool description) matching the actual lathe tools
+  * Can we provide a machining op style?  Is that too much "magic"?
+  * Figure out how to do negative X moves in a CamBam tool path
+  * Provide a table of reasonable Al speeds and feeds, plunge depths, etc.
+  * Is there a way to change the post-processor or tool/machining OP headers/footers to add G43 on tool changes?
+  * Is there a way to change the post-processor or tool/machining OP headers/footers to add G41/G42 on right/left hand cutting?
+  * Figure out how to do a parting operation in CamBam (fake drill op in XZ plane?)
+  * Create a documented demo of a chess pawn from nothing to completed part.
+
+
+  
