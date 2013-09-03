@@ -1,6 +1,8 @@
 #summary CNC Lathe Threading
 
-Understanding CNC lathe thread cutting
+<wiki:toc max_depth="3" />
+
+== Understanding CNC lathe thread cutting ==
 = Introduction =
 This document describes gives some background on the Sector67 Sieg CNC lathe and describes a process for cutting threads using that lathe.  Cutting threads on a manual lathe is typcially accomplished by synchronizing the spindle motion with the Z axis motion using a set of "back gears" that engage a lead screw that is used to drive the carriage.  A half nut is used to engage and disengage the carraige, and an indicator is used to ensure multiple thread cutting passes run in the same groove.  CNC lathes typically do not have back gears or a half nut, and the carriage lead screw is controlled with a motor.  As a result, spindle and Z axis motion must be coordinated in software.  A Our CNC lathe has a spindle encoder with an index pulse occuring on each spindle revolution.  We've hooked this encoder into LinuxCNC and as a result our lathe is capable of coordinated spindle/axis motion and thus can cut threads.  
 
