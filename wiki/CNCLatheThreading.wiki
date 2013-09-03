@@ -1,0 +1,68 @@
+#summary CNC Lathe Threading
+
+Understanding CNC lathe thread cutting
+= Introduction =
+This document describes gives some background on the Sector67 Sieg CNC lathe and describes a process for cutting threads using that lathe.  Cutting threads on a manual lathe is typcially accomplished by synchronizing the spindle motion with the Z axis motion using a set of "back gears" that engage a lead screw that is used to drive the carriage.  A half nut is used to engage and disengage the carraige, and an indicator is used to ensure multiple thread cutting passes run in the same groove.  CNC lathes typically do not have back gears or a half nut, and the carriage lead screw is controlled with a motor.  As a result, spindle and Z axis motion must be coordinated in software.  A Our CNC lathe has a spindle encoder with an index pulse occuring on each spindle revolution.  We've hooked this encoder into LinuxCNC and as a result our lathe is capable of coordinated spindle/axis motion and thus can cut threads.  
+
+= Threads in general =
+Before cutting threads using either a manual or CNC lathe, it is helpful to have an understanding of thread forms in general.  This page:
+
+http://en.wikipedia.org/wiki/Unified_Thread_Standard
+
+provides a good overview.  Some useful terminology:
+
+==The Crest ==
+Also called the "flat", is the top or outer surface of the thread joining the two sides.
+
+== The Pitch ==
+Is the distance from a given point on one thread to a similar point on a thread next to it, measured parallel to the axis of the cylinder. The pitch in inches is equal to one divided by the number of threads per inch.
+
+== Thread forms ==
+The most common thread forms we'll be cutting are ISO Metric and UTS threads.  They both have a 60 degree included angle and a crest that is 0.125 times the pitch. Since we are using a pointed threading tool, the thread depth ends up where it needing to be calcuated from the crest.
+
+= Threads using gcode =
+This section describes the process of threading using the LinuxCNC G76 Threading Cycle command.  More information on that command is available from:
+
+http://linuxcnc.org/docs/html/gcode/gcode.html#sec:G76-Threading-Canned
+
+including good treatment of the various parameters.  I won't duplicate that documentation here, but you should read and understand all of the G76 command parameters.  Some threading considerations are:
+
+  # I have personally found it most convenient to hand-code the facing/turning code associated with the threading operation and the parameters of the threading operation itself.  This requires a relatively comprehensive understanding of the parameters and their impact on threading.  Unfortunately I am not aware of a script or other software tool that will generate an appropriate G76 code for LinuxCNC, but one would be helpful.  The gcode included below does extract most of the configuration to variables.
+
+  # I find it conceptually simpler to be in diamter mode (G7) when coding the G76, although radius mode will work as well.  However, when in diameter mode you have to keep in mind that all of the X axis parameters are also diameter mode.  This can be somewhat confusing when considering the initial cut depth (J) and full thread depth (K) parameters.
+
+  # Some Z axis acceleration is inevitably required when syncing the Z motion with a turning spindle.  You should start your threading operation away from the actual threads a bit so that this acceleration happens outside of the cut threads.
+
+  # Our carbide thread cutting tool (http://mesatool.com) uses MT-3-TR inserts and is large enough to cut threads 11TPI or smaller.  The insert is 0.093" wide, so you should not thread closer than half of that to a faced edge.
+
+
+= TODO: Additional CNC threading tasks =
+
+The program above will cut good basic threads.  Some additional tasks that should be proven out with demonstration code are:
+
+== Steeper exit angle ==
+
+== Change to metric units and test ==
+This should be fairly straightforward but needs to be tested
+
+== Left hand threads ==
+This would require: 
+  * Changing the carbide insert to have a left hand cutting insert (we have several)
+  * Changing the start of the drive line to the left side of the threads
+  * Changing the thread start to have a tapered entry
+
+== Multiple entry (two and three spiral) threads ==
+This is working properly, but a good example should be provided.
+
+== Internal threads ==
+This will require getting an internal threading tool.  Our threading tool can also be an internal tool but recalibrating it when would be a pain so I have ordered a second tool that can be configured 
+
+I believe we will want to cut internal threads with a left hand threading insert.
+
+We will also want to get a boring bar mounted and calibrated as a CNC tool in a quick change tool holder.
+
+== Pipe threads ==
+These will need to be done using G33 rather than G76, so some sample code should be written for it as well that does the proper cleanup and taper.
+
+== Acme threads ==
+These would require grinding an Acme form threading insert.
