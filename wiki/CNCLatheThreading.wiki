@@ -30,13 +30,9 @@ http://linuxcnc.org/docs/html/gcode/gcode.html#sec:G76-Threading-Canned
 including good treatment of the various parameters.  I won't duplicate that documentation here, but you should read and understand all of the G76 command parameters.  Some threading considerations are:
 
   # I have personally found it most convenient to hand-code the facing/turning code associated with the threading operation and the parameters of the threading operation itself.  This requires a relatively comprehensive understanding of the parameters and their impact on threading.  Unfortunately I am not aware of a script or other software tool that will generate an appropriate G76 code for LinuxCNC, but one would be helpful.  The gcode included below does extract most of the configuration to variables.
-
   # I find it conceptually simpler to be in diamter mode (G7) when coding the G76, although radius mode will work as well.  However, when in diameter mode you have to keep in mind that all of the X axis parameters are also diameter mode.  This can be somewhat confusing when considering the initial cut depth (J) and full thread depth (K) parameters.
-
   # Some Z axis acceleration is inevitably required when syncing the Z motion with a turning spindle.  You should start your threading operation away from the actual threads a bit so that this acceleration happens outside of the cut threads.
-
   # Our carbide thread cutting tool (http://mesatool.com) uses MT-3-TR inserts and is large enough to cut threads 11TPI or smaller.  The insert is 0.093" wide, so you should not thread closer than half of that to a faced edge.
-
 
 == TODO: Additional CNC threading tasks ==
 
