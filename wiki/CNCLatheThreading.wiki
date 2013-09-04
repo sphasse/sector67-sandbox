@@ -36,7 +36,7 @@ including good treatment of the various parameters.  I won't duplicate that docu
 
 == Sample LinuxCNC gcode script ==
 {{{
-(t1 is for facing and left turning, t4 is threading tool, t9 parting)
+(t1 is for facing and right hand turning, t4 is threading tool)
 (proper tool offsets should be set in the tool table!)
 (touch off the z=0 at the right end to be threaded = coordinate system p1 g54)
 
