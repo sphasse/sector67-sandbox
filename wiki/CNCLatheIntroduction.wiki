@@ -93,7 +93,7 @@ To calibrate a tool properly in the tool table (adapted from http://www.linuxcnc
 
   * Start LinuxCNC
   * Home each axis if not homed.
-  * Clear any other offsets (TODO: menu setting)
+  * Clear any other offsets (TODO: menu setting to clear the G54 offsets)
   * Set the current tool with "TnM6" where "n" is the tool number.
   * Put the machine into diameter mode (MDI window, run a "G7")
   * Select the X axis in the Manual Control window
