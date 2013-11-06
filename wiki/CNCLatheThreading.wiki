@@ -211,14 +211,13 @@ G0 X[#<safe_diam>] Z[#<excess_stock_length>] (move back to a safe start position
 }}}
 
 === Internal threads ===
-This will require getting an internal threading tool.  Our threading tool can also be an internal tool but recalibrating it when would be a pain so I have ordered a second tool that can be configured 
-
-I believe we will want to cut internal threads with a left hand threading insert.
-
-We will also want to get a boring bar mounted and calibrated as a CNC tool in a quick change tool holder.
+We have successfully cut internal threads.  TODO: post the script to do so.
 
 === Pipe threads ===
 These will need to be done using G33 rather than G76, so some sample code should be written for it as well that does the proper cleanup and taper.
 
 === Acme threads ===
 These would require grinding an Acme form threading insert.
+
+=== Measuring threads ===
+Accurately measuring the depth of threads can be challenging.  http://littlemachineshop.com/instructions/ThreeWireMethod.pdf describes a method for measuring threads using three wires.
