@@ -93,8 +93,8 @@ To calibrate a tool properly in the tool table (adapted from http://www.linuxcnc
 
   * Start LinuxCNC
   * Home each axis if not homed.
-  * Clear any other offsets (TODO: menu setting to clear the G54 offsets)
-  * Set the current tool with "TnM6" where "n" is the tool number.
+  * Clear any other offsets (Machine-> Zero Coordinate System -> P1 G54)
+  * Set the current tool with "Tn M6 G43" where "n" is the tool number.
   * Put the machine into diameter mode (MDI window, run a "G7")
   * Select the X axis in the Manual Control window
   * Take a test cut and measure the diameter
@@ -108,8 +108,8 @@ For tools with multiple possible control points (e.g. a parting tool), you shoul
 
   * Start LinuxCNC
   * Home each axis if not homed.
-  * Clear any other offsets (TODO: menu setting)
-  * Set the current tool with "TnM6" where "n" is the tool number.
+  * Clear any other offsets (Machine-> Zero Coordinate System -> P1 G54).  This is very important.
+  * Set the current tool with "Tn M6 G43" where "n" is the tool number.
   * Select the Z axis in the Manual Control window.
   * Make a test cut with the tool.
   * Measure the distance from the face of the chuck to the test cut.
