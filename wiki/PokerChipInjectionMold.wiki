@@ -3,7 +3,7 @@
 = Introduction =
 Sector67 recently acquired an Arburg pneumatic plastic injection molder.  While it came with some test molds, nearly all were at the very limit of the shot size for the molder.  We wanted a more practical mold to demonstrate the machine and so we created a mold for our poker chip.  The machine will run semi-automated and we we ended up creating a quarter of a bucket of chips before having (solvable) mold problems.  This document describes the process of designing, machining and assembling the mold for the machine.
 
-It is worth noting that if you at all value your time there are much more efficient and effective ways of obtaining both molds and molded parts.  Also I am neither an expert machinist nor injection mold designer so this was a largely "seat of my pants" effort.  Frankly I was surprised that the first effort worked at all.  Feedback is certainly welcome.
+It is worth noting that if you at all value your time there are much more efficient and effective ways of obtaining both molds and molded parts.  Also I am neither an expert machinist nor injection mold designer so this was a largely "seat of my pants" effort that was a major time and effort commitment for a low quality mold.  Frankly I was surprised that the first effort worked at all.  Feedback is certainly welcome.  Caveat emptor and all that.  If you need professional results you should pay a professional.
 
 = Details =
 == Mold frame details ==
@@ -50,60 +50,109 @@ RPM: 3000
 
 ===Step 3: Gear detail===
 This operation mills the details of the outside gear and the sector67 detail.  Z=0 is defined as the faced surface from step 1.  Getting the tool Z defined properly is very important since a small different in tool Z could cause the cutter to cut too deep on the first pass and break.  To mitigate this risk, the program starts cutting above what should be the bottom of the machined chip body, so it is expected that one or more passes may cut air.  Keep the chips cleared well during this operation.
+
 Tool: 1/32” cutter
+
+Speed: 4ipm
+
 RPM: 5000 or higher 
+
+If we could change the safe height this operation would run much faster, but it would take some investigation to determine if that can be done safely.
 
 ===Step 4: Texture drill===
 This step drills the tiny texture holes around the edge of the chip.  Z=0 is defined as the faced surface from step 1.  Again defining this Z height properly is critical to tool health.  
+
 Tool: A 0.025” cutter or an engraving blade with a sharp point.
+
 RPM: 5000
 
+As it is difficult to get the Z touch off very precise, after this operation you should check the detail to ensure it is appropriate and if not adjust the touch off or knee to mill deeper.
+
 ===Step 5: Sprue and vent===
-This step cuts the sprue and vent.  Z=0 is defined as the faced surface from step 1.  
+As noted below it would be better to do this step after the ejector pins.  This step cuts the sprue and vent.  Z=0 is defined as the faced surface from step 1.  
+
 Tool: A 1/8” ball nose cutter.
+
 RPM: 5000
 
 ===Step 6: Ejector pins===
-This program is manually edited after being generated from CamBam to have M0 pause commands after each drill operation.  The actual gcode does not drill the holes.  Instead, the program should move to the drill position and then pause, allowing you to use the knee to actually drill the hole.  You can run the program multiple times, once for each drill/reamer.  These holes should be step drilled fully through to 11/64” diameter and then reamed with a chucking reamer to 3/16” (0.1875).  When using the chucking reamer use a slower RPM but faster feed, and make sure the hole is cleared of chips before reaming.  Z=0 is defined as the faced surface from step 1.
-RPM: <TODO>
-Tool: various drills including 15/16” and 0.1875” chucking reamer
+This program needs to be manually edited after being generated from CamBam to have M0 pause commands after each drill operation.  The actual gcode does not drill the holes.  Instead, the program should move to the drill position and then pause, allowing you to use the knee to actually drill the hole.  You can run the program multiple times, once for each drill/reamer.  These holes should be started with a center drill, step drilled fully through to 11/64” diameter and then reamed with a chucking reamer to 3/16” (0.188", 4.787mm).  When using the chucking reamer use a slower RPM but faster feed, and make sure the hole is cleared of chips before reaming.  Z=0 is defined as the faced surface from step 1.
+
+RPM: Appropriate for the various drills/reamer
+
+Tool: various drills including a center drill, 11/64” drills (and smaller steps to that) and 0.188” chucking reamer
 
 ===Step 7: Drill alignment holes===
-This step drills holes on both parts for the alignment pins.  The pins will be press fitted on one half of the mold and sleeves will be press fitted into the other half of the mold.  The wider holes for the sleeves are milled in a separate step, but this step drills holes to prepare for that.  As with the ejector pin holes, the actual gcode does not drill the holes.  Instead, the program should move to the drill position and then pause, allowing you to use the knee to actually drill the hole.  These holes should be step drilled fully through to 15/64” diameter and then reamed with a chucking reamer to 0.2480”.  Z=0 is defined as the faced surface from step 1.
-RPM: <TODO>
-Tool: various drills including 15/16” and a 0.248” chucking reamer
+This step drills holes on both parts for the alignment pins.  The pins will be press fitted on one half of the mold and sleeves will be press fitted into the other half of the mold.  The wider holes for the sleeves are milled in a separate step, but this step drills holes to prepare for that.  As with the ejector pin holes, the actual gcode does not drill the holes.  Instead, the program should be edited to move to the drill position and then pause, allowing you to use the knee to actually drill the hole.  These holes should be center drilled to start, then step drilled fully through to 15/64” diameter and then reamed with a chucking reamer to 0.2490”.  Z=0 is defined as the faced surface from step 1.  You should slightly chamfer the holes on the left side of the part as you will be pressing a dowel pin into those holes and you want it to not grab when starting.
+
+RPM:  Appropriate for the various drills/reamer
+
+Tool: various drills including 15/64” a chamfering bit and a 0.249” chucking reamer
 
 ===Step 8: Mill sleeve holes===
 This program mills the holes for the drill bushings.  The holes are milled 0.001” diameter under to provide a press fit.  Having the through hole drilled ahead of time should make this easier, but make sure chips are cleared as the cut is being made.  Z=0 is defined as the faced surface from step 1.
+
 Tool: 3/8” two flute cutter with at least ½” cutting depth or straight shank
+
 RPM: 3000
 
 ===Step 9: Cut around main body rough===
 This step rough cuts around the main body of the mold halves, preparing to separate them.  This is a deep cut with the tool almost always cutting a 100% path, so keep the chips clear.  The operation is defined as “level first” so that the milling switches from one side to the other to give you a chance to clear chips fully.  Z=0 is defined as the faced surface from step 1.
+
 Tool: ½” cutter with at least 1.5” cutting depth (this is more than what is needed for this step, but if you set it up this way you will not need to change the tool for the final step).
+
+Speed: 8ipm
+
 RPM: 3000
 
 ===Step 10: Cut around main body finish===
 This step finish cuts around the main body of the mold halves.  This is another deep cut, but it should go much easer as it is just a finishing pass.  It is configured to mill in climb mode to give a better surface finish.
+
 Tool: ½” cutter with at least 1.5” cutting depth (this is more than what is needed for this step, but if you set it up this way you will not need to change the tool for the next step).
+
+Speed: 19ipm
+
 RPM: 3000
 
 ===Step 11: Cut around holding flange===
-This final step cuts out the holding flanges on the mold.  Four square holding tabs are left in the bottom of each mold half so the parts will not separate while it is being cut.  This part should end up 1.377” high, but this program will cut through 0.03” further to ensure the part gets separate except for the holding tabs.  Z=0 is defined as the faced surface from step 1.
+This final step cuts out the holding flanges on the mold.  Four square holding tabs are left in the bottom of each mold half so the parts will not separate while it is being cut.  This part should end up 1.377” high, but this program will cut through 0.03” further to ensure the part gets separate except for the holding tabs.  Z=0 is defined as the faced surface from step 1.  Ensure the holding tabs in CamBam have a triangle profile to avoid plunge cuts.
+
 Tool: ½” cutter with at least 1.5” cutting depth
+
+Speed: 15ipm
+
 RPM: 3000
 
-
+===Manual finishing===
+When the machining is done, you can cut the holding tabs with a hack saw and sand the tabs flush.
 
 == Ejector plate machining ==
 
 == Tooling and hardware ==
-The following were ordered from McMaster-Carr:
+The following parts were ordered from McMaster-Carr:
 || Part number || Product  || Quantity || Price || 
 || 98378A942 || Precision Perforator Pin, 3/16" Pin Diameter, 2-1/2" Overall Length || 4 || $6.51 Each || 
 || 9657K349 || Steel Compression Spring, Zinc-Plated Music Wire, 1.50" L, .360" OD, .051" Wire, Packs of 12 || 1 Pack || $9.80 Per Pack ||
 || 91253A001 || Alloy Steel Flat-Head Socket Cap Screw, 10-32 Thread, 3/8" Length, Black Oxide, Packs of 50 || 1 Pack || $7.81 Per Pack ||
-|| 2846A125 || Single-Flute High-Speed Steel Countersink, 82 Degree Angle, 1/2" Body Diameter, 1/4" Shank Diameter || 1 || $10.88 Each ||
-|| 8803A38 || Dowel Pin Chucking Reamer, High-Speed-Steel, 1/4" Pin, 0.2480" Reamer Diameter, .2405" Shank || 1 || $19.29 Each ||
 || 97395A494 || Corrosion Resistant Dowel Pin, Type 316 Stainless Steel, 1/4" Diameter, 1-1/2" Length, Packs of 5 || 1 || $11.48 Per Pack ||
 || 8491A115 || Press-Fit Drill Bushing, 0.2510" ID, 13/32" OD, 1/2" Length || 2 || $7.48 Each ||
+
+I also got the following tooling, but it is not nearly a complete list:
+
+|| Part number || Product  || Quantity || Price || 
+|| 2846A125 || Single-Flute High-Speed Steel Countersink, 82 Degree Angle, 1/2" Body Diameter, 1/4" Shank Diameter || 1 || $10.88 Each ||
+|| 8803A38 || Dowel Pin Chucking Reamer, High-Speed-Steel, 1/4" Pin, 0.2480" Reamer Diameter, .2405" Shank || 1 || $19.29 Each ||
+
+== Issues and next steps ==
+  * The ejector plate needs to be recreated large enough so that the bar that pushes it pushes in the middle, not the very edge.  
+  * Also all four ejector pins should be used not just two.
+  * Holes should be drilled in the mold to hold the springs to help push the ejector plates back.
+  * The top of the mold needs a steel bar added so that the injector does not deform the mold
+
+== What would I do differently next time ==
+  * I would leave more space between 
+  * I would start each drill operation with a centering drill and use more steps when step drilling.  This would locate the holes much more accurately.
+  * I would re-order the ejector pin hole drilling before the sprue cutting so that the ejector pin holes are being drilled on a flat surface.
+  * The holes for the drill bushings should be drilled slightly deeper, ~0.005 or so to allow them to press fit in lower than flush.  If they stick out they prevent the mold from closing.
+  * I would use drill bushings with a larger ID, 0.253 or 0.254.  When I press fitted them in the dowel pins were too tight and needed to be sanded to fit.  Alternately, machining a slightly larger hole for the bushing would compress them less.
+  * A machining step should be added to cut an appropriate groove to hold steel bars for the top of the mold to prevent the injector from deforming the aluminum mold.
