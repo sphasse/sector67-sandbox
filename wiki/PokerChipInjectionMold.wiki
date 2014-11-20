@@ -31,15 +31,21 @@ The ejector pins are from McMaster-Carr:
 The machining operations expect a 1.5” thick aluminum blank at least 10” wide and 7” deep with a machineable area at least 9” wide by 6” deep.  Some drill operations and the final machining operation are through the part, so some hold-off from the bed is needed.
 
 ===Step 1: Initial facing===
-This operation takes material off 0.75” around what will be the machined part.  The lower left corner of the main part is [X=0,Y=0], so this operation will mill to [X=-0.75, Y=-0.75].  You need to be aware of that when zeroing X and Y and fixturing.  Z=0 is defined as the unmachined top of the blank.  
+This operation takes material off 0.75” around what will be the machined part.  The lower left corner of the main part is [X=0,Y=0], so this operation will mill to [X=-0.75, Y=-0.75].  You need to be mindful of that when zeroing X and Y and fixturing.  To touch off X and Y, you can put locate the cutter at the lower left of the cuttable surface and touch that off as X=-0.44,Y=-0.44.  Z=0 is defined as the unmachined top of the blank.  Z=0 still needs to be defined accurately though since the depth of the part is cut down from this offset.  The compressed air blast cooling seems sufficient but this and the following steps make a lot of chips so you should work to keep everything clear.
 
 Tool: 5/8” two-flute cutter
+
+Speed: rough 7ipm, finish 12ipm
 
 RPM: 3000
 
 ===Step 2: Chip body===
 This operation mills two circles for the poker chip body.  Z=0 is defined as the faced surface from step 1.  The operation has both a spiral lead in and a spiral lead out to prevent leaving machining artifacts.
+
 Tool: ¼” cutter with 7 degree draft.  
+
+Speed: 3.5 ipm
+
 RPM: 3000
 
 ===Step 3: Gear detail===
