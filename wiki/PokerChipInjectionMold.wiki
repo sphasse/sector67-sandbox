@@ -1,5 +1,7 @@
 #summary A description of the process behind creating an injection mold for Sector67 poker chips
 
+<wiki:toc max_depth="3" />
+
 = Introduction =
 Sector67 recently acquired an Arburg pneumatic plastic injection molder.  While it came with some test molds, nearly all were at the very limit of the shot size for the molder.  We wanted a more practical mold to demonstrate the machine and so we created a mold for our poker chip.  The machine will run semi-automated and we we ended up creating a quarter of a bucket of chips before having (solvable) mold problems.  This document describes the process of designing, machining and assembling the mold for the machine.
 
