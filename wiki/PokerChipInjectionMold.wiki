@@ -12,6 +12,9 @@ It is worth noting that if you at all value your time there are much more effici
 Our Arburg molder came with a (seemingly after market) Master Unit Die (MUD) quick change frame.  This frame will take a single DF Quick-Change DH-Style insert mold.  Mold blanks can still be [https://na.dmecompany.com/Catalog/CatalogListing.aspx?CatalogId=DME&CatalogDetailId=333&NSM=Y purchased], but were prohibitively expensive for our application, and as a proof of concept we were interested to machine one from scratch in any case.  As you can imagine, the dimensions of the mold are critical and are documented in the catalog, but we have also created a CamBam file with an example mold including machining steps to provide a quick start.
 
 == Mold digital design ==
+
+[https://sector67-sandbox.googlecode.com/svn/trunk/Sector67ChipMold/poker-chip-cambam.png]
+
 All of the design for both the chip and the mold itself was done in using [http://www.cambam.info/ CamBam].  CamBam is an great and simple CAM tool that we use extensively for 2.5D CAM operations.  It is also a sufficient enough CAD tool to lay out the poker chip mold, which is certainly not a trivial design.
 
 Much of the work in the design was determining appropriate tooling, operation order, and speeds and feeds to machine the part.  The mold itself ended up being an 11 step machining operation.
