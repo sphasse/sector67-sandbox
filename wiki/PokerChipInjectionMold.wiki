@@ -94,7 +94,7 @@ RPM: 3000
 == Tooling and hardware ==
 The following were ordered from McMaster-Carr:
 || Part number || Product  || Quantity || Price || 
-| 98378A942 |Precision Perforator Pin, 3/16" Pin Diameter, 2-1/2" Overall Length | | 4 | 6.51 Each | 
-| 9657K349 | Steel Compression Spring, Zinc-Plated Music Wire, 1.50" L, .360" OD, .051" Wire, Packs of 12	| 1 Pack | 9.80 Per Pack
-| 91253A001 | Alloy Steel Flat-Head Socket Cap Screw, 10-32 Thread, 3/8" Length, Black Oxide, Packs of 50 | 1 Pack | 7.81 Per Pack |
-| 2846A125 | Single-Flute High-Speed Steel Countersink, 82 Degree Angle, 1/2" Body Diameter, 1/4" Shank Diameter 1 Each | 1 | 10.88 Each |
+|| 98378A942 || Precision Perforator Pin, 3/16" Pin Diameter, 2-1/2" Overall Length || 4 || 6.51 Each || 
+|| 9657K349 || Steel Compression Spring, Zinc-Plated Music Wire, 1.50" L, .360" OD, .051" Wire, Packs of 12 || 1 Pack || 9.80 Per Pack ||
+|| 91253A001 || Alloy Steel Flat-Head Socket Cap Screw, 10-32 Thread, 3/8" Length, Black Oxide, Packs of 50 || 1 Pack || 7.81 Per Pack ||
+|| 2846A125 || Single-Flute High-Speed Steel Countersink, 82 Degree Angle, 1/2" Body Diameter, 1/4" Shank Diameter 1 Each || 1 || 10.88 Each ||
