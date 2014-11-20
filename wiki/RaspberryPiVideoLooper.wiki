@@ -128,7 +128,7 @@ done
 }}}
 
 = Sound =
-To avoid the looping audio driving everyone batty we are using an "Audio Spotlight" device to focus sound directly in front of the video screen.  Audio out is taken from the TV so we have a convenient audio level control.  This works, perhaps a bit too well as the audio is focused very tightly.
+To avoid the looping audio driving everyone batty we are using a Holosonic "Audio Spotlight" device to focus sound directly in front of the video screen.  Audio out is taken from the TV so we have a convenient audio level control.  This works, perhaps a bit too well as the audio is focused very tightly.
 
 = Issues =
   * The device currently stops displaying output after many hours of playback.  I'm currently working to diagnose this issue.
