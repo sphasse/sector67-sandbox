@@ -146,7 +146,7 @@ These need to be center drilled and then through drilled through to 3/16".  The 
 These need to be center drilled and then through drilled through to 7/32".  The program should be edited to M0 pause after each drill operation and the holes should be cut via the knee.  They will be chamfered step 4.
 
 ===Step 3: Attachment through holes in the bottom plate===
-These need to be center drilled and then through drilled through to #21.  They will eventually be tapped by hand to #10-24.  The program should be edited to M0 pause after each drill operation and the holes should be cut via the knee.
+These need to be center drilled and then through drilled through to #21.  They will eventually be tapped by hand to #10-32.  The program should be edited to M0 pause after each drill operation and the holes should be cut via the knee.
 
 ===Step 4: 82 degree countersink in top plate attachment holes===
 Zero the tip of the countersink at the top of the plate.  The depth in the program should create an appropriate chamfer.
@@ -165,6 +165,12 @@ Tool: 3/16" mill
 Z=0 is the part surface
 
 Tool: 1/2" mill
+
+===Manual finishing===
+The attachment holes will need to be manually tapped to #10-32 and the socket cap screws from McMaster-Carr referenced below used to hold the plates together.
+
+==Grinding the ejector pins==
+The ejector pins are hardened and will need to be ground to the appropriate length.  With this mold design the ejector pins are on the sprues or off the mold and so the length is not critical, but care should still be taken to get the length correct.  The molder allows <TODO: measure> space when the mold is closed, and pushes the plate flush with the mold when it is open.
 
 == Tooling and hardware ==
 The following parts were ordered from McMaster-Carr:
