@@ -1,0 +1,100 @@
+#summary A description of the process behind creating an injection mold for Sector67 poker chips
+
+= Introduction =
+Sector67 recently acquired an Arburg pneumatic plastic injection molder.  While it came with some test molds, nearly all were at the very limit of the shot size for the molder.  We wanted a more practical mold to demonstrate the machine and so we created a mold for our poker chip.  The machine will run semi-automated and we we ended up creating a quarter of a bucket of chips before having (solvable) mold problems.  This document describes the process of designing, machining and assembling the mold for the machine.
+
+It is worth noting that if you at all value your time there are much more efficient and effective ways of obtaining both molds and molded parts.  Also I am neither an expert machinist nor injection mold designer so this was a largely "seat of my pants" effort.  Frankly I was surprised that the first effort worked at all.  Feedback is certainly welcome.
+
+= Details =
+== Mold frame details ==
+Our Arburg molder came with a (seemingly after market) Master Unit Die (MUD) quick change frame.  This frame will take a single DF Quick-Change DH-Style insert mold.  Mold blanks can still be [https://na.dmecompany.com/Catalog/CatalogListing.aspx?CatalogId=DME&CatalogDetailId=333&NSM=Y purchased], but were prohibitively expensive for our application, and as a proof of concept we were interested to machine one from scratch in any case.  As you can imagine, the dimensions of the mold are critical and are documented in the catalog, but we have also created a CamBam file with an example mold including machining steps to provide a quick start.
+
+== Digital design ==
+All of the design for both the chip and the mold itself was done in using [http://www.cambam.info/ CamBam].  CamBam is an great and simple CAM tool that we use extensively for 2.5D CAM operations.  It is also a sufficient enough CAD tool to lay out the poker chip mold, which is certainly not a trivial design.
+
+Much of the work in the design was determining appropriate tooling, operation order, and speeds and feeds to machine the part.  The mold itself ended up being an 11 step machining operation.
+
+== Mold machining ==
+This section describes the machining process to help give a sense for what is required when machining a part like this.
+
+Machining notes for the Sector67 poker chip injection Master Unit Die Solid DF Quick-Change mold
+=== General Information ===
+The mold plate measurements are from the Master Unit Die catalog for a 3.25 x 3.15 Solid DF Quick-Change DH-Style Frame:
+http://www.dme.net/catalog/DME/MUD%20Catalog/index.html#84/z
+The alignment pin inserts are press-fit drill bushings 0.251 ID and 13/32” OD ½” long:
+http://www.mcmaster.com/#8491a115/=thryp1
+The alignment pins are 1.5” L 0.25” diameter dowel pins:
+(TODO: check order)
+The ejector pins are from McMaster-Carr:
+(TODO: check order)
+
+The machining operations expect a 1.5” thick aluminum blank at least 10” wide and 7” deep with a machineable area at least 9” wide by 6” deep.  Some drill operations and the final machining operation are through the part, so some hold-off from the bed is needed.
+
+===Step 1: Initial facing===
+This operation takes material off 0.75” around what will be the machined part.  The lower left corner of the main part is [X=0,Y=0], so this operation will mill to [X=-0.75, Y=-0.75].  You need to be aware of that when zeroing X and Y and fixturing.  Z=0 is defined as the unmachined top of the blank.  
+
+Tool: 5/8” two-flute cutter
+
+RPM: 3000
+
+===Step 2: Chip body===
+This operation mills two circles for the poker chip body.  Z=0 is defined as the faced surface from step 1.  The operation has both a spiral lead in and a spiral lead out to prevent leaving machining artifacts.
+Tool: ¼” cutter with 7 degree draft.  
+RPM: 3000
+
+===Step 3: Gear detail===
+This operation mills the details of the outside gear and the sector67 detail.  Z=0 is defined as the faced surface from step 1.  Getting the tool Z defined properly is very important since a small different in tool Z could cause the cutter to cut too deep on the first pass and break.  To mitigate this risk, the program starts cutting above what should be the bottom of the machined chip body, so it is expected that one or more passes may cut air.  Keep the chips cleared well during this operation.
+Tool: 1/32” cutter
+RPM: 5000 or higher 
+
+===Step 4: Texture drill===
+This step drills the tiny texture holes around the edge of the chip.  Z=0 is defined as the faced surface from step 1.  Again defining this Z height properly is critical to tool health.  
+Tool: A 0.025” cutter or an engraving blade with a sharp point.
+RPM: 5000
+
+===Step 5: Sprue and vent===
+This step cuts the sprue and vent.  Z=0 is defined as the faced surface from step 1.  
+Tool: A 1/8” ball nose cutter.
+RPM: 5000
+
+===Step 6: Ejector pins===
+This program is manually edited after being generated from CamBam to have M0 pause commands after each drill operation.  The actual gcode does not drill the holes.  Instead, the program should move to the drill position and then pause, allowing you to use the knee to actually drill the hole.  You can run the program multiple times, once for each drill/reamer.  These holes should be step drilled fully through to 11/64” diameter and then reamed with a chucking reamer to 3/16” (0.1875).  When using the chucking reamer use a slower RPM but faster feed, and make sure the hole is cleared of chips before reaming.  Z=0 is defined as the faced surface from step 1.
+RPM: <TODO>
+Tool: various drills including 15/16” and 0.1875” chucking reamer
+
+===Step 7: Drill alignment holes===
+This step drills holes on both parts for the alignment pins.  The pins will be press fitted on one half of the mold and sleeves will be press fitted into the other half of the mold.  The wider holes for the sleeves are milled in a separate step, but this step drills holes to prepare for that.  As with the ejector pin holes, the actual gcode does not drill the holes.  Instead, the program should move to the drill position and then pause, allowing you to use the knee to actually drill the hole.  These holes should be step drilled fully through to 15/64” diameter and then reamed with a chucking reamer to 0.2480”.  Z=0 is defined as the faced surface from step 1.
+RPM: <TODO>
+Tool: various drills including 15/16” and a 0.248” chucking reamer
+
+===Step 8: Mill sleeve holes===
+This program mills the holes for the drill bushings.  The holes are milled 0.001” diameter under to provide a press fit.  Having the through hole drilled ahead of time should make this easier, but make sure chips are cleared as the cut is being made.  Z=0 is defined as the faced surface from step 1.
+Tool: 3/8” two flute cutter with at least ½” cutting depth or straight shank
+RPM: 3000
+
+===Step 9: Cut around main body rough===
+This step rough cuts around the main body of the mold halves, preparing to separate them.  This is a deep cut with the tool almost always cutting a 100% path, so keep the chips clear.  The operation is defined as “level first” so that the milling switches from one side to the other to give you a chance to clear chips fully.  Z=0 is defined as the faced surface from step 1.
+Tool: ½” cutter with at least 1.5” cutting depth (this is more than what is needed for this step, but if you set it up this way you will not need to change the tool for the final step).
+RPM: 3000
+
+===Step 10: Cut around main body finish===
+This step finish cuts around the main body of the mold halves.  This is another deep cut, but it should go much easer as it is just a finishing pass.  It is configured to mill in climb mode to give a better surface finish.
+Tool: ½” cutter with at least 1.5” cutting depth (this is more than what is needed for this step, but if you set it up this way you will not need to change the tool for the next step).
+RPM: 3000
+
+===Step 11: Cut around holding flange===
+This final step cuts out the holding flanges on the mold.  Four square holding tabs are left in the bottom of each mold half so the parts will not separate while it is being cut.  This part should end up 1.377” high, but this program will cut through 0.03” further to ensure the part gets separate except for the holding tabs.  Z=0 is defined as the faced surface from step 1.
+Tool: ½” cutter with at least 1.5” cutting depth
+RPM: 3000
+
+
+
+== Ejector plate machining ==
+
+== Tooling and hardware ==
+The following were ordered from McMaster-Carr:
+|| Part number || Product  || Quantity || Price || 
+| 98378A942 |Precision Perforator Pin, 3/16" Pin Diameter, 2-1/2" Overall Length | | 4 | 6.51 Each | 
+| 9657K349 | Steel Compression Spring, Zinc-Plated Music Wire, 1.50" L, .360" OD, .051" Wire, Packs of 12	| 1 Pack | 9.80 Per Pack
+| 91253A001 | Alloy Steel Flat-Head Socket Cap Screw, 10-32 Thread, 3/8" Length, Black Oxide, Packs of 50 | 1 Pack | 7.81 Per Pack |
+| 2846A125 | Single-Flute High-Speed Steel Countersink, 82 Degree Angle, 1/2" Body Diameter, 1/4" Shank Diameter 1 Each | 1 | 10.88 Each |
