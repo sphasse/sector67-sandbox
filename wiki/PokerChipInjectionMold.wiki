@@ -135,7 +135,34 @@ You should make an alignment block to ensure the dowel pins are pressed straight
 TODO: capture these
 
 == Ejector plate machining ==
+The ejector plates are made of 1/4" aluminium stock.
 
+===Step 1: Ejector through holes===
+These need to be center drilled and then through drilled through to 3/16".  The program should be edited to M0 pause after each drill operation and the holes should be cut via the knee.
+
+===Step 2: Attachment through holes in the top plate===
+These need to be center drilled and then through drilled through to 7/32".  The program should be edited to M0 pause after each drill operation and the holes should be cut via the knee.  They will be chamfered step 4.
+
+===Step 3: Attachment through holes in the bottom plate===
+These need to be center drilled and then through drilled through to #21.  They will eventually be tapped by hand to #10-24.  The program should be edited to M0 pause after each drill operation and the holes should be cut via the knee.
+
+===Step 4: 82 degree countersink in top plate attachment holes===
+Zero the tip of the countersink at the top of the plate.  The depth in the program should create an appropriate chamfer.
+
+===Step 5: Mill the ejector through holes ===
+Z=0 is the part surface.  This step will mill through the part to create an appropriately "slack" ejector pin through hole.
+
+Tool: 3/16" mill
+
+===Step 6: ===
+Z=0 is the part surface.  This step will mill a shoulder in the ejector plate to hold the pin shoulder loosely.
+
+Tool: 3/16" mill
+
+===Step 7: Plate cutout===
+Z=0 is the part surface
+
+Tool: 1/2" mill
 
 == Tooling and hardware ==
 The following parts were ordered from McMaster-Carr:
