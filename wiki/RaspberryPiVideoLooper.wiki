@@ -133,3 +133,4 @@ To avoid the looping audio driving everyone batty we are using a Holosonic "Audi
 = Issues =
   * The device currently stops displaying output after many hours of playback.  I'm currently working to diagnose this issue.
   * It would be great if we could get our COBY TV to default to ON when plugged in.
+  * The sound on the different video files is not at the same level, so it would be good to normalize those.
