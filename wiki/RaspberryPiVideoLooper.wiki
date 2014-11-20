@@ -38,6 +38,8 @@ I also preferred FAT format for the USB card, so modifying /etc/fstab:
 }}}
 
 and finally some script modifications.  There is no need to start X:
+
+=== startfullscreen.sh ===
 {{{
 #!/bin/sh
 `/home/pi/startvideos.sh`
@@ -49,7 +51,8 @@ and the most major changes are to startvideos.sh, to find and display/run images
   * sorts by folder so you can group images
   * looks for a single image in /banner and if found just displays that
   * runs .py files found to enable a more dynamic slideshow, such as countdown timers.  If you don't have control over the physical device this is obviously a security concern.
-  
+
+=== startvideos.sh ===
 {{{
 #!/bin/bash
 
