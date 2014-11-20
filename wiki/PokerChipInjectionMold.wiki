@@ -16,6 +16,8 @@ All of the design for both the chip and the mold itself was done in using [http:
 
 Much of the work in the design was determining appropriate tooling, operation order, and speeds and feeds to machine the part.  The mold itself ended up being an 11 step machining operation.
 
+The files for the poker chip mold and ejector plates can be found at [https://code.google.com/p/sector67-sandbox/source/browse/trunk/Sector67ChipMold/]
+
 == Mold machining ==
 This section describes the machining process to help give a sense for what is required when machining a part like this.
 
