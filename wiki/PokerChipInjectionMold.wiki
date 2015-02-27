@@ -199,9 +199,19 @@ I also got the following tooling, but it is not nearly a complete list:
   * The top of the mold needs a steel bar added so that the injector does not deform the mold
 
 == What would I do differently next time ==
-  * I would leave more space between 
+  * I would leave more space between the top of the mold and the ejector pin, since when the injector pressed down on the aluminium mold it deformed it some, ultimately leading to the first mold failure.  The ejector pin hole got crushed and the pin started to bind.
   * I would start each drill operation with a centering drill and use more steps when step drilling.  This would locate the holes much more accurately.
   * I would re-order the ejector pin hole drilling before the sprue cutting so that the ejector pin holes are being drilled on a flat surface.
   * The holes for the drill bushings should be drilled slightly deeper, ~0.005 or so to allow them to press fit in lower than flush.  If they stick out they prevent the mold from closing.
   * I would use drill bushings with a larger ID, 0.253 or 0.254.  When I press fitted them in the dowel pins were too tight and needed to be sanded to fit.  Alternately, machining a slightly larger hole for the bushing would compress them less.
   * A machining step should be added to cut an appropriate groove to hold steel bars for the top of the mold to prevent the injector from deforming the aluminum mold.
+
+== Version 2 notes ==
+2/27/2015: We recently added some enhancements to the mold and will soon be testing it to see how well it stands up under a production run.  The changes were:
+
+1) Added a steel top plate and re-machined the sprue so that the injector head is pressing against steel.
+2) Re-made the ejector plate to be the full height of the mold so that we could put springs above and below the point where the shaft that presses the ejector plate hits the ejector plate.
+3) Drilled/milled two 7/16" holes into the back of the ejector-plate-side mold to hold the 1 1/2" springs.
+4) Added two stabilizing ejector pins to the ejector plate.  The holes were already reamed through the mold for these pins but we had never actually added them.
+
+With the springs and full-height ejector plate it seems like there will be less binding/racking when ejecting.  Hopefully this will allow the mold to run more reliably.
