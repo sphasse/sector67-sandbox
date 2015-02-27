@@ -206,7 +206,7 @@ I also got the following tooling, but it is not nearly a complete list:
   * I would use drill bushings with a larger ID, 0.253 or 0.254.  When I press fitted them in the dowel pins were too tight and needed to be sanded to fit.  Alternately, machining a slightly larger hole for the bushing would compress them less.
   * A machining step should be added to cut an appropriate groove to hold steel bars for the top of the mold to prevent the injector from deforming the aluminum mold.
 
-== Version 2 notes ==
+= Version 2 notes =
 2/27/2015: We recently added some enhancements to the mold and will soon be testing it to see how well it stands up under a production run.  The changes were:
 
 1) Added a steel top plate and re-machined the sprue so that the injector head is pressing against steel.
