@@ -210,8 +210,12 @@ I also got the following tooling, but it is not nearly a complete list:
 2/27/2015: We recently added some enhancements to the mold and will soon be testing it to see how well it stands up under a production run.  The changes were:
 
 1) Added a steel top plate and re-machined the sprue so that the injector head is pressing against steel.
+
 2) Re-made the ejector plate to be the full height of the mold so that we could put springs above and below the point where the shaft that presses the ejector plate hits the ejector plate.
+
 3) Drilled/milled two 7/16" holes into the back of the ejector-plate-side mold to hold the 1 1/2" springs.
+
 4) Added two stabilizing ejector pins to the ejector plate.  The holes were already reamed through the mold for these pins but we had never actually added them.
+
 
 With the springs and full-height ejector plate it seems like there will be less binding/racking when ejecting.  Hopefully this will allow the mold to run more reliably.
