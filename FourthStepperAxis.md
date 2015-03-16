@@ -1,7 +1,7 @@
 
 
 # Introduction #
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/complete\_table.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/complete_table.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/complete\_table.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/complete_table.JPG)
 
 _The assembled table_
 
@@ -22,18 +22,18 @@ The motor supplied is a NEMA 34 frame size stepper that otherwise has absolutely
 
 # Rotary table #
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole\_assembly.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/whole\_assembly.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/whole_assembly.JPG)
 
 _The rotary table exploded_
 
 ## Basic mechanics ##
 The rotary table we are using is a basic 8" horizontal/vertical table with a direct-drive stepper motor adapter and coupling of Chinese manufacture.  We took it apart to asses our backlash tuning options and just to see how it worked.  The table turns on ground beds that have elliptical channels for distributing the grease.
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table\_underside.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_underside.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table\_underside.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/table_underside.JPG)
 
 _The underside of the rotary table showing the gear teeth_
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table\_bottom.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/table_bottom.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/table\_bottom.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/table_bottom.JPG)
 
 _The base of the rotary table_
 
@@ -43,7 +43,7 @@ TODO: picture of this nut
 
 The table is turned by a worm drive that meshes with screw teeth around the inside perimeter of the turntable.
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/screw\_shaft.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/screw_shaft.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/screw\_shaft.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/screw_shaft.JPG)
 
 _The screw shaft assembly_
 
@@ -52,13 +52,13 @@ This table has two major sources of potential backlash.  Firstly, if the worm dr
 
 The second potential source of backlash is the worm drive teeth meshing with the gear on the turntable.  The worm drive has no support on the internal end and runs in a bushing whose center is eccentric to allow backlash tuning:
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/eccentric\_bushing.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/eccentric_bushing.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/eccentric\_bushing.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/eccentric_bushing.JPG)
 
 _The eccentric bushing_
 
 The tightness of the worm drive to the gear and be changed by rotating the bushing, which moves the spinning shaft closer or further.  Once the bushing is aligned appropriately, it bushing is held in place with a screw labeled for backlash adjustment:
 
-[http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/bushing\_and\_bearing.JPG](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/fourth-stepper-axis/bushing_and_bearing.JPG)
+[http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/thumbnails/bushing\_and\_bearing.JPG](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/fourth-stepper-axis/bushing_and_bearing.JPG)
 
 _The busing and bearing.  The backlash adjustment screw is just out of this picture.  The thrust bearing shown in this picture could not be used as the diameter was too large, so it was replaced with a bushing._
 

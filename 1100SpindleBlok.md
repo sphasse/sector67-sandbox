@@ -74,7 +74,7 @@ We have implemented a solution that includes implementing a classicladder rung t
 
 Implementing this solution tool a little more work than expected, since the simple pncconf assignment of an estop signal to an input signal needed to be replaced with a custom classicladder program for estop.  The pncconf capability of specifying a custom estop program was used, and then that custom.clp was modified to add the servo reset ladder program needed to enable the servos (documented on the [main](ProjectSheetCake.md) page) and a separate spindle fault classic ladder program that required the machine to be on before considering the spindle fault an estop condition.  The spindle-fault classicladder program is shown below:
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/spindle-fault-ladder-program.png)
 
 The signals to integrate with this program were integrated via separate a hal file:
 

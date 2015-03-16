@@ -35,7 +35,7 @@ TODO: explain the torque differences between servos and steppers
 
 ## Simplified block diagram of a typical motion control system ##
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/motion-control-block-diagram.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/motion-control-block-diagram.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/motion-control-block-diagram.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/motion-control-block-diagram.png)
 
   * User interface
   * Programmable motion controller

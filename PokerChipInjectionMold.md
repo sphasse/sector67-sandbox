@@ -11,7 +11,7 @@ Our Arburg molder came with a (seemingly after market) Master Unit Die (MUD) qui
 
 ## Mold digital design ##
 
-![https://sector67-sandbox.googlecode.com/svn/trunk/Sector67ChipMold/poker-chip-cambam2.png](https://sector67-sandbox.googlecode.com/svn/trunk/Sector67ChipMold/poker-chip-cambam2.png)
+![https://raw.githubusercontent.com/sphasse/sector67-sandbox/master/Sector67ChipMold/poker-chip-cambam2.png](https://raw.githubusercontent.com/sphasse/sector67-sandbox/master/Sector67ChipMold/poker-chip-cambam2.png)
 
 All of the design for both the chip and the mold itself was done in using [CamBam](http://www.cambam.info/).  CamBam is an great and simple CAM tool that we use extensively for 2.5D CAM operations.  It is also a sufficient enough CAD tool to lay out the poker chip mold, which is certainly not a trivial design.
 

@@ -1,7 +1,7 @@
 # Project Sheet Cake #
 A three-axis CNC Mill Conversion from Anilam 1100M controls to EMC2
 
-[![](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/mill-thumb.jpg)](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/mill.JPG)
+[![](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/board-pictures/mill-thumb.jpg)](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/board-pictures/mill.JPG)
 
 _The mill mid-conversion_
 
@@ -40,7 +40,7 @@ Specifically, we have chosen the following boards from [Mesa](http://mesanet.com
 ## Basic architecture ##
 This diagram shows the basic high-level architecture of the system:
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/basic-architecture.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/basic-architecture.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/basic-architecture.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/basic-architecture.png)
 
 _The original svg source for this image is under revision control in the sector 67 sandbox source repository._
 
@@ -67,7 +67,7 @@ There were several special considerations when designing and implementing this b
 
 A schematic of the integration board is shown below:
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/integration-board-schematic.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/integration-board-schematic.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/integration-board-schematic.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/integration-board-schematic.png)
 
 
 The full board schematic file suitable for editing with [KiCad](http://www.lis.inpg.fr/realise_au_lis/kicad/) is under revision control and is available in the [S67 code sandbox](http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FProjectSheetCake%2Fschematics).  The image above was generated from that schematic using KiCad.
@@ -93,7 +93,7 @@ Integration board parts list
 
 A picture of the completed integration board is shown below.
 
-[![](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/whole-board-thumb.jpg)](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/board-pictures/whole-board.JPG)
+[![](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/board-pictures/whole-board-thumb.jpg)](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/board-pictures/whole-board.JPG)
 
 _More pictures of the integration board can be found at [S67 code sandbox](http://code.google.com/p/sector67-sandbox/source/browse/#svn%2Ftrunk%2FProjectSheetCake%2Fdocs%2Fimages%2Fboard-pictures)_
 
@@ -200,7 +200,7 @@ The signals from the integration board to the Anilam PC 801 board are shown belo
 |P3-7|7 |GND for the +24V supply|
 |P3-8|8 |Connects to the normally open output of the K4 relay.  On the integration board, this is connected to the normally-closed estop switch.|
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-circuit.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-circuit.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/servo-reset-circuit.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/servo-reset-circuit.png)
 
 _A logical view of the servo reset circuit.  The fill circuit diagram in KiCad format is available for download in the S67 sandbox_
 ## The servo amplifiers ##
@@ -293,7 +293,7 @@ If you are converting an Anilam mill like us, there is a simpler way to get this
 
 Once you have this information, enter it into the fields in pncconf in the per-axis "Calculate" form that let you calculate the Axis Scale.  An example of this looks like:
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/axis-scale-calc.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/axis-scale-calc.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/axis-scale-calc.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/axis-scale-calc.png)
 
 This needs to be done for each axis.  On our mill, the values are:
 
@@ -368,7 +368,7 @@ After enabling the classic ladder component in pncconf, when you start EMC2 you 
 
 The ladder program for the one-off servo-reset pulse looks like so:
 
-![http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-ladder-program.png](http://sector67-sandbox.googlecode.com/svn/trunk/ProjectSheetCake/docs/images/servo-reset-ladder-program.png)
+![http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/servo-reset-ladder-program.png](http://raw.githubusercontent.com/sphasse/sector67-sandbox/master/ProjectSheetCake/docs/images/servo-reset-ladder-program.png)
 
 There is a simple input, an IEC timer in TP mode with a 2 second preset and a simple output.  Documentation of all of the classic ladder components can be found here:
 
